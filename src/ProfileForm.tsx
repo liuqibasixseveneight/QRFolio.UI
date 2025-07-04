@@ -4,7 +4,12 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from './components/ui/molecules/Card/Card';
 import { ResumeQRCard } from './ResumeQRCard';
 import { Label, Input, Button } from './components/ui';
 
