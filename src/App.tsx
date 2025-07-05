@@ -1,15 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { ProfileForm } from './ProfileForm';
-import ProfilePage from './ProfilePage';
+import CreateProfile from './components/modules/create/pages/CreateProfile';
+import ProfileCreated from './components/modules/create/pages/ProfileCreated';
+import Profile from './components/modules/profile/pages/Profile';
 
 const App = () => {
   return (
     <>
       <main className='flex min-h-screen items-center justify-center p-4'>
         <Routes>
-          <Route index path='/' element={<ProfileForm />} />
-          <Route path='/profile/:id' element={<ProfilePage />} />
+          <Route index path='/' element={<CreateProfile />} />
+          <Route path='/profile-created' element={<ProfileCreated />} />
+          <Route path='/profile/:id' element={<Profile />} />
         </Routes>
       </main>
     </>
