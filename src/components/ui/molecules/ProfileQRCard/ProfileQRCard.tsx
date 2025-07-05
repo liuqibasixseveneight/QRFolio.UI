@@ -1,52 +1,27 @@
 import { QRCodeSVG } from 'qrcode.react';
 import { Link } from 'react-router-dom';
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from './components/ui/molecules/Card/Card';
-import { Button } from './components/ui';
+import type { ProfileQRCardProps } from './types';
+import { Card, CardContent, CardHeader } from '../Card';
+import { Button } from '../../atoms';
 
-type ResumeQRCardProps = {
-  link: string;
-  labels: {
-    displayName: string;
-  };
-};
-
-export const ResumeQRCard = ({ link, labels }: ResumeQRCardProps) => {
+const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
   const { displayName } = labels;
 
-  // Extract the path part of the URL
-  // e.g. from "http://localhost:3000/profile/uuid" get "/profile/uuid"
   const url = new URL(link);
   const path = url.pathname;
 
   return (
     <Card className='w-full max-w-sm p-6 text-center'>
-      <CardHeader>
-        <CardTitle className='text-xl font-bold'>Your QRFolio</CardTitle>
-      </CardHeader>
+      <CardHeader></CardHeader>
       <CardContent className='flex flex-col items-center gap-2'>
-        {/* NO STYLES */}
-        {/* <QRCodeSVG
-          value={link}
-          size={200}
-          bgColor='#ffffff'
-          fgColor='#000000'
-          level='H'
-        /> */}
-
-        {/* COLORED WITH IMAGE */}
         <div
           style={{
             position: 'relative',
-            width: 248, // 200 QR + 2 * 24 padding (12 for border + 12 for white spacing)
+            width: 248,
             height: 248,
-            borderRadius: 28, // slightly larger radius for outer border
-            padding: 12, // gradient border thickness
+            borderRadius: 28,
+            padding: 12,
             background: 'linear-gradient(135deg, #4f46e5, #3b82f6)',
             boxShadow: '0 8px 20px rgba(59, 130, 246, 0.4)',
             display: 'inline-block',
@@ -54,11 +29,11 @@ export const ResumeQRCard = ({ link, labels }: ResumeQRCardProps) => {
         >
           <div
             style={{
-              width: 224, // 200 QR + 2 * 12 white spacing
+              width: 224,
               height: 224,
-              borderRadius: 20, // rounded white spacing layer
-              backgroundColor: 'white', // white spacing between border and QR
-              padding: 12, // spacing between white layer and QR code
+              borderRadius: 20,
+              backgroundColor: 'white',
+              padding: 12,
               boxSizing: 'border-box',
               position: 'relative',
             }}
@@ -110,3 +85,5 @@ export const ResumeQRCard = ({ link, labels }: ResumeQRCardProps) => {
     </Card>
   );
 };
+
+export default ProfileQRCard;

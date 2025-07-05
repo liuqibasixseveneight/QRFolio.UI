@@ -3,7 +3,9 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 
+import { routes } from '@/utils';
 import {
   Button,
   Card,
@@ -11,8 +13,7 @@ import {
   CardHeader,
   CardTitle,
   FormField,
-} from './components/ui';
-import { ResumeQRCard } from './ResumeQRCard';
+} from '@/components/ui';
 
 const workExperienceSchema = z.object({
   jobTitle: z.string().min(1, 'Required'),
@@ -50,9 +51,8 @@ const prettifyLabel = (key: string) => {
   return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1);
 };
 
-const ResumeForm = () => {
-  const [generatedLink, setGeneratedLink] = useState<string | null>(null);
-  const [displayName, setDisplayName] = useState<string | null>(null);
+const CreateProfile = () => {
+  const navigate = useNavigate();
 
   const [addingWork, setAddingWork] = useState(false);
   const [currentWork, setCurrentWork] = useState<
@@ -129,15 +129,10 @@ const ResumeForm = () => {
     }
 
     const id = uuidv4();
-    const baseUrl = `${window.location.origin}/profile/${id}`;
     localStorage.setItem(`profile-${id}`, JSON.stringify(finalData));
-    setGeneratedLink(baseUrl);
-    setDisplayName(finalData.fullName);
-  };
 
-  if (generatedLink && displayName) {
-    return <ResumeQRCard link={generatedLink} labels={{ displayName }} />;
-  }
+    navigate(routes?.PROFILE_CREATED, { state: { id } });
+  };
 
   return (
     <div className='w-full max-w-7xl mx-auto px-6 md:px-8 py-10'>
@@ -464,4 +459,4 @@ const ResumeForm = () => {
   );
 };
 
-export default ResumeForm;
+export default CreateProfile;

@@ -1,8 +1,10 @@
 import {
   buttonVariants,
   Button,
+  ContactItem,
   Label,
   Input,
+  Section,
   Separator,
   Textarea,
 } from './atoms';
@@ -21,6 +23,8 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverAnchor,
+  ProfileQRCard,
+  TimelineItem,
 } from './molecules';
 
 export {
@@ -35,6 +39,7 @@ export {
   CardAction,
   CardContent,
   CardFooter,
+  ContactItem,
   FormField,
   Input,
   Label,
@@ -42,6 +47,9 @@ export {
   PopoverTrigger,
   PopoverContent,
   PopoverAnchor,
+  ProfileQRCard,
+  Section,
   Separator,
   Textarea,
+  TimelineItem,
 };

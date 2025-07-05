@@ -3,3 +3,5 @@ export * from './CalendarDayButton';
 export * from './Card';
 export * from './FormField';
 export * from './Popover';
+export * from './ProfileQRCard';
+export * from './TimelineItem';
