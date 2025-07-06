@@ -30,8 +30,9 @@ const Profile = () => {
     phone,
     linkedin,
     portfolio,
-    workExperience,
-    education,
+    workExperience = [],
+    education = [],
+    languages = [],
   } = qrfolioProfile;
 
   return (
@@ -103,6 +104,19 @@ const Profile = () => {
                 accentColor='indigo-600'
               />
             ))}
+          </Section>
+
+          <Section title='Education' accentColor='indigo-600'>
+            <ul className='space-y-3'>
+              {languages.map((lang: any, i: number) => (
+                <li key={i} className='flex flex-col'>
+                  <span className='font-medium text-base'>{lang.language}</span>
+                  <span className='text-sm text-gray-600 italic'>
+                    {lang.fluencyLevel}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </Section>
         </section>
       </div>

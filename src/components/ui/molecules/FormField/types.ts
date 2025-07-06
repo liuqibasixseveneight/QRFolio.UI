@@ -1,14 +1,16 @@
-import type { UseFormRegister } from 'react-hook-form';
+import type { UseFormRegister, Control } from 'react-hook-form';
 
 export type FormFieldProps = {
   label?: string;
-  type?: 'input' | 'textarea' | 'date';
+  type?: 'input' | 'textarea' | 'date' | 'select';
   placeholder?: string;
   value?: string;
   onChange?: (val: string) => void;
   register?: UseFormRegister<any>;
   registerName?: string;
+  control?: Control<any>;
   readOnly?: boolean;
   rows?: number;
   error?: string;
+  options?: { label: string; value: string }[];
 };
