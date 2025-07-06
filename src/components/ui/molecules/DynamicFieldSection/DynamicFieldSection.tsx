@@ -42,7 +42,7 @@ const DynamicFieldSection = <T extends FieldValues>({
                 register={register}
                 registerName={`${registerNamePrefix}.${index}.${config.name}`}
                 error={error}
-                control={control} // <-- pass control to FormField
+                control={control}
               />
             );
           })}
