@@ -6,7 +6,12 @@ import { languageSchema } from './languageSchema';
 
 export const introSchema = z.object({
   fullName: z.string().min(1, 'Required'),
-  phone: z.string().min(1, 'Required'),
+  phone: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^[0-9]+$/.test(val), {
+      message: 'Phone must contain numbers only',
+    }),
   email: z.string().email('Invalid email'),
   linkedin: z.string().optional(),
   portfolio: z.string().optional(),
