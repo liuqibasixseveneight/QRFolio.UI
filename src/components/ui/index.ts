@@ -19,6 +19,7 @@ import {
   CardContent,
   CardFooter,
   DynamicFieldSection,
+  ErrorDisplay,
   FormField,
   Popover,
   PopoverTrigger,
@@ -35,8 +36,13 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
   TimelineItem,
 } from './molecules';
+import { TabbedSections } from './organisms';
 
 export {
   buttonVariants,
@@ -52,6 +58,7 @@ export {
   CardFooter,
   ContactItem,
   DynamicFieldSection,
+  ErrorDisplay,
   FormField,
   Input,
   Label,
@@ -72,6 +79,11 @@ export {
   SelectTrigger,
   SelectValue,
   Separator,
+  TabbedSections,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
   Textarea,
   TimelineItem,
 };

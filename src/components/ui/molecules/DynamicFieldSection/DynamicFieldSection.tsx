@@ -19,12 +19,12 @@ const DynamicFieldSection = <T extends FieldValues>({
   control,
 }: DynamicFieldSectionProps<T> & { control?: any }) => {
   return (
-    <section className='space-y-6'>
-      <h2 className='text-2xl font-semibold text-indigo-700'>{title}</h2>
+    <section className='space-y-4'>
+      <h2 className='text-xl font-semibold text-neutral-800'>{title}</h2>
       {fields.map((field, index) => (
         <div
           key={field.id}
-          className='p-6 rounded-2xl bg-white/70 border border-indigo-100 shadow space-y-4'
+          className='p-4 rounded-md bg-white border border-neutral-200 shadow-sm space-y-4'
         >
           {fieldsConfig.map((config) => {
             const error = get(
@@ -46,16 +46,25 @@ const DynamicFieldSection = <T extends FieldValues>({
               />
             );
           })}
-          <Button
-            type='button'
-            variant='destructive'
-            onClick={() => onRemove(index)}
-          >
-            Remove
-          </Button>
+
+          <div className='flex justify-end'>
+            <Button
+              type='button'
+              variant='destructive'
+              onClick={() => onRemove(index)}
+              className='text-sm'
+            >
+              Remove
+            </Button>
+          </div>
         </div>
       ))}
-      <Button type='button' onClick={onAppend}>
+
+      <Button
+        type='button'
+        onClick={onAppend}
+        className='bg-neutral-900 text-white px-4 py-2 rounded-md hover:bg-neutral-800 transition'
+      >
         {appendLabel}
       </Button>
     </section>
