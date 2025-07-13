@@ -13,4 +13,5 @@ export type FormFieldProps = {
   rows?: number;
   error?: string;
   options?: { label: string; value: string }[];
+  required?: boolean;
 };

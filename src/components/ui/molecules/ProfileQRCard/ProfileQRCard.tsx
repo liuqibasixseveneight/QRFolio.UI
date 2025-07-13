@@ -22,8 +22,9 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
             height: 248,
             borderRadius: 28,
             padding: 12,
-            background: 'linear-gradient(135deg, #4f46e5, #3b82f6)',
-            boxShadow: '0 8px 20px rgba(59, 130, 246, 0.4)',
+            background:
+              'linear-gradient(135deg, #b993d6 0%, #8ca6db 50%, #fbc2eb 100%)',
+            boxShadow: '0 8px 20px rgba(185, 147, 214, 0.3)',
             display: 'inline-block',
           }}
         >

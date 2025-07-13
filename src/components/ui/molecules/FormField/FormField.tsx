@@ -28,6 +28,7 @@ const FormField = (props: FormFieldProps) => {
     readOnly = false,
     options = [],
     control,
+    required,
   } = props;
 
   if (type === 'date') {
@@ -43,26 +44,24 @@ const FormField = (props: FormFieldProps) => {
               : '';
 
             return (
-              <div className='mb-6'>
+              <div className='mb-4'>
                 {label && (
-                  <Label className='block text-sm font-medium text-gray-800 mb-1'>
+                  <Label htmlFor={registerName} className='mb-1'>
                     {label}
+                    {required && <span className='text-red-500'> *</span>}
                   </Label>
                 )}
                 <Popover>
                   <PopoverTrigger asChild>
                     <Input
+                      id={registerName}
                       placeholder={placeholder ?? 'Select date'}
                       readOnly
                       value={formattedDate}
-                      className='
-                        border-0 border-b border-gray-300 bg-transparent px-0 py-2
-                        focus:border-primary focus:outline-none focus:ring-0
-                        transition-colors duration-200 ease-in-out
-                      '
+                      className='cursor-pointer'
                     />
                   </PopoverTrigger>
-                  <PopoverContent className='w-auto p-0' align='start'>
+                  <PopoverContent align='start' className='w-auto p-0'>
                     <Calendar
                       mode='single'
                       selected={dateObj}
@@ -74,22 +73,22 @@ const FormField = (props: FormFieldProps) => {
                     />
                   </PopoverContent>
                 </Popover>
-                {error && <p className='text-sm text-red-500 mt-1'>{error}</p>}
+                {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
               </div>
             );
           }}
         />
       );
     } else {
-      // fallback if no control (e.g., manual usage)
       const dateObj = value ? parseISO(value) : undefined;
       const formattedDate = dateObj ? format(dateObj, 'MMMM do, yyyy') : '';
 
       return (
-        <div className='mb-6'>
+        <div className='mb-4'>
           {label && (
-            <Label className='block text-sm font-medium text-gray-800 mb-1'>
+            <Label className='mb-1'>
               {label}
+              {required && <span className='text-red-500'> *</span>}
             </Label>
           )}
           <Popover>
@@ -98,14 +97,10 @@ const FormField = (props: FormFieldProps) => {
                 placeholder={placeholder ?? 'Select date'}
                 readOnly
                 value={formattedDate}
-                className='
-                  border-0 border-b border-gray-300 bg-transparent px-0 py-2
-                  focus:border-primary focus:outline-none focus:ring-0
-                  transition-colors duration-200 ease-in-out
-                '
+                className='cursor-pointer'
               />
             </PopoverTrigger>
-            <PopoverContent className='w-auto p-0' align='start'>
+            <PopoverContent align='start' className='w-auto p-0'>
               <Calendar
                 mode='single'
                 selected={dateObj}
@@ -117,7 +112,7 @@ const FormField = (props: FormFieldProps) => {
               />
             </PopoverContent>
           </Popover>
-          {error && <p className='text-sm text-red-500 mt-1'>{error}</p>}
+          {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
         </div>
       );
     }
@@ -130,20 +125,15 @@ const FormField = (props: FormFieldProps) => {
           control={control}
           name={registerName}
           render={({ field }) => (
-            <div className='mb-6'>
+            <div className='mb-4'>
               {label && (
-                <Label className='block text-sm font-medium text-gray-800 mb-1'>
+                <Label htmlFor={registerName} className='mb-1'>
                   {label}
+                  {required && <span className='text-red-500'> *</span>}
                 </Label>
               )}
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger
-                  className='
-                    border-0 border-b border-gray-300 bg-transparent px-0 py-2
-                    focus:border-primary focus:outline-none focus:ring-0
-                    transition-colors duration-200 ease-in-out
-                  '
-                >
+                <SelectTrigger id={registerName} className='w-full'>
                   <SelectValue
                     placeholder={placeholder ?? 'Select an option'}
                   />
@@ -156,13 +146,12 @@ const FormField = (props: FormFieldProps) => {
                   ))}
                 </SelectContent>
               </Select>
-              {error && <p className='text-sm text-red-500 mt-1'>{error}</p>}
+              {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
             </div>
           )}
         />
       );
     } else {
-      // fallback without control
       const handleValueChange = (val: string) => {
         if (register && registerName) {
           const event = { target: { name: registerName, value: val } };
@@ -174,20 +163,15 @@ const FormField = (props: FormFieldProps) => {
       const selectedValue = register && registerName ? undefined : value ?? '';
 
       return (
-        <div className='mb-6'>
+        <div className='mb-4'>
           {label && (
-            <Label className='block text-sm font-medium text-gray-800 mb-1'>
+            <Label className='mb-1'>
               {label}
+              {required && <span className='text-red-500'> *</span>}
             </Label>
           )}
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger
-              className='
-                border-0 border-b border-gray-300 bg-transparent px-0 py-2
-                focus:border-primary focus:outline-none focus:ring-0
-                transition-colors duration-200 ease-in-out
-              '
-            >
+            <SelectTrigger className='w-full'>
               <SelectValue placeholder={placeholder ?? 'Select an option'} />
             </SelectTrigger>
             <SelectContent>
@@ -198,13 +182,12 @@ const FormField = (props: FormFieldProps) => {
               ))}
             </SelectContent>
           </Select>
-          {error && <p className='text-sm text-red-500 mt-1'>{error}</p>}
+          {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
         </div>
       );
     }
   }
 
-  // For input and textarea types:
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -219,17 +202,12 @@ const FormField = (props: FormFieldProps) => {
           onChange: handleInputChange,
         };
 
-  const inputClasses = `
-    border-0 border-b border-gray-300 bg-transparent px-0 py-2
-    focus:border-primary focus:outline-none focus:ring-0
-    transition-colors duration-200 ease-in-out
-  `;
-
   return (
-    <div className='mb-6'>
+    <div className='mb-4'>
       {label && (
-        <Label className='block text-sm font-medium text-gray-800 mb-1'>
+        <Label className='mb-1'>
           {label}
+          {required && <span className='text-red-500'> *</span>}
         </Label>
       )}
       {type === 'textarea' ? (
@@ -237,18 +215,16 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
-          className={inputClasses}
           {...commonInputProps}
         />
       ) : (
         <Input
           placeholder={placeholder}
           readOnly={readOnly}
-          className={inputClasses}
           {...commonInputProps}
         />
       )}
-      {error && <p className='text-sm text-red-500 mt-1'>{error}</p>}
+      {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
     </div>
   );
 };
