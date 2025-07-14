@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import type { ProfileQRCardProps } from './types';
 import { Card, CardContent, CardHeader } from '../Card';
-import { Button } from '../../atoms';
 
 const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
   const { displayName } = labels;
@@ -13,7 +12,7 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
 
   return (
     <Card className='w-full max-w-sm p-6 text-center'>
-      <CardHeader></CardHeader>
+      <CardHeader>QRFolio</CardHeader>
       <CardContent className='flex flex-col items-center gap-2'>
         <div
           style={{
@@ -69,19 +68,21 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
           </div>
         </div>
 
-        <div className='flex flex-col items-center space-y-1 my-4'>
+        <div
+          className='flex flex-col items-center space-y-1 my-4 max-w-full'
+          style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
+        >
           <h3 className='text-lg font-semibold'>{displayName}</h3>
-          <Link to={path} className='text-sm text-blue-600 underline break-all'>
+
+          <Link
+            to={path}
+            className='text-sm text-blue-600 underline break-all max-w-full'
+            title={link}
+            style={{ userSelect: 'text' }}
+          >
             {link}
           </Link>
         </div>
-
-        <Button
-          onClick={() => navigator.clipboard.writeText(link)}
-          variant='default'
-        >
-          Copy Link
-        </Button>
       </CardContent>
     </Card>
   );

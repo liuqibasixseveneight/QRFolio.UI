@@ -1,5 +1,7 @@
+import { useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Copy, Download } from 'lucide-react';
+import * as htmlToImage from 'html-to-image';
 
 import { Button, ProfileQRCard } from '@/components/ui';
 import type { CVFormValues } from '../types';
@@ -18,6 +20,8 @@ const ProfileCreated = () => {
     return null;
   })();
 
+  const cardRef = useRef<HTMLDivElement>(null);
+
   if (!profileData || !profileId) {
     return (
       <main className='flex flex-col items-center justify-center min-h-screen w-full bg-neutral-50 p-8 text-center'>
@@ -29,6 +33,27 @@ const ProfileCreated = () => {
 
   const profileLink = `${window.location.origin}/profile/${profileId}`;
   const displayName = profileData.fullName ?? 'Your QRFolio';
+
+  const copyLinkToClipboard = () => {
+    navigator.clipboard.writeText(profileLink);
+  };
+
+  const downloadCardImage = () => {
+    if (!cardRef.current) return;
+
+    htmlToImage
+      .toPng(cardRef.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = `${displayName.replace(/\s+/g, '_')}_QRCode.png`;
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.error('Failed to export QR code card image', err);
+        alert('Failed to download QR code image. Please try again.');
+      });
+  };
 
   return (
     <main className='flex flex-col items-center justify-start w-full min-h-screen bg-neutral-50 overflow-auto p-8 sm:p-10'>
@@ -45,10 +70,28 @@ const ProfileCreated = () => {
         </header>
 
         <div className='w-full flex flex-col items-center gap-10 px-4 sm:px-0'>
-          <ProfileQRCard labels={{ displayName }} link={profileLink} />
-          <Button size='lg' onClick={() => navigate(`/profile/${profileId}`)}>
-            View Full Profile <ArrowRight size={20} />
-          </Button>
+          <div
+            ref={cardRef}
+            className='flex justify-center w-full max-w-xl mx-auto px-6 sm:px-0 mb-8'
+          >
+            <ProfileQRCard labels={{ displayName }} link={profileLink} />
+          </div>
+
+          <div className='flex flex-wrap gap-4 justify-center'>
+            <Button size='lg' variant='default' onClick={copyLinkToClipboard}>
+              <Copy className='mr-2' size={18} /> Copy Link
+            </Button>
+            <Button size='lg' variant='default' onClick={downloadCardImage}>
+              <Download className='mr-2' size={18} /> Download QR Code
+            </Button>
+            <Button
+              size='lg'
+              variant='default'
+              onClick={() => navigate(`/profile/${profileId}`)}
+            >
+              View Full Profile <ArrowRight size={20} className='ml-2' />
+            </Button>{' '}
+          </div>
         </div>
       </div>
     </main>
