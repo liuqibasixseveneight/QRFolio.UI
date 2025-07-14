@@ -1,5 +1,6 @@
 export * from './Button';
 export * from './ContactItem';
+export * from './DatePicker';
 export * from './Label';
 export * from './Input';
 export * from './Section';

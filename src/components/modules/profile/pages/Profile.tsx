@@ -82,9 +82,9 @@ const Profile = () => {
           </aside>
 
           <section className='lg:w-2/3 flex flex-col space-y-14'>
-            {workExperience.length > 0 && (
+            {workExperience?.length > 0 && (
               <Section title='Work Experience' accentColor='indigo-600'>
-                {workExperience.map((exp: any, i: number) => (
+                {workExperience?.map((exp: any, i: number) => (
                   <TimelineItem
                     key={i}
                     title={`${exp.jobTitle} @ ${exp.companyName}`}
@@ -99,9 +99,9 @@ const Profile = () => {
               </Section>
             )}
 
-            {education.length > 0 && (
+            {education?.length > 0 && (
               <Section title='Education' accentColor='indigo-600'>
-                {education.map((edu: any, i: number) => (
+                {education?.map((edu: any, i: number) => (
                   <TimelineItem
                     key={i}
                     title={`${edu.degree} in ${edu.fieldOfStudy}`}
@@ -116,10 +116,10 @@ const Profile = () => {
               </Section>
             )}
 
-            {languages.length > 0 && (
+            {languages?.length > 0 && (
               <Section title='Languages' accentColor='indigo-600'>
                 <ul className='space-y-3'>
-                  {languages.map((lang: any, i: number) => (
+                  {languages?.map((lang: any, i: number) => (
                     <li key={i} className='flex flex-col'>
                       <span className='font-medium text-base text-neutral-900'>
                         {lang.language}

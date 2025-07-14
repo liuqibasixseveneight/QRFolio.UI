@@ -11,10 +11,12 @@ export type FieldConfig = {
   type?: 'input' | 'textarea' | 'date' | 'select';
   options?: { label: string; value: string }[];
   rows?: number;
+  required?: boolean;
 };
 
 export type DynamicFieldSectionProps<T extends FieldValues> = {
   title: string;
+  titleField?: keyof T[string extends keyof T ? keyof T : never];
   fields: { id: string }[];
   fieldsConfig: FieldConfig[];
   registerNamePrefix: string;
@@ -23,5 +25,7 @@ export type DynamicFieldSectionProps<T extends FieldValues> = {
   onAppend: () => void;
   appendLabel: string;
   register: UseFormRegister<T>;
-  control?: Control<T>;
+  control: Control<T>;
+  activeIndex: number | null;
+  setActiveIndex: (index: number | null) => void;
 };

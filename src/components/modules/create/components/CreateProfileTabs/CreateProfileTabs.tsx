@@ -10,10 +10,21 @@ import type { CVFormValues } from '../../types';
 import { introSchema } from '../../schemas';
 import { contents } from './contents';
 import { tabs } from './tabs';
+import {
+  EMPTY_EDU_ENTRY,
+  EMPTY_LANGUAGE_ENTRY,
+  EMPTY_WORK_ENTRY,
+  removeEmptyEntries,
+} from '../../utils';
 
 const CreateProfileTabs = () => {
   const navigate = useNavigate();
   const [submissionErrors, setSubmissionErrors] = useState<string[]>([]);
+  const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(0);
+  const [activeEduIndex, setActiveEduIndex] = useState<number | null>(0);
+  const [activeLanguageIndex, setActiveLanguageIndex] = useState<number | null>(
+    0
+  );
 
   const {
     register,
@@ -29,32 +40,9 @@ const CreateProfileTabs = () => {
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
-      workExperience: [
-        {
-          jobTitle: '',
-          companyName: '',
-          location: '',
-          dateFrom: '',
-          dateTo: '',
-          responsibilities: '',
-        },
-      ],
-      education: [
-        {
-          schoolName: '',
-          degree: '',
-          fieldOfStudy: '',
-          dateFrom: '',
-          dateTo: '',
-          description: '',
-        },
-      ],
-      languages: [
-        {
-          language: '',
-          fluencyLevel: 'Beginner',
-        },
-      ],
+      workExperience: [EMPTY_WORK_ENTRY],
+      education: [EMPTY_EDU_ENTRY],
+      languages: [EMPTY_LANGUAGE_ENTRY],
     },
   });
 
@@ -62,32 +50,36 @@ const CreateProfileTabs = () => {
     fields: workFields,
     append: appendWork,
     remove: removeWork,
-  } = useFieldArray({
-    control,
-    name: 'workExperience',
-  });
-
+  } = useFieldArray({ control, name: 'workExperience' });
   const {
     fields: eduFields,
     append: appendEdu,
     remove: removeEdu,
-  } = useFieldArray({
-    control,
-    name: 'education',
-  });
-
+  } = useFieldArray({ control, name: 'education' });
   const {
     fields: languageFields,
     append: appendLanguage,
     remove: removeLanguage,
-  } = useFieldArray({
-    control,
-    name: 'languages',
-  });
+  } = useFieldArray({ control, name: 'languages' });
+
+  const handleAppend = (
+    appendFn: Function,
+    setIndex: Function,
+    fieldsLength: number,
+    emptyEntry: object
+  ) => {
+    appendFn(emptyEntry);
+    setIndex(fieldsLength);
+  };
 
   const onSubmit = (data: CVFormValues) => {
     const id = uuidv4();
-    localStorage.setItem(`profile-${id}`, JSON.stringify(data));
+    const dataWithoutEmptyEntries = removeEmptyEntries(data);
+
+    localStorage.setItem(
+      `profile-${id}`,
+      JSON.stringify(dataWithoutEmptyEntries)
+    );
     navigate(routes.PROFILE_CREATED, { state: { id } });
   };
 
@@ -100,14 +92,38 @@ const CreateProfileTabs = () => {
     errors,
     control,
     workFields,
-    appendWork,
+    appendWork: () =>
+      handleAppend(
+        appendWork,
+        setActiveWorkIndex,
+        workFields.length,
+        EMPTY_WORK_ENTRY
+      ),
     removeWork,
     eduFields,
-    appendEdu,
+    appendEdu: () =>
+      handleAppend(
+        appendEdu,
+        setActiveEduIndex,
+        eduFields.length,
+        EMPTY_EDU_ENTRY
+      ),
     removeEdu,
     languageFields,
-    appendLanguage,
+    appendLanguage: () =>
+      handleAppend(
+        appendLanguage,
+        setActiveLanguageIndex,
+        languageFields.length,
+        EMPTY_LANGUAGE_ENTRY
+      ),
     removeLanguage,
+    activeWorkIndex,
+    setActiveWorkIndex,
+    activeEduIndex,
+    setActiveEduIndex,
+    activeLanguageIndex,
+    setActiveLanguageIndex,
   });
 
   return (
@@ -118,11 +134,9 @@ const CreateProfileTabs = () => {
       <TabbedSections
         tabs={tabs}
         contents={tabContents}
-        defaultValue={tabs?.[0]?.value}
+        defaultValue={tabs[0]?.value}
       />
-
       <ErrorDisplay errors={submissionErrors} />
-
       <div className='flex justify-end'>
         <Button
           type='submit'

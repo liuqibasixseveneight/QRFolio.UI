@@ -10,17 +10,27 @@ const workExperienceConfig: FieldConfig[] = [
     name: 'responsibilities',
     label: 'Responsibilities',
     type: 'textarea',
-    rows: 3,
+    rows: 10,
+    required: true,
   },
 ];
 
 const educationConfig: FieldConfig[] = [
   { name: 'schoolName', label: 'School Name', type: 'input' },
   { name: 'degree', label: 'Degree', type: 'input' },
-  { name: 'fieldOfStudy', label: 'Field of Study', type: 'input' },
+  {
+    name: 'fieldOfStudy',
+    label: 'Field of Study',
+    type: 'input',
+  },
   { name: 'dateFrom', label: 'Date From', type: 'date' },
   { name: 'dateTo', label: 'Date To', type: 'date' },
-  { name: 'description', label: 'Description', type: 'textarea', rows: 3 },
+  {
+    name: 'description',
+    label: 'Description',
+    type: 'textarea',
+    rows: 10,
+  },
 ];
 
 const languageConfig: FieldConfig[] = [

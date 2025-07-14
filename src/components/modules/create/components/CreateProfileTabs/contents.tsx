@@ -20,6 +20,12 @@ export const contents = ({
   languageFields,
   appendLanguage,
   removeLanguage,
+  activeWorkIndex,
+  setActiveWorkIndex,
+  activeEduIndex,
+  setActiveEduIndex,
+  activeLanguageIndex,
+  setActiveLanguageIndex,
 }: contentsProps) => {
   const mutableWorkFields = [...workFields];
   const mutableEduFields = [...eduFields];
@@ -70,7 +76,7 @@ export const contents = ({
           <FormField
             label='Professional Summary'
             type='textarea'
-            rows={4}
+            rows={10}
             register={register}
             registerName='professionalSummary'
             error={errors.professionalSummary?.message}
@@ -84,14 +90,22 @@ export const contents = ({
       content: (
         <DynamicFieldSection
           title='Employment and Work Experience'
+          titleField='jobTitle'
           fields={mutableWorkFields}
           fieldsConfig={workExperienceConfig}
           registerNamePrefix='workExperience'
           errors={errors}
           register={register}
           control={control}
-          onRemove={removeWork}
-          onAppend={() =>
+          onRemove={(index) => {
+            removeWork(index);
+            if (activeWorkIndex === index) {
+              setActiveWorkIndex(null);
+            } else if (activeWorkIndex !== null && activeWorkIndex > index) {
+              setActiveWorkIndex(activeWorkIndex - 1);
+            }
+          }}
+          onAppend={() => {
             appendWork({
               jobTitle: '',
               companyName: '',
@@ -99,9 +113,12 @@ export const contents = ({
               dateFrom: '',
               dateTo: '',
               responsibilities: '',
-            })
-          }
+            });
+            setActiveWorkIndex(mutableWorkFields.length);
+          }}
           appendLabel='Add Employment'
+          activeIndex={activeWorkIndex}
+          setActiveIndex={setActiveWorkIndex}
         />
       ),
     },
@@ -117,8 +134,15 @@ export const contents = ({
             errors={errors}
             register={register}
             control={control}
-            onRemove={removeEdu}
-            onAppend={() =>
+            onRemove={(index) => {
+              removeEdu(index);
+              if (activeEduIndex === index) {
+                setActiveEduIndex(null);
+              } else if (activeEduIndex !== null && activeEduIndex > index) {
+                setActiveEduIndex(activeEduIndex - 1);
+              }
+            }}
+            onAppend={() => {
               appendEdu({
                 schoolName: '',
                 degree: '',
@@ -126,10 +150,14 @@ export const contents = ({
                 dateFrom: '',
                 dateTo: '',
                 description: '',
-              })
-            }
+              });
+              setActiveEduIndex(mutableEduFields.length);
+            }}
             appendLabel='Add Education'
+            activeIndex={activeEduIndex}
+            setActiveIndex={setActiveEduIndex}
           />
+
           <DynamicFieldSection
             title='Languages'
             fields={mutableLanguageFields}
@@ -138,11 +166,24 @@ export const contents = ({
             errors={errors}
             register={register}
             control={control}
-            onRemove={removeLanguage}
-            onAppend={() =>
-              appendLanguage({ language: '', fluencyLevel: 'Beginner' })
-            }
+            onRemove={(index) => {
+              removeLanguage(index);
+              if (activeLanguageIndex === index) {
+                setActiveLanguageIndex(null);
+              } else if (
+                activeLanguageIndex !== null &&
+                activeLanguageIndex > index
+              ) {
+                setActiveLanguageIndex(activeLanguageIndex - 1);
+              }
+            }}
+            onAppend={() => {
+              appendLanguage({ language: '', fluencyLevel: 'Beginner' });
+              setActiveLanguageIndex(mutableLanguageFields.length);
+            }}
             appendLabel='Add Language'
+            activeIndex={activeLanguageIndex}
+            setActiveIndex={setActiveLanguageIndex}
           />
         </>
       ),
