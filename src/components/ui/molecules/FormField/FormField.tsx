@@ -2,10 +2,8 @@ import type { ChangeEvent } from 'react';
 import { format, parseISO } from 'date-fns';
 import { Controller } from 'react-hook-form';
 
-import { Input, Label, Textarea } from '../../atoms';
+import { DatePicker, Input, Label, Textarea } from '../../atoms';
 import type { FormFieldProps } from './types';
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover';
-import { Calendar } from '../Calendar';
 import {
   Select,
   SelectContent,
@@ -39,9 +37,6 @@ const FormField = (props: FormFieldProps) => {
           name={registerName}
           render={({ field }) => {
             const dateObj = field.value ? parseISO(field.value) : undefined;
-            const formattedDate = dateObj
-              ? format(dateObj, 'MMMM do, yyyy')
-              : '';
 
             return (
               <div className='mb-4'>
@@ -51,28 +46,18 @@ const FormField = (props: FormFieldProps) => {
                     {required && <span className='text-red-500'> *</span>}
                   </Label>
                 )}
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Input
-                      id={registerName}
-                      placeholder={placeholder ?? 'Select date'}
-                      readOnly
-                      value={formattedDate}
-                      className='cursor-pointer'
-                    />
-                  </PopoverTrigger>
-                  <PopoverContent align='start' className='w-auto p-0'>
-                    <Calendar
-                      mode='single'
-                      selected={dateObj}
-                      onSelect={(date) => {
-                        if (date) {
-                          field.onChange(format(date, 'yyyy-MM-dd'));
-                        }
-                      }}
-                    />
-                  </PopoverContent>
-                </Popover>
+                <DatePicker
+                  date={dateObj}
+                  onDateChange={(date) => {
+                    if (date) {
+                      field.onChange(format(date, 'yyyy-MM-dd'));
+                    } else {
+                      field.onChange('');
+                    }
+                  }}
+                  placeholder={placeholder ?? 'Select date'}
+                  disabled={readOnly}
+                />
                 {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
               </div>
             );
@@ -81,7 +66,6 @@ const FormField = (props: FormFieldProps) => {
       );
     } else {
       const dateObj = value ? parseISO(value) : undefined;
-      const formattedDate = dateObj ? format(dateObj, 'MMMM do, yyyy') : '';
 
       return (
         <div className='mb-4'>
@@ -91,27 +75,18 @@ const FormField = (props: FormFieldProps) => {
               {required && <span className='text-red-500'> *</span>}
             </Label>
           )}
-          <Popover>
-            <PopoverTrigger asChild>
-              <Input
-                placeholder={placeholder ?? 'Select date'}
-                readOnly
-                value={formattedDate}
-                className='cursor-pointer'
-              />
-            </PopoverTrigger>
-            <PopoverContent align='start' className='w-auto p-0'>
-              <Calendar
-                mode='single'
-                selected={dateObj}
-                onSelect={(date) => {
-                  if (date) {
-                    onChange?.(format(date, 'yyyy-MM-dd'));
-                  }
-                }}
-              />
-            </PopoverContent>
-          </Popover>
+          <DatePicker
+            date={dateObj}
+            onDateChange={(date) => {
+              if (date) {
+                onChange?.(format(date, 'yyyy-MM-dd'));
+              } else {
+                onChange?.('');
+              }
+            }}
+            placeholder={placeholder ?? 'Select date'}
+            disabled={readOnly}
+          />
           {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
         </div>
       );
