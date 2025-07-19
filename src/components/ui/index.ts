@@ -3,6 +3,8 @@ import {
   Button,
   ContactItem,
   DatePicker,
+  ErrorMessage,
+  GoogleSignInButton,
   Label,
   Input,
   Section,
@@ -43,7 +45,7 @@ import {
   TabsContent,
   TimelineItem,
 } from './molecules';
-import { TabbedSections } from './organisms';
+import { SignInForm, SignUpForm, TabbedSections } from './organisms';
 
 export {
   buttonVariants,
@@ -61,7 +63,9 @@ export {
   DatePicker,
   DynamicFieldSection,
   ErrorDisplay,
+  ErrorMessage,
   FormField,
+  GoogleSignInButton,
   Input,
   Label,
   Popover,
@@ -81,6 +85,8 @@ export {
   SelectTrigger,
   SelectValue,
   Separator,
+  SignInForm,
+  SignUpForm,
   TabbedSections,
   Tabs,
   TabsList,
