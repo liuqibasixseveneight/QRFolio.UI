@@ -1,11 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-
 import { SignUpForm } from '@/components/ui';
 import { useSignUp } from '@/utils';
 
 const NewAccountForm = () => {
   const {
-    session,
     email,
     password,
     confirmPassword,
@@ -21,13 +18,6 @@ const NewAccountForm = () => {
     handleGoogleSignUp,
     navigateToSignIn,
   } = useSignUp();
-
-  const navigate = useNavigate();
-
-  if (session) {
-    navigate('/create-profile');
-    return null;
-  }
 
   return (
     <SignUpForm

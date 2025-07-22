@@ -45,7 +45,7 @@ import {
   TabsContent,
   TimelineItem,
 } from './molecules';
-import { SignInForm, SignUpForm, TabbedSections } from './organisms';
+import { Navbar, SignInForm, SignUpForm, TabbedSections } from './organisms';
 
 export {
   buttonVariants,
@@ -68,6 +68,7 @@ export {
   GoogleSignInButton,
   Input,
   Label,
+  Navbar,
   Popover,
   PopoverTrigger,
   PopoverContent,

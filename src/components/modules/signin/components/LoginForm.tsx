@@ -1,11 +1,13 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SignInForm } from '@/components/ui';
 import { useLogin } from '@/utils';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   const {
-    session,
     email,
     password,
     setEmail,
@@ -15,16 +17,17 @@ const LoginForm = () => {
     error,
     emailError,
     passwordError,
-    handleGoogleSignIn,
     navigateToSignup,
+    handleGoogleSignIn,
+    session,
+    userId,
   } = useLogin();
 
-  const navigate = useNavigate();
-
-  if (session) {
-    navigate('/create-profile');
-    return null;
-  }
+  useEffect(() => {
+    if (session && userId) {
+      navigate('/dashboard');
+    }
+  }, [session, userId]);
 
   return (
     <SignInForm

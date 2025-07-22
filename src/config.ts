@@ -1,9 +1,10 @@
 const APOLLO_CLIENT_URL =
-  import.meta.env.VITE_APOLLO_CLIENT_URL || 'http://localhost:4000';
+  (import.meta.env.VITE_APOLLO_CLIENT_URL as string) || 'http://localhost:4000';
 
-const VITE_DATABASE_PROJECT_URL = import.meta.env.VITE_DATABASE_PROJECT_URL;
+const VITE_DATABASE_PROJECT_URL = import.meta.env
+  .VITE_DATABASE_PROJECT_URL as string;
 const VITE_DATABASE_PUBLIC_API_KEY = import.meta.env
-  .VITE_DATABASE_PUBLIC_API_KEY;
+  .VITE_DATABASE_PUBLIC_API_KEY as string;
 
 export {
   APOLLO_CLIENT_URL,

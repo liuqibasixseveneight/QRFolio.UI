@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 import { useAuth } from '@/context';
-import { supabase } from '@/supabase/supabase';
 
 const signupSchema = z
   .object({
@@ -27,6 +26,8 @@ const signupSchema = z
 
 export const useSignUp = () => {
   const navigate = useNavigate();
+  const { session, signUp, signInWithGoogle } = useAuth();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -39,8 +40,6 @@ export const useSignUp = () => {
 
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  const { session } = useAuth();
 
   const handleSignUp = async () => {
     setGlobalError(null);
@@ -67,14 +66,10 @@ export const useSignUp = () => {
     }
 
     setLoading(true);
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { error } = await signUp(email, password);
 
     if (error) {
-      setGlobalError(error.message);
+      setGlobalError(error);
     } else {
       navigate('/create-profile');
     }
@@ -85,15 +80,7 @@ export const useSignUp = () => {
   const handleGoogleSignUp = async () => {
     setGlobalError(null);
     setErrors({});
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: 'http://localhost:5173/create-profile',
-      },
-    });
-    if (error) {
-      setGlobalError(error.message);
-    }
+    await signInWithGoogle();
   };
 
   const navigateToSignIn = () => navigate('/sign-in');
