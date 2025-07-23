@@ -196,6 +196,7 @@ const FormField = (props: FormFieldProps) => {
         <Input
           placeholder={placeholder}
           readOnly={readOnly}
+          type={type}
           {...commonInputProps}
         />
       )}
