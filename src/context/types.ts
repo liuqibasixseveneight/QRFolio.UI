@@ -14,4 +14,5 @@ export type AuthContextType = {
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   userId: string | null;
+  userEmail: string | null;
 };
