@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { User } from 'lucide-react';
+import { PanelLeft, User } from 'lucide-react';
 
 import { useAuth } from '@/context';
 import { Button } from '../../atoms';
@@ -14,10 +14,14 @@ const Navbar = ({}: NavbarProps) => {
     await signOut();
     navigate('/');
   };
-
   const handleProfileClick = () => {
     if (userId) {
       navigate(`/profile/${userId}`);
+    }
+  };
+  const handleDashboardClick = () => {
+    if (userId) {
+      navigate('/dashboard');
     }
   };
 
@@ -41,6 +45,15 @@ const Navbar = ({}: NavbarProps) => {
           <>
             <Button onClick={handleSignOut} variant='outline'>
               Sign Out
+            </Button>
+            <Button
+              onClick={handleDashboardClick}
+              variant='secondary'
+              size='icon'
+              aria-label='Dashboard'
+              className='rounded-full'
+            >
+              <PanelLeft className='h-5 w-5' />
             </Button>
             <Button
               onClick={handleProfileClick}

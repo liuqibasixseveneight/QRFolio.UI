@@ -63,7 +63,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (error) console.error(error);
   };
 
-  const userId = session?.user.id ?? null;
+  const userId = session?.user?.id ?? null;
+  const userEmail = session?.user?.email ?? null;
 
   return (
     <AuthContext.Provider
@@ -75,6 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         signUp,
         signOut,
         userId,
+        userEmail,
       }}
     >
       {children}

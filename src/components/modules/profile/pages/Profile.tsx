@@ -1,19 +1,18 @@
-import { useParams } from 'react-router-dom';
 import { Mail, Phone, Linkedin, Globe } from 'lucide-react';
 
 import { formatDate } from '../helpers';
 import { ContactItem, Section, TimelineItem } from '@/components/ui';
+import { useAuth } from '@/context';
+import { useGetProfile } from '@/apollo/profile';
 
 const Profile = () => {
-  const { id } = useParams<{ id: string }>();
-  const storedQrfolioProfile = id
-    ? localStorage.getItem(`profile-${id}`)
-    : null;
-  const qrfolioProfile = storedQrfolioProfile
-    ? JSON.parse(storedQrfolioProfile)
-    : null;
+  const { userId } = useAuth();
 
-  if (!qrfolioProfile) {
+  // @ts-ignore
+  const [data, { loading, error }] = useGetProfile(userId || '');
+  const profile = data?.profile;
+
+  if (!profile) {
     return (
       <main className='flex items-center justify-center min-h-screen w-full bg-neutral-50 p-8 text-center'>
         <p className='text-neutral-500 text-lg font-light'>
@@ -33,7 +32,7 @@ const Profile = () => {
     workExperience = [],
     education = [],
     languages = [],
-  } = qrfolioProfile;
+  } = profile;
 
   return (
     <main className='flex flex-col items-center justify-start w-full h-screen bg-neutral-50 overflow-auto p-8 sm:p-10'>

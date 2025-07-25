@@ -13,7 +13,7 @@ const CREATE_USER = gql`
   }
 `;
 
-export function useCreateUser(): [
+export const useCreateUser = (): [
   (
     variables: CreateUserVariables
   ) => Promise<CreateUserData | null | undefined>,
@@ -22,7 +22,7 @@ export function useCreateUser(): [
     loading: boolean;
     error?: Error;
   }
-] {
+] => {
   const [mutate, { data, loading, error }] = useMutation<
     CreateUserData,
     CreateUserVariables
@@ -37,6 +37,6 @@ export function useCreateUser(): [
   };
 
   return [createUser, { data, loading, error }];
-}
+};
 
 export default CREATE_USER;

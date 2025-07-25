@@ -2,50 +2,57 @@ import { useNavigate } from 'react-router-dom';
 import { Pencil, Share2, Eye, Plus } from 'lucide-react';
 
 import { Button, Card, CardContent } from '@/components/ui';
+import { useCreateProfile, useGetProfile } from '@/apollo/profile';
+import { useAuth } from '@/context';
+import { createMockCreateData } from './mockCreateData';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { userId, userEmail } = useAuth();
 
-  // TODO: Replace with real user data / hook
-  const resumeExists = true;
-  const resume = {
-    title: 'Product Designer Resume',
-    updated: '2 days ago',
-    id: 'abc123',
-    publicUrl: `https://lytn.app/r/abc123`,
-  };
+  // @ts-ignore
+  const [data, { loading, error }] = useGetProfile(userId || '');
+
+  const [
+    createProfile,
+    // @ts-ignore
+    { data: createData, loading: createLoading, error: createError },
+  ] = useCreateProfile();
+
+  const profileExists = !!data?.profile;
 
   const handleCreate = () => {
-    if (resumeExists) {
-      // TODO: Future models here
-      navigate(`/resume/${resume.id}/edit`);
+    if (profileExists) {
+      navigate(`/profile/${userId}/edit`);
     } else {
-      navigate('/create-resume');
+      navigate('/create-profile');
     }
   };
 
   const handleView = () => {
-    window.open(resume.publicUrl, '_blank');
+    // window.open(profile.publicUrl, '_blank');
+    alert('View clicked!');
   };
 
   const handleShare = () => {
-    navigator.clipboard.writeText(resume.publicUrl);
+    // navigator.clipboard.writeText(profile.publicUrl);
+    alert('Share clicked!');
   };
 
   const handleEdit = () => {
-    navigate(`/resume/${resume.id}/edit`);
+    navigate(`/profile/${userId}/edit`);
   };
 
   const actions = [
     {
-      title: resumeExists ? 'Edit Your Resume' : 'Create Your Resume',
-      description: resumeExists
+      title: profileExists ? 'Edit Your Resume' : 'Create Your Resume',
+      description: profileExists
         ? 'Update and refine your resume anytime'
         : 'Start crafting your professional story',
-      icon: resumeExists ? Pencil : Plus,
-      action: resumeExists ? handleEdit : handleCreate,
+      icon: profileExists ? Pencil : Plus,
+      action: profileExists ? handleEdit : handleCreate,
     },
-    ...(resumeExists
+    ...(profileExists
       ? [
           {
             title: 'View Resume',
@@ -63,6 +70,8 @@ const Dashboard = () => {
       : []),
   ];
 
+  const mockCreateData = createMockCreateData({ userId, userEmail });
+
   return (
     <main className='flex flex-col items-center min-h-screen bg-white text-gray-900 px-4 md:px-8 py-16 max-w-7xl mx-auto font-sans'>
       <section className='w-full max-w-2xl text-center mb-12 px-4'>
@@ -70,7 +79,7 @@ const Dashboard = () => {
           Your LYTN Dashboard
         </h1>
         <p className='text-gray-500 text-lg md:text-xl'>
-          {resumeExists
+          {profileExists
             ? 'Manage, view, share, and edit your resume effortlessly'
             : 'Create and manage your beautiful LYTN resume'}
         </p>
@@ -96,6 +105,10 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         ))}
+
+        <Button onClick={() => createProfile(mockCreateData)}>
+          Create profile with defaults
+        </Button>
       </section>
     </main>
   );
