@@ -14,7 +14,9 @@ const GET_USERS = gql`
 `;
 
 export const useGetUsers = (): [GetUsersData | undefined, GetUsersResult] => {
-  const { data, loading, error } = useQuery<GetUsersData>(GET_USERS);
+  const { data, loading, error } = useQuery<GetUsersData>(GET_USERS, {
+    fetchPolicy: 'network-only',
+  });
 
   return [data, { loading, error }];
 };

@@ -1,23 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { Pencil, Share2, Eye, Plus } from 'lucide-react';
 
-import { Button, Card, CardContent } from '@/components/ui';
-import { useCreateProfile, useGetProfile } from '@/apollo/profile';
+import { Button, Card, CardContent, LoadingSpinner } from '@/components/ui';
+import { useGetProfile } from '@/apollo/profile';
 import { useAuth } from '@/context';
-import { createMockCreateData } from './mockCreateData';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { userId, userEmail } = useAuth();
-
-  // @ts-ignore
-  const [data, { loading, error }] = useGetProfile(userId || '');
+  const { userId } = useAuth();
 
   const [
-    createProfile,
-    // @ts-ignore
-    { data: createData, loading: createLoading, error: createError },
-  ] = useCreateProfile();
+    data,
+    {
+      loading,
+      // @ts-ignore
+      error,
+    },
+  ] = useGetProfile(userId || '');
 
   const profileExists = !!data?.profile;
 
@@ -28,19 +27,14 @@ const Dashboard = () => {
       navigate('/create-profile');
     }
   };
-
-  const handleView = () => {
-    // window.open(profile.publicUrl, '_blank');
-    alert('View clicked!');
-  };
-
-  const handleShare = () => {
-    // navigator.clipboard.writeText(profile.publicUrl);
-    alert('Share clicked!');
-  };
-
   const handleEdit = () => {
     navigate(`/profile/${userId}/edit`);
+  };
+  const handleView = () => {
+    navigate(`/profile/${userId}`);
+  };
+  const handleShare = () => {
+    navigate(`/profile/${userId}/share`);
   };
 
   const actions = [
@@ -70,46 +64,44 @@ const Dashboard = () => {
       : []),
   ];
 
-  const mockCreateData = createMockCreateData({ userId, userEmail });
-
   return (
     <main className='flex flex-col items-center min-h-screen bg-white text-gray-900 px-4 md:px-8 py-16 max-w-7xl mx-auto font-sans'>
       <section className='w-full max-w-2xl text-center mb-12 px-4'>
         <h1 className='text-4xl md:text-5xl font-extralight tracking-tight mb-4'>
-          Your LYTN Dashboard
+          Your dashboard
         </h1>
         <p className='text-gray-500 text-lg md:text-xl'>
           {profileExists
             ? 'Manage, view, share, and edit your resume effortlessly'
-            : 'Create and manage your beautiful LYTN resume'}
+            : 'Create and manage your beautiful resume'}
         </p>
       </section>
 
-      <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl px-4'>
-        {actions.map(({ title, description, icon: Icon, action }, idx) => (
-          <Card
-            key={idx}
-            onClick={action}
-            className='cursor-pointer border border-gray-200 rounded-3xl p-6 hover:shadow-lg transition-shadow flex flex-col items-center text-center bg-white'
-          >
-            <CardContent className='flex flex-col items-center space-y-4'>
-              <Icon className='w-8 h-8 text-gray-700' />
-              <h3 className='text-lg font-medium text-gray-900'>{title}</h3>
-              <p className='text-gray-500 text-sm'>{description}</p>
-              <Button
-                variant='outline'
-                className='mt-2 rounded-md px-4 py-2 shadow-sm hover:bg-gray-50 transition'
-              >
-                {title.includes('Create') ? 'Create' : 'Open'}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-
-        <Button onClick={() => createProfile(mockCreateData)}>
-          Create profile with defaults
-        </Button>
-      </section>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl px-4'>
+          {actions?.map(({ title, description, icon: Icon, action }, idx) => (
+            <Card
+              key={idx}
+              onClick={action}
+              className='cursor-pointer border border-gray-200 rounded-3xl p-6 hover:shadow-lg transition-shadow flex flex-col items-center text-center bg-white'
+            >
+              <CardContent className='flex flex-col items-center space-y-4'>
+                <Icon className='w-8 h-8 text-gray-700' />
+                <h3 className='text-lg font-medium text-gray-900'>{title}</h3>
+                <p className='text-gray-500 text-sm'>{description}</p>
+                <Button
+                  variant='outline'
+                  className='mt-2 rounded-md px-4 py-2 shadow-sm hover:bg-gray-50 transition'
+                >
+                  {title.includes('Create') ? 'Create' : 'Open'}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </section>
+      )}
     </main>
   );
 };

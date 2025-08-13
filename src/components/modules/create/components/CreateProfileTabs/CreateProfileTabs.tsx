@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useForm, useFieldArray, type FieldErrors } from 'react-hook-form';
-import { v4 as uuidv4 } from 'uuid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,15 +15,26 @@ import {
   EMPTY_WORK_ENTRY,
   removeEmptyEntries,
 } from '../../utils';
+import { useCreateProfile } from '@/apollo/profile';
+import { useAuth } from '@/context';
 
 const CreateProfileTabs = () => {
   const navigate = useNavigate();
+
   const [submissionErrors, setSubmissionErrors] = useState<string[]>([]);
   const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(0);
   const [activeEduIndex, setActiveEduIndex] = useState<number | null>(0);
   const [activeLanguageIndex, setActiveLanguageIndex] = useState<number | null>(
     0
   );
+
+  const { userId } = useAuth();
+
+  const [
+    createProfile,
+    // @ts-ignore
+    { data, loading, error },
+  ] = useCreateProfile();
 
   const {
     register,
@@ -72,15 +82,28 @@ const CreateProfileTabs = () => {
     setIndex(fieldsLength);
   };
 
-  const onSubmit = (data: CVFormValues) => {
-    const id = uuidv4();
-    const dataWithoutEmptyEntries = removeEmptyEntries(data);
+  const onSubmit = async (data: CVFormValues) => {
+    const cleanedData = removeEmptyEntries(data);
 
-    localStorage.setItem(
-      `profile-${id}`,
-      JSON.stringify(dataWithoutEmptyEntries)
-    );
-    navigate(routes.PROFILE_CREATED, { state: { id } });
+    try {
+      await createProfile({
+        id: userId || '',
+        ...cleanedData,
+      });
+
+      if (data && !loading) {
+        navigate(routes?.PROFILE_CREATED);
+      } else {
+        setSubmissionErrors([
+          'Something went wrong while creating your profile.',
+        ]);
+      }
+    } catch (err) {
+      setSubmissionErrors([
+        'Failed to submit profile. Please try again later.',
+      ]);
+      console.error('Error when creating profile:', err);
+    }
   };
 
   const onInvalid = (errors: FieldErrors<CVFormValues>) => {
@@ -127,26 +150,54 @@ const CreateProfileTabs = () => {
   });
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className='space-y-10 mt-8'
-    >
-      <TabbedSections
-        tabs={tabs}
-        contents={tabContents}
-        defaultValue={tabs[0]?.value}
-      />
-      <ErrorDisplay errors={submissionErrors} />
-      <div className='flex justify-end'>
-        <Button
-          type='submit'
-          size='lg'
-          className='bg-neutral-900 text-white px-5 py-3 rounded-md hover:bg-neutral-800 transition'
-        >
-          Generate Resume
-        </Button>
+    <main className='min-h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-gray-900 font-sans flex flex-col'>
+      {/* Header Section */}
+      <header className='w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg px-6 sm:px-8 xl:px-12 2xl:px-20 py-12 sm:py-16 text-left'>
+        <div className='max-w-4xl mx-auto'>
+          <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900 mb-4'>
+            Create Your Profile
+          </h1>
+          <p className='text-base sm:text-lg text-gray-600 leading-relaxed max-w-3xl'>
+            Build your professional profile by filling out the sections below.
+            This information will be used to generate your personalized QR code
+            and resume.
+          </p>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className='flex-1 px-6 sm:px-8 xl:px-12 2xl:px-20 py-8 sm:py-10'>
+        <div className='max-w-4xl mx-auto'>
+          <form
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            className='space-y-8'
+          >
+            {/* Tabs Section */}
+            <div className='bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8'>
+              <TabbedSections
+                tabs={tabs}
+                contents={tabContents}
+                defaultValue={tabs?.[0]?.value}
+              />
+            </div>
+
+            {/* Error Display */}
+            <ErrorDisplay errors={submissionErrors} />
+
+            {/* Submit Button */}
+            <div className='flex justify-end pt-4'>
+              <Button
+                type='submit'
+                size='lg'
+                className='bg-neutral-900 text-white px-6 py-3 rounded-lg hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md font-medium text-base'
+              >
+                Generate Resume
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
+    </main>
   );
 };
 

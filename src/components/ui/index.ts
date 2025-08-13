@@ -1,14 +1,19 @@
 import {
+  Badge,
   buttonVariants,
   Button,
+  CollapsibleSection,
   ContactItem,
   DatePicker,
   ErrorMessage,
   GoogleSignInButton,
   Label,
+  LoadingSpinner,
   Input,
   Section,
   Separator,
+  Skeleton,
+  Switch,
   Textarea,
 } from './atoms';
 import {
@@ -48,6 +53,7 @@ import {
 import { Navbar, SignInForm, SignUpForm, TabbedSections } from './organisms';
 
 export {
+  Badge,
   buttonVariants,
   Button,
   Calendar,
@@ -59,6 +65,7 @@ export {
   CardAction,
   CardContent,
   CardFooter,
+  CollapsibleSection,
   ContactItem,
   DatePicker,
   DynamicFieldSection,
@@ -68,6 +75,7 @@ export {
   GoogleSignInButton,
   Input,
   Label,
+  LoadingSpinner,
   Navbar,
   Popover,
   PopoverTrigger,
@@ -88,6 +96,8 @@ export {
   Separator,
   SignInForm,
   SignUpForm,
+  Skeleton,
+  Switch,
   TabbedSections,
   Tabs,
   TabsList,

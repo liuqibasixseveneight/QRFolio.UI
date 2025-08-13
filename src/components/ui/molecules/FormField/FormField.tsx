@@ -39,11 +39,14 @@ const FormField = (props: FormFieldProps) => {
             const dateObj = field.value ? parseISO(field.value) : undefined;
 
             return (
-              <div className='mb-4'>
+              <div className='space-y-2'>
                 {label && (
-                  <Label htmlFor={registerName} className='mb-1'>
+                  <Label
+                    htmlFor={registerName}
+                    className='text-sm font-medium text-gray-700'
+                  >
                     {label}
-                    {required && <span className='text-red-500'> *</span>}
+                    {required && <span className='text-red-500 ml-1'>*</span>}
                   </Label>
                 )}
                 <DatePicker
@@ -58,7 +61,7 @@ const FormField = (props: FormFieldProps) => {
                   placeholder={placeholder ?? 'Select date'}
                   disabled={readOnly}
                 />
-                {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+                {error && <p className='text-sm text-red-600'>{error}</p>}
               </div>
             );
           }}
@@ -68,11 +71,11 @@ const FormField = (props: FormFieldProps) => {
       const dateObj = value ? parseISO(value) : undefined;
 
       return (
-        <div className='mb-4'>
+        <div className='space-y-2'>
           {label && (
-            <Label className='mb-1'>
+            <Label className='text-sm font-medium text-gray-700'>
               {label}
-              {required && <span className='text-red-500'> *</span>}
+              {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
           <DatePicker
@@ -87,7 +90,7 @@ const FormField = (props: FormFieldProps) => {
             placeholder={placeholder ?? 'Select date'}
             disabled={readOnly}
           />
-          {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+          {error && <p className='text-sm text-red-600'>{error}</p>}
         </div>
       );
     }
@@ -100,15 +103,21 @@ const FormField = (props: FormFieldProps) => {
           control={control}
           name={registerName}
           render={({ field }) => (
-            <div className='mb-4'>
+            <div className='space-y-2'>
               {label && (
-                <Label htmlFor={registerName} className='mb-1'>
+                <Label
+                  htmlFor={registerName}
+                  className='text-sm font-medium text-gray-700'
+                >
                   {label}
-                  {required && <span className='text-red-500'> *</span>}
+                  {required && <span className='text-red-500 ml-1'>*</span>}
                 </Label>
               )}
               <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id={registerName} className='w-full'>
+                <SelectTrigger
+                  id={registerName}
+                  className='w-full h-10 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200'
+                >
                   <SelectValue
                     placeholder={placeholder ?? 'Select an option'}
                   />
@@ -121,7 +130,7 @@ const FormField = (props: FormFieldProps) => {
                   ))}
                 </SelectContent>
               </Select>
-              {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+              {error && <p className='text-sm text-red-600'>{error}</p>}
             </div>
           )}
         />
@@ -138,15 +147,15 @@ const FormField = (props: FormFieldProps) => {
       const selectedValue = register && registerName ? undefined : value ?? '';
 
       return (
-        <div className='mb-4'>
+        <div className='space-y-2'>
           {label && (
-            <Label className='mb-1'>
+            <Label className='text-sm font-medium text-gray-700'>
               {label}
-              {required && <span className='text-red-500'> *</span>}
+              {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger className='w-full'>
+            <SelectTrigger className='w-full h-10 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200'>
               <SelectValue placeholder={placeholder ?? 'Select an option'} />
             </SelectTrigger>
             <SelectContent>
@@ -157,7 +166,7 @@ const FormField = (props: FormFieldProps) => {
               ))}
             </SelectContent>
           </Select>
-          {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+          {error && <p className='text-sm text-red-600'>{error}</p>}
         </div>
       );
     }
@@ -178,11 +187,11 @@ const FormField = (props: FormFieldProps) => {
         };
 
   return (
-    <div className='mb-4'>
+    <div className='space-y-2'>
       {label && (
-        <Label className='mb-1'>
+        <Label className='text-sm font-medium text-gray-700'>
           {label}
-          {required && <span className='text-red-500'> *</span>}
+          {required && <span className='text-red-500 ml-1'>*</span>}
         </Label>
       )}
       {type === 'textarea' ? (
@@ -190,6 +199,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
+          className='bg-white border-gray-300 focus:border-gray-500 focus:ring-gray-500 resize-vertical'
           {...commonInputProps}
         />
       ) : (
@@ -197,10 +207,11 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           readOnly={readOnly}
           type={type}
+          className='bg-white border-gray-300 focus:border-gray-500 focus:ring-gray-500'
           {...commonInputProps}
         />
       )}
-      {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+      {error && <p className='text-sm text-red-600'>{error}</p>}
     </div>
   );
 };

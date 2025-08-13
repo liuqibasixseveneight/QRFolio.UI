@@ -30,7 +30,7 @@ export const useGetProfile = (
   const { data, loading, error } = useQuery<
     GetProfileData,
     GetProfileVariables
-  >(GET_PROFILE, { variables: { id } });
+  >(GET_PROFILE, { fetchPolicy: 'network-only', variables: { id } });
 
   return [data, { loading, error }];
 };
