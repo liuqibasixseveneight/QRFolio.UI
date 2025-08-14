@@ -10,7 +10,7 @@ const Label = ({
     <LabelPrimitive.Root
       data-slot='label'
       className={cn(
-        'text-sm font-medium leading-none select-none text-gray-700',
+        'text-sm font-semibold leading-none select-none text-gray-800 tracking-wide',
         'peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
         className
       )}

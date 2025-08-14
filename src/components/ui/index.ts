@@ -106,3 +106,5 @@ export {
   Textarea,
   TimelineItem,
 };
+
+export * from './molecules/PhoneInput';

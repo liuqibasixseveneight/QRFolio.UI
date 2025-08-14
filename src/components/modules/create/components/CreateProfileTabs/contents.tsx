@@ -1,9 +1,9 @@
 import { FormField, DynamicFieldSection } from '@/components/ui';
 import type { ContentsItem } from '@/components/ui/organisms';
 import {
+  workExperienceConfig,
   educationConfig,
   languageConfig,
-  workExperienceConfig,
 } from '../../pages/fieldConfigs';
 import type { contentsProps } from './types';
 
@@ -35,66 +35,98 @@ export const contents = ({
     {
       value: 'introduction',
       content: (
-        <section className='space-y-6'>
-          <div className='border-b border-gray-200 pb-4'>
-            <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
-              Personal Information
+        <section className='space-y-8'>
+          <div>
+            <h2 className='text-2xl font-bold text-gray-800 mb-4'>
+              Introduction
             </h2>
-            <p className='text-gray-600 mt-2'>
-              Start with your basic contact information and professional
-              summary.
+            <p className='text-gray-600 mb-6'>
+              Start with your basic information and professional summary.
             </p>
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <FormField
               label='Full Name'
+              type='input'
               register={register}
               registerName='fullName'
+              placeholder='Enter your full name'
               error={errors.fullName?.message}
               required
             />
+
             <FormField
               label='Email'
+              type='input'
               register={register}
               registerName='email'
+              placeholder='Enter your email address'
               error={errors.email?.message}
               required
             />
+
             <FormField
-              label='Phone'
-              register={register}
+              label='Phone Number'
+              type='phone'
+              control={control}
               registerName='phone'
               error={errors.phone?.message}
+              required
             />
+
             <FormField
-              label='LinkedIn'
+              label='LinkedIn Profile'
+              type='input'
               register={register}
               registerName='linkedin'
+              placeholder='Enter your LinkedIn URL'
               error={errors.linkedin?.message}
             />
+
             <FormField
-              label='Portfolio/Website'
+              label='Portfolio Website'
+              type='input'
               register={register}
               registerName='portfolio'
+              placeholder='Enter your portfolio URL'
               error={errors.portfolio?.message}
             />
-          </div>
 
-          <div className='pt-4'>
+            <FormField
+              label='Availability Status'
+              type='select'
+              register={register}
+              registerName='availability'
+              error={errors.availability?.message}
+              options={[
+                {
+                  value: 'AVAILABLE',
+                  label: 'Available - Open to new opportunities',
+                },
+                {
+                  value: 'OPEN_TO_OPPORTUNITIES',
+                  label:
+                    'Open to Opportunities - Selectively considering offers',
+                },
+                {
+                  value: 'NOT_AVAILABLE',
+                  label: 'Not Available - Currently not accepting offers',
+                },
+              ]}
+              required
+            />
+
             <FormField
               label='Professional Summary'
               type='textarea'
-              rows={8}
               register={register}
               registerName='professionalSummary'
+              placeholder='Tell us about yourself professionally...'
               error={errors.professionalSummary?.message}
+              rows={4}
               required
             />
-            <p className='text-sm text-gray-500 mt-2'>
-              Write a compelling summary of your professional background,
-              skills, and career objectives.
-            </p>
           </div>
         </section>
       ),

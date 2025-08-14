@@ -52,10 +52,16 @@ const EditProfile = () => {
     defaultValues: {
       fullName: '',
       email: '',
-      phone: '',
+      phone: {
+        countryCode: 'GB',
+        dialCode: '+44',
+        number: '',
+        flag: '🇬🇧',
+      },
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
+      availability: 'AVAILABLE',
       workExperience: [EMPTY_WORK_ENTRY],
       education: [EMPTY_EDU_ENTRY],
       languages: [EMPTY_LANGUAGE_ENTRY],
@@ -131,7 +137,11 @@ const EditProfile = () => {
   };
 
   if (loadingProfile && !profile) {
-    return <LoadingSpinner />;
+    return (
+      <div className='flex items-center justify-center min-h-screen'>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   const tabContents = contents({
@@ -174,21 +184,25 @@ const EditProfile = () => {
   });
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className='space-y-10 mt-8'
-    >
-      <TabbedSections
-        tabs={tabs}
-        contents={tabContents}
-        defaultValue={tabs?.[0]?.value}
-      />
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className='space-y-8'>
+      {/* Tabs Section */}
+      <div className='bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 hover:shadow-md hover:border-gray-300 transition-all duration-300'>
+        <TabbedSections
+          tabs={tabs}
+          contents={tabContents}
+          defaultValue={tabs?.[0]?.value}
+        />
+      </div>
+
+      {/* Error Display */}
       <ErrorDisplay errors={submissionErrors} />
-      <div className='flex justify-end'>
+
+      {/* Submit Button */}
+      <div className='flex justify-end pt-4'>
         <Button
           type='submit'
           size='lg'
-          className='bg-neutral-900 text-white px-5 py-3 rounded-md hover:bg-neutral-800 transition'
+          className='bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95 shadow-lg hover:shadow-indigo-500/50 border border-indigo-500/20 cursor-pointer'
           disabled={updating}
         >
           Save Changes

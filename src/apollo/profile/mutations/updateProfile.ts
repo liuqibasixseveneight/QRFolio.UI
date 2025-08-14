@@ -6,11 +6,12 @@ const UPDATE_PROFILE = gql`
   mutation updateProfile(
     $id: ID!
     $fullName: String
-    $phone: String
+    $phone: JSON
     $email: String
     $linkedin: String
     $portfolio: String
     $professionalSummary: String
+    $availability: Availability
     $workExperience: JSON
     $education: JSON
     $languages: JSON
@@ -23,6 +24,7 @@ const UPDATE_PROFILE = gql`
       linkedin: $linkedin
       portfolio: $portfolio
       professionalSummary: $professionalSummary
+      availability: $availability
       workExperience: $workExperience
       education: $education
       languages: $languages
@@ -34,6 +36,7 @@ const UPDATE_PROFILE = gql`
       linkedin
       portfolio
       professionalSummary
+      availability
       workExperience
       education
       languages

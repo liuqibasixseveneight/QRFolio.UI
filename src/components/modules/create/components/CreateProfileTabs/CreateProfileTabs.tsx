@@ -45,11 +45,17 @@ const CreateProfileTabs = () => {
     resolver: zodResolver(introSchema),
     defaultValues: {
       fullName: '',
-      phone: '',
+      phone: {
+        countryCode: 'GB',
+        dialCode: '+44',
+        number: '',
+        flag: '🇬🇧',
+      },
       email: '',
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
+      availability: 'AVAILABLE',
       workExperience: [EMPTY_WORK_ENTRY],
       education: [EMPTY_EDU_ENTRY],
       languages: [EMPTY_LANGUAGE_ENTRY],
@@ -150,30 +156,48 @@ const CreateProfileTabs = () => {
   });
 
   return (
-    <main className='min-h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-gray-900 font-sans flex flex-col'>
+    <main className='min-h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-gray-900 font-sans relative'>
+      {/* Subtle background elements */}
+      <div className='fixed inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-100/30 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-50/40 rounded-full blur-3xl'></div>
+      </div>
+
       {/* Header Section */}
-      <header className='w-full border-b border-gray-200 bg-white/80 backdrop-blur-lg px-6 sm:px-8 xl:px-12 2xl:px-20 py-12 sm:py-16 text-left'>
-        <div className='max-w-4xl mx-auto'>
-          <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900 mb-4'>
-            Create Your Profile
-          </h1>
-          <p className='text-base sm:text-lg text-gray-600 leading-relaxed max-w-3xl'>
-            Build your professional profile by filling out the sections below.
-            This information will be used to generate your personalized QR code
-            and resume.
-          </p>
+      <header className='relative w-full overflow-hidden bg-white border-b border-gray-200'>
+        {/* Background with subtle gradient overlay */}
+        <div className='absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-indigo-100/50'></div>
+
+        {/* Subtle background elements */}
+        <div className='absolute inset-0 overflow-hidden'>
+          <div className='absolute -top-40 -right-40 w-80 h-80 bg-indigo-100/20 rounded-full blur-3xl'></div>
+          <div className='absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-50/30 rounded-full blur-3xl'></div>
+        </div>
+
+        {/* Content */}
+        <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-16 sm:py-20 lg:py-24 xl:py-32'>
+          <div className='max-w-7xl mx-auto'>
+            <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-gray-900 mb-6 sm:mb-8'>
+              Create Your Profile
+            </h1>
+            <p className='text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed font-light max-w-4xl'>
+              Build your professional profile by filling out the sections below.
+              This information will be used to generate your personalized QR
+              code and resume.
+            </p>
+          </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className='flex-1 px-6 sm:px-8 xl:px-12 2xl:px-20 py-8 sm:py-10'>
+      <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-8 xl:py-12'>
         <div className='max-w-4xl mx-auto'>
           <form
             onSubmit={handleSubmit(onSubmit, onInvalid)}
             className='space-y-8'
           >
             {/* Tabs Section */}
-            <div className='bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8'>
+            <div className='bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 hover:shadow-md hover:border-gray-300 transition-all duration-300'>
               <TabbedSections
                 tabs={tabs}
                 contents={tabContents}
@@ -189,7 +213,7 @@ const CreateProfileTabs = () => {
               <Button
                 type='submit'
                 size='lg'
-                className='bg-neutral-900 text-white px-6 py-3 rounded-lg hover:bg-neutral-800 transition-all duration-200 shadow-sm hover:shadow-md font-medium text-base'
+                className='bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95 shadow-lg hover:shadow-indigo-500/50 border border-indigo-500/20 cursor-pointer'
               >
                 Generate Resume
               </Button>

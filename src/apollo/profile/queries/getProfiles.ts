@@ -12,6 +12,7 @@ const GET_PROFILES = gql`
       linkedin
       portfolio
       professionalSummary
+      availability
       workExperience
       education
       languages

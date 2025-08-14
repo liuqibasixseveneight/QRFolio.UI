@@ -23,13 +23,26 @@ export type Language = {
   fluencyLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Fluent' | 'Native';
 };
 
+export type Availability =
+  | 'AVAILABLE'
+  | 'OPEN_TO_OPPORTUNITIES'
+  | 'NOT_AVAILABLE';
+
+export interface PhoneNumber {
+  countryCode: string;
+  dialCode: string;
+  number: string;
+  flag: string;
+}
+
 export interface BaseProfile {
   fullName: string;
-  phone?: string;
+  phone?: PhoneNumber;
   email: string;
   linkedin?: string;
   portfolio?: string;
   professionalSummary: string;
+  availability: Availability;
   workExperience?: WorkExperience[];
   education?: Education[];
   languages?: Language[];

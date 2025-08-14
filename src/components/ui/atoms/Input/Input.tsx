@@ -16,7 +16,7 @@ const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
         type={inputType}
         data-slot='input'
         className={cn(
-          'flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 pr-10 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200',
+          'flex h-11 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-10 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300',
           className
         )}
         {...props}
@@ -25,7 +25,7 @@ const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
         <button
           type='button'
           onClick={() => setShowPassword((prev) => !prev)}
-          className='absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700 transition-colors duration-200'
+          className='absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700 transition-colors duration-300'
           aria-label={showPassword ? 'Hide password' : 'Show password'}
           tabIndex={-1}
         >

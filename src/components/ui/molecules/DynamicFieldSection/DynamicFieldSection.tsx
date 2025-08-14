@@ -1,4 +1,5 @@
 import type { FieldValues, Path } from 'react-hook-form';
+import type { MouseEvent, ReactNode } from 'react';
 import { useWatch } from 'react-hook-form';
 // @ts-expect-error lodash import error
 import get from 'lodash/get';
@@ -56,7 +57,7 @@ const DynamicFieldSection = <T extends FieldValues>({
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const handleRemove = (index: number, e: React.MouseEvent) => {
+  const handleRemove = (index: number, e: MouseEvent) => {
     e.stopPropagation();
     onRemove(index);
     if (activeIndex === index) {
@@ -99,7 +100,7 @@ const DynamicFieldSection = <T extends FieldValues>({
         const isActive = activeIndex === index;
 
         // Generate a meaningful display title based on the section type and available data
-        let displayTitle: string | React.ReactNode;
+        let displayTitle: string | ReactNode;
 
         if (titleField) {
           const titleValue = get(fields?.[index], titleField as string, '');

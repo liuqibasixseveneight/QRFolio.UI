@@ -11,23 +11,49 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../Select';
+import { PhoneInput } from '../PhoneInput';
 
 const FormField = (props: FormFieldProps) => {
   const {
     label,
     type = 'input',
-    placeholder,
-    rows,
-    value,
-    onChange,
-    error,
     register,
     registerName,
-    readOnly = false,
-    options = [],
     control,
+    placeholder,
+    rows,
+    readOnly,
     required,
+    error,
+    options = [],
+    onPhoneChange,
+    value,
+    onChange,
   } = props;
+
+  if (type === 'phone') {
+    if (control && registerName) {
+      return (
+        <Controller
+          control={control}
+          name={registerName}
+          render={({ field }) => (
+            <PhoneInput
+              label={label}
+              value={field.value}
+              onChange={(phoneData) => {
+                // The PhoneInput component now returns the full phone data structure
+                field.onChange(phoneData);
+                onPhoneChange?.(phoneData);
+              }}
+              error={error}
+              required={required}
+            />
+          )}
+        />
+      );
+    }
+  }
 
   if (type === 'date') {
     if (control && registerName) {
@@ -39,11 +65,11 @@ const FormField = (props: FormFieldProps) => {
             const dateObj = field.value ? parseISO(field.value) : undefined;
 
             return (
-              <div className='space-y-2'>
+              <div className='space-y-3'>
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm font-medium text-gray-700'
+                    className='text-sm font-semibold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
@@ -61,7 +87,9 @@ const FormField = (props: FormFieldProps) => {
                   placeholder={placeholder ?? 'Select date'}
                   disabled={readOnly}
                 />
-                {error && <p className='text-sm text-red-600'>{error}</p>}
+                {error && (
+                  <p className='text-sm text-red-600 font-medium'>{error}</p>
+                )}
               </div>
             );
           }}
@@ -71,9 +99,9 @@ const FormField = (props: FormFieldProps) => {
       const dateObj = value ? parseISO(value) : undefined;
 
       return (
-        <div className='space-y-2'>
+        <div className='space-y-3'>
           {label && (
-            <Label className='text-sm font-medium text-gray-700'>
+            <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
               {label}
               {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
@@ -90,7 +118,7 @@ const FormField = (props: FormFieldProps) => {
             placeholder={placeholder ?? 'Select date'}
             disabled={readOnly}
           />
-          {error && <p className='text-sm text-red-600'>{error}</p>}
+          {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
         </div>
       );
     }
@@ -103,11 +131,11 @@ const FormField = (props: FormFieldProps) => {
           control={control}
           name={registerName}
           render={({ field }) => (
-            <div className='space-y-2'>
+            <div className='space-y-3'>
               {label && (
                 <Label
                   htmlFor={registerName}
-                  className='text-sm font-medium text-gray-700'
+                  className='text-sm font-semibold text-gray-800 tracking-wide'
                 >
                   {label}
                   {required && <span className='text-red-500 ml-1'>*</span>}
@@ -116,7 +144,7 @@ const FormField = (props: FormFieldProps) => {
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger
                   id={registerName}
-                  className='w-full h-10 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200'
+                  className='w-full h-11 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'
                 >
                   <SelectValue
                     placeholder={placeholder ?? 'Select an option'}
@@ -130,7 +158,9 @@ const FormField = (props: FormFieldProps) => {
                   ))}
                 </SelectContent>
               </Select>
-              {error && <p className='text-sm text-red-600'>{error}</p>}
+              {error && (
+                <p className='text-sm text-red-600 font-medium'>{error}</p>
+              )}
             </div>
           )}
         />
@@ -147,15 +177,15 @@ const FormField = (props: FormFieldProps) => {
       const selectedValue = register && registerName ? undefined : value ?? '';
 
       return (
-        <div className='space-y-2'>
+        <div className='space-y-3'>
           {label && (
-            <Label className='text-sm font-medium text-gray-700'>
+            <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
               {label}
               {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger className='w-full h-10 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-200'>
+            <SelectTrigger className='w-full h-11 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'>
               <SelectValue placeholder={placeholder ?? 'Select an option'} />
             </SelectTrigger>
             <SelectContent>
@@ -166,7 +196,7 @@ const FormField = (props: FormFieldProps) => {
               ))}
             </SelectContent>
           </Select>
-          {error && <p className='text-sm text-red-600'>{error}</p>}
+          {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
         </div>
       );
     }
@@ -187,9 +217,9 @@ const FormField = (props: FormFieldProps) => {
         };
 
   return (
-    <div className='space-y-2'>
+    <div className='space-y-3'>
       {label && (
-        <Label className='text-sm font-medium text-gray-700'>
+        <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
           {label}
           {required && <span className='text-red-500 ml-1'>*</span>}
         </Label>
@@ -199,7 +229,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
-          className='bg-white border-gray-300 focus:border-gray-500 focus:ring-gray-500 resize-vertical'
+          className='bg-white border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 resize-vertical transition-all duration-300 hover:border-gray-300'
           {...commonInputProps}
         />
       ) : (
@@ -207,11 +237,11 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           readOnly={readOnly}
           type={type}
-          className='bg-white border-gray-300 focus:border-gray-500 focus:ring-gray-500'
+          className='bg-white border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-300 hover:border-gray-300'
           {...commonInputProps}
         />
       )}
-      {error && <p className='text-sm text-red-600'>{error}</p>}
+      {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
     </div>
   );
 };
