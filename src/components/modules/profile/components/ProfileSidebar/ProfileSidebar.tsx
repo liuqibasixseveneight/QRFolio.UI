@@ -31,20 +31,20 @@ const ProfileSidebar = ({
       case 'open':
         return {
           text: 'Open',
-          bgColor: 'from-amber-50 to-amber-100',
-          borderColor: 'border-amber-200',
-          textColor: 'text-amber-800',
-          statusColor: 'text-amber-600',
-          dotColor: 'bg-amber-500',
+          bgColor: 'from-blue-50 to-blue-100',
+          borderColor: 'border-blue-200',
+          textColor: 'text-blue-800',
+          statusColor: 'text-blue-600',
+          dotColor: 'bg-blue-500',
         };
       case 'unavailable':
         return {
           text: 'Unavailable',
-          bgColor: 'from-red-50 to-red-100',
-          borderColor: 'border-red-200',
-          textColor: 'text-red-800',
-          statusColor: 'text-red-600',
-          dotColor: 'bg-red-500',
+          bgColor: 'from-gray-50 to-gray-100',
+          borderColor: 'border-gray-200',
+          textColor: 'text-gray-800',
+          statusColor: 'text-gray-600',
+          dotColor: 'bg-gray-500',
         };
       default:
         return {
@@ -84,18 +84,12 @@ const ProfileSidebar = ({
       >
         <div className='text-center space-y-4'>
           <div
-            className={`text-2xl font-bold ${availabilityConfig.textColor} mb-2 flex items-center justify-center space-x-2`}
+            className={`text-2xl font-bold ${availabilityConfig.textColor} mb-2 flex items-center justify-center`}
           >
             <div
-              className={`w-3 h-3 ${availabilityConfig.dotColor} rounded-full`}
+              className={`w-3 h-3 ${availabilityConfig.dotColor} rounded-full mr-2`}
             ></div>
             <span>{availabilityConfig.text}</span>
-          </div>
-
-          {/* Last Updated */}
-          <div className='flex items-center justify-center space-x-2 text-xs text-gray-500 pt-2 border-t border-gray-200'>
-            <Calendar className='w-3 h-3' />
-            <span>Updated recently</span>
           </div>
         </div>
       </div>
