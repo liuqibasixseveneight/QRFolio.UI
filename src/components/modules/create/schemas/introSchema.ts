@@ -18,12 +18,9 @@ export const introSchema = z.object({
   linkedin: z.string().optional(),
   portfolio: z.string().optional(),
   professionalSummary: z.string().min(1, 'Professional summary required'),
-  availability: z.enum(
-    ['AVAILABLE', 'OPEN_TO_OPPORTUNITIES', 'NOT_AVAILABLE'],
-    {
-      required_error: 'Please select your availability status',
-    }
-  ),
+  availability: z.enum(['available', 'open', 'unavailable'], {
+    required_error: 'Please select your availability status',
+  }),
   workExperience: z.array(workExperienceSchema),
   education: z.array(educationSchema),
   languages: z.array(languageSchema),

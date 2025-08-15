@@ -61,7 +61,7 @@ const EditProfile = () => {
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
-      availability: 'AVAILABLE',
+      availability: 'available',
       workExperience: [EMPTY_WORK_ENTRY],
       education: [EMPTY_EDU_ENTRY],
       languages: [EMPTY_LANGUAGE_ENTRY],
@@ -115,9 +115,15 @@ const EditProfile = () => {
   };
 
   const onSubmit = async (data: CVFormValues) => {
+    console.log('Form submitted with data:', data);
     const cleanedData = removeEmptyEntries(data);
+    console.log('Cleaned data:', cleanedData);
 
     try {
+      console.log('Calling updateProfile with:', {
+        id: userId || '',
+        ...cleanedData,
+      });
       await updateProfile({
         id: userId || '',
         ...cleanedData,
@@ -125,6 +131,7 @@ const EditProfile = () => {
 
       navigate(`/profile/${userId}` || routes?.DASHBOARD);
     } catch (err) {
+      console.error('Form submission error:', err);
       setSubmissionErrors([
         'Failed to update profile. Please try again later.',
       ]);
@@ -133,6 +140,7 @@ const EditProfile = () => {
   };
 
   const onInvalid = (errors: FieldErrors<CVFormValues>) => {
+    console.log('Form validation errors:', errors);
     setSubmissionErrors(flattenErrors(errors));
   };
 

@@ -23,10 +23,7 @@ export type Language = {
   fluencyLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Fluent' | 'Native';
 };
 
-export type Availability =
-  | 'AVAILABLE'
-  | 'OPEN_TO_OPPORTUNITIES'
-  | 'NOT_AVAILABLE';
+export type Availability = 'available' | 'open' | 'unavailable';
 
 export interface PhoneNumber {
   countryCode: string;

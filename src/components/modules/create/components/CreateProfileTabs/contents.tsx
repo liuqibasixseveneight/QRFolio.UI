@@ -101,16 +101,16 @@ export const contents = ({
               error={errors.availability?.message}
               options={[
                 {
-                  value: 'AVAILABLE',
+                  value: 'available',
                   label: 'Available - Open to new opportunities',
                 },
                 {
-                  value: 'OPEN_TO_OPPORTUNITIES',
+                  value: 'open',
                   label:
                     'Open to Opportunities - Selectively considering offers',
                 },
                 {
-                  value: 'NOT_AVAILABLE',
+                  value: 'unavailable',
                   label: 'Not Available - Currently not accepting offers',
                 },
               ]}

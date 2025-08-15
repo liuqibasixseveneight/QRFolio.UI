@@ -19,7 +19,7 @@ const ProfileSidebar = ({
 }: ProfileSidebarProps) => {
   const getAvailabilityConfig = (status?: string) => {
     switch (status) {
-      case 'AVAILABLE':
+      case 'available':
         return {
           text: 'Open to new opportunities',
           bgColor: 'from-green-50 to-green-100',
@@ -28,7 +28,7 @@ const ProfileSidebar = ({
           statusColor: 'text-green-600',
           dotColor: 'bg-green-500',
         };
-      case 'OPEN_TO_OPPORTUNITIES':
+      case 'open':
         return {
           text: 'Selectively considering offers',
           bgColor: 'from-amber-50 to-amber-100',
@@ -37,7 +37,7 @@ const ProfileSidebar = ({
           statusColor: 'text-amber-600',
           dotColor: 'bg-amber-500',
         };
-      case 'NOT_AVAILABLE':
+      case 'unavailable':
         return {
           text: 'Currently not accepting offers',
           bgColor: 'from-red-50 to-red-100',
@@ -58,7 +58,7 @@ const ProfileSidebar = ({
     }
   };
 
-  const displayAvailability = availability || 'AVAILABLE';
+  const displayAvailability = availability || 'available';
   const availabilityConfig = getAvailabilityConfig(availability);
 
   // Helper function to format phone display

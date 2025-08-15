@@ -55,7 +55,7 @@ const CreateProfileTabs = () => {
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
-      availability: 'AVAILABLE',
+      availability: 'available',
       workExperience: [EMPTY_WORK_ENTRY],
       education: [EMPTY_EDU_ENTRY],
       languages: [EMPTY_LANGUAGE_ENTRY],
