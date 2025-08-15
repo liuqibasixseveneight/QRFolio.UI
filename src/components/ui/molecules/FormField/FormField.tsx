@@ -69,7 +69,7 @@ const FormField = (props: FormFieldProps) => {
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm font-semibold text-gray-800 tracking-wide'
+                    className='text-sm font-bold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
@@ -88,7 +88,7 @@ const FormField = (props: FormFieldProps) => {
                   disabled={readOnly}
                 />
                 {error && (
-                  <p className='text-sm text-red-600 font-medium'>{error}</p>
+                  <p className='text-sm text-red-600 font-semibold'>{error}</p>
                 )}
               </div>
             );
@@ -101,7 +101,7 @@ const FormField = (props: FormFieldProps) => {
       return (
         <div className='space-y-3'>
           {label && (
-            <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
+            <Label className='text-sm font-bold text-gray-800 tracking-wide'>
               {label}
               {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
@@ -118,7 +118,9 @@ const FormField = (props: FormFieldProps) => {
             placeholder={placeholder ?? 'Select date'}
             disabled={readOnly}
           />
-          {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
+          {error && (
+            <p className='text-sm text-red-600 font-semibold'>{error}</p>
+          )}
         </div>
       );
     }
@@ -136,7 +138,7 @@ const FormField = (props: FormFieldProps) => {
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm font-semibold text-gray-800 tracking-wide'
+                    className='text-sm font-bold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
@@ -149,7 +151,7 @@ const FormField = (props: FormFieldProps) => {
                 >
                   <SelectTrigger
                     id={registerName}
-                    className='w-full h-11 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'
+                    className='w-full h-11 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-2.5 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md'
                   >
                     <SelectValue
                       placeholder={placeholder ?? 'Select an option'}
@@ -164,7 +166,7 @@ const FormField = (props: FormFieldProps) => {
                   </SelectContent>
                 </Select>
                 {error && (
-                  <p className='text-sm text-red-600 font-medium'>{error}</p>
+                  <p className='text-sm text-red-600 font-semibold'>{error}</p>
                 )}
               </div>
             );
@@ -185,13 +187,13 @@ const FormField = (props: FormFieldProps) => {
       return (
         <div className='space-y-3'>
           {label && (
-            <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
+            <Label className='text-sm font-bold text-gray-800 tracking-wide'>
               {label}
               {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger className='w-full h-11 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'>
+            <SelectTrigger className='w-full h-11 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-2.5 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md'>
               <SelectValue placeholder={placeholder ?? 'Select an option'} />
             </SelectTrigger>
             <SelectContent>
@@ -202,7 +204,9 @@ const FormField = (props: FormFieldProps) => {
               ))}
             </SelectContent>
           </Select>
-          {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
+          {error && (
+            <p className='text-sm text-red-600 font-semibold'>{error}</p>
+          )}
         </div>
       );
     }
@@ -225,7 +229,7 @@ const FormField = (props: FormFieldProps) => {
   return (
     <div className='space-y-3'>
       {label && (
-        <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
+        <Label className='text-sm font-bold text-gray-800 tracking-wide'>
           {label}
           {required && <span className='text-red-500 ml-1'>*</span>}
         </Label>
@@ -235,7 +239,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
-          className='bg-white border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 resize-vertical transition-all duration-300 hover:border-gray-300'
+          className='bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 resize-vertical transition-all duration-200 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md rounded-xl'
           {...commonInputProps}
         />
       ) : (
@@ -243,11 +247,11 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           readOnly={readOnly}
           type={type}
-          className='bg-white border-gray-200 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-300 hover:border-gray-300'
+          className='bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-200 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md rounded-xl h-11'
           {...commonInputProps}
         />
       )}
-      {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
+      {error && <p className='text-sm text-red-600 font-semibold'>{error}</p>}
     </div>
   );
 };

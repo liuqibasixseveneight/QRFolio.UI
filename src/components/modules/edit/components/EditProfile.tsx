@@ -46,7 +46,6 @@ const EditProfile = () => {
     resolver: zodResolver(introSchema),
     defaultValues: {
       fullName: '',
-      email: '',
       phone: undefined,
       linkedin: '',
       portfolio: '',
@@ -209,21 +208,24 @@ const EditProfile = () => {
 
   if (loadingProfile && !profile) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <LoadingSpinner />
-      </div>
+      <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center'>
+        <div className='text-center'>
+          <LoadingSpinner />
+          <p className='mt-4 text-gray-600 text-lg'>Loading profile data...</p>
+        </div>
+      </main>
     );
   }
 
   // Don't render the form until we have profile data
   if (!profile) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
+      <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center'>
         <div className='text-center'>
           <LoadingSpinner />
-          <p className='mt-4 text-gray-600'>Loading profile data...</p>
+          <p className='mt-4 text-gray-600 text-lg'>Loading profile data...</p>
         </div>
-      </div>
+      </main>
     );
   }
 
@@ -274,31 +276,88 @@ const EditProfile = () => {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className='space-y-8'>
-      {/* Tabs Section */}
-      <div className='bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 hover:shadow-md hover:border-gray-300 transition-all duration-300'>
-        <TabbedSections
-          tabs={tabs}
-          contents={tabContents}
-          defaultValue={tabs?.[0]?.value}
-        />
+    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-gray-900 font-sans'>
+      {/* Subtle background elements */}
+      <div className='fixed inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
       </div>
 
-      {/* Error Display */}
-      <ErrorDisplay errors={submissionErrors} />
+      {/* Header Section */}
+      <header className='relative w-full bg-white/90 backdrop-blur-sm border-b border-gray-200/50'>
+        <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20'>
+          <div className='max-w-7xl mx-auto'>
+            <div className='text-center max-w-5xl mx-auto'>
+              <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-gray-900 mb-4 sm:mb-6'>
+                Edit Your Profile
+              </h1>
+              <p className='text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-4xl mx-auto'>
+                Update your professional profile information below. All changes
+                will be saved automatically when you submit.
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-      {/* Submit Button */}
-      <div className='flex justify-end pt-4'>
-        <Button
-          type='submit'
-          size='lg'
-          className='bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95 shadow-lg hover:shadow-indigo-500/50 border border-indigo-500/20 cursor-pointer'
-          disabled={updating}
-        >
-          Save Changes
-        </Button>
+      {/* Main Content */}
+      <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
+        <div className='max-w-6xl mx-auto'>
+          <form
+            onSubmit={handleSubmit(onSubmit, onInvalid)}
+            className='space-y-6'
+          >
+            {/* Tabs Section */}
+            <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-4 sm:p-6 lg:p-8'>
+              <TabbedSections
+                tabs={tabs}
+                contents={tabContents}
+                defaultValue={tabs?.[0]?.value}
+              />
+            </div>
+
+            {/* Error Display */}
+            <ErrorDisplay errors={submissionErrors} />
+
+            {/* Submit Button */}
+            <div className='flex justify-center pt-4'>
+              <Button
+                type='submit'
+                size='lg'
+                disabled={updating}
+                className='bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 active:scale-[0.98] shadow-lg hover:shadow-xl'
+              >
+                <span className='flex items-center gap-3'>
+                  {updating ? (
+                    <>
+                      <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                      Saving Changes...
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className='w-6 h-6'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth={2}
+                          d='M5 13l4 4L19 7'
+                        />
+                      </svg>
+                      Save Changes
+                    </>
+                  )}
+                </span>
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
+    </main>
   );
 };
 

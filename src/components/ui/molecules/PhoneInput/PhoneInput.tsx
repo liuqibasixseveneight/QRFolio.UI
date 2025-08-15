@@ -215,19 +215,19 @@ export const PhoneInput = ({
   return (
     <div className='space-y-3'>
       {label && (
-        <Label className='text-sm font-semibold text-gray-800 tracking-wide'>
+        <Label className='text-sm font-bold text-gray-800 tracking-wide'>
           {label}
           {required && <span className='text-red-500 ml-1'>*</span>}
         </Label>
       )}
-      <div className='flex space-x-2'>
+      <div className='flex space-x-3'>
         <Select
           value={selectedCountry.code}
           onValueChange={handleCountryChange}
         >
-          <SelectTrigger className='w-48 h-11 rounded-xl border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'>
+          <SelectTrigger className='w-48 h-11 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-2.5 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md'>
             <SelectValue>
-              <span className='text-sm font-medium'>
+              <span className='text-sm font-semibold'>
                 {selectedCountry.name} {selectedCountry.dialCode}
               </span>
             </SelectValue>
@@ -247,10 +247,10 @@ export const PhoneInput = ({
           placeholder='Enter phone number'
           value={phoneNumber}
           onChange={handlePhoneChange}
-          className='flex-1'
+          className='flex-1 h-11 rounded-xl bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-200 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md'
         />
       </div>
-      {error && <p className='text-sm text-red-600 font-medium'>{error}</p>}
+      {error && <p className='text-sm text-red-600 font-semibold'>{error}</p>}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const DatePicker = ({
       <PopoverTrigger asChild>
         <Button
           variant='outline'
-          className='w-full justify-between font-normal h-10 rounded-lg border-gray-300 bg-white text-gray-900 hover:bg-gray-50 hover:text-gray-900 focus:border-gray-500 focus:ring-2 focus:ring-gray-500'
+          className='w-full justify-between font-semibold h-12 rounded-2xl border-gray-200/50 bg-white/95 backdrop-blur-sm text-gray-900 hover:bg-white hover:border-gray-300/70 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-300 shadow-sm hover:shadow-md'
           disabled={disabled}
         >
           {date ? format(date, 'MMMM dd, yyyy') : placeholder}

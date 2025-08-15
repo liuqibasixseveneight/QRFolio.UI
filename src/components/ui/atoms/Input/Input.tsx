@@ -16,7 +16,7 @@ const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
         type={inputType}
         data-slot='input'
         className={cn(
-          'flex h-11 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-10 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300',
+          'flex h-12 w-full rounded-2xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 pr-10 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300/70 hover:bg-white shadow-sm hover:shadow-md',
           className
         )}
         {...props}

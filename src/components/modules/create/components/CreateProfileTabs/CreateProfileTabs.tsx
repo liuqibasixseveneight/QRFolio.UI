@@ -100,61 +100,32 @@ const CreateProfileTabs = () => {
     setIndex(fieldsLength);
   };
 
-  const onSubmit = async (data: CVFormValues) => {
+  const handleButtonClick = async () => {
     try {
-      const result = await createProfile({
+      const formData = {
         id: userId || '',
-        fullName: data.fullName,
-        email: data.email,
-        professionalSummary: data.professionalSummary,
-        availability: data.availability,
-        phone: data.phone,
-        linkedin: data.linkedin,
-        portfolio: data.portfolio,
-        workExperience: data.workExperience.filter(
-          (entry) =>
-            entry.jobTitle &&
-            entry.companyName &&
-            entry.location &&
-            entry.dateFrom &&
-            entry.dateTo &&
-            entry.responsibilities
-        ),
-        education: data.education.filter(
-          (entry) =>
-            entry.schoolName &&
-            entry.degree &&
-            entry.fieldOfStudy &&
-            entry.dateFrom &&
-            entry.dateTo &&
-            entry.description
-        ),
-        languages: data.languages.filter(
-          (entry) => entry.language && entry.fluencyLevel
-        ),
-      });
+        fullName: '',
+        phone: undefined,
+        email: '',
+        linkedin: '',
+        portfolio: '',
+        professionalSummary: '',
+        availability: 'available' as const,
+        workExperience: [],
+        education: [],
+        languages: [],
+      };
 
-      if (result && !loading) {
-        navigate(routes?.PROFILE_CREATED);
-      } else {
-        setSubmissionErrors([
-          'Something went wrong while creating your profile.',
-        ]);
+      const result = await createProfile(formData);
+
+      if (result?.createProfile?.id) {
+        navigate(`/profile/${result.createProfile.id}`);
       }
     } catch (err) {
       setSubmissionErrors([
-        'Failed to submit profile. Please try again later.',
+        'Failed to create profile. Please try again later.',
       ]);
     }
-  };
-
-  const handleButtonClick = () => {
-    // Trigger form submission
-    handleSubmit(onSubmit, onInvalid)();
-  };
-
-  const onInvalid = (errors: FieldErrors<CVFormValues>) => {
-    setSubmissionErrors(flattenErrors(errors));
   };
 
   const tabContents = contents({
@@ -204,45 +175,37 @@ const CreateProfileTabs = () => {
   });
 
   return (
-    <main className='min-h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-indigo-100 text-gray-900 font-sans relative'>
+    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-gray-900 font-sans'>
       {/* Subtle background elements */}
       <div className='fixed inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-100/30 rounded-full blur-3xl'></div>
-        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-50/40 rounded-full blur-3xl'></div>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
       </div>
 
       {/* Header Section */}
-      <header className='relative w-full overflow-hidden bg-white border-b border-gray-200'>
-        {/* Background with subtle gradient overlay */}
-        <div className='absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-white to-indigo-100/50'></div>
-
-        {/* Subtle background elements */}
-        <div className='absolute inset-0 overflow-hidden'>
-          <div className='absolute -top-40 -right-40 w-80 h-80 bg-indigo-100/20 rounded-full blur-3xl'></div>
-          <div className='absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-50/30 rounded-full blur-3xl'></div>
-        </div>
-
-        {/* Content */}
-        <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-16 sm:py-20 lg:py-24 xl:py-32'>
+      <header className='relative w-full bg-white/90 backdrop-blur-sm border-b border-gray-200/50'>
+        <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20'>
           <div className='max-w-7xl mx-auto'>
-            <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-gray-900 mb-6 sm:mb-8'>
-              Create Your Profile
-            </h1>
-            <p className='text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed font-light max-w-4xl'>
-              Build your professional profile by filling out the sections below.
-              This information will be used to generate your personalized QR
-              code and resume.
-            </p>
+            <div className='text-center max-w-5xl mx-auto'>
+              <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-gray-900 mb-4 sm:mb-6'>
+                Create Your Profile
+              </h1>
+              <p className='text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-4xl mx-auto'>
+                Build your professional profile by filling out the sections
+                below. This information will be used to generate your
+                personalized QR code and resume.
+              </p>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-8 xl:py-12'>
-        <div className='max-w-4xl mx-auto'>
-          <form className='space-y-8'>
+      <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
+        <div className='max-w-6xl mx-auto'>
+          <form className='space-y-6'>
             {/* Tabs Section */}
-            <div className='bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 hover:shadow-md hover:border-gray-300 transition-all duration-300'>
+            <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-4 sm:p-6 lg:p-8'>
               <TabbedSections
                 tabs={tabs}
                 contents={tabContents}
@@ -254,14 +217,39 @@ const CreateProfileTabs = () => {
             <ErrorDisplay errors={submissionErrors} />
 
             {/* Submit Button */}
-            <div className='flex justify-end pt-4'>
+            <div className='flex justify-center pt-4'>
               <Button
                 type='button'
                 size='lg'
                 onClick={handleButtonClick}
-                className='bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95 shadow-lg hover:shadow-indigo-500/50 border border-indigo-500/20 cursor-pointer'
+                disabled={loading || !isValid || !isDirty}
+                className='bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 active:scale-[0.98] shadow-lg hover:shadow-xl'
               >
-                Generate Resume
+                <span className='flex items-center gap-3'>
+                  {loading ? (
+                    <>
+                      <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                      Creating Profile...
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className='w-6 h-6'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth={2}
+                          d='M13 10V3L4 14h7v7l9-11h-7z'
+                        />
+                      </svg>
+                      Generate Resume
+                    </>
+                  )}
+                </span>
               </Button>
             </div>
           </form>
