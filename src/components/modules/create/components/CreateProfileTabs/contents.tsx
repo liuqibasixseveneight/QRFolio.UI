@@ -102,16 +102,15 @@ export const contents = ({
               options={[
                 {
                   value: 'available',
-                  label: 'Available - Open to new opportunities',
+                  label: 'Available',
                 },
                 {
                   value: 'open',
-                  label:
-                    'Open to Opportunities - Selectively considering offers',
+                  label: 'Open',
                 },
                 {
                   value: 'unavailable',
-                  label: 'Not Available - Currently not accepting offers',
+                  label: 'Unavailable',
                 },
               ]}
               required

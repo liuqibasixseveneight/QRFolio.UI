@@ -21,7 +21,7 @@ const ProfileSidebar = ({
     switch (status) {
       case 'available':
         return {
-          text: 'Open to new opportunities',
+          text: 'Available',
           bgColor: 'from-green-50 to-green-100',
           borderColor: 'border-green-200',
           textColor: 'text-green-800',
@@ -30,7 +30,7 @@ const ProfileSidebar = ({
         };
       case 'open':
         return {
-          text: 'Selectively considering offers',
+          text: 'Open',
           bgColor: 'from-amber-50 to-amber-100',
           borderColor: 'border-amber-200',
           textColor: 'text-amber-800',
@@ -39,7 +39,7 @@ const ProfileSidebar = ({
         };
       case 'unavailable':
         return {
-          text: 'Currently not accepting offers',
+          text: 'Unavailable',
           bgColor: 'from-red-50 to-red-100',
           borderColor: 'border-red-200',
           textColor: 'text-red-800',
@@ -48,7 +48,7 @@ const ProfileSidebar = ({
         };
       default:
         return {
-          text: 'Open to new opportunities',
+          text: 'Available',
           bgColor: 'from-green-50 to-green-100',
           borderColor: 'border-green-200',
           textColor: 'text-green-800',
@@ -89,10 +89,7 @@ const ProfileSidebar = ({
             <div
               className={`w-3 h-3 ${availabilityConfig.dotColor} rounded-full`}
             ></div>
-            <span>{displayAvailability}</span>
-          </div>
-          <div className={`text-sm ${availabilityConfig.statusColor}`}>
-            {availabilityConfig.text}
+            <span>{availabilityConfig.text}</span>
           </div>
 
           {/* Last Updated */}
