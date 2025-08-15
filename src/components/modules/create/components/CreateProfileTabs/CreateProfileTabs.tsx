@@ -9,12 +9,6 @@ import type { CVFormValues } from '../../types';
 import { introSchema } from '../../schemas';
 import { contents } from './contents';
 import { tabs } from './tabs';
-import {
-  EMPTY_EDU_ENTRY,
-  EMPTY_LANGUAGE_ENTRY,
-  EMPTY_WORK_ENTRY,
-  removeEmptyEntries,
-} from '../../utils';
 import { useCreateProfile } from '@/apollo/profile';
 import { useAuth } from '@/context';
 
@@ -40,25 +34,43 @@ const CreateProfileTabs = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid, isDirty, isSubmitting },
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
     defaultValues: {
       fullName: '',
-      phone: {
-        countryCode: 'GB',
-        dialCode: '+44',
-        number: '',
-        flag: '🇬🇧',
-      },
+      phone: undefined,
       email: '',
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
       availability: 'available',
-      workExperience: [EMPTY_WORK_ENTRY],
-      education: [EMPTY_EDU_ENTRY],
-      languages: [EMPTY_LANGUAGE_ENTRY],
+      workExperience: [
+        {
+          jobTitle: '',
+          companyName: '',
+          location: '',
+          dateFrom: '',
+          dateTo: '',
+          responsibilities: '',
+        },
+      ],
+      education: [
+        {
+          schoolName: '',
+          degree: '',
+          fieldOfStudy: '',
+          dateFrom: '',
+          dateTo: '',
+          description: '',
+        },
+      ],
+      languages: [
+        {
+          language: '',
+          fluencyLevel: 'Beginner' as const,
+        },
+      ],
     },
   });
 
@@ -89,15 +101,40 @@ const CreateProfileTabs = () => {
   };
 
   const onSubmit = async (data: CVFormValues) => {
-    const cleanedData = removeEmptyEntries(data);
-
     try {
-      await createProfile({
+      const result = await createProfile({
         id: userId || '',
-        ...cleanedData,
+        fullName: data.fullName,
+        email: data.email,
+        professionalSummary: data.professionalSummary,
+        availability: data.availability,
+        phone: data.phone,
+        linkedin: data.linkedin,
+        portfolio: data.portfolio,
+        workExperience: data.workExperience.filter(
+          (entry) =>
+            entry.jobTitle &&
+            entry.companyName &&
+            entry.location &&
+            entry.dateFrom &&
+            entry.dateTo &&
+            entry.responsibilities
+        ),
+        education: data.education.filter(
+          (entry) =>
+            entry.schoolName &&
+            entry.degree &&
+            entry.fieldOfStudy &&
+            entry.dateFrom &&
+            entry.dateTo &&
+            entry.description
+        ),
+        languages: data.languages.filter(
+          (entry) => entry.language && entry.fluencyLevel
+        ),
       });
 
-      if (data && !loading) {
+      if (result && !loading) {
         navigate(routes?.PROFILE_CREATED);
       } else {
         setSubmissionErrors([
@@ -108,8 +145,12 @@ const CreateProfileTabs = () => {
       setSubmissionErrors([
         'Failed to submit profile. Please try again later.',
       ]);
-      console.error('Error when creating profile:', err);
     }
+  };
+
+  const handleButtonClick = () => {
+    // Trigger form submission
+    handleSubmit(onSubmit, onInvalid)();
   };
 
   const onInvalid = (errors: FieldErrors<CVFormValues>) => {
@@ -122,21 +163,25 @@ const CreateProfileTabs = () => {
     control,
     workFields,
     appendWork: () =>
-      handleAppend(
-        appendWork,
-        setActiveWorkIndex,
-        workFields.length,
-        EMPTY_WORK_ENTRY
-      ),
+      handleAppend(appendWork, setActiveWorkIndex, workFields.length, {
+        jobTitle: '',
+        companyName: '',
+        location: '',
+        dateFrom: '',
+        dateTo: '',
+        responsibilities: '',
+      }),
     removeWork,
     eduFields,
     appendEdu: () =>
-      handleAppend(
-        appendEdu,
-        setActiveEduIndex,
-        eduFields.length,
-        EMPTY_EDU_ENTRY
-      ),
+      handleAppend(appendEdu, setActiveEduIndex, eduFields.length, {
+        schoolName: '',
+        degree: '',
+        fieldOfStudy: '',
+        dateFrom: '',
+        dateTo: '',
+        description: '',
+      }),
     removeEdu,
     languageFields,
     appendLanguage: () =>
@@ -144,7 +189,10 @@ const CreateProfileTabs = () => {
         appendLanguage,
         setActiveLanguageIndex,
         languageFields.length,
-        EMPTY_LANGUAGE_ENTRY
+        {
+          language: '',
+          fluencyLevel: 'Beginner' as const,
+        }
       ),
     removeLanguage,
     activeWorkIndex,
@@ -192,10 +240,7 @@ const CreateProfileTabs = () => {
       {/* Main Content */}
       <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-8 xl:py-12'>
         <div className='max-w-4xl mx-auto'>
-          <form
-            onSubmit={handleSubmit(onSubmit, onInvalid)}
-            className='space-y-8'
-          >
+          <form className='space-y-8'>
             {/* Tabs Section */}
             <div className='bg-white/90 backdrop-blur-sm rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 hover:shadow-md hover:border-gray-300 transition-all duration-300'>
               <TabbedSections
@@ -211,8 +256,9 @@ const CreateProfileTabs = () => {
             {/* Submit Button */}
             <div className='flex justify-end pt-4'>
               <Button
-                type='submit'
+                type='button'
                 size='lg'
+                onClick={handleButtonClick}
                 className='bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95 shadow-lg hover:shadow-indigo-500/50 border border-indigo-500/20 cursor-pointer'
               >
                 Generate Resume
