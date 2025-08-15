@@ -68,9 +68,43 @@ const ProfileSidebar = ({
       return phoneData;
     }
 
-    if (phoneData && phoneData.dialCode && phoneData.number) {
-      // New phone format with country info
-      return `${phoneData.flag} ${phoneData.dialCode} ${phoneData.number}`;
+    if (phoneData && phoneData.number) {
+      // New phone format - show country and dial code with number
+      const countryInfo =
+        phoneData.countryCode && phoneData.dialCode
+          ? `${phoneData.countryCode} ${phoneData.dialCode}`
+          : '';
+      return countryInfo
+        ? `${countryInfo} • ${phoneData.number}`
+        : phoneData.number;
+    }
+
+    return phoneData;
+  };
+
+  // Helper function to render phone with styled region
+  const renderPhoneWithRegion = (phoneData: any) => {
+    if (typeof phoneData === 'string') {
+      return phoneData;
+    }
+
+    if (phoneData && phoneData.number) {
+      const countryInfo =
+        phoneData.countryCode && phoneData.dialCode
+          ? `${phoneData.countryCode} ${phoneData.dialCode}`
+          : '';
+
+      if (countryInfo) {
+        return (
+          <span className='flex items-center gap-2'>
+            <span className='text-sm text-gray-500 font-medium tracking-wide'>
+              {countryInfo}
+            </span>
+            <span className='text-sm'>{phoneData.number}</span>
+          </span>
+        );
+      }
+      return phoneData.number;
     }
 
     return phoneData;
@@ -120,7 +154,7 @@ const ProfileSidebar = ({
             <ContactItem
               icon={<Phone />}
               label='Phone'
-              value={formatPhoneDisplay(phone)}
+              value={renderPhoneWithRegion(phone)}
             />
           )}
           {linkedin && (

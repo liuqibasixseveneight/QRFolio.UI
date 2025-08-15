@@ -5,7 +5,6 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Select = ({ ...props }: ComponentProps<typeof SelectPrimitive.Root>) => {
-  console.log('Select component props:', props);
   return <SelectPrimitive.Root data-slot='select' {...props} />;
 };
 
@@ -18,7 +17,6 @@ const SelectGroup = ({
 const SelectValue = ({
   ...props
 }: ComponentProps<typeof SelectPrimitive.Value>) => {
-  console.log('SelectValue props:', props);
   return <SelectPrimitive.Value data-slot='select-value' {...props} />;
 };
 

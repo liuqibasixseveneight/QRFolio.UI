@@ -8,7 +8,7 @@ const phoneNumberSchema = z.object({
   countryCode: z.string().min(1, 'Country code required'),
   dialCode: z.string().min(1, 'Dial code required'),
   number: z.string().min(1, 'Phone number required'),
-  flag: z.string().min(1, 'Flag emoji required'),
+  flag: z.string().optional(),
 });
 
 export const introSchema = z.object({

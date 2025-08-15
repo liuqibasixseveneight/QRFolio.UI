@@ -1,19 +1,14 @@
 export type PhoneInputProps = {
+  label?: string;
   value?:
     | string
     | { countryCode: string; dialCode: string; number: string; flag: string };
-  onChange?: (value: any) => void;
-  onCountryChange?: (country: Country) => void;
-  placeholder?: string;
-  disabled?: boolean;
+  onChange?: (value: {
+    countryCode: string;
+    dialCode: string;
+    number: string;
+    flag: string;
+  }) => void;
   error?: string;
-  label?: string;
   required?: boolean;
-};
-
-export type Country = {
-  code: string;
-  name: string;
-  dialCode: string;
-  flag: string;
 };

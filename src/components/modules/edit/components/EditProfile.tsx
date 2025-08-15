@@ -83,17 +83,9 @@ const EditProfile = () => {
 
   // Debug form values
   const currentValues = watch();
-  console.log('Current form values:', currentValues);
-  console.log('Current availability value:', currentValues.availability);
 
   useEffect(() => {
     if (profile) {
-      console.log('=== PROFILE DATA DEBUG ===');
-      console.log('Full profile object:', profile);
-      console.log('Profile availability:', profile.availability);
-      console.log('Profile availability type:', typeof profile.availability);
-      console.log('Profile keys:', Object.keys(profile));
-
       const formData = {
         ...profile,
         workExperience:
@@ -133,20 +125,12 @@ const EditProfile = () => {
               ],
       };
 
-      console.log('=== FORM RESET DEBUG ===');
-      console.log('Form data to reset with:', formData);
-      console.log('Form availability value:', formData.availability);
-
       // Add a small delay to ensure the form is fully initialized
       setTimeout(() => {
         reset(formData);
 
         // Check form values after reset
-        setTimeout(() => {
-          console.log('=== POST-RESET DEBUG ===');
-          console.log('Form values after reset:', watch());
-          console.log('Availability after reset:', watch('availability'));
-        }, 100);
+        setTimeout(() => {}, 100);
       }, 50);
     }
   }, [profile, reset, watch]);

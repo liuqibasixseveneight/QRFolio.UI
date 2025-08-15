@@ -29,7 +29,7 @@ export interface PhoneNumber {
   countryCode: string;
   dialCode: string;
   number: string;
-  flag: string;
+  flag?: string;
 }
 
 // Phone can be either a PhoneNumber object, a string, or undefined

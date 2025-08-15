@@ -131,12 +131,6 @@ const FormField = (props: FormFieldProps) => {
           control={control}
           name={registerName}
           render={({ field }) => {
-            console.log(`FormField Select Debug - ${registerName}:`, {
-              fieldValue: field.value,
-              fieldName: field.name,
-              options: options,
-            });
-
             return (
               <div className='space-y-3'>
                 {label && (
