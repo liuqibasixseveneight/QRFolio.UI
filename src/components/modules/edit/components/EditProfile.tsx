@@ -15,12 +15,6 @@ import { useGetProfile } from '@/apollo/profile';
 import { useUpdateProfile } from '@/apollo/profile/mutations/updateProfile';
 import type { CVFormValues } from '../../create/types';
 import { introSchema } from '../../create/schemas';
-import {
-  EMPTY_EDU_ENTRY,
-  EMPTY_LANGUAGE_ENTRY,
-  EMPTY_WORK_ENTRY,
-  removeEmptyEntries,
-} from '../../create/utils';
 import { contents, tabs } from '../../create/components';
 
 const EditProfile = () => {
@@ -52,19 +46,37 @@ const EditProfile = () => {
     defaultValues: {
       fullName: '',
       email: '',
-      phone: {
-        countryCode: 'GB',
-        dialCode: '+44',
-        number: '',
-        flag: '🇬🇧',
-      },
+      phone: undefined,
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
       availability: 'available',
-      workExperience: [EMPTY_WORK_ENTRY],
-      education: [EMPTY_EDU_ENTRY],
-      languages: [EMPTY_LANGUAGE_ENTRY],
+      workExperience: [
+        {
+          jobTitle: '',
+          companyName: '',
+          location: '',
+          dateFrom: '',
+          dateTo: '',
+          responsibilities: '',
+        },
+      ],
+      education: [
+        {
+          schoolName: '',
+          degree: '',
+          fieldOfStudy: '',
+          dateFrom: '',
+          dateTo: '',
+          description: '',
+        },
+      ],
+      languages: [
+        {
+          language: '',
+          fluencyLevel: 'Beginner' as const,
+        },
+      ],
     },
   });
 
@@ -75,15 +87,38 @@ const EditProfile = () => {
         workExperience:
           (profile.workExperience?.length ?? 0) > 0
             ? profile.workExperience
-            : [EMPTY_WORK_ENTRY],
+            : [
+                {
+                  jobTitle: '',
+                  companyName: '',
+                  location: '',
+                  dateFrom: '',
+                  dateTo: '',
+                  responsibilities: '',
+                },
+              ],
         education:
           (profile.education?.length ?? 0) > 0
             ? profile.education
-            : [EMPTY_EDU_ENTRY],
+            : [
+                {
+                  schoolName: '',
+                  degree: '',
+                  fieldOfStudy: '',
+                  dateFrom: '',
+                  dateTo: '',
+                  description: '',
+                },
+              ],
         languages:
           (profile.languages?.length ?? 0) > 0
             ? profile.languages
-            : [EMPTY_LANGUAGE_ENTRY],
+            : [
+                {
+                  language: '',
+                  fluencyLevel: 'Beginner' as const,
+                },
+              ],
       });
     }
   }, [profile, reset]);
@@ -115,32 +150,48 @@ const EditProfile = () => {
   };
 
   const onSubmit = async (data: CVFormValues) => {
-    console.log('Form submitted with data:', data);
-    const cleanedData = removeEmptyEntries(data);
-    console.log('Cleaned data:', cleanedData);
-
     try {
-      console.log('Calling updateProfile with:', {
+      const result = await updateProfile({
         id: userId || '',
-        ...cleanedData,
-      });
-      await updateProfile({
-        id: userId || '',
-        ...cleanedData,
+        fullName: data.fullName,
+        email: data.email,
+        professionalSummary: data.professionalSummary,
+        availability: data.availability,
+        phone: data.phone,
+        linkedin: data.linkedin,
+        portfolio: data.portfolio,
+        workExperience: data.workExperience.filter(
+          (entry) =>
+            entry.jobTitle &&
+            entry.companyName &&
+            entry.location &&
+            entry.dateFrom &&
+            entry.dateTo &&
+            entry.responsibilities
+        ),
+        education: data.education.filter(
+          (entry) =>
+            entry.schoolName &&
+            entry.degree &&
+            entry.fieldOfStudy &&
+            entry.dateFrom &&
+            entry.dateTo &&
+            entry.description
+        ),
+        languages: data.languages.filter(
+          (entry) => entry.language && entry.fluencyLevel
+        ),
       });
 
       navigate(`/profile/${userId}` || routes?.DASHBOARD);
     } catch (err) {
-      console.error('Form submission error:', err);
       setSubmissionErrors([
         'Failed to update profile. Please try again later.',
       ]);
-      console.error('Mutation error:', err);
     }
   };
 
   const onInvalid = (errors: FieldErrors<CVFormValues>) => {
-    console.log('Form validation errors:', errors);
     setSubmissionErrors(flattenErrors(errors));
   };
 
@@ -158,21 +209,25 @@ const EditProfile = () => {
     control,
     workFields,
     appendWork: () =>
-      handleAppend(
-        appendWork,
-        setActiveWorkIndex,
-        workFields.length,
-        EMPTY_WORK_ENTRY
-      ),
+      handleAppend(appendWork, setActiveWorkIndex, workFields.length, {
+        jobTitle: '',
+        companyName: '',
+        location: '',
+        dateFrom: '',
+        dateTo: '',
+        responsibilities: '',
+      }),
     removeWork,
     eduFields,
     appendEdu: () =>
-      handleAppend(
-        appendEdu,
-        setActiveEduIndex,
-        eduFields.length,
-        EMPTY_EDU_ENTRY
-      ),
+      handleAppend(appendEdu, setActiveEduIndex, eduFields.length, {
+        schoolName: '',
+        degree: '',
+        fieldOfStudy: '',
+        dateFrom: '',
+        dateTo: '',
+        description: '',
+      }),
     removeEdu,
     languageFields,
     appendLanguage: () =>
@@ -180,7 +235,10 @@ const EditProfile = () => {
         appendLanguage,
         setActiveLanguageIndex,
         languageFields.length,
-        EMPTY_LANGUAGE_ENTRY
+        {
+          language: '',
+          fluencyLevel: 'Beginner' as const,
+        }
       ),
     removeLanguage,
     activeWorkIndex,

@@ -32,9 +32,12 @@ export interface PhoneNumber {
   flag: string;
 }
 
+// Phone can be either a PhoneNumber object, a string, or undefined
+export type Phone = PhoneNumber | string | undefined;
+
 export interface BaseProfile {
   fullName: string;
-  phone?: PhoneNumber;
+  phone?: Phone;
   email: string;
   linkedin?: string;
   portfolio?: string;

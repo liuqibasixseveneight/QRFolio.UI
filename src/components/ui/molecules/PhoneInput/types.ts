@@ -1,5 +1,7 @@
 export type PhoneInputProps = {
-  value?: string | { countryCode: string; dialCode: string; number: string };
+  value?:
+    | string
+    | { countryCode: string; dialCode: string; number: string; flag: string };
   onChange?: (value: any) => void;
   onCountryChange?: (country: Country) => void;
   placeholder?: string;
@@ -13,4 +15,5 @@ export type Country = {
   code: string;
   name: string;
   dialCode: string;
+  flag: string;
 };

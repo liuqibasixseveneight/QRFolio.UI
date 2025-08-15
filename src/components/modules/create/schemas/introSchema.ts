@@ -13,7 +13,7 @@ const phoneNumberSchema = z.object({
 
 export const introSchema = z.object({
   fullName: z.string().min(1, 'Full name required'),
-  phone: phoneNumberSchema.optional(),
+  phone: z.union([phoneNumberSchema, z.string()]).optional(),
   email: z.string().min(1, 'Email required').email('Invalid email'),
   linkedin: z.string().optional(),
   portfolio: z.string().optional(),
