@@ -77,7 +77,10 @@ const SelectLabel = ({
   return (
     <SelectPrimitive.Label
       data-slot='select-label'
-      className={cn('text-gray-600 px-2 py-1.5 text-xs font-medium', className)}
+      className={cn(
+        'text-slate-600 px-2 py-1.5 text-xs font-medium',
+        className
+      )}
       {...props}
     />
   );
@@ -110,7 +113,7 @@ const SelectSeparator = ({
     <SelectPrimitive.Separator
       data-slot='select-separator'
       className={cn(
-        'bg-gray-200 pointer-events-none -mx-1 my-1 h-px',
+        'bg-slate-200 pointer-events-none -mx-1 my-1 h-px',
         className
       )}
       {...props}

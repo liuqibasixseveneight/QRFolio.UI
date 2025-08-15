@@ -39,7 +39,7 @@ const CollapsibleSection = ({
           </span>
           <ChevronDown
             className={cn(
-              'h-5 w-5 text-slate-500 transition-all duration-300 group-hover:text-blue-600 group-hover:scale-110',
+              'h-5 w-5 text-slate-500 transition-all duration-300 group-hover:text-blue-600',
               !collapsed && 'rotate-180'
             )}
           />

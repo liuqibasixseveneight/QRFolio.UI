@@ -17,7 +17,7 @@ const PopoverTrigger = ({
     <PopoverPrimitive.Trigger
       data-slot='popover-trigger'
       className={cn(
-        'cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]',
+        'cursor-pointer transition-all duration-200 active:scale-[0.98]',
         className
       )}
       {...props}

@@ -40,7 +40,7 @@ const TabsTrigger = ({
     <TabsPrimitive.Trigger
       data-slot='tabs-trigger'
       className={cn(
-        'flex-1 h-14 px-4 sm:px-6 text-sm sm:text-base font-semibold text-slate-600 whitespace-nowrap transition-all duration-300 ease-out rounded-xl border border-transparent cursor-pointer hover:text-slate-800 hover:bg-white/80 hover:shadow-lg hover:shadow-slate-200/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-xl data-[state=active]:shadow-slate-200/40 data-[state=active]:border-slate-200/60 data-[state=active]:scale-[1.02]',
+        'flex-1 h-14 px-4 sm:px-6 text-sm sm:text-base font-semibold text-slate-600 whitespace-nowrap transition-all duration-300 ease-out rounded-xl border border-transparent cursor-pointer hover:text-slate-800 hover:bg-white/80 hover:shadow-lg hover:shadow-slate-200/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-xl data-[state=active]:shadow-slate-200/40 data-[state=active]:border-slate-200/60',
         className
       )}
       {...props}
