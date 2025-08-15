@@ -96,7 +96,7 @@ export const contents = ({
             <FormField
               label='Availability Status'
               type='select'
-              register={register}
+              control={control}
               registerName='availability'
               error={errors.availability?.message}
               options={[

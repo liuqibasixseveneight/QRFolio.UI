@@ -130,39 +130,51 @@ const FormField = (props: FormFieldProps) => {
         <Controller
           control={control}
           name={registerName}
-          render={({ field }) => (
-            <div className='space-y-3'>
-              {label && (
-                <Label
-                  htmlFor={registerName}
-                  className='text-sm font-semibold text-gray-800 tracking-wide'
+          render={({ field }) => {
+            console.log(`FormField Select Debug - ${registerName}:`, {
+              fieldValue: field.value,
+              fieldName: field.name,
+              options: options,
+            });
+
+            return (
+              <div className='space-y-3'>
+                {label && (
+                  <Label
+                    htmlFor={registerName}
+                    className='text-sm font-semibold text-gray-800 tracking-wide'
+                  >
+                    {label}
+                    {required && <span className='text-red-500 ml-1'>*</span>}
+                  </Label>
+                )}
+                <Select
+                  key={`${registerName}-${field.value}`}
+                  value={field.value}
+                  onValueChange={field.onChange}
                 >
-                  {label}
-                  {required && <span className='text-red-500 ml-1'>*</span>}
-                </Label>
-              )}
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger
-                  id={registerName}
-                  className='w-full h-11 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'
-                >
-                  <SelectValue
-                    placeholder={placeholder ?? 'Select an option'}
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  {options.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {error && (
-                <p className='text-sm text-red-600 font-medium'>{error}</p>
-              )}
-            </div>
-          )}
+                  <SelectTrigger
+                    id={registerName}
+                    className='w-full h-11 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-gray-300'
+                  >
+                    <SelectValue
+                      placeholder={placeholder ?? 'Select an option'}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {error && (
+                  <p className='text-sm text-red-600 font-medium'>{error}</p>
+                )}
+              </div>
+            );
+          }}
         />
       );
     } else {
