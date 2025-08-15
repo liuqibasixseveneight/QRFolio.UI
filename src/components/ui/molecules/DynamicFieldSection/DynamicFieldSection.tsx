@@ -71,8 +71,8 @@ const DynamicFieldSection = <T extends FieldValues>({
 
   return (
     <section className='space-y-6'>
-      <div className='flex items-center justify-between'>
-        <h3 className='text-xl font-semibold text-gray-800 tracking-tight'>
+      <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4'>
+        <h3 className='text-xl sm:text-2xl font-semibold text-gray-800 tracking-tight bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent'>
           {title}
         </h3>
         <Button
@@ -80,9 +80,9 @@ const DynamicFieldSection = <T extends FieldValues>({
           onClick={handleAppend}
           disabled={!isLastEntryComplete}
           className={cx(
-            'bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200 shadow-sm hover:shadow-md font-medium text-sm',
+            'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-6 py-3 rounded-xl hover:shadow-xl transition-all duration-300 font-medium text-sm shadow-lg',
             !isLastEntryComplete &&
-              'opacity-50 cursor-not-allowed hover:bg-gray-900'
+              'opacity-50 cursor-not-allowed hover:from-indigo-600 hover:to-indigo-700'
           )}
         >
           {appendLabel}
@@ -90,42 +90,22 @@ const DynamicFieldSection = <T extends FieldValues>({
       </div>
 
       {fields?.length === 0 && (
-        <div className='text-center py-8 text-gray-500 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200'>
-          <p className='text-sm'>No {title.toLowerCase()} added yet.</p>
-          <p className='text-xs mt-1'>Click the button above to get started.</p>
+        <div className='text-center py-12 text-gray-500 bg-white/40 backdrop-blur-sm rounded-xl border-2 border-dashed border-indigo-200/30'>
+          <p className='text-sm sm:text-base font-medium'>
+            No {title.toLowerCase()} added yet.
+          </p>
+          <p className='text-xs sm:text-sm mt-2 text-gray-400'>
+            Click the button above to get started.
+          </p>
         </div>
       )}
 
       {fields?.map((field, index) => {
         const isActive = activeIndex === index;
+        let displayTitle: string | React.ReactNode = '';
 
-        // Generate a meaningful display title based on the section type and available data
-        let displayTitle: string | ReactNode;
-
-        if (titleField) {
-          const titleValue = get(fields?.[index], titleField as string, '');
-          if (titleValue && titleValue.trim() !== '') {
-            displayTitle = titleValue;
-          } else {
-            // Show section-specific fallback text
-            if (titleField === 'schoolName') {
-              displayTitle = (
-                <em className='text-gray-500 italic'>New Education Entry</em>
-              );
-            } else if (titleField === 'language') {
-              displayTitle = (
-                <em className='text-gray-500 italic'>New Language Entry</em>
-              );
-            } else if (titleField === 'jobTitle') {
-              displayTitle = (
-                <em className='text-gray-500 italic'>New Work Entry</em>
-              );
-            } else {
-              displayTitle = (
-                <em className='text-gray-500 italic'>New Entry</em>
-              );
-            }
-          }
+        if (titleField && get(fields?.[index], titleField)) {
+          displayTitle = get(fields?.[index], titleField);
         } else {
           // No titleField specified, show generic fallback
           displayTitle = <em className='text-gray-500 italic'>New Entry</em>;
@@ -134,10 +114,10 @@ const DynamicFieldSection = <T extends FieldValues>({
         return (
           <div
             key={field?.id}
-            className='border border-gray-200 rounded-lg shadow-sm bg-white overflow-hidden transition-all duration-200 hover:shadow-md'
+            className='rounded-xl bg-white/60 backdrop-blur-sm overflow-hidden transition-all duration-200 hover:bg-white/80'
           >
             <div
-              className='p-4 bg-gray-50 cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:bg-gray-100 transition-colors duration-200'
+              className='p-4 sm:p-6 bg-gradient-to-r from-gray-50/50 to-indigo-50/30 cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:from-indigo-50/50 hover:to-purple-50/30 transition-all duration-200'
               onClick={() => toggleIndex(index)}
             >
               <div className='flex-1 min-w-0'>
@@ -172,7 +152,7 @@ const DynamicFieldSection = <T extends FieldValues>({
                   variant='destructive'
                   size='sm'
                   onClick={(e) => handleRemove(index, e)}
-                  className='px-3 py-1.5 text-xs font-medium'
+                  className='px-3 py-1.5 text-xs font-medium transition-all duration-200'
                 >
                   Remove
                 </Button>
@@ -180,7 +160,7 @@ const DynamicFieldSection = <T extends FieldValues>({
             </div>
 
             {isActive && (
-              <div className='p-6 space-y-6 bg-white border-t border-gray-100'>
+              <div className='p-6 space-y-6 bg-white/80 border-t border-gray-100/50'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                   {fieldsConfig?.map((config) => {
                     const error = get(

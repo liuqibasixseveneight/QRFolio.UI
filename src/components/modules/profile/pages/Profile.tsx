@@ -95,7 +95,7 @@ const Profile = () => {
         <>
           <ProfileHeader fullName={fullName} summary={professionalSummary} />
 
-          <div className='flex flex-col xl:flex-row flex-1 overflow-visible xl:overflow-hidden max-w-7xl mx-auto relative z-10'>
+          <div className='flex flex-col xl:flex-row flex-1 overflow-visible xl:overflow-hidden w-full relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12'>
             {/* Sidebar - Sticky on larger screens */}
             <div className='xl:w-80 xl:flex-shrink-0'>
               <ProfileSidebar
@@ -104,25 +104,25 @@ const Profile = () => {
             </div>
 
             {/* Main Content Area */}
-            <div className='flex-1 xl:ml-0 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
+            <div className='flex-1 xl:ml-0 py-6 lg:py-8'>
               <div className='space-y-6'>
                 {/* Work Experience Section */}
                 {workExperience && workExperience.length > 0 && (
-                  <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-4 sm:p-6 lg:p-8'>
+                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
                     <ExperienceSection workExperience={workExperience} />
                   </div>
                 )}
 
                 {/* Education Section */}
                 {education && education.length > 0 && (
-                  <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-4 sm:p-6 lg:p-8'>
+                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
                     <EducationSection education={education} />
                   </div>
                 )}
 
                 {/* Languages Section */}
                 {languages && languages.length > 0 && (
-                  <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-4 sm:p-6 lg:p-8'>
+                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
                     <LanguageSection languages={languages} />
                   </div>
                 )}
@@ -131,8 +131,8 @@ const Profile = () => {
                 {(!workExperience || workExperience.length === 0) &&
                   (!education || education.length === 0) &&
                   (!languages || languages.length === 0) && (
-                    <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-12 text-center'>
-                      <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center shadow-lg'>
+                    <div className='bg-white/60 backdrop-blur-sm rounded-xl p-12 text-center'>
+                      <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center'>
                         <Sparkles className='w-10 h-10 text-indigo-600' />
                       </div>
                       <h3 className='text-2xl font-bold text-gray-900 mb-3'>

@@ -1,4 +1,4 @@
-const LytnIconV2 = () => (
+const LytnIconV1 = () => (
   <svg
     width='100%'
     height='100%'
@@ -10,12 +10,12 @@ const LytnIconV2 = () => (
   >
     <defs>
       <linearGradient id='highlightGradient' x1='0' y1='0' x2='1' y2='1'>
-        {/* slate-900 */}
-        <stop offset='0%' stopColor='#1e293b' stopOpacity='1' />
+        {/* indigo-600 */}
+        <stop offset='0%' stopColor='#4f46e5' stopOpacity='1' />
         {/* indigo-500 */}
-        <stop offset='70%' stopColor='#6366f1' stopOpacity='0.6' />
-        {/* pink-500 */}
-        <stop offset='100%' stopColor='#ec4899' stopOpacity='0.4' />
+        <stop offset='50%' stopColor='#6366f1' stopOpacity='0.8' />
+        {/* purple-500 */}
+        <stop offset='100%' stopColor='#a855f7' stopOpacity='0.6' />
       </linearGradient>
     </defs>
 
@@ -29,4 +29,4 @@ const LytnIconV2 = () => (
   </svg>
 );
 
-export default LytnIconV2;
+export default LytnIconV1;

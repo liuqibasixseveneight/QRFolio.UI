@@ -302,13 +302,13 @@ const EditProfile = () => {
 
       {/* Main Content */}
       <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
-        <div className='max-w-6xl mx-auto'>
+        <div className='w-full'>
           <form
             onSubmit={handleSubmit(onSubmit, onInvalid)}
             className='space-y-6'
           >
             {/* Tabs Section */}
-            <div className='bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200/50 p-4 sm:p-6 lg:p-8'>
+            <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
               <TabbedSections
                 tabs={tabs}
                 contents={tabContents}

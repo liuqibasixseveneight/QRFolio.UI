@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 import type { CollapsibleSectionProps } from './types';
 
@@ -8,44 +9,48 @@ const CollapsibleSection = ({
   count,
   children,
 }: CollapsibleSectionProps) => {
-  const [open, setOpen] = useState(true);
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
 
   return (
-    <div className='bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-500'>
+    <div className='rounded-2xl bg-gradient-to-r from-slate-50/90 via-blue-50/80 to-indigo-50/90 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:from-slate-50/95 hover:via-blue-50/90 hover:to-indigo-50/95 border border-slate-200/40 shadow-xl shadow-slate-200/20'>
       <button
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        type='button'
-        className='flex items-center justify-between w-full py-6 px-6 font-bold text-lg tracking-wide text-gray-800 hover:bg-gray-50 transition-all duration-300 cursor-pointer group'
+        onClick={toggleCollapsed}
+        className='w-full p-4 sm:p-6 flex items-center justify-between text-left hover:bg-white/30 transition-all duration-300 cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+        aria-expanded={!collapsed}
+        aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${title} section`}
       >
-        <div className='flex items-center space-x-3'>
-          <span className='whitespace-nowrap'>{title}</span>
+        <div className='flex items-center gap-3'>
+          <h3 className='text-lg sm:text-xl font-semibold text-slate-900 group-hover:text-blue-700 transition-colors duration-300'>
+            {title}
+          </h3>
           {count !== undefined && (
-            <span className='px-3 py-1 bg-gray-100 rounded-full text-sm font-medium text-gray-700 border border-gray-300'>
-              {count} item{count === 1 ? '' : 's'}
+            <span className='inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border border-blue-200/40 shadow-sm'>
+              {count}
             </span>
           )}
         </div>
-        <div className='flex items-center space-x-2'>
+        <div className='flex items-center gap-2'>
+          <span className='text-xs text-slate-500 font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+            {collapsed ? 'Click to expand' : 'Click to collapse'}
+          </span>
           <ChevronDown
-            className={`text-gray-400 transform transition-all duration-500 ease-out group-hover:text-gray-600 ${
-              open ? 'rotate-180' : 'rotate-0'
-            }`}
-            size={20}
-            aria-hidden='true'
+            className={cn(
+              'h-5 w-5 text-slate-500 transition-all duration-300 group-hover:text-blue-600 group-hover:scale-110',
+              !collapsed && 'rotate-180'
+            )}
           />
         </div>
       </button>
 
-      <div
-        className={`overflow-hidden transition-all duration-500 ease-out ${
-          open ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className='py-6 px-6 space-y-6 border-t border-gray-200'>
+      {!collapsed && (
+        <div className='px-4 sm:px-6 pb-4 sm:pb-6 border-t border-slate-200/40 bg-white/40'>
           {children}
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -8,7 +8,7 @@ const LoadingSpinner = ({ size = 12 }: LoadingSpinnerProps) => {
   return (
     <Loader2
       style={{ height: `${dimensionPx}px`, width: `${dimensionPx}px` }}
-      className='text-gray-700 animate-spin'
+      className='text-indigo-600 animate-spin'
     />
   );
 };

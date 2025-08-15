@@ -10,7 +10,7 @@ const Tabs = ({
   return (
     <TabsPrimitive.Root
       data-slot='tabs'
-      className={cn('flex flex-col gap-2', className)}
+      className={cn('flex flex-col gap-3', className)}
       {...props}
     />
   );
@@ -24,7 +24,7 @@ const TabsList = ({
     <TabsPrimitive.List
       data-slot='tabs-list'
       className={cn(
-        'bg-muted text-muted-foreground inline-flex h-11 w-fit items-center justify-center rounded-xl p-1',
+        'w-full bg-gradient-to-r from-slate-50/90 via-blue-50/80 to-indigo-50/90 backdrop-blur-sm text-slate-700 flex items-center justify-center rounded-2xl p-1.5 border border-slate-200/40 shadow-xl shadow-slate-200/20',
         className
       )}
       {...props}
@@ -40,7 +40,7 @@ const TabsTrigger = ({
     <TabsPrimitive.Trigger
       data-slot='tabs-trigger'
       className={cn(
-        "data-[state=active]:bg-background dark:data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground dark:text-muted-foreground inline-flex h-[calc(100%-2px)] flex-1 items-center justify-center gap-1.5 rounded-lg border border-transparent px-3 py-2 text-sm font-semibold whitespace-nowrap transition-all duration-300 focus-visible:ring-2 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 cursor-pointer",
+        'flex-1 h-14 px-4 sm:px-6 text-sm sm:text-base font-semibold text-slate-600 whitespace-nowrap transition-all duration-300 ease-out rounded-xl border border-transparent cursor-pointer hover:text-slate-800 hover:bg-white/80 hover:shadow-lg hover:shadow-slate-200/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-xl data-[state=active]:shadow-slate-200/40 data-[state=active]:border-slate-200/60 data-[state=active]:scale-[1.02]',
         className
       )}
       {...props}
@@ -55,7 +55,10 @@ const TabsContent = ({
   return (
     <TabsPrimitive.Content
       data-slot='tabs-content'
-      className={cn('flex-1 outline-none', className)}
+      className={cn(
+        'flex-1 outline-none data-[state=active]:animate-in data-[state=active]:fade-in-0 data-[state=active]:slide-in-from-top-1 duration-200',
+        className
+      )}
       {...props}
     />
   );
