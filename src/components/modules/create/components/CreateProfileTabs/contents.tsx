@@ -1,4 +1,4 @@
-import { FormField, DynamicFieldSection } from '@/components/ui';
+import { FormField, DynamicFieldSection, Button } from '@/components/ui';
 import type { ContentsItem } from '@/components/ui/organisms';
 import {
   workExperienceConfig,
@@ -71,7 +71,7 @@ export const contents = ({
               type='phone'
               control={control}
               registerName='phone'
-              error={errors.phone?.message}
+              error={errors.phone?.message?.toString()}
             />
 
             <FormField
@@ -80,7 +80,7 @@ export const contents = ({
               register={register}
               registerName='linkedin'
               placeholder='Enter your LinkedIn URL'
-              error={errors.linkedin?.message}
+              error={errors.linkedin?.message?.toString()}
             />
 
             <FormField
@@ -89,7 +89,7 @@ export const contents = ({
               register={register}
               registerName='portfolio'
               placeholder='Enter your portfolio URL'
-              error={errors.portfolio?.message}
+              error={errors.portfolio?.message?.toString()}
             />
 
             <FormField
@@ -97,7 +97,7 @@ export const contents = ({
               type='select'
               control={control}
               registerName='availability'
-              error={errors.availability?.message}
+              error={errors.availability?.message?.toString()}
               options={[
                 {
                   value: 'available',
@@ -122,7 +122,7 @@ export const contents = ({
                 register={register}
                 registerName='professionalSummary'
                 placeholder='Tell us about yourself professionally...'
-                error={errors.professionalSummary?.message}
+                error={errors.professionalSummary?.message?.toString()}
                 rows={4}
                 required
               />
@@ -153,7 +153,7 @@ export const contents = ({
             errors={errors}
             register={register}
             control={control}
-            onRemove={(index) => {
+            onRemove={(index: number) => {
               removeWork(index);
               if (activeWorkIndex === index) {
                 setActiveWorkIndex(null);
@@ -161,7 +161,12 @@ export const contents = ({
                 setActiveWorkIndex(activeWorkIndex - 1);
               }
             }}
-            onAppend={() => {
+          />
+
+          <Button
+            type='button'
+            variant='outline'
+            onClick={() => {
               appendWork({
                 jobTitle: '',
                 companyName: '',
@@ -172,10 +177,10 @@ export const contents = ({
               });
               setActiveWorkIndex(mutableWorkFields.length);
             }}
-            appendLabel='Add Employment'
-            activeIndex={activeWorkIndex}
-            setActiveIndex={setActiveWorkIndex}
-          />
+            className='w-full sm:w-auto'
+          >
+            Add Employment
+          </Button>
         </section>
       ),
     },
@@ -202,7 +207,7 @@ export const contents = ({
               errors={errors}
               register={register}
               control={control}
-              onRemove={(index) => {
+              onRemove={(index: number) => {
                 removeEdu(index);
                 if (activeEduIndex === index) {
                   setActiveEduIndex(null);
@@ -210,7 +215,12 @@ export const contents = ({
                   setActiveEduIndex(activeEduIndex - 1);
                 }
               }}
-              onAppend={() => {
+            />
+
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => {
                 appendEdu({
                   schoolName: '',
                   degree: '',
@@ -221,10 +231,10 @@ export const contents = ({
                 });
                 setActiveEduIndex(mutableEduFields.length);
               }}
-              appendLabel='Add Education'
-              activeIndex={activeEduIndex}
-              setActiveIndex={setActiveEduIndex}
-            />
+              className='w-full sm:w-auto'
+            >
+              Add Education
+            </Button>
 
             <DynamicFieldSection
               title='Languages'
@@ -235,7 +245,7 @@ export const contents = ({
               errors={errors}
               register={register}
               control={control}
-              onRemove={(index) => {
+              onRemove={(index: number) => {
                 removeLanguage(index);
                 if (activeLanguageIndex === index) {
                   setActiveLanguageIndex(null);
@@ -246,14 +256,19 @@ export const contents = ({
                   setActiveLanguageIndex(activeLanguageIndex - 1);
                 }
               }}
-              onAppend={() => {
+            />
+
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => {
                 appendLanguage({ language: '', fluencyLevel: 'Beginner' });
                 setActiveLanguageIndex(mutableLanguageFields.length);
               }}
-              appendLabel='Add Language'
-              activeIndex={activeLanguageIndex}
-              setActiveIndex={setActiveLanguageIndex}
-            />
+              className='w-full sm:w-auto'
+            >
+              Add Language
+            </Button>
           </div>
         </section>
       ),

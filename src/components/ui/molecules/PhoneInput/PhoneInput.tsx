@@ -1,5 +1,5 @@
+import { Input, Label } from '@/components/ui';
 import { useState, useEffect } from 'react';
-import { Input, Label } from '../../atoms';
 import {
   Select,
   SelectContent,

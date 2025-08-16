@@ -25,7 +25,6 @@ const Profile = () => {
   // @ts-ignore
   const [data, { loading, error }] = useGetProfile(userId || '');
   const profile = data?.profile;
-  console.log('🚀 ~ Profile ~ profile:', profile);
 
   // Handle scroll to top functionality
   useEffect(() => {
@@ -104,8 +103,8 @@ const Profile = () => {
           />
 
           <div className='flex flex-col xl:flex-row flex-1 overflow-visible xl:overflow-hidden w-full relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12'>
-            {/* Sidebar */}
-            <div className='xl:w-80 xl:flex-shrink-0'>
+            {/* Sidebar - Made bigger */}
+            <div className='xl:w-96 xl:flex-shrink-0'>
               <ProfileSidebar
                 {...{ email, phone, linkedin, portfolio, availability }}
               />

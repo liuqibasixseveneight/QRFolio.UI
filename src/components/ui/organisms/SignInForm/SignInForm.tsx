@@ -1,8 +1,8 @@
 import {
   Button,
   ErrorMessage,
-  GoogleSignInButton,
   Separator,
+  GoogleSignInButton,
 } from '../../atoms';
 import {
   Card,

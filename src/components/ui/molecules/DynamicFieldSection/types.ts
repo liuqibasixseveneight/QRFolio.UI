@@ -22,10 +22,6 @@ export type DynamicFieldSectionProps<T extends FieldValues> = {
   registerNamePrefix: string;
   errors: FieldErrors<T>;
   onRemove: (index: number) => void;
-  onAppend: () => void;
-  appendLabel: string;
   register: UseFormRegister<T>;
   control: Control<T>;
-  activeIndex: number | null;
-  setActiveIndex: (index: number | null) => void;
 };

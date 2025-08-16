@@ -1,4 +1,5 @@
-import { ArrowUpRight, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
+import { Ellipsis } from '../Ellipsis';
 import type { ContactItemProps } from './types';
 
 const ContactItem = ({ icon, label, value, href }: ContactItemProps) => {
@@ -12,6 +13,22 @@ const ContactItem = ({ icon, label, value, href }: ContactItemProps) => {
         window.location.href = href;
       }
     }
+  };
+
+  // Render value with proper truncation
+  const renderValue = () => {
+    if (typeof value === 'string') {
+      return (
+        <Ellipsis
+          text={value}
+          maxLength={40}
+          className='text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-500 leading-tight'
+        />
+      );
+    }
+
+    // If value is a React element, render it directly
+    return value;
   };
 
   return (
@@ -33,9 +50,7 @@ const ContactItem = ({ icon, label, value, href }: ContactItemProps) => {
         <p className='text-xs font-semibold text-gray-500 uppercase tracking-wider group-hover:text-blue-600 transition-colors duration-500 mb-1'>
           {label}
         </p>
-        <p className='text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-500 truncate leading-tight'>
-          {value}
-        </p>
+        {renderValue()}
       </div>
 
       {/* Enhanced External Link Indicator with techzen aesthetic */}

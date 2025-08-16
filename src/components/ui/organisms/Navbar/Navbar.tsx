@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { PanelLeft, User, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui';
+import { Menu, X, User, PanelLeft } from 'lucide-react';
 
 import { useAuth } from '@/context';
-import { Button } from '../../atoms';
 import type { NavbarProps } from './types';
 
 const Navbar = ({}: NavbarProps) => {

@@ -1,6 +1,6 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import type { TabbedSectionsProps } from './types';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../molecules';
 
 const TabbedSections = ({
   tabs,

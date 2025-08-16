@@ -123,7 +123,7 @@ const ProfileSidebar = ({
   };
 
   return (
-    <aside className='w-full xl:w-80 px-4 sm:px-6 lg:px-8 xl:px-0 xl:pr-8 py-6 lg:py-8 xl:sticky xl:top-8 xl:h-fit space-y-6'>
+    <aside className='w-full xl:w-96 px-4 sm:px-6 lg:px-8 xl:px-0 xl:pr-8 py-6 lg:py-8 xl:sticky xl:top-8 xl:h-fit space-y-6'>
       {/* Status Section */}
       <div
         className={`bg-gradient-to-br ${availabilityConfig.bgColor} backdrop-blur-sm rounded-2xl p-6 border ${availabilityConfig.borderColor} shadow-lg hover:shadow-xl transition-all duration-300`}

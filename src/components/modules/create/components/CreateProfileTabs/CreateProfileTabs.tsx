@@ -110,7 +110,6 @@ const CreateProfileTabs = () => {
   };
 
   const handleButtonClick = async (formData: CVFormValues) => {
-    console.log('Form submitted with data:', formData);
     try {
       // Filter out empty entries
       const filteredWorkExperience =
@@ -140,11 +139,7 @@ const CreateProfileTabs = () => {
         languages: filteredLanguages,
       };
 
-      console.log('Sending profile data to API:', profileData);
-
       const result = await createProfile(profileData);
-
-      console.log('API response:', result);
 
       if (result?.createProfile?.id) {
         toast({

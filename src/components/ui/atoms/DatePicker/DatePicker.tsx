@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { ChevronDownIcon } from 'lucide-react';
 import { format } from 'date-fns';
-
-import type { DatePickerProps } from './types';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import {
+  Button,
   Calendar,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '../../molecules';
-import { Button } from '../Button';
-import { CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+} from '@/components/ui';
+
+import type { DatePickerProps } from './types';
 
 const DatePicker = ({
   date,
@@ -33,7 +32,7 @@ const DatePicker = ({
           disabled={disabled}
         >
           {date ? format(date, 'MMMM dd, yyyy') : placeholder}
-          <ChevronDownIcon className='ml-2 h-4 w-4 opacity-50' />
+          <ChevronDown className='ml-2 h-4 w-4 opacity-50' />
         </Button>
       </PopoverTrigger>
       <PopoverContent className='w-auto p-0' align='start'>
