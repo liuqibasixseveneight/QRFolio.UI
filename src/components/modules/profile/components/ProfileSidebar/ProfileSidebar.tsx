@@ -279,13 +279,6 @@ const ProfileSidebar = ({
         </h3>
 
         <div className='space-y-4'>
-          <div className='flex items-center justify-between p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/60 hover:border-blue-200/60 transition-all duration-300'>
-            <span className='text-sm text-gray-600 flex items-center gap-2'>
-              <Eye className='w-4 h-4 text-blue-500' />
-              Profile Views
-            </span>
-            <span className='text-lg font-bold text-gray-800'>1,247</span>
-          </div>
           <div className='flex items-center justify-between p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/60 hover:border-emerald-200/60 transition-all duration-300'>
             <span className='text-sm text-gray-600 flex items-center gap-2'>
               <Users className='w-4 h-4 text-emerald-500' />

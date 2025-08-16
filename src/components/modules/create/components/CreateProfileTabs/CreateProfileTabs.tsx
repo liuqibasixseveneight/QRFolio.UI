@@ -220,12 +220,12 @@ const CreateProfileTabs = () => {
       {/* Header Section */}
       <header className='relative w-full bg-white/90 backdrop-blur-sm border-b border-gray-200/50'>
         <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20'>
-          <div className='max-w-7xl mx-auto'>
-            <div className='text-center max-w-5xl mx-auto'>
+          <div className='max-w-6xl mx-auto'>
+            <div className='text-center max-w-4xl mx-auto'>
               <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-gray-900 mb-4 sm:mb-6'>
                 Create Your Profile
               </h1>
-              <p className='text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-4xl mx-auto'>
+              <p className='text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-3xl mx-auto'>
                 Build your professional profile by filling out the sections
                 below. This information will be used to generate your
                 personalized QR code and resume.
@@ -237,7 +237,7 @@ const CreateProfileTabs = () => {
 
       {/* Main Content */}
       <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
-        <div className='w-full'>
+        <div className='max-w-6xl mx-auto w-full'>
           <form
             className='space-y-6'
             onSubmit={handleSubmit(handleButtonClick)}

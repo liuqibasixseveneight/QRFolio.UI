@@ -11,7 +11,7 @@ const TabbedSections = ({
   return (
     <Tabs
       defaultValue={defaultValue ?? tabs?.[0]?.value}
-      className={cn('w-full', className)}
+      className={cn('w-full max-w-6xl mx-auto', className)}
     >
       <TabsList className='mb-8'>
         {tabs?.map((tab) => (
