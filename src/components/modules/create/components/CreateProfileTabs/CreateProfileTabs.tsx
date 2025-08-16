@@ -40,9 +40,12 @@ const CreateProfileTabs = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isValid, isDirty, isSubmitting },
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       fullName: '',
       phone: undefined,
@@ -106,23 +109,42 @@ const CreateProfileTabs = () => {
     setIndex(fieldsLength);
   };
 
-  const handleButtonClick = async () => {
+  const handleButtonClick = async (formData: CVFormValues) => {
+    console.log('Form submitted with data:', formData);
     try {
-      const formData = {
+      // Filter out empty entries
+      const filteredWorkExperience =
+        formData.workExperience?.filter(
+          (work) => work.jobTitle?.trim() && work.companyName?.trim()
+        ) || [];
+
+      const filteredEducation =
+        formData.education?.filter(
+          (edu) => edu.schoolName?.trim() && edu.degree?.trim()
+        ) || [];
+
+      const filteredLanguages =
+        formData.languages?.filter((lang) => lang.language?.trim()) || [];
+
+      const profileData = {
         id: userId || '',
-        fullName: '',
-        phone: undefined,
-        email: '',
-        linkedin: '',
-        portfolio: '',
-        professionalSummary: '',
-        availability: 'available' as const,
-        workExperience: [],
-        education: [],
-        languages: [],
+        fullName: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        linkedin: formData.linkedin,
+        portfolio: formData.portfolio,
+        professionalSummary: formData.professionalSummary,
+        availability: formData.availability,
+        workExperience: filteredWorkExperience,
+        education: filteredEducation,
+        languages: filteredLanguages,
       };
 
-      const result = await createProfile(formData);
+      console.log('Sending profile data to API:', profileData);
+
+      const result = await createProfile(profileData);
+
+      console.log('API response:', result);
 
       if (result?.createProfile?.id) {
         toast({
@@ -134,6 +156,7 @@ const CreateProfileTabs = () => {
         navigate(`/profile/${result.createProfile.id}`);
       }
     } catch (err) {
+      console.error('Error creating profile:', err);
       toast({
         title: 'Profile Creation Failed',
         description: 'Failed to create profile. Please try again later.',
@@ -220,7 +243,10 @@ const CreateProfileTabs = () => {
       {/* Main Content */}
       <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
         <div className='w-full'>
-          <form className='space-y-6'>
+          <form
+            className='space-y-6'
+            onSubmit={handleSubmit(handleButtonClick)}
+          >
             {/* Tabs Section */}
             <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
               <TabbedSections
@@ -236,10 +262,9 @@ const CreateProfileTabs = () => {
             {/* Submit Button */}
             <div className='flex justify-center pt-4'>
               <Button
-                type='button'
+                type='submit'
                 size='lg'
-                onClick={handleButtonClick}
-                disabled={loading || !isValid || !isDirty}
+                disabled={loading}
                 className='bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 active:scale-[0.98] shadow-lg hover:shadow-xl'
               >
                 <span className='flex items-center gap-3'>

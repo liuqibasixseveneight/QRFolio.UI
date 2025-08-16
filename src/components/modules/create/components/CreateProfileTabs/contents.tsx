@@ -72,7 +72,6 @@ export const contents = ({
               control={control}
               registerName='phone'
               error={errors.phone?.message}
-              required
             />
 
             <FormField

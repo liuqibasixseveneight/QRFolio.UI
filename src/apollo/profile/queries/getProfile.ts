@@ -21,6 +21,7 @@ const GET_PROFILE = gql`
       education
       languages
       createdAt
+      updatedAt
     }
   }
 `;

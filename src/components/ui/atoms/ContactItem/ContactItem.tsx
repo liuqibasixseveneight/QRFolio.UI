@@ -1,30 +1,52 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import type { ContactItemProps } from './types';
 
 const ContactItem = ({ icon, label, value, href }: ContactItemProps) => {
   const isExternal = href && href.startsWith('http');
 
+  const handleClick = () => {
+    if (href) {
+      if (isExternal) {
+        window.open(href, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = href;
+      }
+    }
+  };
+
   return (
-    <div className='group flex items-center gap-3 p-3 rounded-lg hover:bg-white/60 transition-all duration-200 cursor-pointer'>
-      {/* Icon Container */}
-      <div className='flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center border border-indigo-200/30 transition-all duration-200 group-hover:from-indigo-200 group-hover:to-purple-200'>
-        {icon}
+    <div
+      className={`group relative flex items-center gap-4 p-4 rounded-2xl hover:bg-white/90 transition-all duration-500 cursor-pointer border border-transparent hover:border-blue-200/60 hover:shadow-xl hover:shadow-blue-100/50 ${
+        href ? 'hover:scale-[1.02]' : ''
+      }`}
+      onClick={handleClick}
+    >
+      {/* Enhanced Icon Container with techzen aesthetic */}
+      <div className='flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-100/80 via-indigo-100/80 to-purple-100/80 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-blue-200/60 transition-all duration-500 group-hover:from-blue-200/90 group-hover:via-indigo-200/90 group-hover:to-purple-200/90 group-hover:scale-110 group-hover:shadow-xl shadow-lg'>
+        <div className='text-blue-600 group-hover:text-blue-700 transition-colors duration-500'>
+          {icon}
+        </div>
       </div>
 
-      {/* Content */}
+      {/* Enhanced Content with techzen aesthetic */}
       <div className='flex-1 min-w-0'>
-        <p className='text-sm font-medium text-gray-600 group-hover:text-indigo-600 transition-colors duration-200'>
+        <p className='text-xs font-semibold text-gray-500 uppercase tracking-wider group-hover:text-blue-600 transition-colors duration-500 mb-1'>
           {label}
         </p>
-        <p className='text-sm text-gray-900 group-hover:text-indigo-700 transition-colors duration-200 truncate'>
+        <p className='text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors duration-500 truncate leading-tight'>
           {value}
         </p>
       </div>
 
-      {/* External Link Arrow */}
+      {/* Enhanced External Link Indicator with techzen aesthetic */}
       {isExternal && (
-        <ArrowUpRight className='w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors duration-200 flex-shrink-0' />
+        <div className='flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-50/80 via-indigo-50/80 to-purple-50/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-blue-200/60 group-hover:from-blue-100/90 group-hover:via-indigo-100/90 group-hover:to-purple-100/90 transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg'>
+          <ExternalLink className='w-4 h-4 text-blue-500 group-hover:text-blue-600 transition-colors duration-500' />
+        </div>
       )}
+
+      {/* Enhanced hover effect with techzen aesthetic */}
+      <div className='absolute inset-0 rounded-2xl border border-transparent group-hover:border-blue-200/30 transition-all duration-500 pointer-events-none'></div>
     </div>
   );
 };

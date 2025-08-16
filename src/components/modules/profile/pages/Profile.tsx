@@ -1,7 +1,14 @@
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
 import { useState, useEffect } from 'react';
-import { ArrowUp, Sparkles } from 'lucide-react';
+import {
+  ArrowUp,
+  Sparkles,
+  Briefcase,
+  GraduationCap,
+  Languages,
+  User,
+} from 'lucide-react';
 import ProfileHeader from '../components/ProfileHeader/ProfileHeader';
 import {
   EducationSection,
@@ -18,6 +25,7 @@ const Profile = () => {
   // @ts-ignore
   const [data, { loading, error }] = useGetProfile(userId || '');
   const profile = data?.profile;
+  console.log('🚀 ~ Profile ~ profile:', profile);
 
   // Handle scroll to top functionality
   useEffect(() => {
@@ -35,22 +43,10 @@ const Profile = () => {
 
   if (!profile) {
     return (
-      <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center p-8 text-center'>
+      <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center p-8 text-center'>
         <div className='max-w-md mx-auto'>
-          <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center shadow-lg'>
-            <svg
-              className='w-10 h-10 text-indigo-600'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
-              />
-            </svg>
+          <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center shadow-lg'>
+            <User className='w-10 h-10 text-blue-600' />
           </div>
           <h2 className='text-3xl font-bold text-gray-900 mb-4'>
             Profile Not Found
@@ -74,18 +70,19 @@ const Profile = () => {
     workExperience = [],
     education = [],
     languages = [],
+    updatedAt,
   } = profile;
 
   return (
-    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-gray-900 font-sans'>
-      {/* Subtle background elements */}
+    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 text-gray-900 font-sans relative'>
+      {/* Simplified background elements */}
       <div className='fixed inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
-        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-indigo-100/20 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/20 to-purple-100/20 rounded-full blur-3xl'></div>
       </div>
 
       {loading ? (
-        <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center'>
+        <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center'>
           <div className='text-center'>
             <LoadingSpinner />
             <p className='mt-4 text-gray-600 text-lg'>Loading profile...</p>
@@ -93,10 +90,21 @@ const Profile = () => {
         </main>
       ) : (
         <>
-          <ProfileHeader fullName={fullName} summary={professionalSummary} />
+          <ProfileHeader
+            fullName={fullName}
+            summary={professionalSummary}
+            email={email}
+            phone={phone}
+            linkedin={linkedin}
+            portfolio={portfolio}
+            workExperience={workExperience}
+            education={education}
+            languages={languages}
+            updatedAt={updatedAt}
+          />
 
           <div className='flex flex-col xl:flex-row flex-1 overflow-visible xl:overflow-hidden w-full relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12'>
-            {/* Sidebar - Sticky on larger screens */}
+            {/* Sidebar */}
             <div className='xl:w-80 xl:flex-shrink-0'>
               <ProfileSidebar
                 {...{ email, phone, linkedin, portfolio, availability }}
@@ -104,25 +112,49 @@ const Profile = () => {
             </div>
 
             {/* Main Content Area */}
-            <div className='flex-1 xl:ml-0 py-6 lg:py-8'>
-              <div className='space-y-6'>
+            <div className='flex-1 xl:ml-8 py-8 lg:py-12'>
+              <div className='space-y-8 lg:space-y-12'>
                 {/* Work Experience Section */}
                 {workExperience && workExperience.length > 0 && (
-                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+                  <div className='bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300'>
+                    <div className='flex items-center gap-3 mb-6'>
+                      <div className='w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md'>
+                        <Briefcase className='w-6 h-6 text-white' />
+                      </div>
+                      <h2 className='text-2xl font-bold text-gray-900'>
+                        Work Experience
+                      </h2>
+                    </div>
                     <ExperienceSection workExperience={workExperience} />
                   </div>
                 )}
 
                 {/* Education Section */}
                 {education && education.length > 0 && (
-                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+                  <div className='bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300'>
+                    <div className='flex items-center gap-3 mb-6'>
+                      <div className='w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center shadow-md'>
+                        <GraduationCap className='w-6 h-6 text-white' />
+                      </div>
+                      <h2 className='text-2xl font-bold text-gray-900'>
+                        Education
+                      </h2>
+                    </div>
                     <EducationSection education={education} />
                   </div>
                 )}
 
                 {/* Languages Section */}
                 {languages && languages.length > 0 && (
-                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+                  <div className='bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300'>
+                    <div className='flex items-center gap-3 mb-6'>
+                      <div className='w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-md'>
+                        <Languages className='w-6 h-6 text-white' />
+                      </div>
+                      <h2 className='text-2xl font-bold text-gray-900'>
+                        Languages
+                      </h2>
+                    </div>
                     <LanguageSection languages={languages} />
                   </div>
                 )}
@@ -131,16 +163,16 @@ const Profile = () => {
                 {(!workExperience || workExperience.length === 0) &&
                   (!education || education.length === 0) &&
                   (!languages || languages.length === 0) && (
-                    <div className='bg-white/60 backdrop-blur-sm rounded-xl p-12 text-center'>
-                      <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center'>
-                        <Sparkles className='w-10 h-10 text-indigo-600' />
+                    <div className='bg-white/80 backdrop-blur-sm rounded-2xl p-16 text-center border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300'>
+                      <div className='w-24 h-24 mx-auto mb-8 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center shadow-lg'>
+                        <Sparkles className='w-12 h-12 text-blue-600' />
                       </div>
-                      <h3 className='text-2xl font-bold text-gray-900 mb-3'>
-                        No Content Yet
+                      <h3 className='text-3xl font-bold text-gray-900 mb-4'>
+                        Ready to Build Your Profile
                       </h3>
-                      <p className='text-gray-600 text-lg leading-relaxed max-w-md mx-auto'>
-                        This profile doesn't have any work experience,
-                        education, or language information yet.
+                      <p className='text-gray-600 text-xl leading-relaxed max-w-lg mx-auto'>
+                        Add your work experience, education, and language skills
+                        to create a compelling digital resume.
                       </p>
                     </div>
                   )}
@@ -154,9 +186,9 @@ const Profile = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className='fixed bottom-8 right-8 z-50 w-12 h-12 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-[0.98]'
+          className='fixed bottom-8 right-8 z-50 w-14 h-14 bg-white/90 backdrop-blur-sm text-blue-600 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-95 border border-white/60 hover:border-blue-200/60 hover:bg-white cursor-pointer'
         >
-          <ArrowUp className='w-6 h-6 mx-auto' />
+          <ArrowUp className='w-7 h-7 mx-auto' />
         </button>
       )}
     </main>

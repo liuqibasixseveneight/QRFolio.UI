@@ -1,25 +1,25 @@
 export type DateString = string;
 
 export type WorkExperience = {
-  jobTitle: string;
-  companyName: string;
-  location: string;
-  dateFrom: DateString;
-  dateTo: DateString;
-  responsibilities: string;
+  jobTitle?: string;
+  companyName?: string;
+  location?: string;
+  dateFrom?: DateString;
+  dateTo?: DateString;
+  responsibilities?: string;
 };
 
 export type Education = {
-  schoolName: string;
-  degree: string;
-  fieldOfStudy: string;
-  dateFrom: DateString;
-  dateTo: DateString;
-  description: string;
+  schoolName?: string;
+  degree?: string;
+  fieldOfStudy?: string;
+  dateFrom?: DateString;
+  dateTo?: DateString;
+  description?: string;
 };
 
 export type Language = {
-  language: string;
+  language?: string;
   fluencyLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Fluent' | 'Native';
 };
 
@@ -51,6 +51,7 @@ export interface BaseProfile {
 export interface Profile extends BaseProfile {
   id: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateProfileVariables extends BaseProfile {
