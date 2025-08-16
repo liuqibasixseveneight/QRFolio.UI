@@ -1,3 +1,3 @@
+export * from './emptyConstants';
 export * from './entryChecks';
-export * from './emptyContants';
 export * from './removeEmptyEntries';
