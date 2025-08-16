@@ -116,16 +116,18 @@ export const contents = ({
               required
             />
 
-            <FormField
-              label='Professional Summary'
-              type='textarea'
-              register={register}
-              registerName='professionalSummary'
-              placeholder='Tell us about yourself professionally...'
-              error={errors.professionalSummary?.message}
-              rows={4}
-              required
-            />
+            <div className='md:col-span-2'>
+              <FormField
+                label='Professional Summary'
+                type='textarea'
+                register={register}
+                registerName='professionalSummary'
+                placeholder='Tell us about yourself professionally...'
+                error={errors.professionalSummary?.message}
+                rows={4}
+                required
+              />
+            </div>
           </div>
         </section>
       ),
