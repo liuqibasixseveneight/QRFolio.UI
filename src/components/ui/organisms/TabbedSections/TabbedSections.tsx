@@ -13,7 +13,7 @@ const TabbedSections = ({
       defaultValue={defaultValue ?? tabs?.[0]?.value}
       className={cn('w-full', className)}
     >
-      <TabsList className='w-full justify-start overflow-x-auto'>
+      <TabsList className='mb-8'>
         {tabs?.map((tab) => (
           <TabsTrigger key={tab?.value} value={tab?.value}>
             {tab?.label}
@@ -25,7 +25,7 @@ const TabbedSections = ({
         <TabsContent
           key={item?.value}
           value={item?.value}
-          className='w-full block'
+          className='w-full block data-[state=inactive]:animate-out data-[state=inactive]:fade-out-0 data-[state=active]:animate-in data-[state=active]:fade-in-0 duration-300'
         >
           {item?.content}
         </TabsContent>

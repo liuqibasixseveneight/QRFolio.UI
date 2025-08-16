@@ -10,6 +10,8 @@ import {
   PopoverTrigger,
 } from '../../molecules';
 import { Button } from '../Button';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const DatePicker = ({
   date,
@@ -24,7 +26,10 @@ const DatePicker = ({
       <PopoverTrigger asChild>
         <Button
           variant='outline'
-          className='w-full justify-between font-normal'
+          className={cn(
+            'w-full justify-between font-semibold h-12 rounded-xl border border-slate-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-slate-900 hover:border-slate-300/70 hover:bg-white hover:shadow-lg hover:shadow-slate-200/30 transition-all duration-300',
+            !date && 'text-slate-500'
+          )}
           disabled={disabled}
         >
           {date ? format(date, 'MMMM dd, yyyy') : placeholder}

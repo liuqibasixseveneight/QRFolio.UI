@@ -1,91 +1,92 @@
 import { cn } from '@/lib/utils';
-import type { ComponentProps } from 'react';
+import type { HTMLAttributes } from 'react';
 
-const Card = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card'
-      className={cn(
-        'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
-        className
-      )}
-      {...props}
-    />
-  );
-};
+const Card = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    data-slot='card'
+    className={cn(
+      'rounded-2xl bg-gradient-to-r from-slate-50/95 via-white to-blue-50/95 backdrop-blur-sm transition-all duration-300 hover:from-slate-50/98 hover:via-white hover:to-blue-50/98 border border-slate-200/40 shadow-xl shadow-slate-200/20 hover:shadow-2xl hover:shadow-slate-200/30',
+      className
+    )}
+    {...props}
+  />
+);
 
-const CardHeader = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card-header'
-      className={cn(
-        '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
-        className
-      )}
-      {...props}
-    />
-  );
-};
+const CardHeader = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    data-slot='card-header'
+    className={cn('flex flex-col space-y-1.5 p-6', className)}
+    {...props}
+  />
+);
 
-const CardTitle = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card-title'
-      className={cn('leading-none font-semibold', className)}
-      {...props}
-    />
-  );
-};
+const CardTitle = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) => (
+  <h3
+    data-slot='card-title'
+    className={cn(
+      'text-lg sm:text-xl font-semibold leading-none tracking-tight text-slate-900',
+      className
+    )}
+    {...props}
+  />
+);
 
-const CardDescription = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card-description'
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
-    />
-  );
-};
+const CardDescription = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLParagraphElement>) => (
+  <p
+    data-slot='card-description'
+    className={cn('text-slate-600 text-sm sm:text-base font-light', className)}
+    {...props}
+  />
+);
 
-const CardAction = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card-action'
-      className={cn(
-        'col-start-2 row-span-2 row-start-1 self-start justify-self-end',
-        className
-      )}
-      {...props}
-    />
-  );
-};
+const CardContent = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    data-slot='card-content'
+    className={cn('p-6 pt-0', className)}
+    {...props}
+  />
+);
 
-const CardContent = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card-content'
-      className={cn('px-6', className)}
-      {...props}
-    />
-  );
-};
+const CardFooter = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    data-slot='card-footer'
+    className={cn('flex items-center p-6 pt-0', className)}
+    {...props}
+  />
+);
 
-const CardFooter = ({ className, ...props }: ComponentProps<'div'>) => {
-  return (
-    <div
-      data-slot='card-footer'
-      className={cn('flex items-center px-6 [.border-t]:pt-6', className)}
-      {...props}
-    />
-  );
-};
+const CardAction = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => (
+  <div
+    data-slot='card-action'
+    className={cn('flex items-center p-6 pt-0', className)}
+    {...props}
+  />
+);
 
 export {
   Card,
   CardHeader,
   CardFooter,
   CardTitle,
-  CardAction,
   CardDescription,
   CardContent,
+  CardAction,
 };

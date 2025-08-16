@@ -30,62 +30,81 @@ const SignUpForm = ({
   navigateToSignIn,
 }: SignUpFormProps) => {
   return (
-    <Card className='w-full max-w-sm'>
-      <CardHeader>
-        <CardTitle>Sign Up</CardTitle>
-      </CardHeader>
-      <CardContent className='space-y-4'>
-        <FormField
-          label='Email'
-          type='input'
-          placeholder='you@example.com'
-          value={email}
-          onChange={setEmail}
-          required
-          error={emailError}
-        />
+    <div className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden'>
+      {/* Subtle background elements */}
+      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
+      </div>
 
-        <FormField
-          label='Password'
-          type='password'
-          placeholder='••••••••'
-          value={password}
-          onChange={setPassword}
-          required
-          error={passwordError}
-        />
+      {/* Form Card */}
+      <Card className='w-full max-w-sm sm:max-w-md bg-white/95 backdrop-blur-sm border-gray-200/50 shadow-2xl relative z-10'>
+        <CardHeader className='text-center pb-6'>
+          <CardTitle className='text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent'>
+            Create Account
+          </CardTitle>
+          <p className='text-gray-600 text-sm sm:text-base font-light mt-2'>
+            Join LYTN and build your professional profile
+          </p>
+        </CardHeader>
 
-        <FormField
-          label='Confirm Password'
-          type='password'
-          placeholder='••••••••'
-          value={confirmPassword}
-          onChange={setConfirmPassword}
-          required
-          error={confirmPasswordError}
-        />
+        <CardContent className='space-y-6'>
+          <FormField
+            label='Email'
+            type='input'
+            placeholder='you@example.com'
+            value={email}
+            onChange={setEmail}
+            required
+            error={emailError}
+          />
 
-        {error && <ErrorMessage message={error} />}
+          <FormField
+            label='Password'
+            type='password'
+            placeholder='••••••••'
+            value={password}
+            onChange={setPassword}
+            required
+            error={passwordError}
+          />
 
-        <Button onClick={onSubmit} disabled={loading} className='w-full'>
-          {loading ? 'Signing up...' : 'Sign Up'}
-        </Button>
+          <FormField
+            label='Confirm Password'
+            type='password'
+            placeholder='••••••••'
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            required
+            error={confirmPasswordError}
+          />
 
-        <Separator className='my-4' />
+          {error && <ErrorMessage message={error} />}
 
-        <GoogleSignInButton onClick={onGoogleSignUp} />
-
-        <div className='text-center text-sm mt-4'>
-          Already have an account?{' '}
-          <button
-            onClick={navigateToSignIn}
-            className='text-blue-600 hover:underline'
+          <Button
+            onClick={onSubmit}
+            disabled={loading}
+            className='w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98] font-semibold'
           >
-            Sign In
-          </button>
-        </div>
-      </CardContent>
-    </Card>
+            {loading ? 'Creating account...' : 'Sign Up'}
+          </Button>
+
+          <Separator className='my-6' />
+
+          <GoogleSignInButton onClick={onGoogleSignUp} />
+
+          <div className='text-center text-sm mt-6'>
+            <span className='text-gray-600'>Already have an account? </span>
+            <button
+              onClick={navigateToSignIn}
+              className='text-indigo-600 hover:text-indigo-700 font-semibold hover:underline transition-colors duration-200'
+            >
+              Sign In
+            </button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

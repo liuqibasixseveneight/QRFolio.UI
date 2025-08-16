@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 export type SectionProps = {
-  title: string;
+  title?: string | ReactNode;
   children: ReactNode;
   accentColor: string;
 };

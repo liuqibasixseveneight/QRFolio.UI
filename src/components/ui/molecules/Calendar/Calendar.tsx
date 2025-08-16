@@ -28,7 +28,7 @@ const Calendar = ({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        'bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
+        'bg-white group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent rounded-2xl shadow-2xl',
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className
@@ -69,21 +69,21 @@ const Calendar = ({
           defaultClassNames.dropdowns
         ),
         dropdown_root: cn(
-          'relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md',
+          'relative has-focus:border-indigo-500 border border-gray-300 shadow-lg has-focus:ring-2 has-focus:ring-indigo-500 rounded-xl',
           defaultClassNames.dropdown_root
         ),
         dropdown: cn('absolute inset-0 opacity-0', defaultClassNames.dropdown),
         caption_label: cn(
-          'select-none font-medium',
+          'select-none font-medium text-gray-900',
           captionLayout === 'label'
             ? 'text-sm'
-            : 'rounded-md pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-muted-foreground [&>svg]:size-3.5',
+            : 'rounded-xl pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-gray-500 [&>svg]:size-3.5',
           defaultClassNames.caption_label
         ),
         table: 'w-full border-collapse',
         weekdays: cn('flex', defaultClassNames.weekdays),
         weekday: cn(
-          'text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none',
+          'text-gray-600 rounded-xl flex-1 font-medium text-[0.8rem] select-none',
           defaultClassNames.weekday
         ),
         week: cn('flex w-full mt-2', defaultClassNames.week),
@@ -92,31 +92,31 @@ const Calendar = ({
           defaultClassNames.week_number_header
         ),
         week_number: cn(
-          'text-[0.8rem] select-none text-muted-foreground',
+          'text-[0.8rem] select-none text-gray-500',
           defaultClassNames.week_number
         ),
         day: cn(
-          'relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none',
+          'relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-xl [&:last-child[data-selected=true]_button]:rounded-r-xl group/day aspect-square select-none',
           defaultClassNames.day
         ),
         range_start: cn(
-          'rounded-l-md bg-accent',
+          'rounded-l-xl bg-indigo-100',
           defaultClassNames.range_start
         ),
         range_middle: cn('rounded-none', defaultClassNames.range_middle),
-        range_end: cn('rounded-r-md bg-accent', defaultClassNames.range_end),
+        range_end: cn(
+          'rounded-r-xl bg-indigo-100',
+          defaultClassNames.range_end
+        ),
         today: cn(
-          'bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none',
+          'bg-indigo-100 text-indigo-900 rounded-xl data-[selected=true]:rounded-none',
           defaultClassNames.today
         ),
         outside: cn(
-          'text-muted-foreground aria-selected:text-muted-foreground',
+          'text-gray-400 aria-selected:text-gray-400',
           defaultClassNames.outside
         ),
-        disabled: cn(
-          'text-muted-foreground opacity-50',
-          defaultClassNames.disabled
-        ),
+        disabled: cn('text-gray-400 opacity-50', defaultClassNames.disabled),
         hidden: cn('invisible', defaultClassNames.hidden),
         ...classNames,
       }}

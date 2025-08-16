@@ -1,39 +1,22 @@
-import { useState } from 'react';
+import React from 'react';
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/utils';
 import { Eye, EyeOff } from 'lucide-react';
 
-const Input = ({ className, type, ...props }: ComponentProps<'input'>) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const isPassword = type === 'password';
-  const inputType = isPassword && showPassword ? 'text' : type;
-  const EyeIcon = showPassword ? Eye : EyeOff;
-
-  return (
-    <div className='relative'>
+const Input = React.forwardRef<HTMLInputElement, ComponentProps<'input'>>(
+  ({ className, type, ...props }, ref) => {
+    return (
       <input
-        type={inputType}
-        data-slot='input'
+        type={type}
         className={cn(
-          'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 pr-10 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'flex h-12 w-full rounded-xl border border-slate-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-slate-900 placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-slate-300/70 hover:bg-white hover:shadow-lg hover:shadow-slate-200/30',
           className
         )}
+        ref={ref}
         {...props}
       />
-      {isPassword && (
-        <button
-          type='button'
-          onClick={() => setShowPassword((prev) => !prev)}
-          className='absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground'
-          aria-label={showPassword ? 'Hide password' : 'Show password'}
-          tabIndex={-1}
-        >
-          <EyeIcon className='h-4 w-4' />
-        </button>
-      )}
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default Input;

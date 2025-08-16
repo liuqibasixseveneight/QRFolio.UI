@@ -1,7 +1,9 @@
 import type { ErrorMessageProps } from './types';
 
 const ErrorMessage = ({ message }: ErrorMessageProps) => {
-  return <p className='text-sm text-red-500'>{message}</p>;
+  return (
+    <p className='text-sm sm:text-base text-red-600 font-semibold'>{message}</p>
+  );
 };
 
 export default ErrorMessage;

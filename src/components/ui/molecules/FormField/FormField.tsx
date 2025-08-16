@@ -11,23 +11,49 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../Select';
+import { PhoneInput } from '../PhoneInput';
 
 const FormField = (props: FormFieldProps) => {
   const {
     label,
     type = 'input',
-    placeholder,
-    rows,
-    value,
-    onChange,
-    error,
     register,
     registerName,
-    readOnly = false,
-    options = [],
     control,
+    placeholder,
+    rows,
+    readOnly,
     required,
+    error,
+    options = [],
+    onPhoneChange,
+    value,
+    onChange,
   } = props;
+
+  if (type === 'phone') {
+    if (control && registerName) {
+      return (
+        <Controller
+          control={control}
+          name={registerName}
+          render={({ field }) => (
+            <PhoneInput
+              label={label}
+              value={field.value}
+              onChange={(phoneData) => {
+                // The PhoneInput component now returns the full phone data structure
+                field.onChange(phoneData);
+                onPhoneChange?.(phoneData);
+              }}
+              error={error}
+              required={required}
+            />
+          )}
+        />
+      );
+    }
+  }
 
   if (type === 'date') {
     if (control && registerName) {
@@ -39,11 +65,14 @@ const FormField = (props: FormFieldProps) => {
             const dateObj = field.value ? parseISO(field.value) : undefined;
 
             return (
-              <div className='mb-4'>
+              <div className='space-y-3'>
                 {label && (
-                  <Label htmlFor={registerName} className='mb-1'>
+                  <Label
+                    htmlFor={registerName}
+                    className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                  >
                     {label}
-                    {required && <span className='text-red-500'> *</span>}
+                    {required && <span className='text-red-500 ml-1'>*</span>}
                   </Label>
                 )}
                 <DatePicker
@@ -58,7 +87,11 @@ const FormField = (props: FormFieldProps) => {
                   placeholder={placeholder ?? 'Select date'}
                   disabled={readOnly}
                 />
-                {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+                {error && (
+                  <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                    {error}
+                  </p>
+                )}
               </div>
             );
           }}
@@ -68,11 +101,11 @@ const FormField = (props: FormFieldProps) => {
       const dateObj = value ? parseISO(value) : undefined;
 
       return (
-        <div className='mb-4'>
+        <div className='space-y-3'>
           {label && (
-            <Label className='mb-1'>
+            <Label className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'>
               {label}
-              {required && <span className='text-red-500'> *</span>}
+              {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
           <DatePicker
@@ -87,7 +120,11 @@ const FormField = (props: FormFieldProps) => {
             placeholder={placeholder ?? 'Select date'}
             disabled={readOnly}
           />
-          {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+          {error && (
+            <p className='text-sm sm:text-base text-red-600 font-semibold'>
+              {error}
+            </p>
+          )}
         </div>
       );
     }
@@ -99,31 +136,47 @@ const FormField = (props: FormFieldProps) => {
         <Controller
           control={control}
           name={registerName}
-          render={({ field }) => (
-            <div className='mb-4'>
-              {label && (
-                <Label htmlFor={registerName} className='mb-1'>
-                  {label}
-                  {required && <span className='text-red-500'> *</span>}
-                </Label>
-              )}
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id={registerName} className='w-full'>
-                  <SelectValue
-                    placeholder={placeholder ?? 'Select an option'}
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  {options.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
-            </div>
-          )}
+          render={({ field }) => {
+            return (
+              <div className='space-y-3'>
+                {label && (
+                  <Label
+                    htmlFor={registerName}
+                    className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                  >
+                    {label}
+                    {required && <span className='text-red-500 ml-1'>*</span>}
+                  </Label>
+                )}
+                <Select
+                  key={`${registerName}-${field.value}`}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                >
+                  <SelectTrigger
+                    id={registerName}
+                    className='w-full h-12 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl'
+                  >
+                    <SelectValue
+                      placeholder={placeholder ?? 'Select an option'}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {options.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {error && (
+                  <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                    {error}
+                  </p>
+                )}
+              </div>
+            );
+          }}
         />
       );
     } else {
@@ -138,15 +191,15 @@ const FormField = (props: FormFieldProps) => {
       const selectedValue = register && registerName ? undefined : value ?? '';
 
       return (
-        <div className='mb-4'>
+        <div className='space-y-3'>
           {label && (
-            <Label className='mb-1'>
+            <Label className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'>
               {label}
-              {required && <span className='text-red-500'> *</span>}
+              {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger className='w-full'>
+            <SelectTrigger className='w-full h-12 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl'>
               <SelectValue placeholder={placeholder ?? 'Select an option'} />
             </SelectTrigger>
             <SelectContent>
@@ -157,7 +210,11 @@ const FormField = (props: FormFieldProps) => {
               ))}
             </SelectContent>
           </Select>
-          {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+          {error && (
+            <p className='text-sm sm:text-base text-red-600 font-semibold'>
+              {error}
+            </p>
+          )}
         </div>
       );
     }
@@ -178,11 +235,11 @@ const FormField = (props: FormFieldProps) => {
         };
 
   return (
-    <div className='mb-4'>
+    <div className='space-y-3'>
       {label && (
-        <Label className='mb-1'>
+        <Label className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'>
           {label}
-          {required && <span className='text-red-500'> *</span>}
+          {required && <span className='text-red-500 ml-1'>*</span>}
         </Label>
       )}
       {type === 'textarea' ? (
@@ -190,6 +247,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
+          className='bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 resize-vertical transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl rounded-xl'
           {...commonInputProps}
         />
       ) : (
@@ -197,10 +255,15 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           readOnly={readOnly}
           type={type}
+          className='bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl rounded-xl h-12'
           {...commonInputProps}
         />
       )}
-      {error && <p className='text-sm text-red-600 mt-1'>{error}</p>}
+      {error && (
+        <p className='text-sm sm:text-base text-red-600 font-semibold'>
+          {error}
+        </p>
+      )}
     </div>
   );
 };

@@ -1,23 +1,64 @@
-import { Mail, Phone, Linkedin, Globe } from 'lucide-react';
-
-import { formatDate } from '../helpers';
-import { ContactItem, Section, TimelineItem } from '@/components/ui';
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
+import { useState, useEffect } from 'react';
+import { ArrowUp, Sparkles } from 'lucide-react';
+import ProfileHeader from '../components/ProfileHeader/ProfileHeader';
+import {
+  EducationSection,
+  ExperienceSection,
+  LanguageSection,
+  ProfileSidebar,
+} from '../components';
+import { LoadingSpinner } from '@/components/ui';
 
 const Profile = () => {
   const { userId } = useAuth();
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // @ts-ignore
   const [data, { loading, error }] = useGetProfile(userId || '');
   const profile = data?.profile;
 
+  // Handle scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   if (!profile) {
     return (
-      <main className='flex items-center justify-center min-h-screen w-full bg-neutral-50 p-8 text-center'>
-        <p className='text-neutral-500 text-lg font-light'>
-          Profile not found or deleted.
-        </p>
+      <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center p-8 text-center'>
+        <div className='max-w-md mx-auto'>
+          <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center shadow-lg'>
+            <svg
+              className='w-10 h-10 text-indigo-600'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
+              />
+            </svg>
+          </div>
+          <h2 className='text-3xl font-bold text-gray-900 mb-4'>
+            Profile Not Found
+          </h2>
+          <p className='text-gray-600 text-lg leading-relaxed'>
+            The profile you're looking for doesn't exist or has been deleted.
+          </p>
+        </div>
       </main>
     );
   }
@@ -29,111 +70,95 @@ const Profile = () => {
     phone,
     linkedin,
     portfolio,
+    availability,
     workExperience = [],
     education = [],
     languages = [],
   } = profile;
 
   return (
-    <main className='flex flex-col items-center justify-start w-full h-screen bg-neutral-50 overflow-auto p-8 sm:p-10'>
-      <div className='relative w-full max-w-3xl space-y-12'>
-        <header className='mb-10'>
-          <h1 className='text-4xl font-extrabold tracking-tight font-poppins text-neutral-900 text-center'>
-            {fullName}
-          </h1>
-          {professionalSummary && (
-            <p className='mt-4 text-neutral-700 whitespace-pre-wrap leading-relaxed text-base font-normal text-center max-w-xl mx-auto'>
-              {professionalSummary}
-            </p>
-          )}
-        </header>
-        <div className='flex flex-col lg:flex-row gap-12'>
-          <aside className='lg:w-1/3 space-y-8'>
-            <div className='space-y-5'>
-              {email && (
-                <ContactItem
-                  icon={<Mail />}
-                  label='Email'
-                  value={email}
-                  href={`mailto:${email}`}
-                />
-              )}
-              {phone && (
-                <ContactItem icon={<Phone />} label='Phone' value={phone} />
-              )}
-              {linkedin && (
-                <ContactItem
-                  icon={<Linkedin />}
-                  label='LinkedIn'
-                  value={linkedin}
-                  href={linkedin}
-                />
-              )}
-              {portfolio && (
-                <ContactItem
-                  icon={<Globe />}
-                  label='Portfolio'
-                  value={portfolio}
-                  href={portfolio}
-                />
-              )}
-            </div>
-          </aside>
-
-          <section className='lg:w-2/3 flex flex-col space-y-14'>
-            {workExperience?.length > 0 && (
-              <Section title='Work Experience' accentColor='indigo-600'>
-                {workExperience?.map((exp: any, i: number) => (
-                  <TimelineItem
-                    key={i}
-                    title={`${exp.jobTitle} @ ${exp.companyName}`}
-                    subtitle={exp.location}
-                    date={`${formatDate(exp.dateFrom)} - ${formatDate(
-                      exp.dateTo
-                    )}`}
-                    description={exp.responsibilities}
-                    accentColor='indigo-600'
-                  />
-                ))}
-              </Section>
-            )}
-
-            {education?.length > 0 && (
-              <Section title='Education' accentColor='indigo-600'>
-                {education?.map((edu: any, i: number) => (
-                  <TimelineItem
-                    key={i}
-                    title={`${edu.degree} in ${edu.fieldOfStudy}`}
-                    subtitle={edu.schoolName}
-                    date={`${formatDate(edu.dateFrom)} - ${formatDate(
-                      edu.dateTo
-                    )}`}
-                    description={edu.description}
-                    accentColor='indigo-600'
-                  />
-                ))}
-              </Section>
-            )}
-
-            {languages?.length > 0 && (
-              <Section title='Languages' accentColor='indigo-600'>
-                <ul className='space-y-3'>
-                  {languages?.map((lang: any, i: number) => (
-                    <li key={i} className='flex flex-col'>
-                      <span className='font-medium text-base text-neutral-900'>
-                        {lang.language}
-                      </span>
-                      <span className='text-sm text-neutral-600 italic'>
-                        {lang.fluencyLevel}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </Section>
-            )}
-          </section>
-        </div>
+    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-gray-900 font-sans'>
+      {/* Subtle background elements */}
+      <div className='fixed inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
       </div>
+
+      {loading ? (
+        <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center'>
+          <div className='text-center'>
+            <LoadingSpinner />
+            <p className='mt-4 text-gray-600 text-lg'>Loading profile...</p>
+          </div>
+        </main>
+      ) : (
+        <>
+          <ProfileHeader fullName={fullName} summary={professionalSummary} />
+
+          <div className='flex flex-col xl:flex-row flex-1 overflow-visible xl:overflow-hidden w-full relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12'>
+            {/* Sidebar - Sticky on larger screens */}
+            <div className='xl:w-80 xl:flex-shrink-0'>
+              <ProfileSidebar
+                {...{ email, phone, linkedin, portfolio, availability }}
+              />
+            </div>
+
+            {/* Main Content Area */}
+            <div className='flex-1 xl:ml-0 py-6 lg:py-8'>
+              <div className='space-y-6'>
+                {/* Work Experience Section */}
+                {workExperience && workExperience.length > 0 && (
+                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+                    <ExperienceSection workExperience={workExperience} />
+                  </div>
+                )}
+
+                {/* Education Section */}
+                {education && education.length > 0 && (
+                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+                    <EducationSection education={education} />
+                  </div>
+                )}
+
+                {/* Languages Section */}
+                {languages && languages.length > 0 && (
+                  <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+                    <LanguageSection languages={languages} />
+                  </div>
+                )}
+
+                {/* Empty State */}
+                {(!workExperience || workExperience.length === 0) &&
+                  (!education || education.length === 0) &&
+                  (!languages || languages.length === 0) && (
+                    <div className='bg-white/60 backdrop-blur-sm rounded-xl p-12 text-center'>
+                      <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center'>
+                        <Sparkles className='w-10 h-10 text-indigo-600' />
+                      </div>
+                      <h3 className='text-2xl font-bold text-gray-900 mb-3'>
+                        No Content Yet
+                      </h3>
+                      <p className='text-gray-600 text-lg leading-relaxed max-w-md mx-auto'>
+                        This profile doesn't have any work experience,
+                        education, or language information yet.
+                      </p>
+                    </div>
+                  )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className='fixed bottom-8 right-8 z-50 w-12 h-12 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-[0.98]'
+        >
+          <ArrowUp className='w-6 h-6 mx-auto' />
+        </button>
+      )}
     </main>
   );
 };

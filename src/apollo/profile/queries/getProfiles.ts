@@ -12,6 +12,7 @@ const GET_PROFILES = gql`
       linkedin
       portfolio
       professionalSummary
+      availability
       workExperience
       education
       languages
@@ -24,7 +25,9 @@ export const useGetProfiles = (): [
   GetProfilesData | undefined,
   GetProfilesResult
 ] => {
-  const { data, loading, error } = useQuery<GetProfilesData>(GET_PROFILES);
+  const { data, loading, error } = useQuery<GetProfilesData>(GET_PROFILES, {
+    fetchPolicy: 'network-only',
+  });
 
   return [data, { loading, error }];
 };

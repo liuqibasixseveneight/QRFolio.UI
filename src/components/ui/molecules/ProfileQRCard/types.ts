@@ -1,6 +1,7 @@
 export type ProfileQRCardProps = {
   link: string;
   labels: {
-    displayName: string;
+    fullName: string;
+    professionalSummary: string;
   };
 };

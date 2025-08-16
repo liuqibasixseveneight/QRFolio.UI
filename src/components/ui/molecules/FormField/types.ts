@@ -2,7 +2,7 @@ import type { UseFormRegister, Control } from 'react-hook-form';
 
 export type FormFieldProps = {
   label?: string;
-  type?: 'input' | 'textarea' | 'date' | 'select' | 'password';
+  type?: 'input' | 'textarea' | 'date' | 'select' | 'password' | 'phone';
   placeholder?: string;
   value?: string;
   onChange?: (val: string) => void;
@@ -14,4 +14,5 @@ export type FormFieldProps = {
   error?: string;
   options?: { label: string; value: string }[];
   required?: boolean;
+  onPhoneChange?: (value: any) => void;
 };

@@ -1,28 +1,28 @@
 import { useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Copy, Download } from 'lucide-react';
 import * as htmlToImage from 'html-to-image';
 
-import { Button, ProfileQRCard } from '@/components/ui';
-import type { CVFormValues } from '../types';
+import { Button, LoadingSpinner, ProfileQRCard } from '@/components/ui';
+import { useAuth } from '@/context';
+import { useGetProfile } from '@/apollo/profile';
 
 const ProfileCreated = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const profileId = location.state?.id ?? null;
+  const { userId } = useAuth();
 
-  const profileData: CVFormValues | null = (() => {
-    if (profileId) {
-      const stored = localStorage.getItem(`profile-${profileId}`);
-      return stored ? JSON.parse(stored) : null;
-    }
-    return null;
-  })();
+  // @ts-ignore
+  const [data, { loading, error }] = useGetProfile(userId || '');
+  const profileData = data?.profile;
 
   const cardRef = useRef<HTMLDivElement>(null);
 
-  if (!profileData || !profileId) {
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (!profileData || !userId) {
     return (
       <main className='flex flex-col items-center justify-center min-h-screen w-full bg-neutral-50 p-8 text-center'>
         <p className='text-lg text-neutral-600 mb-6'>Profile data not found.</p>
@@ -31,8 +31,8 @@ const ProfileCreated = () => {
     );
   }
 
-  const profileLink = `${window.location.origin}/profile/${profileId}`;
-  const displayName = profileData.fullName ?? 'Your QRFolio';
+  const profileLink = `${window.location.origin}/profile/${userId}`;
+  const fullName = profileData?.fullName ?? 'Your resume';
 
   const copyLinkToClipboard = () => {
     navigator.clipboard.writeText(profileLink);
@@ -45,7 +45,7 @@ const ProfileCreated = () => {
       .toPng(cardRef.current, { cacheBust: true })
       .then((dataUrl) => {
         const link = document.createElement('a');
-        link.download = `${displayName.replace(/\s+/g, '_')}_QRCode.png`;
+        link.download = `${fullName?.replace(/\s+/g, '_')}_QRCode.png`;
         link.href = dataUrl;
         link.click();
       })
@@ -60,7 +60,7 @@ const ProfileCreated = () => {
       <div className='relative w-full max-w-2xl space-y-16'>
         <header className='text-center space-y-4'>
           <h1 className='text-3xl md:text-4xl font-semibold text-neutral-900'>
-            🎉 Your QRFolio is Ready!
+            🎉 Your resume is Ready!
           </h1>
           <p className='text-neutral-600 text-base max-w-xl mx-auto'>
             Your personal QR code makes sharing your resume easy and
@@ -74,7 +74,7 @@ const ProfileCreated = () => {
             ref={cardRef}
             className='flex justify-center w-full max-w-xl mx-auto px-6 sm:px-0 mb-8'
           >
-            <ProfileQRCard labels={{ displayName }} link={profileLink} />
+            <ProfileQRCard labels={{ fullName }} link={profileLink} />
           </div>
 
           <div className='flex flex-wrap gap-4 justify-center'>
@@ -87,10 +87,10 @@ const ProfileCreated = () => {
             <Button
               size='lg'
               variant='default'
-              onClick={() => navigate(`/profile/${profileId}`)}
+              onClick={() => navigate(`/profile/${userId}`)}
             >
               View Full Profile <ArrowRight size={20} className='ml-2' />
-            </Button>{' '}
+            </Button>
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
+export type DateString = string;
+
 export type WorkExperience = {
   jobTitle: string;
   companyName: string;
   location: string;
-  dateFrom: string;
-  dateTo: string;
+  dateFrom: DateString;
+  dateTo: DateString;
   responsibilities: string;
 };
 
@@ -11,8 +13,8 @@ export type Education = {
   schoolName: string;
   degree: string;
   fieldOfStudy: string;
-  dateFrom: string;
-  dateTo: string;
+  dateFrom: DateString;
+  dateTo: DateString;
   description: string;
 };
 
@@ -21,60 +23,69 @@ export type Language = {
   fluencyLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Fluent' | 'Native';
 };
 
-export type CreateProfileVariables = {
-  id: string;
+export type Availability = 'available' | 'open' | 'unavailable';
+
+export interface PhoneNumber {
+  countryCode: string;
+  dialCode: string;
+  number: string;
+  flag?: string;
+}
+
+// Phone can be either a PhoneNumber object, a string, or undefined
+export type Phone = PhoneNumber | string | undefined;
+
+export interface BaseProfile {
   fullName: string;
-  phone?: string;
+  phone?: Phone;
   email: string;
   linkedin?: string;
   portfolio?: string;
   professionalSummary: string;
+  availability: Availability;
   workExperience?: WorkExperience[];
   education?: Education[];
   languages?: Language[];
-};
+}
 
-export type CreateProfileData = {
-  createProfile: {
-    id: string;
-    fullName: string;
-    email: string;
-    createdAt: string;
-  };
-};
-
-export type Profile = {
+export interface Profile extends BaseProfile {
   id: string;
-  fullName: string;
-  phone?: string;
-  email: string;
-  linkedin?: string;
-  portfolio?: string;
-  professionalSummary: string;
-  workExperience?: WorkExperience[];
-  education?: Education[];
-  languages?: Language[];
   createdAt: string;
-};
+}
 
-export type GetProfilesData = {
-  profiles: Profile[];
-};
-
-export type GetProfilesResult = {
-  loading: boolean;
-  error?: Error;
-};
-
-export type GetProfileData = {
-  profile: Profile;
-};
-
-export type GetProfileVariables = {
+export interface CreateProfileVariables extends BaseProfile {
   id: string;
-};
+}
 
-export type GetProfileResult = {
+export interface UpdateProfileVariables extends Partial<BaseProfile> {
+  id: string;
+}
+
+export interface CreateProfileData {
+  createProfile: Profile;
+}
+
+export interface UpdateProfileData {
+  updateProfile: Profile;
+}
+
+export interface GetProfilesData {
+  profiles: Profile[];
+}
+
+export interface GetProfileData {
+  profile: Profile;
+}
+
+export interface GetProfileVariables {
+  id: string;
+}
+
+export interface GraphQLResult<T> {
   loading: boolean;
   error?: Error;
-};
+  data?: T;
+}
+
+export type GetProfilesResult = GraphQLResult<GetProfilesData>;
+export type GetProfileResult = GraphQLResult<GetProfileData>;

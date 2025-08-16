@@ -1,5 +1,4 @@
 import type { z } from 'zod';
-
-import type { introSchema } from './schemas/introSchema';
+import { introSchema } from './schemas';
 
 export type CVFormValues = z.infer<typeof introSchema>;

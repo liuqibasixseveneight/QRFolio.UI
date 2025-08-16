@@ -1,26 +1,32 @@
-import { createElement, isValidElement } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import type { ContactItemProps } from './types';
 
-const ContactItem = ({ icon, label, value, href }: ContactItemProps) => (
-  <a
-    href={href ?? undefined}
-    target={href ? '_blank' : undefined}
-    rel={href ? 'noopener noreferrer' : undefined}
-    className='flex items-center space-x-4 group transition-colors duration-200 hover:text-indigo-600'
-  >
-    <div
-      className='p-2 rounded-md bg-indigo-50 group-hover:bg-indigo-100 transition'
-      style={{ color: '#8ca6db' }}
-    >
-      {isValidElement(icon) ? createElement(icon.type, { size: 20 }) : icon}
+const ContactItem = ({ icon, label, value, href }: ContactItemProps) => {
+  const isExternal = href && href.startsWith('http');
+
+  return (
+    <div className='group flex items-center gap-3 p-3 rounded-lg hover:bg-white/60 transition-all duration-200 cursor-pointer'>
+      {/* Icon Container */}
+      <div className='flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-xl flex items-center justify-center border border-indigo-200/30 transition-all duration-200 group-hover:from-indigo-200 group-hover:to-purple-200'>
+        {icon}
+      </div>
+
+      {/* Content */}
+      <div className='flex-1 min-w-0'>
+        <p className='text-sm font-medium text-gray-600 group-hover:text-indigo-600 transition-colors duration-200'>
+          {label}
+        </p>
+        <p className='text-sm text-gray-900 group-hover:text-indigo-700 transition-colors duration-200 truncate'>
+          {value}
+        </p>
+      </div>
+
+      {/* External Link Arrow */}
+      {isExternal && (
+        <ArrowUpRight className='w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors duration-200 flex-shrink-0' />
+      )}
     </div>
-    <div className='flex flex-col'>
-      <span className='text-xs font-semibold uppercase tracking-wide text-gray-500'>
-        {label}
-      </span>
-      <span className='text-sm font-medium truncate max-w-xs'>{value}</span>
-    </div>
-  </a>
-);
+  );
+};
 
 export default ContactItem;

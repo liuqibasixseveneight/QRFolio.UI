@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import { useForm, useFieldArray, type FieldErrors } from 'react-hook-form';
-import { v4 as uuidv4 } from 'uuid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 
 import { flattenErrors, routes } from '@/utils';
-import { Button, ErrorDisplay, TabbedSections } from '@/components/ui';
+import {
+  Button,
+  ErrorDisplay,
+  TabbedSections,
+  useToast,
+} from '@/components/ui';
 import type { CVFormValues } from '../../types';
 import { introSchema } from '../../schemas';
 import { contents } from './contents';
 import { tabs } from './tabs';
-import {
-  EMPTY_EDU_ENTRY,
-  EMPTY_LANGUAGE_ENTRY,
-  EMPTY_WORK_ENTRY,
-  removeEmptyEntries,
-} from '../../utils';
+import { useCreateProfile } from '@/apollo/profile';
+import { useAuth } from '@/context';
 
 const CreateProfileTabs = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
   const [submissionErrors, setSubmissionErrors] = useState<string[]>([]);
   const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(0);
   const [activeEduIndex, setActiveEduIndex] = useState<number | null>(0);
@@ -26,23 +28,55 @@ const CreateProfileTabs = () => {
     0
   );
 
+  const { userId } = useAuth();
+
+  const [
+    createProfile,
+    // @ts-ignore
+    { data, loading, error },
+  ] = useCreateProfile();
+
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid, isDirty, isSubmitting },
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
     defaultValues: {
       fullName: '',
-      phone: '',
+      phone: undefined,
       email: '',
       linkedin: '',
       portfolio: '',
       professionalSummary: '',
-      workExperience: [EMPTY_WORK_ENTRY],
-      education: [EMPTY_EDU_ENTRY],
-      languages: [EMPTY_LANGUAGE_ENTRY],
+      availability: 'available',
+      workExperience: [
+        {
+          jobTitle: '',
+          companyName: '',
+          location: '',
+          dateFrom: '',
+          dateTo: '',
+          responsibilities: '',
+        },
+      ],
+      education: [
+        {
+          schoolName: '',
+          degree: '',
+          fieldOfStudy: '',
+          dateFrom: '',
+          dateTo: '',
+          description: '',
+        },
+      ],
+      languages: [
+        {
+          language: '',
+          fluencyLevel: 'Beginner' as const,
+        },
+      ],
     },
   });
 
@@ -72,19 +106,43 @@ const CreateProfileTabs = () => {
     setIndex(fieldsLength);
   };
 
-  const onSubmit = (data: CVFormValues) => {
-    const id = uuidv4();
-    const dataWithoutEmptyEntries = removeEmptyEntries(data);
+  const handleButtonClick = async () => {
+    try {
+      const formData = {
+        id: userId || '',
+        fullName: '',
+        phone: undefined,
+        email: '',
+        linkedin: '',
+        portfolio: '',
+        professionalSummary: '',
+        availability: 'available' as const,
+        workExperience: [],
+        education: [],
+        languages: [],
+      };
 
-    localStorage.setItem(
-      `profile-${id}`,
-      JSON.stringify(dataWithoutEmptyEntries)
-    );
-    navigate(routes.PROFILE_CREATED, { state: { id } });
-  };
+      const result = await createProfile(formData);
 
-  const onInvalid = (errors: FieldErrors<CVFormValues>) => {
-    setSubmissionErrors(flattenErrors(errors));
+      if (result?.createProfile?.id) {
+        toast({
+          title: 'Profile Created Successfully! 🎉',
+          description:
+            'Your professional profile has been generated and is ready to use.',
+          variant: 'success',
+        });
+        navigate(`/profile/${result.createProfile.id}`);
+      }
+    } catch (err) {
+      toast({
+        title: 'Profile Creation Failed',
+        description: 'Failed to create profile. Please try again later.',
+        variant: 'destructive',
+      });
+      setSubmissionErrors([
+        'Failed to create profile. Please try again later.',
+      ]);
+    }
   };
 
   const tabContents = contents({
@@ -93,21 +151,25 @@ const CreateProfileTabs = () => {
     control,
     workFields,
     appendWork: () =>
-      handleAppend(
-        appendWork,
-        setActiveWorkIndex,
-        workFields.length,
-        EMPTY_WORK_ENTRY
-      ),
+      handleAppend(appendWork, setActiveWorkIndex, workFields.length, {
+        jobTitle: '',
+        companyName: '',
+        location: '',
+        dateFrom: '',
+        dateTo: '',
+        responsibilities: '',
+      }),
     removeWork,
     eduFields,
     appendEdu: () =>
-      handleAppend(
-        appendEdu,
-        setActiveEduIndex,
-        eduFields.length,
-        EMPTY_EDU_ENTRY
-      ),
+      handleAppend(appendEdu, setActiveEduIndex, eduFields.length, {
+        schoolName: '',
+        degree: '',
+        fieldOfStudy: '',
+        dateFrom: '',
+        dateTo: '',
+        description: '',
+      }),
     removeEdu,
     languageFields,
     appendLanguage: () =>
@@ -115,7 +177,10 @@ const CreateProfileTabs = () => {
         appendLanguage,
         setActiveLanguageIndex,
         languageFields.length,
-        EMPTY_LANGUAGE_ENTRY
+        {
+          language: '',
+          fluencyLevel: 'Beginner' as const,
+        }
       ),
     removeLanguage,
     activeWorkIndex,
@@ -127,26 +192,87 @@ const CreateProfileTabs = () => {
   });
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onInvalid)}
-      className='space-y-10 mt-8'
-    >
-      <TabbedSections
-        tabs={tabs}
-        contents={tabContents}
-        defaultValue={tabs[0]?.value}
-      />
-      <ErrorDisplay errors={submissionErrors} />
-      <div className='flex justify-end'>
-        <Button
-          type='submit'
-          size='lg'
-          className='bg-neutral-900 text-white px-5 py-3 rounded-md hover:bg-neutral-800 transition'
-        >
-          Generate Resume
-        </Button>
+    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-gray-900 font-sans'>
+      {/* Subtle background elements */}
+      <div className='fixed inset-0 overflow-hidden pointer-events-none'>
+        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
+        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
       </div>
-    </form>
+
+      {/* Header Section */}
+      <header className='relative w-full bg-white/90 backdrop-blur-sm border-b border-gray-200/50'>
+        <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20'>
+          <div className='max-w-7xl mx-auto'>
+            <div className='text-center max-w-5xl mx-auto'>
+              <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-gray-900 mb-4 sm:mb-6'>
+                Create Your Profile
+              </h1>
+              <p className='text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-4xl mx-auto'>
+                Build your professional profile by filling out the sections
+                below. This information will be used to generate your
+                personalized QR code and resume.
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
+        <div className='w-full'>
+          <form className='space-y-6'>
+            {/* Tabs Section */}
+            <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+              <TabbedSections
+                tabs={tabs}
+                contents={tabContents}
+                defaultValue={tabs?.[0]?.value}
+              />
+            </div>
+
+            {/* Error Display */}
+            <ErrorDisplay errors={submissionErrors} />
+
+            {/* Submit Button */}
+            <div className='flex justify-center pt-4'>
+              <Button
+                type='button'
+                size='lg'
+                onClick={handleButtonClick}
+                disabled={loading || !isValid || !isDirty}
+                className='bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 active:scale-[0.98] shadow-lg hover:shadow-xl'
+              >
+                <span className='flex items-center gap-3'>
+                  {loading ? (
+                    <>
+                      <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                      Creating Profile...
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className='w-6 h-6'
+                        fill='none'
+                        stroke='currentColor'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth={2}
+                          d='M13 10V3L4 14h7v7l9-11h-7z'
+                        />
+                      </svg>
+                      Generate Resume
+                    </>
+                  )}
+                </span>
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
   );
 };
 
