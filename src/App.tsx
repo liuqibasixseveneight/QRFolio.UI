@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
-import { Navbar } from './components/ui';
+import { Navbar, Toaster } from './components/ui';
 import Dashboard from './components/modules/dashboard/pages/Dashboard';
 import CreateProfile from './components/modules/create/pages/CreateProfile';
 import Landing from './components/modules/landing/pages/Landing';
@@ -45,6 +45,8 @@ const App = () => {
           </Route>
         </Routes>
       </main>
+
+      <Toaster />
     </>
   );
 };

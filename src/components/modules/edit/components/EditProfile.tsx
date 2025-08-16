@@ -9,6 +9,7 @@ import {
   ErrorDisplay,
   LoadingSpinner,
   TabbedSections,
+  useToast,
 } from '@/components/ui';
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
@@ -19,6 +20,7 @@ import { contents, tabs } from '../../create/components';
 
 const EditProfile = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { userId } = useAuth();
 
   const [profileData, { loading: loadingProfile }] = useGetProfile(
@@ -124,15 +126,9 @@ const EditProfile = () => {
               ],
       };
 
-      // Add a small delay to ensure the form is fully initialized
-      setTimeout(() => {
-        reset(formData);
-
-        // Check form values after reset
-        setTimeout(() => {}, 100);
-      }, 50);
+      reset(formData);
     }
-  }, [profile, reset, watch]);
+  }, [profile, reset]);
 
   const {
     fields: workFields,
@@ -194,8 +190,19 @@ const EditProfile = () => {
         ),
       });
 
+      toast({
+        title: 'Profile Updated Successfully! ✨',
+        description: 'Your professional profile has been updated and saved.',
+        variant: 'success',
+      });
+
       navigate(`/profile/${userId}` || routes?.DASHBOARD);
     } catch (err) {
+      toast({
+        title: 'Profile Update Failed',
+        description: 'Failed to update profile. Please try again later.',
+        variant: 'destructive',
+      });
       setSubmissionErrors([
         'Failed to update profile. Please try again later.',
       ]);

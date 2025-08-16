@@ -4,7 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 
 import { flattenErrors, routes } from '@/utils';
-import { Button, ErrorDisplay, TabbedSections } from '@/components/ui';
+import {
+  Button,
+  ErrorDisplay,
+  TabbedSections,
+  useToast,
+} from '@/components/ui';
 import type { CVFormValues } from '../../types';
 import { introSchema } from '../../schemas';
 import { contents } from './contents';
@@ -14,6 +19,7 @@ import { useAuth } from '@/context';
 
 const CreateProfileTabs = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const [submissionErrors, setSubmissionErrors] = useState<string[]>([]);
   const [activeWorkIndex, setActiveWorkIndex] = useState<number | null>(0);
@@ -119,9 +125,20 @@ const CreateProfileTabs = () => {
       const result = await createProfile(formData);
 
       if (result?.createProfile?.id) {
+        toast({
+          title: 'Profile Created Successfully! 🎉',
+          description:
+            'Your professional profile has been generated and is ready to use.',
+          variant: 'success',
+        });
         navigate(`/profile/${result.createProfile.id}`);
       }
     } catch (err) {
+      toast({
+        title: 'Profile Creation Failed',
+        description: 'Failed to create profile. Please try again later.',
+        variant: 'destructive',
+      });
       setSubmissionErrors([
         'Failed to create profile. Please try again later.',
       ]);
