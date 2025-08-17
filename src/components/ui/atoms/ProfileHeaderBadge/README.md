@@ -35,6 +35,8 @@ import { ProfileHeaderBadge } from '@/components/ui';
   label="Portfolio"
   href="https://johndoe.dev"
 />
+
+
 ```
 
 ## Props
@@ -62,6 +64,8 @@ import { ProfileHeaderBadge } from '@/components/ui';
 - Extracts usernames from full URLs (e.g., `https://www.linkedin.com/in/user-test-a41100167/` → `user-test-a41100167`)
 - Always creates the proper format: `https://www.linkedin.com/in/[username]`
 
+**Tooltip Behavior**: The component always shows a shadcn tooltip on hover, which is perfect for truncated text. For short text that isn't truncated, the tooltip still provides a nice user experience showing the full content.
+
 ## Features
 
 - **Responsive Design**: Adapts to different screen sizes
@@ -70,7 +74,8 @@ import { ProfileHeaderBadge } from '@/components/ui';
 - **Icon Support**: Uses Lucide React icons
 - **Consistent Styling**: Clean, modern design with subtle borders
 - **Accessibility**: Proper link attributes and hover states
-- **Truncation**: Handles long text gracefully
+- **Smart Truncation**: Automatically truncates long text with ellipsis
+- **Always Available Tooltips**: Shows shadcn tooltip on hover for all text, providing consistent user experience
 
 ## Styling
 

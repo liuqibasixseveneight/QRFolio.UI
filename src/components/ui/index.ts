@@ -17,6 +17,7 @@ import {
   Skeleton,
   Switch,
   Textarea,
+  Tooltip,
 } from './atoms';
 import {
   Calendar,
@@ -125,6 +126,7 @@ export {
   ToastProvider,
   ToastTitle,
   ToastViewport,
+  Tooltip,
   useToast,
   Toaster,
 };

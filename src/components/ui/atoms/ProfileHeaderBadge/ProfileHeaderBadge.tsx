@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import type { ProfileHeaderBadgeProps } from './types';
 
 const ProfileHeaderBadge = ({
@@ -14,7 +19,16 @@ const ProfileHeaderBadge = ({
       className={`flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0 ${className}`}
     >
       <Icon className='w-5 h-5 text-gray-500 flex-shrink-0' />
-      <span className='text-sm text-gray-700 truncate'>{label}</span>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <span className='text-sm text-gray-700 truncate cursor-help'>
+            {label}
+          </span>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{label}</p>
+        </TooltipContent>
+      </Tooltip>
     </div>
   );
 
