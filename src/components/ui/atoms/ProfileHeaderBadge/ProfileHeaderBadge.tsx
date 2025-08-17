@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import type { ProfileHeaderBadgeProps } from './types';
 
 const ProfileHeaderBadge = ({
   icon: Icon,
   label,
+  type,
   href,
   className = '',
 }: ProfileHeaderBadgeProps) => {
@@ -15,20 +18,67 @@ const ProfileHeaderBadge = ({
     </div>
   );
 
-  if (href) {
-    return (
-      <a
-        href={href}
-        target='_blank'
-        rel='noopener noreferrer'
-        className='block transition-opacity hover:opacity-80 cursor-pointer'
-      >
-        {badgeContent}
-      </a>
-    );
-  }
+  // Handle different types
+  switch (type) {
+    case 'email':
+      // Email: open email application
+      return (
+        <Link
+          to={`mailto:${href || label}`}
+          className='block transition-opacity hover:opacity-80 cursor-pointer'
+        >
+          {badgeContent}
+        </Link>
+      );
 
-  return badgeContent;
+    case 'phone':
+      // Phone: no click action, just display
+      return badgeContent;
+
+    case 'linkedin':
+      // LinkedIn: format URL and open in new tab
+      let linkedinUsername = href || label;
+
+      // Remove leading slash if present
+      linkedinUsername = linkedinUsername.replace(/^\//, '');
+
+      // Extract username from full LinkedIn URL if present
+      const linkedinMatch = linkedinUsername.match(
+        /linkedin\.com\/in\/([^\/\?]+)/i
+      );
+      if (linkedinMatch) {
+        linkedinUsername = linkedinMatch[1];
+      }
+
+      const linkedinUrl = `https://www.linkedin.com/in/${linkedinUsername}`;
+
+      return (
+        <Link
+          to={linkedinUrl}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='block transition-opacity hover:opacity-80 cursor-pointer'
+        >
+          {badgeContent}
+        </Link>
+      );
+
+    case 'link':
+      // External links: open in new tab
+      return (
+        <Link
+          to={href || label}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='block transition-opacity hover:opacity-80 cursor-pointer'
+        >
+          {badgeContent}
+        </Link>
+      );
+
+    default:
+      return badgeContent;
+  }
 };
 
 export default ProfileHeaderBadge;

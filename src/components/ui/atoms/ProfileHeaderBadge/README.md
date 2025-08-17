@@ -39,17 +39,34 @@ import { ProfileHeaderBadge } from '@/components/ui';
 
 ## Props
 
-| Prop        | Type         | Required | Description                                                 |
-| ----------- | ------------ | -------- | ----------------------------------------------------------- |
-| `icon`      | `LucideIcon` | Yes      | The icon component to display                               |
-| `label`     | `string`     | Yes      | The text label to display                                   |
-| `href`      | `string`     | No       | Optional link URL. If provided, the badge becomes clickable |
-| `className` | `string`     | No       | Additional CSS classes                                      |
+| Prop        | Type                                         | Required | Description                                           |
+| ----------- | -------------------------------------------- | -------- | ----------------------------------------------------- |
+| `icon`      | `LucideIcon`                                 | Yes      | The icon component to display                         |
+| `label`     | `string`                                     | Yes      | The text label to display                             |
+| `type`      | `'email' \| 'phone' \| 'link' \| 'linkedin'` | Yes      | Determines the badge behavior and click action        |
+| `href`      | `string`                                     | No       | Optional link URL for external links or email address |
+| `className` | `string`                                     | No       | Additional CSS classes                                |
+
+## Types and Behavior
+
+| Type       | Behavior                                                                      |
+| ---------- | ----------------------------------------------------------------------------- |
+| `email`    | Opens email application with `mailto:` link                                   |
+| `phone`    | No click action - display only                                                |
+| `linkedin` | Opens LinkedIn profile in new tab (formats URL as linkedin.com/in/[username]) |
+| `link`     | Opens external link in new tab                                                |
+
+**Note**: For LinkedIn badges, the component automatically formats URLs:
+
+- Removes leading slashes (e.g., `/johnsmith` → `johnsmith`)
+- Extracts usernames from full URLs (e.g., `https://www.linkedin.com/in/user-test-a41100167/` → `user-test-a41100167`)
+- Always creates the proper format: `https://www.linkedin.com/in/[username]`
 
 ## Features
 
 - **Responsive Design**: Adapts to different screen sizes
-- **Clickable Links**: Automatically becomes a link when `href` is provided
+- **React Router Integration**: Uses `Link` component for all navigation
+- **Smart Behavior**: Automatically handles different types with appropriate actions
 - **Icon Support**: Uses Lucide React icons
 - **Consistent Styling**: Clean, modern design with subtle borders
 - **Accessibility**: Proper link attributes and hover states

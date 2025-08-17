@@ -192,22 +192,22 @@ const ProfileHeader = ({
                     <ProfileHeaderBadge
                       icon={Mail}
                       label={email}
-                      href={`mailto:${email}`}
+                      type='email'
+                      href={email}
                     />
                   )}
                   {phone && (
                     <ProfileHeaderBadge
                       icon={Phone}
                       label={formatPhoneDisplay(phone)}
-                      href={`tel:${
-                        typeof phone === 'string' ? phone : phone?.number || ''
-                      }`}
+                      type='phone'
                     />
                   )}
                   {linkedin && (
                     <ProfileHeaderBadge
                       icon={Linkedin}
                       label='LinkedIn'
+                      type='linkedin'
                       href={linkedin}
                     />
                   )}
@@ -215,6 +215,7 @@ const ProfileHeader = ({
                     <ProfileHeaderBadge
                       icon={Globe}
                       label='Portfolio'
+                      type='link'
                       href={portfolio}
                     />
                   )}
