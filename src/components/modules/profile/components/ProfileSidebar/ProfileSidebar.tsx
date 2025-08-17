@@ -5,15 +5,13 @@ import {
   Globe,
   User,
   Wifi,
-  Calendar,
-  MapPin,
   Clock,
   Star,
   TrendingUp,
   Zap,
-  Shield,
   Users,
-  Eye,
+  ArrowRight,
+  Sparkles,
 } from 'lucide-react';
 import { ContactItem } from '@/components/ui';
 import type { ProfileSidebarProps } from './types';
@@ -30,42 +28,42 @@ const ProfileSidebar = ({
       case 'available':
         return {
           text: 'Available for Opportunities',
-          bgColor: 'from-emerald-50/80 to-emerald-100/80',
+          bgColor: 'from-emerald-50/90 to-emerald-100/90',
           borderColor: 'border-emerald-200/60',
           textColor: 'text-emerald-800',
           statusColor: 'text-emerald-600',
           dotColor: 'bg-emerald-500',
-          icon: <TrendingUp className='w-5 h-5' />,
+          icon: <TrendingUp className='w-6 h-6' />,
         };
       case 'open':
         return {
           text: 'Open to New Roles',
-          bgColor: 'from-blue-50/80 to-blue-100/80',
+          bgColor: 'from-blue-50/90 to-blue-100/90',
           borderColor: 'border-blue-200/60',
           textColor: 'text-blue-800',
           statusColor: 'text-blue-600',
           dotColor: 'bg-blue-500',
-          icon: <Star className='w-5 h-5' />,
+          icon: <Star className='w-6 h-6' />,
         };
       case 'unavailable':
         return {
           text: 'Currently Unavailable',
-          bgColor: 'from-slate-50/80 to-slate-100/80',
+          bgColor: 'from-slate-50/90 to-slate-100/90',
           borderColor: 'border-slate-200/60',
           textColor: 'text-slate-800',
           statusColor: 'text-slate-600',
           dotColor: 'bg-slate-500',
-          icon: <Clock className='w-5 h-5' />,
+          icon: <Clock className='w-6 h-6' />,
         };
       default:
         return {
           text: 'Available for Opportunities',
-          bgColor: 'from-emerald-50/80 to-emerald-100/80',
+          bgColor: 'from-emerald-50/90 to-emerald-100/90',
           borderColor: 'border-emerald-200/60',
           textColor: 'text-emerald-800',
           statusColor: 'text-emerald-600',
           dotColor: 'bg-emerald-500',
-          icon: <TrendingUp className='w-5 h-5' />,
+          icon: <TrendingUp className='w-6 h-6' />,
         };
     }
   };
@@ -123,15 +121,15 @@ const ProfileSidebar = ({
   };
 
   return (
-    <aside className='w-full xl:w-96 px-4 sm:px-6 lg:px-8 xl:px-0 xl:pr-8 py-6 lg:py-8 xl:sticky xl:top-8 xl:h-fit space-y-6'>
+    <aside className='w-full xl:w-80 px-4 sm:px-6 lg:px-8 xl:px-0 xl:pr-8 py-6 lg:py-8 xl:sticky xl:top-8 xl:h-fit space-y-8'>
       {/* Status Section */}
       <div
-        className={`bg-gradient-to-br ${availabilityConfig.bgColor} backdrop-blur-sm rounded-2xl p-6 border ${availabilityConfig.borderColor} shadow-lg hover:shadow-xl transition-all duration-300`}
+        className={`bg-gradient-to-br ${availabilityConfig.bgColor} backdrop-blur-sm rounded-3xl p-8 border ${availabilityConfig.borderColor} shadow-xl hover:shadow-2xl transition-all duration-300`}
       >
-        <div className='text-center space-y-4'>
-          <div className='flex items-center justify-center mb-3'>
+        <div className='text-center space-y-6'>
+          <div className='flex items-center justify-center mb-4'>
             <div
-              className={`w-14 h-14 ${availabilityConfig.bgColor} rounded-xl flex items-center justify-center shadow-lg border ${availabilityConfig.borderColor}`}
+              className={`w-16 h-16 ${availabilityConfig.bgColor} rounded-2xl flex items-center justify-center shadow-xl border ${availabilityConfig.borderColor}`}
             >
               <div className={`text-2xl ${availabilityConfig.statusColor}`}>
                 {availabilityConfig.icon}
@@ -139,7 +137,7 @@ const ProfileSidebar = ({
             </div>
           </div>
           <div
-            className={`text-xl font-bold ${availabilityConfig.textColor} mb-2 flex items-center justify-center`}
+            className={`text-xl font-bold ${availabilityConfig.textColor} mb-3 flex items-center justify-center`}
           >
             <div
               className={`w-3 h-3 ${availabilityConfig.dotColor} rounded-full mr-3`}
@@ -153,11 +151,11 @@ const ProfileSidebar = ({
       </div>
 
       {/* Contact Section */}
-      <div className='bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/90'>
+      <div className='bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/60 shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-white'>
         {/* Header */}
-        <div className='flex items-center space-x-3 pb-4 border-b border-gray-200/50 mb-6'>
-          <div className='w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg'>
-            <User className='w-6 h-6 text-white' />
+        <div className='flex items-center space-x-4 pb-6 border-b border-gray-200/50 mb-8'>
+          <div className='w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl'>
+            <User className='w-7 h-7 text-white' />
           </div>
           <h2 className='text-xl font-bold text-gray-800 tracking-tight'>
             Contact Information
@@ -165,7 +163,7 @@ const ProfileSidebar = ({
         </div>
 
         {/* Contact Items */}
-        <div className='space-y-4'>
+        <div className='space-y-5'>
           {email && (
             <ContactItem
               icon={<Mail />}
@@ -201,16 +199,16 @@ const ProfileSidebar = ({
       </div>
 
       {/* Quick Actions */}
-      <div className='bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/60 shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/90'>
-        <h3 className='text-lg font-bold text-gray-800 mb-6 flex items-center space-x-3'>
-          <div className='w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg'>
-            <Wifi className='w-5 h-5 text-white' />
+      <div className='bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/60 shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-white'>
+        <h3 className='text-lg font-bold text-gray-800 mb-8 flex items-center space-x-4'>
+          <div className='w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl'>
+            <Wifi className='w-6 h-6 text-white' />
           </div>
           <span>Quick Actions</span>
         </h3>
 
         <div className='space-y-4'>
-          <button className='w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white text-sm font-semibold px-4 py-4 rounded-2xl border-0 transition-all duration-300 active:scale-98 shadow-lg hover:shadow-xl cursor-pointer'>
+          <button className='w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white text-sm font-semibold px-6 py-4 rounded-2xl border-0 transition-all duration-300 active:scale-98 shadow-xl hover:shadow-2xl cursor-pointer group'>
             <span className='flex items-center justify-center gap-3'>
               <svg
                 className='w-5 h-5'
@@ -226,10 +224,11 @@ const ProfileSidebar = ({
                 />
               </svg>
               Download Resume
+              <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform duration-300' />
             </span>
           </button>
 
-          <button className='w-full bg-white hover:bg-gray-50 text-gray-700 text-sm font-semibold px-4 py-4 rounded-2xl border border-gray-300/60 hover:border-gray-400/60 transition-all duration-300 active:scale-98 shadow-lg hover:shadow-xl cursor-pointer'>
+          <button className='w-full bg-white hover:bg-gray-50 text-gray-700 text-sm font-semibold px-6 py-4 rounded-2xl border border-gray-300/60 hover:border-gray-400/60 transition-all duration-300 active:scale-98 shadow-xl hover:shadow-2xl cursor-pointer group'>
             <span className='flex items-center justify-center gap-3'>
               <svg
                 className='w-5 h-5'
@@ -245,10 +244,11 @@ const ProfileSidebar = ({
                 />
               </svg>
               Share Profile
+              <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform duration-300' />
             </span>
           </button>
 
-          <button className='w-full bg-gradient-to-r from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300 text-gray-700 text-sm font-semibold px-4 py-4 rounded-2xl border border-slate-300/60 hover:border-slate-400/60 transition-all duration-300 active:scale-98 shadow-lg hover:shadow-xl cursor-pointer'>
+          <button className='w-full bg-gradient-to-r from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300 text-gray-700 text-sm font-semibold px-6 py-4 rounded-2xl border border-slate-300/60 hover:border-slate-400/60 transition-all duration-300 active:scale-98 shadow-xl hover:shadow-2xl cursor-pointer group'>
             <span className='flex items-center justify-center gap-3'>
               <svg
                 className='w-5 h-5'
@@ -264,34 +264,56 @@ const ProfileSidebar = ({
                 />
               </svg>
               View QR Code
+              <ArrowRight className='w-4 h-4 group-hover:translate-x-1 transition-transform duration-300' />
             </span>
           </button>
         </div>
       </div>
 
       {/* Professional Stats Section */}
-      <div className='bg-gradient-to-br from-slate-50/80 via-blue-50/60 to-indigo-50/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-300'>
-        <h3 className='text-lg font-bold text-gray-800 mb-6 flex items-center space-x-3'>
-          <div className='w-10 h-10 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center shadow-lg'>
-            <TrendingUp className='w-5 h-5 text-white' />
+      <div className='bg-gradient-to-br from-slate-50/90 via-blue-50/70 to-indigo-50/90 backdrop-blur-sm rounded-3xl p-8 border border-slate-200/60 shadow-xl hover:shadow-2xl transition-all duration-300'>
+        <h3 className='text-lg font-bold text-gray-800 mb-8 flex items-center space-x-4'>
+          <div className='w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl flex items-center justify-center shadow-xl'>
+            <TrendingUp className='w-6 h-6 text-white' />
           </div>
           <span>Professional Stats</span>
         </h3>
 
-        <div className='space-y-4'>
-          <div className='flex items-center justify-between p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/60 hover:border-emerald-200/60 transition-all duration-300'>
-            <span className='text-sm text-gray-600 flex items-center gap-2'>
-              <Users className='w-4 h-4 text-emerald-500' />
+        <div className='space-y-5'>
+          <div className='flex items-center justify-between p-5 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/60 hover:border-emerald-200/60 transition-all duration-300'>
+            <span className='text-sm text-gray-600 flex items-center gap-3'>
+              <Users className='w-5 h-5 text-emerald-500' />
               Connections
             </span>
             <span className='text-lg font-bold text-gray-800'>89</span>
           </div>
-          <div className='flex items-center justify-between p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-white/60 hover:border-purple-200/60 transition-all duration-300'>
-            <span className='text-sm text-gray-600 flex items-center gap-2'>
-              <Zap className='w-4 h-4 text-purple-500' />
+          <div className='flex items-center justify-between p-5 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/60 hover:border-purple-200/60 transition-all duration-300'>
+            <span className='text-sm text-gray-600 flex items-center gap-3'>
+              <Zap className='w-5 h-5 text-purple-500' />
               Response Rate
             </span>
             <span className='text-lg font-bold text-emerald-600'>98%</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Profile Insights */}
+      <div className='bg-gradient-to-br from-purple-50/90 via-pink-50/70 to-rose-50/90 backdrop-blur-sm rounded-3xl p-8 border border-purple-200/60 shadow-xl hover:shadow-2xl transition-all duration-300'>
+        <h3 className='text-lg font-bold text-gray-800 mb-8 flex items-center space-x-4'>
+          <div className='w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-xl'>
+            <Sparkles className='w-6 h-6 text-white' />
+          </div>
+          <span>Profile Insights</span>
+        </h3>
+
+        <div className='space-y-4'>
+          <div className='text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/60'>
+            <div className='text-2xl font-bold text-purple-600 mb-2'>24</div>
+            <div className='text-sm text-gray-600'>Profile Views</div>
+          </div>
+          <div className='text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/60'>
+            <div className='text-2xl font-bold text-pink-600 mb-2'>12</div>
+            <div className='text-sm text-gray-600'>Downloads</div>
           </div>
         </div>
       </div>

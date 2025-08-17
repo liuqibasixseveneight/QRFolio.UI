@@ -1,40 +1,32 @@
+import { Star } from 'lucide-react';
 import type { LanguageSectionProps } from './types';
-import LanguagesBadgeList from '../LanguageBadgeList/LanguageBadgeList';
 
 const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
   if (!languages?.length) return null;
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-12'>
       {languages?.map((language, index) => (
         <div
           key={`${language?.language}-${index}`}
-          className='group relative p-6 bg-gradient-to-br from-purple-50/80 via-white/90 to-pink-50/80 backdrop-blur-xl rounded-2xl border border-white/60 hover:border-purple-200/60 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-100/50 hover:scale-[1.01]'
+          className='group relative p-0 bg-transparent border-0'
         >
-          {/* Subtle border glow on hover */}
-          <div className='absolute inset-0 rounded-2xl border border-transparent group-hover:border-purple-200/30 transition-all duration-500 pointer-events-none'></div>
-
-          {/* Language Icon Placeholder with techzen aesthetic */}
-          <div className='absolute top-6 right-6 w-14 h-14 bg-gradient-to-br from-purple-100/80 via-pink-100/80 to-rose-100/80 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-500 border border-white/60'>
-            <div className='w-7 h-7 bg-gradient-to-br from-purple-600 via-pink-600 to-rose-600 rounded-xl'></div>
-          </div>
-
           {/* Language Details */}
-          <div className='pr-20'>
-            <h3 className='text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-500'>
+          <div className='mb-6'>
+            <h3 className='text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
               {language?.language}
             </h3>
 
-            {/* Fluency Level with techzen aesthetic */}
-            <div className='flex items-center gap-3 mb-4'>
-              <span className='text-lg font-semibold text-purple-600'>
+            {/* Fluency Level */}
+            <div className='flex items-center gap-4 mb-6'>
+              <span className='text-xl font-medium text-gray-700'>
                 {language?.fluencyLevel}
               </span>
               <div className='flex items-center gap-1'>
                 {[1, 2, 3, 4, 5].map((level) => (
                   <div
                     key={level}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    className={`w-4 h-4 rounded-full transition-all duration-300 ${
                       level <=
                       (language?.fluencyLevel === 'Native'
                         ? 5
@@ -45,30 +37,55 @@ const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
                         : language?.fluencyLevel === 'Intermediate'
                         ? 2
                         : 1)
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 shadow-sm'
-                        : 'bg-gradient-to-r from-purple-200 to-pink-200'
+                        ? 'bg-gray-400'
+                        : 'bg-gray-200'
                     }`}
                   />
                 ))}
               </div>
             </div>
 
-            {/* Language Skills with techzen aesthetic */}
-            <div className='flex flex-wrap gap-2 mt-4 pt-4 border-t border-purple-200/50'>
-              <span className='px-3 py-1 bg-gradient-to-r from-purple-50/80 to-pink-50/80 backdrop-blur-sm text-purple-700 text-xs font-medium rounded-xl border border-purple-200/60 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105'>
+            {/* Language Skills */}
+            <div className='flex flex-wrap gap-3 pt-6 border-t border-gray-100'>
+              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
                 Business
               </span>
-              <span className='px-3 py-1 bg-gradient-to-r from-pink-50/80 to-rose-50/80 backdrop-blur-sm text-pink-700 text-xs font-medium rounded-xl border border-pink-200/60 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105'>
+              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
                 Technical
               </span>
-              <span className='px-3 py-1 bg-gradient-to-r from-slate-50/80 to-purple-50/80 backdrop-blur-sm text-slate-700 text-xs font-medium rounded-xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105'>
+              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
                 Conversational
               </span>
+              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
+                Writing
+              </span>
+            </div>
+
+            {/* Proficiency Details */}
+            <div className='mt-6 pt-6 border-t border-gray-100'>
+              <div className='grid grid-cols-2 gap-4 text-sm'>
+                <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100'>
+                  <span className='text-gray-600'>Speaking</span>
+                  <div className='flex items-center gap-1'>
+                    <Star className='w-4 h-4 text-gray-400 fill-current' />
+                    <span className='font-medium text-gray-800'>5.0</span>
+                  </div>
+                </div>
+                <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100'>
+                  <span className='text-gray-600'>Writing</span>
+                  <div className='flex items-center gap-1'>
+                    <Star className='w-4 h-4 text-gray-400 fill-current' />
+                    <span className='font-medium text-gray-800'>4.8</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Enhanced hover effect with techzen aesthetic */}
-          <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-purple-50/5 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none'></div>
+          {/* Separator line */}
+          {index < languages.length - 1 && (
+            <div className='w-full h-px bg-gray-100 my-8'></div>
+          )}
         </div>
       ))}
     </div>

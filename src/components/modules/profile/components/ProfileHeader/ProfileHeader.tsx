@@ -1,4 +1,13 @@
-import { Download, Share2, QrCode } from 'lucide-react';
+import {
+  Download,
+  Share2,
+  QrCode,
+  Calendar,
+  Mail,
+  Phone,
+  Linkedin,
+  Globe,
+} from 'lucide-react';
 import { useRef } from 'react';
 import * as htmlToImage from 'html-to-image';
 
@@ -33,6 +42,15 @@ const ProfileHeader = ({
         : phoneData.number;
     }
     return phoneData;
+  };
+
+  // Helper function to format date in day/month/year format
+  const formatDate = (dateString: string | Date) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   const handleDownloadCV = async () => {
@@ -139,46 +157,78 @@ const ProfileHeader = ({
   };
 
   return (
-    <div className='w-full bg-gradient-to-r from-slate-50/40 via-white to-blue-50/40 backdrop-blur-sm border-b border-slate-200/40 shadow-lg overflow-hidden'>
+    <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
       {/* Content container with proper width constraints */}
-      <div className='w-full px-4 sm:px-6 lg:px-8 xl:px-12'>
-        <div className='max-w-6xl mx-auto w-full xl:flex xl:gap-8'>
+      <div className='w-full px-6 sm:px-8 lg:px-12'>
+        <div className='max-w-6xl mx-auto w-full'>
           <header className='relative w-full'>
-            {/* Simplified background elements */}
-            <div className='absolute inset-0 overflow-hidden'>
-              <div className='absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/30 to-indigo-100/30 rounded-full blur-3xl'></div>
-              <div className='absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-slate-100/30 to-blue-100/30 rounded-full blur-3xl'></div>
-            </div>
-
             {/* Content */}
-            <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-16 sm:py-20 lg:py-24'>
+            <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='w-full'>
                 {/* Professional Badge */}
-                <div className='inline-flex items-center gap-3 px-6 py-3 bg-white/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl text-blue-700 text-sm font-semibold mb-8 shadow-lg'>
-                  <div className='w-3 h-3 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full'></div>
+                <div className='inline-flex items-center gap-3 px-6 py-3 bg-gray-100 border border-gray-200 rounded-full text-gray-700 text-sm font-medium mb-10'>
+                  <div className='w-3 h-3 bg-gray-400 rounded-full'></div>
                   <span className='tracking-wide'>Professional Profile</span>
                 </div>
 
                 {/* Name */}
-                <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 mb-6 sm:mb-8 leading-tight'>
+                <h1 className='text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight text-gray-900 mb-8 sm:mb-10 leading-tight'>
                   {fullName}
                 </h1>
 
                 {/* Summary */}
                 {summary && (
-                  <div className='max-w-4xl mb-8 sm:mb-12'>
-                    <p className='text-lg sm:text-xl lg:text-2xl text-slate-600 leading-relaxed font-light'>
+                  <div className='max-w-4xl mb-12 sm:mb-16'>
+                    <p className='text-xl sm:text-2xl lg:text-3xl text-gray-600 leading-relaxed font-light'>
                       {summary}
                     </p>
                   </div>
                 )}
 
+                {/* Contact Information Grid */}
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12'>
+                  {email && (
+                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
+                      <Mail className='w-5 h-5 text-gray-500 flex-shrink-0' />
+                      <span className='text-sm text-gray-700 truncate'>
+                        {email}
+                      </span>
+                    </div>
+                  )}
+                  {phone && (
+                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
+                      <Phone className='w-5 h-5 text-gray-500 flex-shrink-0' />
+                      <div className='min-w-0 flex-1'>
+                        <span className='text-sm text-gray-700 block truncate'>
+                          {formatPhoneDisplay(phone)}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  {linkedin && (
+                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
+                      <Linkedin className='w-5 h-5 text-gray-500 flex-shrink-0' />
+                      <span className='text-sm text-gray-700 truncate'>
+                        LinkedIn
+                      </span>
+                    </div>
+                  )}
+                  {portfolio && (
+                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
+                      <Globe className='w-5 h-5 text-gray-500 flex-shrink-0' />
+                      <span className='text-sm text-gray-700 truncate'>
+                        Portfolio
+                      </span>
+                    </div>
+                  )}
+                </div>
+
                 {/* Action Buttons */}
-                <div className='flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8 sm:mb-12'>
+                <div className='flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12'>
                   <button
                     data-download-cv
                     onClick={handleDownloadCV}
-                    className='group bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 active:scale-98 shadow-lg hover:shadow-xl border border-blue-500/20 hover:border-blue-400/30 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+                    className='bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
                   >
                     <span className='flex items-center gap-3'>
                       <Download className='w-6 h-6' />
@@ -189,7 +239,7 @@ const ProfileHeader = ({
                   <button
                     data-share-profile
                     onClick={handleShareProfile}
-                    className='group bg-white/90 backdrop-blur-sm hover:bg-white text-slate-700 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 active:scale-98 border border-slate-200/60 hover:border-slate-300/60 shadow-lg hover:shadow-xl cursor-pointer'
+                    className='bg-white hover:bg-gray-50 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer'
                   >
                     <span className='flex items-center gap-3'>
                       <Share2 className='w-6 h-6' />
@@ -199,7 +249,7 @@ const ProfileHeader = ({
 
                   <button
                     onClick={handleViewQRCode}
-                    className='group bg-gradient-to-r from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300 text-slate-700 px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 active:scale-98 border border-slate-300/60 hover:border-slate-400/60 shadow-lg hover:shadow-xl cursor-pointer'
+                    className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
                   >
                     <span className='flex items-center gap-3'>
                       <QrCode className='w-6 h-6' />
@@ -209,17 +259,16 @@ const ProfileHeader = ({
                 </div>
 
                 {/* Stats Row */}
-                <div className='flex flex-wrap items-center gap-8 text-sm text-slate-500 mb-8'>
-                  <span>
+                <div className='flex flex-wrap items-center gap-8 text-sm text-gray-500 mb-8'>
+                  <span className='flex items-center gap-2'>
+                    <Calendar className='w-4 h-4 text-gray-400' />
                     Last Updated:{' '}
-                    {updatedAt
-                      ? new Date(updatedAt).toLocaleDateString()
-                      : new Date().toLocaleDateString()}
+                    {updatedAt ? formatDate(updatedAt) : formatDate(new Date())}
                   </span>
                 </div>
 
                 {/* Decorative line */}
-                <div className='w-40 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full shadow-lg'></div>
+                <div className='w-32 h-px bg-gray-300'></div>
               </div>
             </div>
           </header>
@@ -363,9 +412,7 @@ const ProfileHeader = ({
           <p>Generated by LYTN - Professional Resume Builder</p>
           <p>
             Last Updated:{' '}
-            {updatedAt
-              ? new Date(updatedAt).toLocaleDateString()
-              : new Date().toLocaleDateString()}
+            {updatedAt ? formatDate(updatedAt) : formatDate(new Date())}
           </p>
         </div>
       </div>
