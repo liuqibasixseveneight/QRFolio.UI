@@ -5,11 +5,13 @@ const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
   if (!languages?.length) return null;
 
   return (
-    <div className='space-y-12'>
+    <div className='space-y-12 pb-16'>
       {languages?.map((language, index) => (
         <div
           key={`${language?.language}-${index}`}
-          className='group relative p-0 bg-transparent border-0'
+          className={`group relative p-0 bg-transparent border-0 ${
+            index === languages.length - 1 ? 'pb-4' : ''
+          }`}
         >
           {/* Language Details */}
           <div className='mb-6'>

@@ -138,7 +138,7 @@ const Profile = () => {
                   // When all sections are collapsed, render without white background
                   <div>
                     {/* Section Header */}
-                    <div className='bg-white rounded-none shadow-sm border border-gray-100 px-12 py-16'>
+                    <div className='bg-white rounded-t-2xl shadow-sm border border-gray-100 px-12 py-16'>
                       <div className='text-center'>
                         <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
                           <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
@@ -158,7 +158,7 @@ const Profile = () => {
 
                     {/* Work Experience Section */}
                     {workExperience && workExperience.length > 0 && (
-                      <div className='bg-white rounded-none shadow-sm border border-gray-100 px-12 py-16'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('workExperience')}
@@ -197,20 +197,24 @@ const Profile = () => {
                             </div>
                           </button>
 
-                          {expandedSections.workExperience && (
-                            <div className='mt-8'>
-                              <ExperienceSection
-                                workExperience={workExperience}
-                              />
-                            </div>
-                          )}
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.workExperience
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <ExperienceSection
+                              workExperience={workExperience}
+                            />
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {/* Education Section */}
                     {education && education.length > 0 && (
-                      <div className='bg-white rounded-none shadow-sm border border-gray-100 px-12 py-16'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('education')}
@@ -249,18 +253,22 @@ const Profile = () => {
                             </div>
                           </button>
 
-                          {expandedSections.education && (
-                            <div className='mt-8'>
-                              <EducationSection education={education} />
-                            </div>
-                          )}
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.education
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <EducationSection education={education} />
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {/* Languages Section */}
                     {languages && languages.length > 0 && (
-                      <div className='bg-white rounded-none shadow-sm border border-gray-100 px-12 py-16'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2 rounded-b-2xl'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('languages')}
@@ -276,7 +284,7 @@ const Profile = () => {
                                     Languages
                                   </h3>
                                   <div className='flex items-center gap-4'>
-                                    <span className='text-sm text-gray-500 font-medium'>
+                                    <span className='text-sm text-gray-900 font-medium'>
                                       {languages.length} language
                                       {languages.length !== 1 ? 's' : ''}
                                     </span>
@@ -299,21 +307,25 @@ const Profile = () => {
                             </div>
                           </button>
 
-                          {expandedSections.languages && (
-                            <div className='mt-8'>
-                              <LanguageSection languages={languages} />
-                            </div>
-                          )}
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.languages
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <LanguageSection languages={languages} />
+                          </div>
                         </div>
                       </div>
                     )}
                   </div>
                 ) : (
                   // When sections are expanded, use the original white background container
-                  <div className='bg-white rounded-none shadow-sm border border-gray-100'>
+                  <div className='bg-white rounded-2xl shadow-sm border border-gray-100'>
                     {/* Section Header */}
-                    <div className='px-12 py-16 border-b border-gray-100 last:border-b-0'>
-                      <div className='text-center mb-12'>
+                    <div className='px-12 py-16 border-b border-gray-100'>
+                      <div className='text-center'>
                         <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
                           <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
                           <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
@@ -332,7 +344,7 @@ const Profile = () => {
 
                     {/* Work Experience Section */}
                     {workExperience && workExperience.length > 0 && (
-                      <div className='px-12 py-16 border-b border-gray-100 last:border-b-0'>
+                      <div className='px-12 py-16 border-b border-gray-100'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('workExperience')}
@@ -371,20 +383,24 @@ const Profile = () => {
                             </div>
                           </button>
 
-                          {expandedSections.workExperience && (
-                            <div className='mt-8'>
-                              <ExperienceSection
-                                workExperience={workExperience}
-                              />
-                            </div>
-                          )}
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.workExperience
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <ExperienceSection
+                              workExperience={workExperience}
+                            />
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {/* Education Section */}
                     {education && education.length > 0 && (
-                      <div className='px-12 py-16 border-b border-gray-100 last:border-b-0'>
+                      <div className='px-12 py-16 border-b border-gray-100'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('education')}
@@ -425,18 +441,22 @@ const Profile = () => {
                             </div>
                           </button>
 
-                          {expandedSections.education && (
-                            <div className='mt-8'>
-                              <EducationSection education={education} />
-                            </div>
-                          )}
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.education
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <EducationSection education={education} />
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {/* Languages Section */}
                     {languages && languages.length > 0 && (
-                      <div className='px-12 py-16 border-b border-gray-100 last:border-b-0'>
+                      <div className='px-12 py-16 rounded-b-2xl'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('languages')}
@@ -475,11 +495,15 @@ const Profile = () => {
                             </div>
                           </button>
 
-                          {expandedSections.languages && (
-                            <div className='mt-8'>
-                              <LanguageSection languages={languages} />
-                            </div>
-                          )}
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.languages
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <LanguageSection languages={languages} />
+                          </div>
                         </div>
                       </div>
                     )}
