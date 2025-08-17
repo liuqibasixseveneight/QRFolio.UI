@@ -78,6 +78,7 @@ const Profile = () => {
     phone,
     linkedin,
     portfolio,
+    availability,
     workExperience = [],
     education = [],
     languages = [],
@@ -122,6 +123,7 @@ const Profile = () => {
             phone={phone}
             linkedin={linkedin}
             portfolio={portfolio}
+            availability={availability}
             workExperience={workExperience}
             education={education}
             languages={languages}

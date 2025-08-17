@@ -1,3 +1,5 @@
+import type { Availability } from '@/apollo/profile/types';
+
 export type ProfileHeaderProps = {
   fullName: string;
   summary?: string;
@@ -5,6 +7,7 @@ export type ProfileHeaderProps = {
   phone?: any;
   linkedin?: string;
   portfolio?: string;
+  availability?: Availability;
   workExperience?: any[];
   education?: any[];
   languages?: any[];

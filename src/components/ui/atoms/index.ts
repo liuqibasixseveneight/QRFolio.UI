@@ -1,3 +1,4 @@
+export * from './AvailabilityBadge';
 export * from './Badge';
 export * from './Button';
 export * from './CollapsibleSection';

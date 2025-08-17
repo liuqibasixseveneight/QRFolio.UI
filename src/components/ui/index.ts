@@ -1,4 +1,5 @@
 import {
+  AvailabilityBadge,
   Badge,
   buttonVariants,
   Button,
@@ -8,9 +9,9 @@ import {
   Ellipsis,
   ErrorMessage,
   GoogleSignInButton,
+  Input,
   Label,
   LoadingSpinner,
-  Input,
   ProfileHeaderBadge,
   Section,
   Separator,
@@ -65,18 +66,19 @@ import {
 import { Navbar, SignInForm, SignUpForm, TabbedSections } from './organisms';
 
 export {
+  AvailabilityBadge,
   Badge,
   buttonVariants,
   Button,
   Calendar,
   CalendarDayButton,
   Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
   CardAction,
   CardContent,
+  CardDescription,
   CardFooter,
+  CardHeader,
+  CardTitle,
   CollapsibleSection,
   ContactItem,
   DatePicker,
@@ -120,6 +122,7 @@ export {
   Textarea,
   TimelineItem,
   Toast,
+  Toaster,
   ToastAction,
   ToastClose,
   ToastDescription,
@@ -128,7 +131,6 @@ export {
   ToastViewport,
   Tooltip,
   useToast,
-  Toaster,
 };
 
 export * from './molecules/PhoneInput';

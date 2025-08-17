@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import {
   Download,
   Share2,
@@ -8,10 +9,9 @@ import {
   Linkedin,
   Globe,
 } from 'lucide-react';
-import { useRef } from 'react';
 import * as htmlToImage from 'html-to-image';
 
-import { ProfileHeaderBadge } from '@/components/ui';
+import { AvailabilityBadge, ProfileHeaderBadge } from '@/components/ui';
 import type { ProfileHeaderProps } from './types';
 
 const ProfileHeader = ({
@@ -21,6 +21,7 @@ const ProfileHeader = ({
   phone,
   linkedin,
   portfolio,
+  availability,
   workExperience = [],
   education = [],
   languages = [],
@@ -166,11 +167,11 @@ const ProfileHeader = ({
             {/* Content */}
             <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='w-full'>
-                {/* Professional Badge */}
-                <div className='inline-flex items-center gap-3 px-6 py-3 bg-gray-100 border border-gray-200 rounded-full text-gray-700 text-sm font-medium mb-10'>
-                  <div className='w-3 h-3 bg-gray-400 rounded-full'></div>
-                  <span className='tracking-wide'>Professional Profile</span>
-                </div>
+                {/* Availability Badge */}
+                <AvailabilityBadge
+                  availability={availability}
+                  className='mb-10'
+                />
 
                 {/* Name */}
                 <h1 className='text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight text-gray-900 mb-8 sm:mb-10 leading-tight'>
