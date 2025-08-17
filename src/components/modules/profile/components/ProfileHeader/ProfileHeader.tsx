@@ -11,6 +11,7 @@ import {
 import { useRef } from 'react';
 import * as htmlToImage from 'html-to-image';
 
+import { ProfileHeaderBadge } from '@/components/ui';
 import type { ProfileHeaderProps } from './types';
 
 const ProfileHeader = ({
@@ -188,38 +189,34 @@ const ProfileHeader = ({
                 {/* Contact Information Grid */}
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12'>
                   {email && (
-                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
-                      <Mail className='w-5 h-5 text-gray-500 flex-shrink-0' />
-                      <span className='text-sm text-gray-700 truncate'>
-                        {email}
-                      </span>
-                    </div>
+                    <ProfileHeaderBadge
+                      icon={Mail}
+                      label={email}
+                      href={`mailto:${email}`}
+                    />
                   )}
                   {phone && (
-                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
-                      <Phone className='w-5 h-5 text-gray-500 flex-shrink-0' />
-                      <div className='min-w-0 flex-1'>
-                        <span className='text-sm text-gray-700 block truncate'>
-                          {formatPhoneDisplay(phone)}
-                        </span>
-                      </div>
-                    </div>
+                    <ProfileHeaderBadge
+                      icon={Phone}
+                      label={formatPhoneDisplay(phone)}
+                      href={`tel:${
+                        typeof phone === 'string' ? phone : phone?.number || ''
+                      }`}
+                    />
                   )}
                   {linkedin && (
-                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
-                      <Linkedin className='w-5 h-5 text-gray-500 flex-shrink-0' />
-                      <span className='text-sm text-gray-700 truncate'>
-                        LinkedIn
-                      </span>
-                    </div>
+                    <ProfileHeaderBadge
+                      icon={Linkedin}
+                      label='LinkedIn'
+                      href={linkedin}
+                    />
                   )}
                   {portfolio && (
-                    <div className='flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0'>
-                      <Globe className='w-5 h-5 text-gray-500 flex-shrink-0' />
-                      <span className='text-sm text-gray-700 truncate'>
-                        Portfolio
-                      </span>
-                    </div>
+                    <ProfileHeaderBadge
+                      icon={Globe}
+                      label='Portfolio'
+                      href={portfolio}
+                    />
                   )}
                 </div>
 
