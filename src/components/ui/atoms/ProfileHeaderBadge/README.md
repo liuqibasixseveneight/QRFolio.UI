@@ -76,6 +76,7 @@ import { ProfileHeaderBadge } from '@/components/ui';
 - **Accessibility**: Proper link attributes and hover states
 - **Smart Truncation**: Automatically truncates long text with ellipsis
 - **Always Available Tooltips**: Shows shadcn tooltip on hover for all text, providing consistent user experience
+- **Smart Cursor Behavior**: Shows pointer cursor for clickable badges, default cursor for non-clickable ones
 
 ## Styling
 
