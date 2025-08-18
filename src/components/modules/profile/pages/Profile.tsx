@@ -174,7 +174,7 @@ const Profile = () => {
                                     Work Experience
                                   </h3>
                                   <div className='flex items-center gap-4'>
-                                    <span className='text-sm text-gray-500 font-medium'>
+                                    <span className='text-sm text-gray-900 font-medium'>
                                       {workExperience.length} position
                                       {workExperience.length !== 1 ? 's' : ''}
                                     </span>
@@ -230,7 +230,7 @@ const Profile = () => {
                                     Education
                                   </h3>
                                   <div className='flex items-center gap-4'>
-                                    <span className='text-sm text-gray-500 font-medium'>
+                                    <span className='text-sm text-gray-900 font-medium'>
                                       {education.length} degree
                                       {education.length !== 1 ? 's' : ''}
                                     </span>
@@ -360,7 +360,7 @@ const Profile = () => {
                                     Work Experience
                                   </h3>
                                   <div className='flex items-center gap-4'>
-                                    <span className='text-sm text-gray-500 font-medium'>
+                                    <span className='text-sm text-gray-900 font-medium'>
                                       {workExperience.length} position
                                       {workExperience.length !== 1 ? 's' : ''}
                                     </span>
@@ -417,7 +417,7 @@ const Profile = () => {
                                       Education
                                     </h3>
                                     <div className='flex items-center gap-4'>
-                                      <span className='text-sm text-gray-500 font-medium'>
+                                      <span className='text-sm text-gray-900 font-medium'>
                                         {education.length} degree
                                         {education.length !== 1 ? 's' : ''}
                                       </span>
@@ -472,7 +472,7 @@ const Profile = () => {
                                     Languages
                                   </h3>
                                   <div className='flex items-center gap-4'>
-                                    <span className='text-sm text-gray-500 font-medium'>
+                                    <span className='text-sm text-gray-900 font-medium'>
                                       {languages.length} language
                                       {languages.length !== 1 ? 's' : ''}
                                     </span>
