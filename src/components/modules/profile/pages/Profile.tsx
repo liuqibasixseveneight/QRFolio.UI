@@ -181,7 +181,9 @@ const Profile = () => {
                                     <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
                                     <span className='text-sm text-gray-400'>
                                       {workExperience.length > 0
-                                        ? 'Click to expand'
+                                        ? expandedSections.workExperience
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
                                         : 'No positions yet'}
                                     </span>
                                   </div>
@@ -237,7 +239,9 @@ const Profile = () => {
                                     <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
                                     <span className='text-sm text-gray-400'>
                                       {education.length > 0
-                                        ? 'Click to expand'
+                                        ? expandedSections.education
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
                                         : 'No degrees yet'}
                                     </span>
                                   </div>
@@ -291,7 +295,9 @@ const Profile = () => {
                                     <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
                                     <span className='text-sm text-gray-400'>
                                       {languages.length > 0
-                                        ? 'Click to expand'
+                                        ? expandedSections.languages
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
                                         : 'No languages yet'}
                                     </span>
                                   </div>
@@ -367,7 +373,9 @@ const Profile = () => {
                                     <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
                                     <span className='text-sm text-gray-400'>
                                       {workExperience.length > 0
-                                        ? 'Click to expand'
+                                        ? expandedSections.workExperience
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
                                         : 'No positions yet'}
                                     </span>
                                   </div>
@@ -424,7 +432,9 @@ const Profile = () => {
                                       <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
                                       <span className='text-sm text-gray-400'>
                                         {education.length > 0
-                                          ? 'Click to expand'
+                                          ? expandedSections.education
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
                                           : 'No degrees yet'}
                                       </span>
                                     </div>
@@ -479,7 +489,9 @@ const Profile = () => {
                                     <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
                                     <span className='text-sm text-gray-400'>
                                       {languages.length > 0
-                                        ? 'Click to expand'
+                                        ? expandedSections.languages
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
                                         : 'No degrees yet'}
                                     </span>
                                   </div>
