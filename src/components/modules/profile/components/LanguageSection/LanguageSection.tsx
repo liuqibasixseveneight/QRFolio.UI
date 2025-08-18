@@ -1,4 +1,3 @@
-import { Star } from 'lucide-react';
 import type { LanguageSectionProps } from './types';
 
 const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
@@ -44,42 +43,6 @@ const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
                     }`}
                   />
                 ))}
-              </div>
-            </div>
-
-            {/* Language Skills */}
-            <div className='flex flex-wrap gap-3 pt-6 border-t border-gray-100'>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Business
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Technical
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Conversational
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Writing
-              </span>
-            </div>
-
-            {/* Proficiency Details */}
-            <div className='mt-6 pt-6 border-t border-gray-100'>
-              <div className='grid grid-cols-2 gap-4 text-sm'>
-                <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100'>
-                  <span className='text-gray-600'>Speaking</span>
-                  <div className='flex items-center gap-1'>
-                    <Star className='w-4 h-4 text-gray-400 fill-current' />
-                    <span className='font-medium text-gray-800'>5.0</span>
-                  </div>
-                </div>
-                <div className='flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100'>
-                  <span className='text-gray-600'>Writing</span>
-                  <div className='flex items-center gap-1'>
-                    <Star className='w-4 h-4 text-gray-400 fill-current' />
-                    <span className='font-medium text-gray-800'>4.8</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
