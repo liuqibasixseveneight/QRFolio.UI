@@ -66,25 +66,31 @@ const Dashboard = () => {
 
   return (
     <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden'>
+      {/* Header Section - Full Width */}
+      <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
+        <div className='w-full px-6 sm:px-8 lg:px-12'>
+          <div className='max-w-6xl mx-auto w-full'>
+            <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
+              <div className='text-center'>
+                <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-[1.1] tracking-tight text-gray-900 mb-6'>
+                  {profileExists ? 'Manage Your Resume' : 'Create Your Resume'}
+                </h1>
+                <p className='text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto'>
+                  {profileExists
+                    ? 'Manage, view, share, and edit your resume effortlessly'
+                    : 'Start crafting your beautiful, professional resume'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Content container with proper width constraints */}
       <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
         <div className='max-w-6xl mx-auto w-full'>
-          {/* Header Section */}
-          <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-12 py-16 mb-16'>
-            <div className='text-center'>
-              <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-[1.1] tracking-tight text-gray-900 mb-6'>
-                {profileExists ? 'Manage Your Resume' : 'Create Your Resume'}
-              </h1>
-              <p className='text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto'>
-                {profileExists
-                  ? 'Manage, view, share, and edit your resume effortlessly'
-                  : 'Start crafting your beautiful, professional resume'}
-              </p>
-            </div>
-          </div>
-
           {loading ? (
-            <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-12 py-16 text-center'>
+            <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-8 sm:px-12 py-16 text-center'>
               <div className='w-16 h-16 mx-auto mb-6'>
                 <LoadingSpinner />
               </div>
@@ -99,11 +105,11 @@ const Dashboard = () => {
                 ({ title, description, icon: Icon, action }, idx) => (
                   <div
                     key={idx}
-                    className='bg-white shadow-sm border border-gray-100 rounded-2xl px-8 py-12 transition-all duration-300 cursor-pointer hover:shadow-md'
+                    className='bg-white shadow-sm border border-gray-100 rounded-2xl px-6 sm:px-8 py-12 transition-all duration-300 cursor-pointer hover:shadow-md group'
                     onClick={action}
                   >
                     <div className='flex flex-col items-center text-center space-y-6 h-full justify-between'>
-                      <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
+                      <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-300'>
                         <Icon className='w-8 h-8 text-gray-600' />
                       </div>
                       <div className='flex-1 flex flex-col justify-center'>
