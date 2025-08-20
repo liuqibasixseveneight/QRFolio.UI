@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Download, Share2, X, Copy, Check } from 'lucide-react';
 import * as htmlToImage from 'html-to-image';
 
@@ -10,10 +10,31 @@ import type { QRCodeModalProps } from './types';
 const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
   const [isDownloading, setIsDownloading] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const qrCardRef = useRef<HTMLDivElement>(null);
 
   const { toast } = useToast();
 
+  // Handle close animation
+  const handleClose = () => {
+    setIsClosing(true);
+    // Wait for animation to complete before calling onClose
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+    }, 200);
+  };
+
+  // Trigger enter animation when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      // Small delay to ensure DOM is ready for animation
+      setTimeout(() => setIsVisible(true), 10);
+    }
+  }, [isOpen]);
+
+  // Don't render if not open
   if (!isOpen) {
     return null;
   }
@@ -113,8 +134,24 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
   };
 
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm'>
-      <div className='relative w-full max-w-4xl max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl'>
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-200 ease-out ${
+        isClosing
+          ? 'bg-black/0 backdrop-blur-none'
+          : 'bg-black/50 backdrop-blur-sm'
+      }`}
+      onClick={handleClose}
+    >
+      <div
+        className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl transition-all duration-200 ease-out transform ${
+          isClosing
+            ? 'scale-95 opacity-0 translate-y-4'
+            : isVisible
+            ? 'scale-100 opacity-100 translate-y-0'
+            : 'scale-95 opacity-0 translate-y-4'
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className='flex items-center justify-between p-6 border-b border-gray-100'>
           <div>
@@ -124,8 +161,8 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
             </p>
           </div>
           <button
-            onClick={onClose}
-            className='p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors duration-200 cursor-pointer'
+            onClick={handleClose}
+            className='p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer hover:scale-105'
             aria-label='Close modal'
           >
             <X className='w-6 h-6' />

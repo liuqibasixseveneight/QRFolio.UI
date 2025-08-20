@@ -71,9 +71,11 @@ const ProfileHeader = ({
       if (button) {
         button.disabled = true;
         button.innerHTML = `
-          <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-          <span>Generating...</span>
-        `;
+           <span class="flex items-center gap-3">
+             <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+             <span>Downloading...</span>
+           </span>
+         `;
       }
 
       // Generate the image
@@ -93,15 +95,29 @@ const ProfileHeader = ({
       link.href = dataUrl;
       link.click();
 
-      // Reset button state
+      // Show success feedback
       if (button) {
         button.disabled = false;
         button.innerHTML = `
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <span>Download CV</span>
-        `;
+           <span class="flex items-center gap-3">
+             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+             </svg>
+             <span>Downloaded!</span>
+           </span>
+         `;
+
+        // Reset to original state after 2 seconds
+        setTimeout(() => {
+          button.innerHTML = `
+             <span class="flex items-center gap-3">
+               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+               </svg>
+               <span>Download</span>
+             </span>
+           `;
+        }, 2000);
       }
     } catch (error) {
       console.error('Failed to generate resume:', error);
@@ -113,11 +129,13 @@ const ProfileHeader = ({
       if (button) {
         button.disabled = false;
         button.innerHTML = `
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-          <span>Download CV</span>
-        `;
+           <span class="flex items-center gap-3">
+             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+             </svg>
+             <span>Download</span>
+           </span>
+         `;
       }
 
       alert('Failed to generate resume. Please try again.');
@@ -136,10 +154,12 @@ const ProfileHeader = ({
       if (button) {
         const originalText = button.innerHTML;
         button.innerHTML = `
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          <span>Copied!</span>
+          <span class="flex items-center gap-3">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Copied!</span>
+          </span>
         `;
 
         setTimeout(() => {
@@ -225,18 +245,18 @@ const ProfileHeader = ({
                   <button
                     data-download-cv
                     onClick={handleDownloadCV}
-                    className='bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+                    className='bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
                   >
                     <span className='flex items-center gap-3'>
                       <Download className='w-6 h-6' />
-                      <span>Download CV</span>
+                      <span>Download</span>
                     </span>
                   </button>
 
                   <button
                     data-share-profile
                     onClick={handleShareProfile}
-                    className='bg-white hover:bg-gray-50 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer'
+                    className='bg-white hover:bg-gray-50 text-gray-700 px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer whitespace-nowrap'
                   >
                     <span className='flex items-center gap-3'>
                       <Share2 className='w-6 h-6' />
@@ -246,7 +266,7 @@ const ProfileHeader = ({
 
                   <button
                     onClick={handleViewQRCode}
-                    className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
+                    className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
                   >
                     <span className='flex items-center gap-3'>
                       <QrCode className='w-6 h-6' />
