@@ -72,12 +72,6 @@ const Dashboard = () => {
           {/* Header Section */}
           <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-12 py-16 mb-16'>
             <div className='text-center'>
-              <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
-                <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
-                <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
-                  Dashboard
-                </span>
-              </div>
               <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-[1.1] tracking-tight text-gray-900 mb-6'>
                 {profileExists ? 'Manage Your Resume' : 'Create Your Resume'}
               </h1>
