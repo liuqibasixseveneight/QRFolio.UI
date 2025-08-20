@@ -7,6 +7,7 @@ export * from './FormField';
 export * from './PhoneInput';
 export * from './Popover';
 export * from './ProfileQRCard';
+export * from './QRCodeModal';
 export * from './Select';
 export * from './Tabs';
 export * from './TimelineItem';

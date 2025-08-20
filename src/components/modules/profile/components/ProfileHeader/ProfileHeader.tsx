@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   Download,
   Share2,
@@ -11,7 +11,11 @@ import {
 } from 'lucide-react';
 import * as htmlToImage from 'html-to-image';
 
-import { AvailabilityBadge, ProfileHeaderBadge } from '@/components/ui';
+import {
+  AvailabilityBadge,
+  ProfileHeaderBadge,
+  QRCodeModal,
+} from '@/components/ui';
 import type { ProfileHeaderProps } from './types';
 
 const ProfileHeader = ({
@@ -28,6 +32,7 @@ const ProfileHeader = ({
   updatedAt,
 }: ProfileHeaderProps) => {
   const profileRef = useRef<HTMLDivElement>(null);
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
   // Helper function to format phone display
   const formatPhoneDisplay = (phoneData: any) => {
@@ -148,14 +153,7 @@ const ProfileHeader = ({
   };
 
   const handleViewQRCode = () => {
-    // Navigate to QR code view or open modal
-    const profileUrl = window.location.href;
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(
-      profileUrl
-    )}`;
-
-    // Open QR code in new tab
-    window.open(qrCodeUrl, '_blank');
+    setIsQRModalOpen(true);
   };
 
   return (
@@ -415,6 +413,19 @@ const ProfileHeader = ({
           </p>
         </div>
       </div>
+
+      {/* QR Code Modal */}
+      <QRCodeModal
+        isOpen={isQRModalOpen}
+        onClose={() => setIsQRModalOpen(false)}
+        profileData={{
+          link: window.location.href,
+          labels: {
+            fullName: fullName || '',
+            professionalSummary: summary || '',
+          },
+        }}
+      />
     </div>
   );
 };

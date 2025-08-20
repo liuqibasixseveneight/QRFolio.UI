@@ -74,7 +74,14 @@ const ProfileCreated = () => {
             ref={cardRef}
             className='flex justify-center w-full max-w-xl mx-auto px-6 sm:px-0 mb-8'
           >
-            <ProfileQRCard labels={{ fullName }} link={profileLink} />
+            <ProfileQRCard
+              labels={{
+                fullName,
+                professionalSummary:
+                  profileData?.professionalSummary || 'Professional profile',
+              }}
+              link={profileLink}
+            />
           </div>
 
           <div className='flex flex-wrap gap-4 justify-center'>
