@@ -215,7 +215,7 @@ const ProfileHeader = ({
                   {portfolio && (
                     <ProfileHeaderBadge
                       icon={Globe}
-                      label='Portfolio'
+                      label={portfolio}
                       type='link'
                       href={portfolio}
                     />
