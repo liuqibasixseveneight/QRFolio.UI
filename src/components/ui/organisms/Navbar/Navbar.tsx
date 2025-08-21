@@ -37,7 +37,7 @@ const Navbar = ({}: NavbarProps) => {
   };
 
   return (
-    <nav className='bg-white border-b border-gray-100 h-16 w-full flex items-center justify-between px-6 sm:px-8 lg:px-12 font-sans text-gray-900 sticky top-0 z-50 shadow-sm'>
+    <nav className='bg-white border-b border-gray-100 h-16 w-full flex items-center justify-between px-6 sm:px-8 lg:px-12 font-sans text-gray-900 sticky top-0 z-50'>
       {/* Logo */}
       <div
         onClick={() => navigate('/')}

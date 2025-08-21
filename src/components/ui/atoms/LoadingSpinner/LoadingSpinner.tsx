@@ -11,8 +11,8 @@ const LoadingSpinner = ({
     NonNullable<LoadingSpinnerProps['variant']>,
     string
   > = {
-    default: 'text-blue-600',
-    primary: 'text-blue-600',
+    default: 'text-slate-600',
+    primary: 'text-slate-600',
     success: 'text-emerald-600',
     warning: 'text-amber-600',
     danger: 'text-red-600',
@@ -29,7 +29,7 @@ const LoadingSpinner = ({
 
       {/* Enhanced glow effect with techzen aesthetic */}
       <div
-        className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-blue-200/30 to-transparent animate-pulse'
+        className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-slate-200/30 to-transparent animate-pulse'
         style={{
           height: `${dimensionPx + 12}px`,
           width: `${dimensionPx + 12}px`,
@@ -38,7 +38,7 @@ const LoadingSpinner = ({
 
       {/* Enhanced outer ring with techzen aesthetic */}
       <div
-        className='absolute inset-0 rounded-full border-2 border-blue-200/40 animate-ping'
+        className='absolute inset-0 rounded-full border-2 border-slate-200/40 animate-ping'
         style={{
           height: `${dimensionPx + 20}px`,
           width: `${dimensionPx + 20}px`,
@@ -47,7 +47,7 @@ const LoadingSpinner = ({
 
       {/* Additional techzen ring effect */}
       <div
-        className='absolute inset-0 rounded-full border border-blue-100/60 animate-pulse delay-1000'
+        className='absolute inset-0 rounded-full border border-slate-100/60 animate-pulse delay-1000'
         style={{
           height: `${dimensionPx + 28}px`,
           width: `${dimensionPx + 28}px`,

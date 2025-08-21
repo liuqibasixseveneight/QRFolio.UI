@@ -9,9 +9,9 @@ const Badge = ({
 }: BadgeProps) => {
   const variantStyles: Record<NonNullable<BadgeProps['variant']>, string> = {
     default:
-      'bg-gradient-to-r from-slate-100/90 via-blue-100/80 to-indigo-100/90 text-slate-700 border-slate-200/60 hover:from-slate-200/90 hover:via-blue-200/80 hover:to-indigo-200/90 hover:border-slate-300/60',
+      'bg-gradient-to-r from-slate-100/90 via-slate-100/80 to-slate-100/90 text-slate-700 border-slate-200/60 hover:from-slate-200/90 hover:via-slate-200/80 hover:to-slate-200/90 hover:border-slate-300/60',
     primary:
-      'bg-gradient-to-r from-blue-100/90 via-indigo-100/80 to-purple-100/90 text-blue-700 border-blue-200/60 hover:from-blue-200/90 hover:via-indigo-200/80 hover:to-purple-200/90 hover:border-blue-300/60',
+      'bg-gradient-to-r from-slate-100/90 via-slate-200/80 to-slate-300/90 text-slate-700 border-slate-300/60 hover:from-slate-200/90 hover:via-slate-300/80 hover:to-slate-400/90 hover:border-slate-400/60',
     success:
       'bg-gradient-to-r from-emerald-100/90 via-teal-100/80 to-cyan-100/90 text-emerald-700 border-emerald-200/60 hover:from-emerald-200/90 hover:via-teal-200/80 hover:to-cyan-200/90 hover:border-emerald-300/60',
     warning:

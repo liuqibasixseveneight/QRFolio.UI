@@ -24,7 +24,7 @@ const TabsList = ({
     <TabsPrimitive.List
       data-slot='tabs-list'
       className={cn(
-        'w-full bg-gradient-to-r from-slate-50/90 via-blue-50/80 to-indigo-50/90 backdrop-blur-sm text-slate-700 flex items-center justify-center rounded-2xl p-1.5 border border-slate-200/40 shadow-xl shadow-slate-200/20',
+        'w-full bg-gradient-to-r from-slate-50/90 via-slate-50/80 to-slate-50/90 backdrop-blur-sm text-slate-700 flex items-center justify-center rounded-2xl p-1.5 border border-slate-200/40 shadow-xl shadow-slate-200/20',
         className
       )}
       {...props}

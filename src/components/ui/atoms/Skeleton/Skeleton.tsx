@@ -10,7 +10,7 @@ const Skeleton = ({
     default:
       'bg-gradient-to-r from-slate-200/80 via-slate-300/80 to-slate-200/80',
     primary:
-      'bg-gradient-to-r from-blue-200/80 via-indigo-300/80 to-blue-200/80',
+      'bg-gradient-to-r from-slate-200/80 via-slate-300/80 to-slate-200/80',
     success:
       'bg-gradient-to-r from-emerald-200/80 via-teal-300/80 to-emerald-200/80',
     warning:

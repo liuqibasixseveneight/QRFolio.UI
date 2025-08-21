@@ -5,25 +5,25 @@ const TimelineItem = ({
   subtitle,
   date,
   description,
-  accentColor = 'blue-600',
+  accentColor = 'slate-600',
 }: TimelineItemProps) => {
   const accentColorClass =
-    accentColor === 'blue-600'
-      ? 'text-blue-600'
+    accentColor === 'slate-600'
+      ? 'text-slate-600'
       : accentColor === 'red-600'
       ? 'text-red-600'
-      : 'text-blue-600';
+      : 'text-slate-600';
 
   return (
     <div className='relative group'>
       {/* Timeline connector line */}
-      <div className='absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 via-blue-300 to-transparent'></div>
+      <div className='absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-200 via-slate-300 to-transparent'></div>
 
       {/* Content container */}
-      <div className='relative ml-12 p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-50/90 via-white to-blue-50/90 backdrop-blur-sm hover:from-slate-50/95 hover:via-white hover:to-blue-50/95 transition-all duration-300 border border-slate-200/40 shadow-lg shadow-slate-200/20 hover:shadow-xl hover:shadow-slate-200/30'>
+      <div className='relative ml-12 p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90 backdrop-blur-sm hover:from-slate-50/95 hover:via-white hover:to-slate-50/95 transition-all duration-300 border border-slate-200/40 shadow-lg shadow-slate-200/20 hover:shadow-xl hover:shadow-slate-200/30'>
         <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4'>
           <div className='flex-1 min-w-0'>
-            <h3 className='text-lg sm:text-xl font-semibold text-slate-900 group-hover:text-blue-800 transition-colors duration-300 leading-tight mb-2'>
+            <h3 className='text-lg sm:text-xl font-semibold text-slate-900 group-hover:text-slate-800 transition-colors duration-300 leading-tight mb-2'>
               {title}
             </h3>
             {subtitle && (
@@ -39,7 +39,7 @@ const TimelineItem = ({
           </div>
 
           {/* Time badge */}
-          <time className='inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 border border-blue-200/40 flex-shrink-0 shadow-sm'>
+          <time className='inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 border border-slate-300/40 flex-shrink-0 shadow-sm'>
             {date}
           </time>
         </div>

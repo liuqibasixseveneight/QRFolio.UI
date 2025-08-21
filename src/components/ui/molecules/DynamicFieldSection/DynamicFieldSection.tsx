@@ -52,10 +52,10 @@ const DynamicFieldSection = <T extends Record<string, any>>({
         return (
           <div
             key={field?.id}
-            className='rounded-2xl bg-gradient-to-r from-slate-50/90 via-white to-blue-50/90 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:from-slate-50/95 hover:via-white hover:to-blue-50/95 border border-slate-200/40 shadow-lg shadow-slate-200/20 hover:shadow-xl hover:shadow-slate-200/30'
+            className='rounded-2xl bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:from-slate-50/95 hover:via-white hover:to-slate-50/95 border border-slate-200/40 shadow-lg shadow-slate-200/20 hover:shadow-xl hover:shadow-slate-200/30'
           >
             <div
-              className='p-4 sm:p-6 bg-gradient-to-r from-slate-50/50 via-white to-blue-50/50 cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:from-slate-50/70 hover:via-white hover:to-blue-50/70 transition-all duration-300'
+              className='p-4 sm:p-6 bg-gradient-to-r from-slate-50/50 via-white to-slate-50/50 cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:from-slate-50/70 hover:via-white hover:to-slate-50/70 transition-all duration-300'
               onClick={() => toggleIndex(index)}
             >
               <div className='flex-1 min-w-0'>

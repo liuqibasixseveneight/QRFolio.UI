@@ -99,6 +99,7 @@ const Profile = () => {
 
   return (
     <main
+      data-profile-page
       className={`${
         allSectionsCollapsed ? '' : 'min-h-screen'
       } w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden`}
@@ -115,7 +116,7 @@ const Profile = () => {
           </div>
         </main>
       ) : (
-        <>
+        <div>
           <ProfileHeader
             fullName={fullName}
             summary={professionalSummary}
@@ -540,7 +541,7 @@ const Profile = () => {
               </div>
             </div>
           )}
-        </>
+        </div>
       )}
 
       {/* Scroll to Top Button */}

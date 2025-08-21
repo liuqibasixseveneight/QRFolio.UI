@@ -35,12 +35,12 @@ export const contents = ({
     {
       value: 'introduction',
       content: (
-        <section className='space-y-8'>
-          <div>
-            <h2 className='text-2xl font-bold text-gray-800 mb-4'>
-              Introduction
+        <section className='space-y-6'>
+          <div className='border-b border-gray-200 pb-4'>
+            <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
+              Introduction and Personal Information
             </h2>
-            <p className='text-gray-600 mb-6'>
+            <p className='text-gray-600 mt-2'>
               Start with your basic information and professional summary.
             </p>
           </div>
