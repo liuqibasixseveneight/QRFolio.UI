@@ -1,6 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Download, Share2, X, Copy, Check } from 'lucide-react';
-import * as htmlToImage from 'html-to-image';
+import { useState, useEffect } from 'react';
+import { Share2, X, Copy, Check } from 'lucide-react';
 
 import { useToast } from '@/components/ui/molecules/Toast/use-toast';
 import { ProfileQRCard } from '@/components/ui/molecules/ProfileQRCard';
@@ -8,11 +7,9 @@ import { Button } from '@/components/ui/atoms/Button';
 import type { QRCodeModalProps } from './types';
 
 const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
-  const [isDownloading, setIsDownloading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const qrCardRef = useRef<HTMLDivElement>(null);
 
   const { toast } = useToast();
 
@@ -38,47 +35,6 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
   if (!isOpen) {
     return null;
   }
-
-  const handleDownload = async () => {
-    if (!qrCardRef.current) {
-      return;
-    }
-
-    setIsDownloading(true);
-
-    try {
-      const dataUrl = await htmlToImage.toPng(qrCardRef.current, {
-        quality: 1.0,
-        backgroundColor: '#ffffff',
-      });
-
-      const link = document.createElement('a');
-      link.download = `${profileData.labels.fullName?.replace(
-        /\s+/g,
-        '_'
-      )}_QRCode.png`;
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      toast({
-        title: 'Download Successful',
-        description: 'QR Code has been downloaded successfully.',
-        variant: 'default',
-      });
-    } catch (error) {
-      console.error('Failed to download QR code:', error);
-
-      toast({
-        title: 'Download Failed',
-        description: 'Failed to download QR code. Please try again.',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsDownloading(false);
-    }
-  };
 
   const handleShare = async () => {
     try {
@@ -171,7 +127,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
 
         {/* Content */}
         <div className='overflow-y-auto max-h-[calc(90vh-140px)]'>
-          <div ref={qrCardRef} className='w-full'>
+          <div className='w-full'>
             <ProfileQRCard {...profileData} />
           </div>
         </div>
@@ -211,16 +167,6 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
             >
               <Share2 className='w-4 h-4 mr-2' />
               Share
-            </Button>
-
-            <Button
-              size='lg'
-              onClick={handleDownload}
-              disabled={isDownloading}
-              className='min-w-[140px]'
-            >
-              <Download className='w-4 h-4 mr-2' />
-              {isDownloading ? 'Downloading...' : 'Download'}
             </Button>
           </div>
         </div>
