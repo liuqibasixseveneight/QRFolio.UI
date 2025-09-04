@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Calendar } from 'lucide-react';
 
 import { AvailabilityBadge, QRCodeModal } from '@/components/ui';
-import { formatDate } from './utils';
+import { formatDateWithOrdinal } from './utils';
 import { ActionButtons, ContactInformation } from './components';
 import type { ProfileHeaderProps } from './types';
 
@@ -32,10 +32,20 @@ const ProfileHeader = ({
           <header className='relative w-full'>
             <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='w-full'>
-                <AvailabilityBadge
-                  availability={availability}
-                  className='mb-10'
-                />
+                <div className='flex items-center justify-between mb-10'>
+                  <AvailabilityBadge availability={availability} className='' />
+                  <div className='flex items-center gap-2 text-sm text-gray-500 py-3'>
+                    <Calendar className='w-4 h-4 text-gray-400' />
+                    <span>
+                      Last Updated:{' '}
+                      <span className='font-medium'>
+                        {updatedAt
+                          ? formatDateWithOrdinal(updatedAt)
+                          : formatDateWithOrdinal(new Date())}
+                      </span>
+                    </span>
+                  </div>
+                </div>
 
                 <h1 className='text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight text-gray-900 mb-8 sm:mb-10 leading-tight'>
                   {fullName}
@@ -72,16 +82,6 @@ const ProfileHeader = ({
                   }}
                   onViewQRCode={handleViewQRCode}
                 />
-
-                <div className='flex flex-wrap items-center gap-8 text-sm text-gray-500 mb-8'>
-                  <span className='flex items-center gap-2'>
-                    <Calendar className='w-4 h-4 text-gray-400' />
-                    Last Updated:{' '}
-                    {updatedAt ? formatDate(updatedAt) : formatDate(new Date())}
-                  </span>
-                </div>
-
-                <div className='w-32 h-px bg-gray-300'></div>
               </div>
             </div>
           </header>

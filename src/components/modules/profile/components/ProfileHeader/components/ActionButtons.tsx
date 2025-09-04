@@ -75,7 +75,7 @@ export const ActionButtons = ({
       >
         <span className='flex items-center gap-3'>
           <QrCode className='w-6 h-6' />
-          <span>QR Code</span>
+          <span>Generate QR Code</span>
         </span>
       </button>
     </div>

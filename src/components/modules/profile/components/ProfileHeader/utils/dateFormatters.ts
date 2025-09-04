@@ -18,3 +18,32 @@ export const formatDateForPDF = (dateString: string | Date): string => {
   const year = date.getFullYear();
   return `${month} ${year}`;
 };
+
+/**
+ * Formats a date with ordinal suffix (e.g., 'January 27th, 2024')
+ */
+export const formatDateWithOrdinal = (dateString: string | Date): string => {
+  const date = new Date(dateString);
+
+  // Get the day with ordinal suffix
+  const day = date.getDate();
+  const getOrdinalSuffix = (day: number): string => {
+    if (day > 3 && day < 21) return 'th';
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  };
+
+  const month = date.toLocaleString('en-US', { month: 'long' });
+  const year = date.getFullYear();
+  const ordinalSuffix = getOrdinalSuffix(day);
+
+  return `${month} ${day}${ordinalSuffix}, ${year}`;
+};

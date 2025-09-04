@@ -11,6 +11,7 @@ import {
   ArrowUp,
   User,
 } from 'lucide-react';
+
 import ProfileHeader from '../components/ProfileHeader/ProfileHeader';
 import {
   EducationSection,
@@ -168,7 +169,7 @@ const Profile = () => {
                                   <Briefcase className='w-8 h-8 text-gray-600' />
                                 </div>
                                 <div>
-                                  <h3 className='text-2xl font-light text-gray-900 mb-3'>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
                                     Work Experience
                                   </h3>
                                   <div className='flex items-center gap-4'>
@@ -176,7 +177,7 @@ const Profile = () => {
                                       {workExperience.length} position
                                       {workExperience.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
                                     <span className='text-sm text-gray-400'>
                                       {workExperience.length > 0
                                         ? expandedSections.workExperience
@@ -225,7 +226,7 @@ const Profile = () => {
                                   <GraduationCap className='w-8 h-8 text-gray-600' />
                                 </div>
                                 <div>
-                                  <h3 className='text-2xl font-light text-gray-900 mb-3'>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
                                     Education
                                   </h3>
                                   <div className='flex items-center gap-4'>
@@ -233,7 +234,7 @@ const Profile = () => {
                                       {education.length} degree
                                       {education.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
                                     <span className='text-sm text-gray-400'>
                                       {education.length > 0
                                         ? expandedSections.education
@@ -280,7 +281,7 @@ const Profile = () => {
                                   <Languages className='w-8 h-8 text-gray-600' />
                                 </div>
                                 <div>
-                                  <h3 className='text-2xl font-light text-gray-900 mb-3'>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
                                     Languages
                                   </h3>
                                   <div className='flex items-center gap-4'>
@@ -288,7 +289,7 @@ const Profile = () => {
                                       {languages.length} language
                                       {languages.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
                                     <span className='text-sm text-gray-400'>
                                       {languages.length > 0
                                         ? expandedSections.languages
@@ -356,7 +357,7 @@ const Profile = () => {
                                   <Briefcase className='w-8 h-8 text-gray-600' />
                                 </div>
                                 <div>
-                                  <h3 className='text-2xl font-light text-gray-900 mb-3'>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
                                     Work Experience
                                   </h3>
                                   <div className='flex items-center gap-4'>
@@ -364,7 +365,7 @@ const Profile = () => {
                                       {workExperience.length} position
                                       {workExperience.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
                                     <span className='text-sm text-gray-400'>
                                       {workExperience.length > 0
                                         ? expandedSections.workExperience
@@ -414,7 +415,7 @@ const Profile = () => {
                                     <GraduationCap className='w-8 h-8 text-gray-600' />
                                   </div>
                                   <div>
-                                    <h3 className='text-2xl font-light text-gray-900 mb-3'>
+                                    <h3 className='text-3xl font-light text-gray-900 mb-3'>
                                       Education
                                     </h3>
                                     <div className='flex items-center gap-4'>
@@ -422,7 +423,7 @@ const Profile = () => {
                                         {education.length} degree
                                         {education.length !== 1 ? 's' : ''}
                                       </span>
-                                      <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
+                                      <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
                                       <span className='text-sm text-gray-400'>
                                         {education.length > 0
                                           ? expandedSections.education
@@ -470,7 +471,7 @@ const Profile = () => {
                                   <Languages className='w-8 h-8 text-gray-600' />
                                 </div>
                                 <div>
-                                  <h3 className='text-2xl font-light text-gray-900 mb-3'>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
                                     Languages
                                   </h3>
                                   <div className='flex items-center gap-4'>
@@ -478,7 +479,7 @@ const Profile = () => {
                                       {languages.length} language
                                       {languages.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
                                     <span className='text-sm text-gray-400'>
                                       {languages.length > 0
                                         ? expandedSections.languages

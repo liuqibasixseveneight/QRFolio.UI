@@ -27,7 +27,24 @@ const ProfileHeaderBadge = ({
     }
   };
 
-  const badgeContent = (
+  // Check if this is an icon-only badge (based on className)
+  const isIconOnly = className.includes('w-12') && className.includes('h-12');
+
+  // Create different badge content based on mode
+  const badgeContent = isIconOnly ? (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div
+          className={`w-12 h-12 flex items-center justify-center bg-gray-50 rounded-lg border border-gray-100 hover:bg-gray-100 transition-colors ${getCursorClass()}`}
+        >
+          <Icon className='w-5 h-5 text-gray-500' />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>{label}</p>
+      </TooltipContent>
+    </Tooltip>
+  ) : (
     <div
       className={`flex items-center gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 min-w-0 ${className}`}
     >
