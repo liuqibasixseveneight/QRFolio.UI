@@ -12,13 +12,11 @@ const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
             index === languages.length - 1 ? 'pb-4' : ''
           }`}
         >
-          {/* Language Details */}
           <div className='mb-6'>
             <h3 className='text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
               {language?.language}
             </h3>
 
-            {/* Fluency Level */}
             <div className='flex items-center gap-4 mb-6'>
               <span className='text-xl font-medium text-gray-700'>
                 {language?.fluencyLevel}
@@ -47,7 +45,6 @@ const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
             </div>
           </div>
 
-          {/* Separator line */}
           {index < languages.length - 1 && (
             <div className='w-full h-px bg-gray-100 my-8'></div>
           )}

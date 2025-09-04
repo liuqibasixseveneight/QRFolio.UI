@@ -182,17 +182,14 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
     },
   });
 
-  // Create PDF document
   const MyDocument = () => (
     <Document>
       <Page size='A4' style={styles.page}>
-        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.name}>{fullName || 'Profile'}</Text>
           {summary && <Text style={styles.summary}>{summary}</Text>}
         </View>
 
-        {/* Contact Information */}
         {(email || phone || linkedin || portfolio) && (
           <View style={styles.contactGrid}>
             {email && (
@@ -224,7 +221,6 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
           </View>
         )}
 
-        {/* Work Experience */}
         {workExperience && workExperience.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Professional Experience</Text>
@@ -252,7 +248,6 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
           </View>
         )}
 
-        {/* Education */}
         {education && education.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Education</Text>
@@ -278,7 +273,6 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
           </View>
         )}
 
-        {/* Languages */}
         {languages && languages.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Languages</Text>

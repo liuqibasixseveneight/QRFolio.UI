@@ -21,13 +21,11 @@ const LoadingSpinner = ({
 
   return (
     <div className='relative flex items-center justify-center'>
-      {/* Main spinner with techzen aesthetic */}
       <Loader2
         size={size}
         className={`${variantStyles[variant]} animate-spin drop-shadow-lg`}
       />
 
-      {/* Enhanced glow effect with techzen aesthetic */}
       <div
         className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-slate-200/30 to-transparent animate-pulse'
         style={{
@@ -36,7 +34,6 @@ const LoadingSpinner = ({
         }}
       />
 
-      {/* Enhanced outer ring with techzen aesthetic */}
       <div
         className='absolute inset-0 rounded-full border-2 border-slate-200/40 animate-ping'
         style={{
@@ -45,7 +42,6 @@ const LoadingSpinner = ({
         }}
       />
 
-      {/* Additional techzen ring effect */}
       <div
         className='absolute inset-0 rounded-full border border-slate-100/60 animate-pulse delay-1000'
         style={{

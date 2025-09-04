@@ -29,7 +29,6 @@ const Landing = () => {
   return (
     <>
       <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden'>
-        {/* Header Section - Full Width */}
         <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
           <div className='w-full px-6 sm:px-8 lg:px-12'>
             <div className='max-w-6xl mx-auto w-full'>
@@ -67,10 +66,8 @@ const Landing = () => {
           </div>
         </div>
 
-        {/* Content container with proper width constraints */}
         <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
           <div className='max-w-6xl mx-auto w-full'>
-            {/* Features Section */}
             <div className='mb-20'>
               <div className='text-center mb-16'>
                 <h2 className='text-3xl font-light text-gray-900 mb-4'>
@@ -105,7 +102,6 @@ const Landing = () => {
               </div>
             </div>
 
-            {/* Minimal CTA */}
             <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-8 sm:px-12 py-16 text-center'>
               <h2 className='text-3xl font-light text-gray-900 mb-4'>
                 Ready to begin?

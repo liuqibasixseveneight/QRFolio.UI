@@ -134,11 +134,9 @@ const Profile = () => {
           {hasContent ? (
             <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
               <div className='max-w-6xl mx-auto w-full'>
-                {/* Main Content Area - Paper-like layout */}
                 {allSectionsCollapsed ? (
                   // When all sections are collapsed, render without white background
                   <div>
-                    {/* Section Header */}
                     <div className='bg-white rounded-t-2xl shadow-sm border border-gray-100 px-12 py-16'>
                       <div className='text-center'>
                         <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
@@ -157,7 +155,6 @@ const Profile = () => {
                       </div>
                     </div>
 
-                    {/* Work Experience Section */}
                     {workExperience && workExperience.length > 0 && (
                       <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
                         <div className='group'>
@@ -215,7 +212,6 @@ const Profile = () => {
                       </div>
                     )}
 
-                    {/* Education Section */}
                     {education && education.length > 0 && (
                       <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
                         <div className='group'>
@@ -271,7 +267,6 @@ const Profile = () => {
                       </div>
                     )}
 
-                    {/* Languages Section */}
                     {languages && languages.length > 0 && (
                       <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2 rounded-b-2xl'>
                         <div className='group'>
@@ -330,7 +325,6 @@ const Profile = () => {
                 ) : (
                   // When sections are expanded, use the original white background container
                   <div className='bg-white rounded-2xl shadow-sm border border-gray-100'>
-                    {/* Section Header */}
                     <div className='px-12 py-16 border-b border-gray-100'>
                       <div className='text-center'>
                         <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
@@ -349,7 +343,6 @@ const Profile = () => {
                       </div>
                     </div>
 
-                    {/* Work Experience Section */}
                     {workExperience && workExperience.length > 0 && (
                       <div className='px-12 py-16 border-b border-gray-100'>
                         <div className='group'>
@@ -407,7 +400,6 @@ const Profile = () => {
                       </div>
                     )}
 
-                    {/* Education Section */}
                     {education && education.length > 0 && (
                       <div className='px-12 py-16 border-b border-gray-100'>
                         <div className='group'>
@@ -465,7 +457,6 @@ const Profile = () => {
                       </div>
                     )}
 
-                    {/* Languages Section */}
                     {languages && languages.length > 0 && (
                       <div className='px-12 py-16 rounded-b-2xl'>
                         <div className='group'>
@@ -525,7 +516,6 @@ const Profile = () => {
               </div>
             </div>
           ) : (
-            /* Empty State - No white background block */
             <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
               <div className='max-w-6xl mx-auto w-full text-center'>
                 <div className='w-28 h-28 mx-auto mb-10 rounded-full bg-gray-100 flex items-center justify-center'>
@@ -544,7 +534,6 @@ const Profile = () => {
         </div>
       )}
 
-      {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}

@@ -12,7 +12,6 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
           key={`${exp?.companyName}-${index}`}
           className='group relative p-0 bg-transparent border-0'
         >
-          {/* Job Title and Company */}
           <div className='mb-6'>
             <h3 className='text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
               {exp?.jobTitle}
@@ -32,7 +31,6 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
               )}
             </div>
 
-            {/* Date Range */}
             <div className='flex items-center gap-3 mb-6'>
               <span className='text-sm text-gray-500 font-medium flex items-center gap-2'>
                 <Calendar className='w-4 h-4' />
@@ -41,7 +39,6 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
               </span>
             </div>
 
-            {/* Responsibilities */}
             {exp?.responsibilities && (
               <div className='space-y-3 mb-6'>
                 <p className='text-gray-700 leading-relaxed text-base'>
@@ -50,7 +47,6 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
               </div>
             )}
 
-            {/* Skills/Tags */}
             <div className='flex flex-wrap gap-3 pt-6 border-t border-gray-100'>
               <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
                 Leadership
@@ -67,7 +63,6 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
             </div>
           </div>
 
-          {/* Separator line */}
           {index < workExperience.length - 1 && (
             <div className='w-full h-px bg-gray-100 my-8'></div>
           )}

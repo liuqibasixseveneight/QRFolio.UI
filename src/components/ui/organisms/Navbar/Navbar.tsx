@@ -38,7 +38,6 @@ const Navbar = ({}: NavbarProps) => {
 
   return (
     <nav className='bg-white border-b border-gray-100 h-16 w-full flex items-center justify-between px-6 sm:px-8 lg:px-12 font-sans text-gray-900 sticky top-0 z-50'>
-      {/* Logo */}
       <div
         onClick={() => navigate('/')}
         className='cursor-pointer font-light text-xl sm:text-2xl text-gray-900 hover:text-gray-700 transition-all duration-300'
@@ -46,7 +45,6 @@ const Navbar = ({}: NavbarProps) => {
         LYTN
       </div>
 
-      {/* Desktop Navigation */}
       <div className='hidden md:flex items-center justify-center gap-4'>
         {!session ? (
           <>

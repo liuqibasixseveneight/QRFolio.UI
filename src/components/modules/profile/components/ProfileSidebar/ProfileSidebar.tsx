@@ -122,7 +122,6 @@ const ProfileSidebar = ({
 
   return (
     <aside className='w-full xl:w-80 px-4 sm:px-6 lg:px-8 xl:px-0 xl:pr-8 py-6 lg:py-8 xl:sticky xl:top-8 xl:h-fit space-y-8'>
-      {/* Status Section */}
       <div
         className={`bg-gradient-to-br ${availabilityConfig.bgColor} backdrop-blur-sm rounded-3xl p-8 border ${availabilityConfig.borderColor} shadow-xl hover:shadow-2xl transition-all duration-300`}
       >
@@ -150,9 +149,7 @@ const ProfileSidebar = ({
         </div>
       </div>
 
-      {/* Contact Section */}
       <div className='bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/60 shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-white'>
-        {/* Header */}
         <div className='flex items-center space-x-4 pb-6 border-b border-gray-200/50 mb-8'>
           <div className='w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl'>
             <User className='w-7 h-7 text-white' />
@@ -162,7 +159,6 @@ const ProfileSidebar = ({
           </h2>
         </div>
 
-        {/* Contact Items */}
         <div className='space-y-5'>
           {email && (
             <ContactItem
@@ -198,7 +194,6 @@ const ProfileSidebar = ({
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div className='bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/60 shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-white'>
         <h3 className='text-lg font-bold text-gray-800 mb-8 flex items-center space-x-4'>
           <div className='w-12 h-12 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl'>
@@ -270,7 +265,6 @@ const ProfileSidebar = ({
         </div>
       </div>
 
-      {/* Professional Stats Section */}
       <div className='bg-gradient-to-br from-slate-50/90 via-blue-50/70 to-indigo-50/90 backdrop-blur-sm rounded-3xl p-8 border border-slate-200/60 shadow-xl hover:shadow-2xl transition-all duration-300'>
         <h3 className='text-lg font-bold text-gray-800 mb-8 flex items-center space-x-4'>
           <div className='w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl flex items-center justify-center shadow-xl'>
@@ -297,7 +291,6 @@ const ProfileSidebar = ({
         </div>
       </div>
 
-      {/* Profile Insights */}
       <div className='bg-gradient-to-br from-purple-50/90 via-pink-50/70 to-rose-50/90 backdrop-blur-sm rounded-3xl p-8 border border-purple-200/60 shadow-xl hover:shadow-2xl transition-all duration-300'>
         <h3 className='text-lg font-bold text-gray-800 mb-8 flex items-center space-x-4'>
           <div className='w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-xl'>

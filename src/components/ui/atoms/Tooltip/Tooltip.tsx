@@ -107,7 +107,6 @@ const Tooltip = ({
         {children}
       </div>
 
-      {/* Tooltip */}
       {isVisible && (
         <div
           ref={tooltipRef}
@@ -127,7 +126,6 @@ const Tooltip = ({
           }}
         >
           {content}
-          {/* Tooltip arrow */}
           <div
             className={cn(
               'absolute w-0 h-0 border-4 border-transparent',

@@ -10,11 +10,8 @@ const LytnIconV1 = () => (
   >
     <defs>
       <linearGradient id='highlightGradient' x1='0' y1='0' x2='1' y2='1'>
-        {/* indigo-600 */}
         <stop offset='0%' stopColor='#4f46e5' stopOpacity='1' />
-        {/* indigo-500 */}
         <stop offset='50%' stopColor='#6366f1' stopOpacity='0.8' />
-        {/* purple-500 */}
         <stop offset='100%' stopColor='#a855f7' stopOpacity='0.6' />
       </linearGradient>
     </defs>

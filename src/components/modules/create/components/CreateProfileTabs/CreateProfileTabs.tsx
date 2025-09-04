@@ -211,7 +211,6 @@ const CreateProfileTabs = () => {
 
   return (
     <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans'>
-      {/* Header Section - Full Width */}
       <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
         <div className='w-full px-6 sm:px-8 lg:px-12'>
           <div className='max-w-6xl mx-auto w-full'>
@@ -231,14 +230,12 @@ const CreateProfileTabs = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className='relative z-10 flex-1 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
         <div className='max-w-6xl mx-auto w-full'>
           <form
             className='space-y-8'
             onSubmit={handleSubmit(handleButtonClick)}
           >
-            {/* Tabs Section */}
             <div className='bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 lg:p-12'>
               <TabbedSections
                 tabs={tabs}
@@ -247,10 +244,8 @@ const CreateProfileTabs = () => {
               />
             </div>
 
-            {/* Error Display */}
             <ErrorDisplay errors={submissionErrors} />
 
-            {/* Submit Button */}
             <div className='flex justify-center pt-8'>
               <Button
                 type='submit'

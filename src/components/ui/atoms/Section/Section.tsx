@@ -20,7 +20,6 @@ const Section = ({
             {subtitle}
           </p>
         )}
-        {/* Enhanced decorative line with techzen aesthetic */}
         <div
           className={`mt-4 w-20 h-1.5 bg-gradient-to-r from-${accentColor}-600 via-${accentColor}-500 to-${accentColor}-400 rounded-full shadow-xl`}
         ></div>

@@ -28,15 +28,12 @@ const SignInForm = ({
 }: SignInFormProps) => {
   return (
     <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden flex items-center'>
-      {/* Content container with proper width constraints */}
       <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20 w-full'>
         <div className='max-w-6xl mx-auto w-full'>
           <div className='bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden'>
             <div className='flex flex-col lg:flex-row'>
-              {/* Left Section - Form */}
               <section className='w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 lg:py-20'>
                 <div className='max-w-md mx-auto w-full'>
-                  {/* Header */}
                   <div className='text-center lg:text-left mb-8'>
                     <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
                       <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
@@ -52,7 +49,6 @@ const SignInForm = ({
                     </p>
                   </div>
 
-                  {/* Form */}
                   <div className='space-y-6'>
                     <FormField
                       label='Email'
@@ -103,7 +99,6 @@ const SignInForm = ({
                 </div>
               </section>
 
-              {/* Right Section - Illustration */}
               <section className='w-full lg:w-1/2 bg-gray-50 flex flex-col justify-center items-center px-8 sm:px-12 lg:px-16 py-16 lg:py-20 text-center'>
                 <div className='max-w-md mx-auto'>
                   <div className='w-24 h-24 bg-gray-100 rounded-2xl flex items-center justify-center mb-8 mx-auto'>

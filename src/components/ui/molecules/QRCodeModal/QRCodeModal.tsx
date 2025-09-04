@@ -108,7 +108,6 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className='flex items-center justify-between p-6 border-b border-gray-100'>
           <div>
             <h2 className='text-2xl font-light text-gray-900'>QR Code</h2>
@@ -125,14 +124,12 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
           </button>
         </div>
 
-        {/* Content */}
         <div className='overflow-y-auto max-h-[calc(90vh-140px)]'>
           <div className='w-full'>
             <ProfileQRCard {...profileData} />
           </div>
         </div>
 
-        {/* Footer Actions */}
         <div className='flex flex-col sm:flex-row items-center justify-between gap-4 p-6 border-t border-gray-100 bg-gray-50'>
           <div className='flex items-center gap-2 text-sm text-gray-600'>
             <div className='w-2 h-2 bg-green-500 rounded-full'></div>

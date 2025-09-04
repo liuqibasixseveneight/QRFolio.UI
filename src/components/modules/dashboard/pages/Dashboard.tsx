@@ -66,7 +66,6 @@ const Dashboard = () => {
 
   return (
     <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden'>
-      {/* Header Section - Full Width */}
       <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
         <div className='w-full px-6 sm:px-8 lg:px-12'>
           <div className='max-w-6xl mx-auto w-full'>
@@ -86,7 +85,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Content container with proper width constraints */}
       <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
         <div className='max-w-6xl mx-auto w-full'>
           {loading ? (
@@ -99,7 +97,6 @@ const Dashboard = () => {
               </p>
             </div>
           ) : (
-            /* Actions Grid */
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
               {actions?.map(
                 ({ title, description, icon: Icon, action }, idx) => (
