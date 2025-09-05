@@ -26,7 +26,6 @@ const CreateProfileTabs = () => {
   const [activeLanguageIndex, setActiveLanguageIndex] = useState<number | null>(
     0
   );
-  const [activeSkillsIndex, setActiveSkillsIndex] = useState<number | null>(0);
 
   const { userId } = useAuth();
 
@@ -40,6 +39,7 @@ const CreateProfileTabs = () => {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
@@ -102,11 +102,7 @@ const CreateProfileTabs = () => {
     append: appendLanguage,
     remove: removeLanguage,
   } = useFieldArray({ control, name: 'languages' });
-  const {
-    fields: skillsFields,
-    append: appendSkills,
-    remove: removeSkills,
-  } = useFieldArray({ control, name: 'skills' });
+  const { fields: skillsFields } = useFieldArray({ control, name: 'skills' });
 
   const handleAppend = (
     appendFn: Function,
@@ -215,19 +211,16 @@ const CreateProfileTabs = () => {
       ),
     removeLanguage,
     skillsFields,
-    appendSkills: () =>
-      handleAppend(appendSkills, setActiveSkillsIndex, skillsFields.length, {
-        skill: '',
-      }),
-    removeSkills,
+    onSkillsChange: (newSkills) => {
+      // Directly update the skills field using setValue
+      setValue('skills', newSkills);
+    },
     activeWorkIndex,
     setActiveWorkIndex,
     activeEduIndex,
     setActiveEduIndex,
     activeLanguageIndex,
     setActiveLanguageIndex,
-    activeSkillsIndex,
-    setActiveSkillsIndex,
   });
 
   return (

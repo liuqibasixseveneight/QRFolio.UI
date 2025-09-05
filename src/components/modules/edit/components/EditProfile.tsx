@@ -34,7 +34,6 @@ const EditProfile = () => {
   const [activeLanguageIndex, setActiveLanguageIndex] = useState<number | null>(
     0
   );
-  const [activeSkillsIndex, setActiveSkillsIndex] = useState<number | null>(0);
 
   const profile = profileData?.profile;
 
@@ -42,6 +41,7 @@ const EditProfile = () => {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
     reset,
   } = useForm<CVFormValues>({
@@ -155,11 +155,7 @@ const EditProfile = () => {
     append: appendLanguage,
     remove: removeLanguage,
   } = useFieldArray({ control, name: 'languages' });
-  const {
-    fields: skillsFields,
-    append: appendSkills,
-    remove: removeSkills,
-  } = useFieldArray({ control, name: 'skills' });
+  const { fields: skillsFields } = useFieldArray({ control, name: 'skills' });
 
   const handleAppend = (
     appendFn: Function,
@@ -291,19 +287,16 @@ const EditProfile = () => {
       ),
     removeLanguage,
     skillsFields,
-    appendSkills: () =>
-      handleAppend(appendSkills, setActiveSkillsIndex, skillsFields.length, {
-        skill: '',
-      }),
-    removeSkills,
+    onSkillsChange: (newSkills) => {
+      // Directly update the skills field using setValue
+      setValue('skills', newSkills);
+    },
     activeWorkIndex,
     setActiveWorkIndex,
     activeEduIndex,
     setActiveEduIndex,
     activeLanguageIndex,
     setActiveLanguageIndex,
-    activeSkillsIndex,
-    setActiveSkillsIndex,
   });
 
   return (

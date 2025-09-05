@@ -9,6 +9,7 @@ export * from './Popover';
 export * from './ProfileQRCard';
 export * from './QRCodeModal';
 export * from './Select';
+export * from './SkillsInput';
 export * from './Tabs';
 export * from './TimelineItem';
 export * from './Toast';

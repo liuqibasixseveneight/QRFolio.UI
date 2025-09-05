@@ -1,10 +1,14 @@
-import { FormField, DynamicFieldSection, Button } from '@/components/ui';
+import {
+  FormField,
+  DynamicFieldSection,
+  Button,
+  SkillsInput,
+} from '@/components/ui';
 import type { ContentsItem } from '@/components/ui/organisms';
 import {
   workExperienceConfig,
   educationConfig,
   languageConfig,
-  skillsConfig,
 } from '../../pages/fieldConfigs';
 import type { contentsProps } from './types';
 
@@ -22,16 +26,13 @@ export const contents = ({
   appendLanguage,
   removeLanguage,
   skillsFields,
-  appendSkills,
-  removeSkills,
+  onSkillsChange,
   activeWorkIndex,
   setActiveWorkIndex,
   activeEduIndex,
   setActiveEduIndex,
   activeLanguageIndex,
   setActiveLanguageIndex,
-  activeSkillsIndex,
-  setActiveSkillsIndex,
 }: contentsProps) => {
   const mutableWorkFields = [...workFields];
   const mutableEduFields = [...eduFields];
@@ -293,39 +294,13 @@ export const contents = ({
             </p>
           </div>
 
-          <DynamicFieldSection
-            title='Skills'
-            titleField='skill'
-            fields={mutableSkillsFields}
-            fieldsConfig={skillsConfig}
-            registerNamePrefix='skills'
-            errors={errors}
-            register={register}
-            control={control}
-            onRemove={(index: number) => {
-              removeSkills(index);
-              if (activeSkillsIndex === index) {
-                setActiveSkillsIndex(null);
-              } else if (
-                activeSkillsIndex !== null &&
-                activeSkillsIndex > index
-              ) {
-                setActiveSkillsIndex(activeSkillsIndex - 1);
-              }
-            }}
+          <SkillsInput
+            skills={mutableSkillsFields.map((field) => ({
+              skill: field.skill || '',
+            }))}
+            onSkillsChange={onSkillsChange}
+            placeholder='Type a skill and press Enter to add it...'
           />
-
-          <Button
-            type='button'
-            variant='outline'
-            onClick={() => {
-              appendSkills({ skill: '' });
-              setActiveSkillsIndex(mutableSkillsFields.length);
-            }}
-            className='w-full sm:w-auto'
-          >
-            Add Skill
-          </Button>
         </section>
       ),
     },
