@@ -15,6 +15,7 @@ const UPDATE_PROFILE = gql`
     $workExperience: JSON
     $education: JSON
     $languages: JSON
+    $skills: JSON
   ) {
     updateProfile(
       id: $id
@@ -28,6 +29,7 @@ const UPDATE_PROFILE = gql`
       workExperience: $workExperience
       education: $education
       languages: $languages
+      skills: $skills
     ) {
       id
       fullName
@@ -40,6 +42,7 @@ const UPDATE_PROFILE = gql`
       workExperience
       education
       languages
+      skills
     }
   }
 `;

@@ -23,6 +23,10 @@ export type Language = {
   fluencyLevel: 'Beginner' | 'Intermediate' | 'Advanced' | 'Fluent' | 'Native';
 };
 
+export type Skill = {
+  skill?: string;
+};
+
 export type Availability = 'available' | 'open' | 'unavailable';
 
 export interface PhoneNumber {
@@ -46,6 +50,7 @@ export interface BaseProfile {
   workExperience?: WorkExperience[];
   education?: Education[];
   languages?: Language[];
+  skills?: Skill[];
 }
 
 export interface Profile extends BaseProfile {

@@ -4,6 +4,7 @@ import {
   workExperienceConfig,
   educationConfig,
   languageConfig,
+  skillsConfig,
 } from '../../pages/fieldConfigs';
 import type { contentsProps } from './types';
 
@@ -20,16 +21,22 @@ export const contents = ({
   languageFields,
   appendLanguage,
   removeLanguage,
+  skillsFields,
+  appendSkills,
+  removeSkills,
   activeWorkIndex,
   setActiveWorkIndex,
   activeEduIndex,
   setActiveEduIndex,
   activeLanguageIndex,
   setActiveLanguageIndex,
+  activeSkillsIndex,
+  setActiveSkillsIndex,
 }: contentsProps) => {
   const mutableWorkFields = [...workFields];
   const mutableEduFields = [...eduFields];
   const mutableLanguageFields = [...languageFields];
+  const mutableSkillsFields = [...skillsFields];
 
   const contents: ContentsItem[] = [
     {
@@ -270,6 +277,55 @@ export const contents = ({
               Add Language
             </Button>
           </div>
+        </section>
+      ),
+    },
+    {
+      value: 'skills',
+      content: (
+        <section className='space-y-6'>
+          <div className='border-b border-gray-200 pb-4'>
+            <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
+              Skills and Competencies
+            </h2>
+            <p className='text-gray-600 mt-2'>
+              Add your key skills and competencies that showcase your expertise.
+            </p>
+          </div>
+
+          <DynamicFieldSection
+            title='Skills'
+            titleField='skill'
+            fields={mutableSkillsFields}
+            fieldsConfig={skillsConfig}
+            registerNamePrefix='skills'
+            errors={errors}
+            register={register}
+            control={control}
+            onRemove={(index: number) => {
+              removeSkills(index);
+              if (activeSkillsIndex === index) {
+                setActiveSkillsIndex(null);
+              } else if (
+                activeSkillsIndex !== null &&
+                activeSkillsIndex > index
+              ) {
+                setActiveSkillsIndex(activeSkillsIndex - 1);
+              }
+            }}
+          />
+
+          <Button
+            type='button'
+            variant='outline'
+            onClick={() => {
+              appendSkills({ skill: '' });
+              setActiveSkillsIndex(mutableSkillsFields.length);
+            }}
+            className='w-full sm:w-auto'
+          >
+            Add Skill
+          </Button>
         </section>
       ),
     },

@@ -20,6 +20,7 @@ const GET_PROFILE = gql`
       workExperience
       education
       languages
+      skills
       createdAt
       updatedAt
     }

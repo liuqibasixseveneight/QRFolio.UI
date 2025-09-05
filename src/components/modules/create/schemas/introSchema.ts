@@ -13,4 +13,5 @@ export const introSchema = z.object({
   workExperience: z.array(z.any()).optional(),
   education: z.array(z.any()).optional(),
   languages: z.array(z.any()).optional(),
+  skills: z.array(z.any()).optional(),
 });

@@ -23,10 +23,15 @@ export type contentsProps = {
   languageFields: FieldArrayWithId<CVFormValues, 'languages', 'id'>[];
   appendLanguage: UseFieldArrayAppend<CVFormValues, 'languages'>;
   removeLanguage: UseFieldArrayRemove;
+  skillsFields: FieldArrayWithId<CVFormValues, 'skills', 'id'>[];
+  appendSkills: UseFieldArrayAppend<CVFormValues, 'skills'>;
+  removeSkills: UseFieldArrayRemove;
   activeWorkIndex: number | null;
   setActiveWorkIndex: Dispatch<SetStateAction<number | null>>;
   activeEduIndex: number | null;
   setActiveEduIndex: Dispatch<SetStateAction<number | null>>;
   activeLanguageIndex: number | null;
   setActiveLanguageIndex: Dispatch<SetStateAction<number | null>>;
+  activeSkillsIndex: number | null;
+  setActiveSkillsIndex: Dispatch<SetStateAction<number | null>>;
 };

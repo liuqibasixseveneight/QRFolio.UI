@@ -49,4 +49,8 @@ const languageConfig: FieldConfig[] = [
   },
 ];
 
-export { workExperienceConfig, educationConfig, languageConfig };
+const skillsConfig: FieldConfig[] = [
+  { name: 'skill', label: 'Skill', type: 'input' },
+];
+
+export { workExperienceConfig, educationConfig, languageConfig, skillsConfig };

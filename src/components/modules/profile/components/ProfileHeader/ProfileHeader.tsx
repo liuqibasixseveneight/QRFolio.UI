@@ -17,6 +17,7 @@ const ProfileHeader = ({
   workExperience = [],
   education = [],
   languages = [],
+  skills = [],
   updatedAt,
 }: ProfileHeaderProps) => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
@@ -78,6 +79,7 @@ const ProfileHeader = ({
                     workExperience,
                     education,
                     languages,
+                    skills,
                     updatedAt,
                   }}
                   onViewQRCode={handleViewQRCode}

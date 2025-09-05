@@ -11,5 +11,6 @@ export type ProfileHeaderProps = {
   workExperience?: any[];
   education?: any[];
   languages?: any[];
+  skills?: any[];
   updatedAt?: string;
 };

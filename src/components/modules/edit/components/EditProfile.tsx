@@ -34,6 +34,7 @@ const EditProfile = () => {
   const [activeLanguageIndex, setActiveLanguageIndex] = useState<number | null>(
     0
   );
+  const [activeSkillsIndex, setActiveSkillsIndex] = useState<number | null>(0);
 
   const profile = profileData?.profile;
 
@@ -43,7 +44,6 @@ const EditProfile = () => {
     control,
     formState: { errors },
     reset,
-    watch,
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
     defaultValues: {
@@ -77,6 +77,11 @@ const EditProfile = () => {
         {
           language: '',
           fluencyLevel: 'Beginner' as const,
+        },
+      ],
+      skills: [
+        {
+          skill: '',
         },
       ],
     },
@@ -121,6 +126,14 @@ const EditProfile = () => {
                   fluencyLevel: 'Beginner' as const,
                 },
               ],
+        skills:
+          (profile.skills?.length ?? 0) > 0
+            ? profile.skills
+            : [
+                {
+                  skill: '',
+                },
+              ],
       };
 
       reset(formData);
@@ -142,6 +155,11 @@ const EditProfile = () => {
     append: appendLanguage,
     remove: removeLanguage,
   } = useFieldArray({ control, name: 'languages' });
+  const {
+    fields: skillsFields,
+    append: appendSkills,
+    remove: removeSkills,
+  } = useFieldArray({ control, name: 'skills' });
 
   const handleAppend = (
     appendFn: Function,
@@ -155,7 +173,7 @@ const EditProfile = () => {
 
   const onSubmit = async (data: CVFormValues) => {
     try {
-      const result = await updateProfile({
+      await updateProfile({
         id: userId || '',
         fullName: data.fullName,
         email: data.email,
@@ -185,6 +203,7 @@ const EditProfile = () => {
         languages: (data.languages ?? []).filter(
           (entry) => entry.language && entry.fluencyLevel
         ),
+        skills: (data.skills ?? []).filter((entry) => entry.skill),
       });
 
       toast({
@@ -271,12 +290,20 @@ const EditProfile = () => {
         }
       ),
     removeLanguage,
+    skillsFields,
+    appendSkills: () =>
+      handleAppend(appendSkills, setActiveSkillsIndex, skillsFields.length, {
+        skill: '',
+      }),
+    removeSkills,
     activeWorkIndex,
     setActiveWorkIndex,
     activeEduIndex,
     setActiveEduIndex,
     activeLanguageIndex,
     setActiveLanguageIndex,
+    activeSkillsIndex,
+    setActiveSkillsIndex,
   });
 
   return (

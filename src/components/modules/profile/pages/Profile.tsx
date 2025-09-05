@@ -17,6 +17,7 @@ import {
   EducationSection,
   ExperienceSection,
   LanguageSection,
+  SkillsSection,
 } from '../components';
 import { LoadingSpinner } from '@/components/ui';
 
@@ -27,6 +28,7 @@ const Profile = () => {
     workExperience: true,
     education: true,
     languages: true,
+    skills: true,
   });
 
   // @ts-ignore
@@ -83,6 +85,7 @@ const Profile = () => {
     workExperience = [],
     education = [],
     languages = [],
+    skills = [],
     updatedAt,
   } = profile;
 
@@ -90,13 +93,15 @@ const Profile = () => {
   const hasContent =
     (workExperience && workExperience.length > 0) ||
     (education && education.length > 0) ||
-    (languages && languages.length > 0);
+    (languages && languages.length > 0) ||
+    (skills && skills.length > 0);
 
   // Check if all sections are collapsed
   const allSectionsCollapsed =
     !expandedSections.workExperience &&
     !expandedSections.education &&
-    !expandedSections.languages;
+    !expandedSections.languages &&
+    !expandedSections.skills;
 
   return (
     <main
@@ -129,6 +134,7 @@ const Profile = () => {
             workExperience={workExperience}
             education={education}
             languages={languages}
+            skills={skills}
             updatedAt={updatedAt}
           />
 
@@ -269,7 +275,7 @@ const Profile = () => {
                     )}
 
                     {languages && languages.length > 0 && (
-                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2 rounded-b-2xl'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('languages')}
@@ -318,6 +324,61 @@ const Profile = () => {
                             }`}
                           >
                             <LanguageSection languages={languages} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {skills && skills.length > 0 && (
+                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2 rounded-b-2xl'>
+                        <div className='group'>
+                          <button
+                            onClick={() => toggleSection('skills')}
+                            className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
+                          >
+                            <div className='flex items-center justify-between mb-8'>
+                              <div className='flex items-center gap-8'>
+                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
+                                  <Sparkles className='w-8 h-8 text-gray-600' />
+                                </div>
+                                <div>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                    Skills
+                                  </h3>
+                                  <div className='flex items-center gap-4'>
+                                    <span className='text-sm text-gray-900 font-medium'>
+                                      {skills.length} skill
+                                      {skills.length !== 1 ? 's' : ''}
+                                    </span>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
+                                    <span className='text-sm text-gray-400'>
+                                      {skills.length > 0
+                                        ? expandedSections.skills
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
+                                        : 'No skills yet'}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                {expandedSections.skills ? (
+                                  <ChevronDown className='w-7 h-7' />
+                                ) : (
+                                  <ChevronRight className='w-7 h-7' />
+                                )}
+                              </div>
+                            </div>
+                          </button>
+
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.skills
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <SkillsSection skills={skills} />
                           </div>
                         </div>
                       </div>
@@ -459,7 +520,7 @@ const Profile = () => {
                     )}
 
                     {languages && languages.length > 0 && (
-                      <div className='px-12 py-16 rounded-b-2xl'>
+                      <div className='px-12 py-16 border-b border-gray-100'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('languages')}
@@ -508,6 +569,61 @@ const Profile = () => {
                             }`}
                           >
                             <LanguageSection languages={languages} />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {skills && skills.length > 0 && (
+                      <div className='px-12 py-16 rounded-b-2xl'>
+                        <div className='group'>
+                          <button
+                            onClick={() => toggleSection('skills')}
+                            className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
+                          >
+                            <div className='flex items-center justify-between mb-8'>
+                              <div className='flex items-center gap-8'>
+                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
+                                  <Sparkles className='w-8 h-8 text-gray-600' />
+                                </div>
+                                <div>
+                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                    Skills
+                                  </h3>
+                                  <div className='flex items-center gap-4'>
+                                    <span className='text-sm text-gray-900 font-medium'>
+                                      {skills.length} skill
+                                      {skills.length !== 1 ? 's' : ''}
+                                    </span>
+                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
+                                    <span className='text-sm text-gray-400'>
+                                      {skills.length > 0
+                                        ? expandedSections.skills
+                                          ? 'Click to collapse'
+                                          : 'Click to expand'
+                                        : 'No skills yet'}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                {expandedSections.skills ? (
+                                  <ChevronDown className='w-7 h-7' />
+                                ) : (
+                                  <ChevronRight className='w-7 h-7' />
+                                )}
+                              </div>
+                            </div>
+                          </button>
+
+                          <div
+                            className={`transition-all duration-700 ease-in-out ${
+                              expandedSections.skills
+                                ? 'opacity-100 mt-8'
+                                : 'opacity-0 mt-0 max-h-0 overflow-hidden'
+                            }`}
+                          >
+                            <SkillsSection skills={skills} />
                           </div>
                         </div>
                       </div>

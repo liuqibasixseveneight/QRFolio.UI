@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useForm, useFieldArray, type FieldErrors } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 
-import { flattenErrors, routes } from '@/utils';
 import {
   Button,
   ErrorDisplay,
@@ -27,6 +26,7 @@ const CreateProfileTabs = () => {
   const [activeLanguageIndex, setActiveLanguageIndex] = useState<number | null>(
     0
   );
+  const [activeSkillsIndex, setActiveSkillsIndex] = useState<number | null>(0);
 
   const { userId } = useAuth();
 
@@ -40,8 +40,7 @@ const CreateProfileTabs = () => {
     register,
     handleSubmit,
     control,
-    watch,
-    formState: { errors, isValid, isDirty, isSubmitting },
+    formState: { errors },
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
     mode: 'onChange',
@@ -80,6 +79,11 @@ const CreateProfileTabs = () => {
           fluencyLevel: 'Beginner' as const,
         },
       ],
+      skills: [
+        {
+          skill: '',
+        },
+      ],
     },
   });
 
@@ -98,6 +102,11 @@ const CreateProfileTabs = () => {
     append: appendLanguage,
     remove: removeLanguage,
   } = useFieldArray({ control, name: 'languages' });
+  const {
+    fields: skillsFields,
+    append: appendSkills,
+    remove: removeSkills,
+  } = useFieldArray({ control, name: 'skills' });
 
   const handleAppend = (
     appendFn: Function,
@@ -125,6 +134,9 @@ const CreateProfileTabs = () => {
       const filteredLanguages =
         formData.languages?.filter((lang) => lang.language?.trim()) || [];
 
+      const filteredSkills =
+        formData.skills?.filter((skill) => skill.skill?.trim()) || [];
+
       const profileData = {
         id: userId || '',
         fullName: formData.fullName,
@@ -137,6 +149,7 @@ const CreateProfileTabs = () => {
         workExperience: filteredWorkExperience,
         education: filteredEducation,
         languages: filteredLanguages,
+        skills: filteredSkills,
       };
 
       const result = await createProfile(profileData);
@@ -201,12 +214,20 @@ const CreateProfileTabs = () => {
         }
       ),
     removeLanguage,
+    skillsFields,
+    appendSkills: () =>
+      handleAppend(appendSkills, setActiveSkillsIndex, skillsFields.length, {
+        skill: '',
+      }),
+    removeSkills,
     activeWorkIndex,
     setActiveWorkIndex,
     activeEduIndex,
     setActiveEduIndex,
     activeLanguageIndex,
     setActiveLanguageIndex,
+    activeSkillsIndex,
+    setActiveSkillsIndex,
   });
 
   return (

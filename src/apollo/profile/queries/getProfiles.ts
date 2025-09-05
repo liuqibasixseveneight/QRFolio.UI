@@ -16,6 +16,7 @@ const GET_PROFILES = gql`
       workExperience
       education
       languages
+      skills
       createdAt
     }
   }
