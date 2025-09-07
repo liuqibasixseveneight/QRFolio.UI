@@ -9,6 +9,7 @@ import type {
 } from 'react-hook-form';
 
 import type { CVFormValues } from '../../types';
+import type { Skill } from '@/components/ui/molecules/SkillsInput';
 
 export type contentsProps = {
   register: UseFormRegister<CVFormValues>;
@@ -23,6 +24,8 @@ export type contentsProps = {
   languageFields: FieldArrayWithId<CVFormValues, 'languages', 'id'>[];
   appendLanguage: UseFieldArrayAppend<CVFormValues, 'languages'>;
   removeLanguage: UseFieldArrayRemove;
+  skillsFields: FieldArrayWithId<CVFormValues, 'skills', 'id'>[];
+  onSkillsChange: (skills: Skill[]) => void;
   activeWorkIndex: number | null;
   setActiveWorkIndex: Dispatch<SetStateAction<number | null>>;
   activeEduIndex: number | null;

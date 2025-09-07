@@ -1,9 +1,7 @@
-import type { ChangeEvent } from 'react';
-import { format, parseISO } from 'date-fns';
+import { type ChangeEvent } from 'react';
 import { Controller } from 'react-hook-form';
-
-import { DatePicker, Input, Label, Textarea } from '../../atoms';
-import type { FormFieldProps } from './types';
+import { format, parseISO } from 'date-fns';
+import { DatePicker, Input, Label, Textarea } from '@/components/ui';
 import {
   Select,
   SelectContent,
@@ -12,6 +10,7 @@ import {
   SelectValue,
 } from '../Select';
 import { PhoneInput } from '../PhoneInput';
+import type { FormFieldProps } from './types';
 
 const FormField = (props: FormFieldProps) => {
   const {
@@ -77,7 +76,7 @@ const FormField = (props: FormFieldProps) => {
                 )}
                 <DatePicker
                   date={dateObj}
-                  onDateChange={(date) => {
+                  onDateChange={(date: Date | undefined) => {
                     if (date) {
                       field.onChange(format(date, 'yyyy-MM-dd'));
                     } else {
@@ -110,7 +109,7 @@ const FormField = (props: FormFieldProps) => {
           )}
           <DatePicker
             date={dateObj}
-            onDateChange={(date) => {
+            onDateChange={(date: Date | undefined) => {
               if (date) {
                 onChange?.(format(date, 'yyyy-MM-dd'));
               } else {

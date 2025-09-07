@@ -1,54 +1,107 @@
-import { Download, Share2 } from 'lucide-react';
+import { useState } from 'react';
+import { Calendar } from 'lucide-react';
+
+import { AvailabilityBadge, QRCodeModal } from '@/components/ui';
+import { formatDateWithOrdinal } from './utils';
+import { ActionButtons, ContactInformation } from './components';
 import type { ProfileHeaderProps } from './types';
 
-const ProfileHeader = ({ fullName, summary }: ProfileHeaderProps) => {
+const ProfileHeader = ({
+  fullName,
+  summary,
+  email,
+  phone,
+  linkedin,
+  portfolio,
+  availability,
+  workExperience = [],
+  education = [],
+  languages = [],
+  skills = [],
+  updatedAt,
+}: ProfileHeaderProps) => {
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+
+  const handleViewQRCode = () => {
+    setIsQRModalOpen(true);
+  };
+
   return (
-    <header className='relative w-full bg-gradient-to-r from-slate-50/95 via-white to-blue-50/95 backdrop-blur-sm border-b border-slate-200/40 shadow-xl shadow-slate-200/20'>
-      {/* Subtle background elements */}
-      <div className='absolute inset-0 overflow-hidden'>
-        <div className='absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-100/30 to-indigo-100/30 rounded-full blur-3xl'></div>
-        <div className='absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-slate-100/30 to-blue-100/30 rounded-full blur-3xl'></div>
-      </div>
+    <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
+      <div className='w-full px-6 sm:px-8 lg:px-12'>
+        <div className='max-w-6xl mx-auto w-full'>
+          <header className='relative w-full'>
+            <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
+              <div className='w-full'>
+                <div className='flex items-center justify-between mb-10'>
+                  <AvailabilityBadge availability={availability} className='' />
+                  <div className='flex items-center gap-2 text-sm text-gray-500 py-3'>
+                    <Calendar className='w-4 h-4 text-gray-400' />
+                    <span>
+                      Last Updated:{' '}
+                      <span className='font-medium'>
+                        {updatedAt
+                          ? formatDateWithOrdinal(updatedAt)
+                          : formatDateWithOrdinal(new Date())}
+                      </span>
+                    </span>
+                  </div>
+                </div>
 
-      {/* Content */}
-      <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20'>
-        <div className='max-w-7xl mx-auto'>
-          {/* Name */}
-          <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-slate-900 mb-4 sm:mb-6'>
-            {fullName}
-          </h1>
+                <h1 className='text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight text-gray-900 mb-8 sm:mb-10 leading-tight'>
+                  {fullName}
+                </h1>
 
-          {/* Summary */}
-          {summary && (
-            <div className='max-w-4xl mb-6 sm:mb-8'>
-              <p className='text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed font-light'>
-                {summary}
-              </p>
+                {summary && (
+                  <div className='max-w-4xl mb-12 sm:mb-16'>
+                    <p className='text-xl sm:text-2xl lg:text-3xl text-gray-600 leading-relaxed font-light'>
+                      {summary}
+                    </p>
+                  </div>
+                )}
+
+                <ContactInformation
+                  email={email}
+                  phone={phone}
+                  linkedin={linkedin}
+                  portfolio={portfolio}
+                />
+
+                <ActionButtons
+                  profileData={{
+                    fullName,
+                    summary,
+                    email,
+                    phone,
+                    linkedin,
+                    portfolio,
+                    availability,
+                    workExperience,
+                    education,
+                    languages,
+                    skills,
+                    updatedAt,
+                  }}
+                  onViewQRCode={handleViewQRCode}
+                />
+              </div>
             </div>
-          )}
-
-          {/* Action Buttons */}
-          <div className='flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-6 sm:mb-8'>
-            <button className='bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold text-base transition-all duration-300 active:scale-[0.98] shadow-lg hover:shadow-xl shadow-blue-500/25 hover:shadow-blue-500/35'>
-              <span className='flex items-center gap-2'>
-                <Download className='w-5 h-5' />
-                <span>Download CV</span>
-              </span>
-            </button>
-
-            <button className='bg-white/90 hover:bg-white text-slate-700 px-6 py-3 rounded-xl font-semibold text-base transition-all duration-300 active:scale-[0.98] border border-slate-200/50 hover:border-slate-300/50 shadow-lg hover:shadow-xl shadow-slate-200/30 hover:shadow-slate-200/40 backdrop-blur-sm'>
-              <span className='flex items-center gap-2'>
-                <Share2 className='w-5 h-5' />
-                <span>Share Profile</span>
-              </span>
-            </button>
-          </div>
-
-          {/* Decorative line */}
-          <div className='mt-6 sm:mt-8 w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full shadow-lg'></div>
+          </header>
         </div>
       </div>
-    </header>
+
+      <QRCodeModal
+        isOpen={isQRModalOpen}
+        onClose={() => setIsQRModalOpen(false)}
+        profileData={{
+          link: window.location.href,
+          labels: {
+            fullName: fullName || '',
+            professionalSummary: summary || '',
+          },
+        }}
+      />
+    </div>
   );
 };
 

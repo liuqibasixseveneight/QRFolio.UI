@@ -1,4 +1,9 @@
-import { FormField, DynamicFieldSection } from '@/components/ui';
+import {
+  FormField,
+  DynamicFieldSection,
+  Button,
+  SkillsInput,
+} from '@/components/ui';
 import type { ContentsItem } from '@/components/ui/organisms';
 import {
   workExperienceConfig,
@@ -20,6 +25,8 @@ export const contents = ({
   languageFields,
   appendLanguage,
   removeLanguage,
+  skillsFields,
+  onSkillsChange,
   activeWorkIndex,
   setActiveWorkIndex,
   activeEduIndex,
@@ -30,17 +37,18 @@ export const contents = ({
   const mutableWorkFields = [...workFields];
   const mutableEduFields = [...eduFields];
   const mutableLanguageFields = [...languageFields];
+  const mutableSkillsFields = [...skillsFields];
 
   const contents: ContentsItem[] = [
     {
       value: 'introduction',
       content: (
-        <section className='space-y-8'>
-          <div>
-            <h2 className='text-2xl font-bold text-gray-800 mb-4'>
-              Introduction
+        <section className='space-y-6'>
+          <div className='border-b border-gray-200 pb-4'>
+            <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
+              Introduction and Personal Information
             </h2>
-            <p className='text-gray-600 mb-6'>
+            <p className='text-gray-600 mt-2'>
               Start with your basic information and professional summary.
             </p>
           </div>
@@ -71,8 +79,7 @@ export const contents = ({
               type='phone'
               control={control}
               registerName='phone'
-              error={errors.phone?.message}
-              required
+              error={errors.phone?.message?.toString()}
             />
 
             <FormField
@@ -81,7 +88,7 @@ export const contents = ({
               register={register}
               registerName='linkedin'
               placeholder='Enter your LinkedIn URL'
-              error={errors.linkedin?.message}
+              error={errors.linkedin?.message?.toString()}
             />
 
             <FormField
@@ -90,7 +97,7 @@ export const contents = ({
               register={register}
               registerName='portfolio'
               placeholder='Enter your portfolio URL'
-              error={errors.portfolio?.message}
+              error={errors.portfolio?.message?.toString()}
             />
 
             <FormField
@@ -98,7 +105,7 @@ export const contents = ({
               type='select'
               control={control}
               registerName='availability'
-              error={errors.availability?.message}
+              error={errors.availability?.message?.toString()}
               options={[
                 {
                   value: 'available',
@@ -123,7 +130,7 @@ export const contents = ({
                 register={register}
                 registerName='professionalSummary'
                 placeholder='Tell us about yourself professionally...'
-                error={errors.professionalSummary?.message}
+                error={errors.professionalSummary?.message?.toString()}
                 rows={4}
                 required
               />
@@ -154,7 +161,7 @@ export const contents = ({
             errors={errors}
             register={register}
             control={control}
-            onRemove={(index) => {
+            onRemove={(index: number) => {
               removeWork(index);
               if (activeWorkIndex === index) {
                 setActiveWorkIndex(null);
@@ -162,7 +169,12 @@ export const contents = ({
                 setActiveWorkIndex(activeWorkIndex - 1);
               }
             }}
-            onAppend={() => {
+          />
+
+          <Button
+            type='button'
+            variant='outline'
+            onClick={() => {
               appendWork({
                 jobTitle: '',
                 companyName: '',
@@ -173,10 +185,10 @@ export const contents = ({
               });
               setActiveWorkIndex(mutableWorkFields.length);
             }}
-            appendLabel='Add Employment'
-            activeIndex={activeWorkIndex}
-            setActiveIndex={setActiveWorkIndex}
-          />
+            className='w-full sm:w-auto'
+          >
+            Add Employment
+          </Button>
         </section>
       ),
     },
@@ -203,7 +215,7 @@ export const contents = ({
               errors={errors}
               register={register}
               control={control}
-              onRemove={(index) => {
+              onRemove={(index: number) => {
                 removeEdu(index);
                 if (activeEduIndex === index) {
                   setActiveEduIndex(null);
@@ -211,7 +223,12 @@ export const contents = ({
                   setActiveEduIndex(activeEduIndex - 1);
                 }
               }}
-              onAppend={() => {
+            />
+
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => {
                 appendEdu({
                   schoolName: '',
                   degree: '',
@@ -222,10 +239,10 @@ export const contents = ({
                 });
                 setActiveEduIndex(mutableEduFields.length);
               }}
-              appendLabel='Add Education'
-              activeIndex={activeEduIndex}
-              setActiveIndex={setActiveEduIndex}
-            />
+              className='w-full sm:w-auto'
+            >
+              Add Education
+            </Button>
 
             <DynamicFieldSection
               title='Languages'
@@ -236,7 +253,7 @@ export const contents = ({
               errors={errors}
               register={register}
               control={control}
-              onRemove={(index) => {
+              onRemove={(index: number) => {
                 removeLanguage(index);
                 if (activeLanguageIndex === index) {
                   setActiveLanguageIndex(null);
@@ -247,15 +264,43 @@ export const contents = ({
                   setActiveLanguageIndex(activeLanguageIndex - 1);
                 }
               }}
-              onAppend={() => {
+            />
+
+            <Button
+              type='button'
+              variant='outline'
+              onClick={() => {
                 appendLanguage({ language: '', fluencyLevel: 'Beginner' });
                 setActiveLanguageIndex(mutableLanguageFields.length);
               }}
-              appendLabel='Add Language'
-              activeIndex={activeLanguageIndex}
-              setActiveIndex={setActiveLanguageIndex}
-            />
+              className='w-full sm:w-auto'
+            >
+              Add Language
+            </Button>
           </div>
+        </section>
+      ),
+    },
+    {
+      value: 'skills',
+      content: (
+        <section className='space-y-6'>
+          <div className='border-b border-gray-200 pb-4'>
+            <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
+              Skills and Competencies
+            </h2>
+            <p className='text-gray-600 mt-2'>
+              Add your key skills and competencies that showcase your expertise.
+            </p>
+          </div>
+
+          <SkillsInput
+            skills={mutableSkillsFields.map((field) => ({
+              skill: field.skill || '',
+            }))}
+            onSkillsChange={onSkillsChange}
+            placeholder='Type a skill and press Enter to add it...'
+          />
         </section>
       ),
     },

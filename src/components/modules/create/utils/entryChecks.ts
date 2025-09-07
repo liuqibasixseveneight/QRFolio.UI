@@ -1,6 +1,8 @@
 import type { CVFormValues } from '../types';
 
-const isWorkEntryEmpty = (entry: CVFormValues['workExperience'][number]) =>
+const isWorkEntryEmpty = (
+  entry: NonNullable<CVFormValues['workExperience']>[number]
+) =>
   !entry?.jobTitle &&
   !entry?.companyName &&
   !entry?.location &&
@@ -8,7 +10,9 @@ const isWorkEntryEmpty = (entry: CVFormValues['workExperience'][number]) =>
   !entry?.dateTo &&
   !entry?.responsibilities;
 
-const isEduEntryEmpty = (entry: CVFormValues['education'][number]) =>
+const isEduEntryEmpty = (
+  entry: NonNullable<CVFormValues['education']>[number]
+) =>
   !entry?.schoolName &&
   !entry?.degree &&
   !entry?.fieldOfStudy &&
@@ -16,8 +20,19 @@ const isEduEntryEmpty = (entry: CVFormValues['education'][number]) =>
   !entry?.dateTo &&
   !entry?.description;
 
-const isLanguageEntryEmpty = (entry: CVFormValues['languages'][number]) =>
+const isLanguageEntryEmpty = (
+  entry: NonNullable<CVFormValues['languages']>[number]
+) =>
   !entry?.language &&
   (!entry?.fluencyLevel || entry?.fluencyLevel === 'Beginner');
 
-export { isWorkEntryEmpty, isEduEntryEmpty, isLanguageEntryEmpty };
+const isSkillEntryEmpty = (
+  entry: NonNullable<CVFormValues['skills']>[number]
+) => !entry?.skill;
+
+export {
+  isWorkEntryEmpty,
+  isEduEntryEmpty,
+  isLanguageEntryEmpty,
+  isSkillEntryEmpty,
+};

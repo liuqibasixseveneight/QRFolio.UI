@@ -1,8 +1,8 @@
 import {
   Button,
   ErrorMessage,
-  GoogleSignInButton,
   Separator,
+  GoogleSignInButton,
 } from '../../atoms';
 import {
   Card,
@@ -31,13 +31,11 @@ const SignUpForm = ({
 }: SignUpFormProps) => {
   return (
     <div className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden'>
-      {/* Subtle background elements */}
       <div className='absolute inset-0 overflow-hidden pointer-events-none'>
         <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
         <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
       </div>
 
-      {/* Form Card */}
       <Card className='w-full max-w-sm sm:max-w-md bg-white/95 backdrop-blur-sm border-gray-200/50 shadow-2xl relative z-10'>
         <CardHeader className='text-center pb-6'>
           <CardTitle className='text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent'>

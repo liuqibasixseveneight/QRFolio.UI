@@ -1,5 +1,5 @@
 import { GoogleIcon } from '@/components/icons';
-import { Button } from '../Button';
+import { Button } from '@/components/ui';
 import type { GoogleSignInButtonProps } from './types';
 
 const GoogleSignInButton = ({ onClick }: GoogleSignInButtonProps) => (

@@ -1,5 +1,5 @@
+import { Input, Label } from '@/components/ui';
 import { useState, useEffect } from 'react';
-import { Input, Label } from '../../atoms';
 import {
   Select,
   SelectContent,
@@ -227,7 +227,7 @@ export const PhoneInput = ({
         >
           <SelectTrigger className='w-full sm:w-48 h-11 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-2.5 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl'>
             <SelectValue>
-              <span className='text-sm font-semibold'>
+              <span className='text-sm'>
                 {selectedCountry.name} {selectedCountry.dialCode}
               </span>
             </SelectValue>

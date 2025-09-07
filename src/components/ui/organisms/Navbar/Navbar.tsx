@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { PanelLeft, User, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui';
+import { Menu, X, User, PanelLeft } from 'lucide-react';
 
 import { useAuth } from '@/context';
-import { Button } from '../../atoms';
 import type { NavbarProps } from './types';
 
 const Navbar = ({}: NavbarProps) => {
@@ -37,29 +37,27 @@ const Navbar = ({}: NavbarProps) => {
   };
 
   return (
-    <nav className='bg-white/95 backdrop-blur-sm border-b border-gray-200/50 h-16 w-full flex items-center justify-between px-4 sm:px-6 md:px-8 font-sans text-gray-900 sticky top-0 z-50 shadow-sm'>
-      {/* Logo */}
+    <nav className='bg-white border-b border-gray-100 h-16 w-full flex items-center justify-between px-6 sm:px-8 lg:px-12 font-sans text-gray-900 sticky top-0 z-50'>
       <div
         onClick={() => navigate('/')}
-        className='cursor-pointer font-extralight text-xl sm:text-2xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:from-indigo-700 hover:to-purple-700 transition-all duration-300'
+        className='cursor-pointer font-light text-xl sm:text-2xl text-gray-900 hover:text-gray-700 transition-all duration-300'
       >
         LYTN
       </div>
 
-      {/* Desktop Navigation */}
       <div className='hidden md:flex items-center justify-center gap-4'>
         {!session ? (
           <>
             <Button
               onClick={() => navigate('/sign-in')}
-              className='bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-lg hover:shadow-xl transition-all duration-300'
+              className='bg-gray-900 hover:bg-gray-800 text-white transition-all duration-300'
             >
               Sign In
             </Button>
             <Button
               onClick={() => navigate('/sign-up')}
               variant='outline'
-              className='border-indigo-200 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-300 shadow-lg hover:shadow-xl transition-all duration-300'
+              className='border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300'
             >
               Sign Up
             </Button>
@@ -69,7 +67,7 @@ const Navbar = ({}: NavbarProps) => {
             <Button
               onClick={handleSignOut}
               variant='outline'
-              className='border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 shadow-lg hover:shadow-xl transition-all duration-300'
+              className='border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300'
             >
               Sign Out
             </Button>
@@ -78,7 +76,7 @@ const Navbar = ({}: NavbarProps) => {
               variant='secondary'
               size='icon'
               aria-label='Dashboard'
-              className='rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 text-indigo-700 hover:text-indigo-800 shadow-lg hover:shadow-xl transition-all duration-300'
+              className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
             >
               <PanelLeft className='h-5 w-5' />
             </Button>
@@ -87,7 +85,7 @@ const Navbar = ({}: NavbarProps) => {
               variant='secondary'
               size='icon'
               aria-label='Profile'
-              className='rounded-full bg-gradient-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 text-indigo-700 hover:text-indigo-800 shadow-lg hover:shadow-xl transition-all duration-300'
+              className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
             >
               <User className='h-5 w-5' />
             </Button>
@@ -110,20 +108,20 @@ const Navbar = ({}: NavbarProps) => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className='absolute top-16 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200/50 shadow-lg md:hidden'>
+        <div className='absolute top-16 left-0 right-0 bg-white border-b border-gray-100 shadow-sm md:hidden'>
           <div className='flex flex-col p-4 space-y-3'>
             {!session ? (
               <>
                 <Button
                   onClick={() => navigate('/sign-in')}
-                  className='w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-lg transition-all duration-300'
+                  className='w-full bg-gray-900 hover:bg-gray-800 text-white transition-all duration-300'
                 >
                   Sign In
                 </Button>
                 <Button
                   onClick={() => navigate('/sign-up')}
                   variant='outline'
-                  className='w-full border-indigo-200 text-indigo-700 hover:bg-indigo-50 hover:border-indigo-300 shadow-lg transition-all duration-300'
+                  className='w-full border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300'
                 >
                   Sign Up
                 </Button>
@@ -133,14 +131,14 @@ const Navbar = ({}: NavbarProps) => {
                 <Button
                   onClick={handleSignOut}
                   variant='outline'
-                  className='w-full border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 shadow-lg transition-all duration-300'
+                  className='w-full border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300'
                 >
                   Sign Out
                 </Button>
                 <Button
                   onClick={handleDashboardClick}
                   variant='secondary'
-                  className='w-full bg-gradient-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 text-indigo-700 hover:text-indigo-800 shadow-lg transition-all duration-300'
+                  className='w-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
                 >
                   <PanelLeft className='h-4 w-4 mr-2' />
                   Dashboard
@@ -148,7 +146,7 @@ const Navbar = ({}: NavbarProps) => {
                 <Button
                   onClick={handleProfileClick}
                   variant='secondary'
-                  className='w-full bg-gradient-to-r from-indigo-100 to-purple-100 hover:from-indigo-200 hover:to-purple-200 text-indigo-700 hover:text-indigo-800 shadow-lg transition-all duration-300'
+                  className='w-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
                 >
                   <User className='h-4 w-4 mr-2' />
                   Profile

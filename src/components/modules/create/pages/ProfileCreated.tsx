@@ -1,7 +1,5 @@
-import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Copy, Download } from 'lucide-react';
-import * as htmlToImage from 'html-to-image';
+import { ArrowRight, Copy } from 'lucide-react';
 
 import { Button, LoadingSpinner, ProfileQRCard } from '@/components/ui';
 import { useAuth } from '@/context';
@@ -15,8 +13,6 @@ const ProfileCreated = () => {
   // @ts-ignore
   const [data, { loading, error }] = useGetProfile(userId || '');
   const profileData = data?.profile;
-
-  const cardRef = useRef<HTMLDivElement>(null);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -38,23 +34,6 @@ const ProfileCreated = () => {
     navigator.clipboard.writeText(profileLink);
   };
 
-  const downloadCardImage = () => {
-    if (!cardRef.current) return;
-
-    htmlToImage
-      .toPng(cardRef.current, { cacheBust: true })
-      .then((dataUrl) => {
-        const link = document.createElement('a');
-        link.download = `${fullName?.replace(/\s+/g, '_')}_QRCode.png`;
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.error('Failed to export QR code card image', err);
-        alert('Failed to download QR code image. Please try again.');
-      });
-  };
-
   return (
     <main className='flex flex-col items-center justify-start w-full min-h-screen bg-neutral-50 overflow-auto p-8 sm:p-10'>
       <div className='relative w-full max-w-2xl space-y-16'>
@@ -70,19 +49,20 @@ const ProfileCreated = () => {
         </header>
 
         <div className='w-full flex flex-col items-center gap-10 px-4 sm:px-0'>
-          <div
-            ref={cardRef}
-            className='flex justify-center w-full max-w-xl mx-auto px-6 sm:px-0 mb-8'
-          >
-            <ProfileQRCard labels={{ fullName }} link={profileLink} />
+          <div className='flex justify-center w-full max-w-xl mx-auto px-6 sm:px-0 mb-8'>
+            <ProfileQRCard
+              labels={{
+                fullName,
+                professionalSummary:
+                  profileData?.professionalSummary || 'Professional profile',
+              }}
+              link={profileLink}
+            />
           </div>
 
           <div className='flex flex-wrap gap-4 justify-center'>
             <Button size='lg' variant='default' onClick={copyLinkToClipboard}>
               <Copy className='mr-2' size={18} /> Copy Link
-            </Button>
-            <Button size='lg' variant='default' onClick={downloadCardImage}>
-              <Download className='mr-2' size={18} /> Download QR Code
             </Button>
             <Button
               size='lg'

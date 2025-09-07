@@ -4,3 +4,5 @@ export * from './LanguageBadgeList';
 export * from './LanguageSection';
 export * from './ProfileHeader';
 export * from './ProfileSidebar';
+export * from './SkillsBadgeList';
+export * from './SkillsSection';

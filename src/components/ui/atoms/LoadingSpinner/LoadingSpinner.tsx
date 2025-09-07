@@ -1,15 +1,55 @@
 import { Loader2 } from 'lucide-react';
-
 import type { LoadingSpinnerProps } from './types';
 
-const LoadingSpinner = ({ size = 12 }: LoadingSpinnerProps) => {
+const LoadingSpinner = ({
+  size = 12,
+  variant = 'default',
+}: LoadingSpinnerProps) => {
   const dimensionPx = size * 4;
 
+  const variantStyles: Record<
+    NonNullable<LoadingSpinnerProps['variant']>,
+    string
+  > = {
+    default: 'text-slate-600',
+    primary: 'text-slate-600',
+    success: 'text-emerald-600',
+    warning: 'text-amber-600',
+    danger: 'text-red-600',
+    purple: 'text-purple-600',
+  };
+
   return (
-    <Loader2
-      style={{ height: `${dimensionPx}px`, width: `${dimensionPx}px` }}
-      className='text-indigo-600 animate-spin'
-    />
+    <div className='relative flex items-center justify-center'>
+      <Loader2
+        size={size}
+        className={`${variantStyles[variant]} animate-spin drop-shadow-lg`}
+      />
+
+      <div
+        className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-slate-200/30 to-transparent animate-pulse'
+        style={{
+          height: `${dimensionPx + 12}px`,
+          width: `${dimensionPx + 12}px`,
+        }}
+      />
+
+      <div
+        className='absolute inset-0 rounded-full border-2 border-slate-200/40 animate-ping'
+        style={{
+          height: `${dimensionPx + 20}px`,
+          width: `${dimensionPx + 20}px`,
+        }}
+      />
+
+      <div
+        className='absolute inset-0 rounded-full border border-slate-100/60 animate-pulse delay-1000'
+        style={{
+          height: `${dimensionPx + 28}px`,
+          width: `${dimensionPx + 28}px`,
+        }}
+      />
+    </div>
   );
 };
 

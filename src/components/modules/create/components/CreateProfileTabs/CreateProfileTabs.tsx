@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useForm, useFieldArray, type FieldErrors } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 
-import { flattenErrors, routes } from '@/utils';
 import {
   Button,
   ErrorDisplay,
@@ -40,9 +39,12 @@ const CreateProfileTabs = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors, isValid, isDirty, isSubmitting },
+    setValue,
+    formState: { errors },
   } = useForm<CVFormValues>({
     resolver: zodResolver(introSchema),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       fullName: '',
       phone: undefined,
@@ -77,6 +79,11 @@ const CreateProfileTabs = () => {
           fluencyLevel: 'Beginner' as const,
         },
       ],
+      skills: [
+        {
+          skill: '',
+        },
+      ],
     },
   });
 
@@ -95,6 +102,7 @@ const CreateProfileTabs = () => {
     append: appendLanguage,
     remove: removeLanguage,
   } = useFieldArray({ control, name: 'languages' });
+  const { fields: skillsFields } = useFieldArray({ control, name: 'skills' });
 
   const handleAppend = (
     appendFn: Function,
@@ -106,23 +114,41 @@ const CreateProfileTabs = () => {
     setIndex(fieldsLength);
   };
 
-  const handleButtonClick = async () => {
+  const handleButtonClick = async (formData: CVFormValues) => {
     try {
-      const formData = {
+      // Filter out empty entries
+      const filteredWorkExperience =
+        formData.workExperience?.filter(
+          (work) => work.jobTitle?.trim() && work.companyName?.trim()
+        ) || [];
+
+      const filteredEducation =
+        formData.education?.filter(
+          (edu) => edu.schoolName?.trim() && edu.degree?.trim()
+        ) || [];
+
+      const filteredLanguages =
+        formData.languages?.filter((lang) => lang.language?.trim()) || [];
+
+      const filteredSkills =
+        formData.skills?.filter((skill) => skill.skill?.trim()) || [];
+
+      const profileData = {
         id: userId || '',
-        fullName: '',
-        phone: undefined,
-        email: '',
-        linkedin: '',
-        portfolio: '',
-        professionalSummary: '',
-        availability: 'available' as const,
-        workExperience: [],
-        education: [],
-        languages: [],
+        fullName: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        linkedin: formData.linkedin,
+        portfolio: formData.portfolio,
+        professionalSummary: formData.professionalSummary,
+        availability: formData.availability,
+        workExperience: filteredWorkExperience,
+        education: filteredEducation,
+        languages: filteredLanguages,
+        skills: filteredSkills,
       };
 
-      const result = await createProfile(formData);
+      const result = await createProfile(profileData);
 
       if (result?.createProfile?.id) {
         toast({
@@ -134,6 +160,7 @@ const CreateProfileTabs = () => {
         navigate(`/profile/${result.createProfile.id}`);
       }
     } catch (err) {
+      console.error('Error creating profile:', err);
       toast({
         title: 'Profile Creation Failed',
         description: 'Failed to create profile. Please try again later.',
@@ -183,6 +210,11 @@ const CreateProfileTabs = () => {
         }
       ),
     removeLanguage,
+    skillsFields,
+    onSkillsChange: (newSkills) => {
+      // Directly update the skills field using setValue
+      setValue('skills', newSkills);
+    },
     activeWorkIndex,
     setActiveWorkIndex,
     activeEduIndex,
@@ -192,37 +224,33 @@ const CreateProfileTabs = () => {
   });
 
   return (
-    <main className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 text-gray-900 font-sans'>
-      {/* Subtle background elements */}
-      <div className='fixed inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
-        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
-      </div>
-
-      {/* Header Section */}
-      <header className='relative w-full bg-white/90 backdrop-blur-sm border-b border-gray-200/50'>
-        <div className='relative z-10 px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16 lg:py-20'>
-          <div className='max-w-7xl mx-auto'>
-            <div className='text-center max-w-5xl mx-auto'>
-              <h1 className='text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-gray-900 mb-4 sm:mb-6'>
-                Create Your Profile
-              </h1>
-              <p className='text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-4xl mx-auto'>
-                Build your professional profile by filling out the sections
-                below. This information will be used to generate your
-                personalized QR code and resume.
-              </p>
+    <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans'>
+      <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
+        <div className='w-full px-6 sm:px-8 lg:px-12'>
+          <div className='max-w-6xl mx-auto w-full'>
+            <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
+              <div className='text-center max-w-4xl mx-auto'>
+                <h1 className='text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-gray-900 mb-6'>
+                  Create Your Profile
+                </h1>
+                <p className='text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-3xl mx-auto'>
+                  Build your professional profile by filling out the sections
+                  below. This information will be used to generate your
+                  personalized QR code and resume.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
-      <div className='relative z-10 flex-1 px-4 sm:px-6 lg:px-8 xl:px-12 py-6 lg:py-8'>
-        <div className='w-full'>
-          <form className='space-y-6'>
-            {/* Tabs Section */}
-            <div className='bg-white/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8'>
+      <div className='relative z-10 flex-1 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
+        <div className='max-w-6xl mx-auto w-full'>
+          <form
+            className='space-y-8'
+            onSubmit={handleSubmit(handleButtonClick)}
+          >
+            <div className='bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 lg:p-12'>
               <TabbedSections
                 tabs={tabs}
                 contents={tabContents}
@@ -230,17 +258,14 @@ const CreateProfileTabs = () => {
               />
             </div>
 
-            {/* Error Display */}
             <ErrorDisplay errors={submissionErrors} />
 
-            {/* Submit Button */}
-            <div className='flex justify-center pt-4'>
+            <div className='flex justify-center pt-8'>
               <Button
-                type='button'
+                type='submit'
                 size='lg'
-                onClick={handleButtonClick}
-                disabled={loading || !isValid || !isDirty}
-                className='bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 active:scale-[0.98] shadow-lg hover:shadow-xl'
+                disabled={loading}
+                className='bg-gray-900 hover:bg-gray-800 text-white px-10 py-4 rounded-xl font-medium text-lg transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md'
               >
                 <span className='flex items-center gap-3'>
                   {loading ? (

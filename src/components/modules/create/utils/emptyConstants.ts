@@ -1,6 +1,6 @@
 import type { CVFormValues } from '../types';
 
-const EMPTY_WORK_ENTRY: CVFormValues['workExperience'][number] = {
+const EMPTY_WORK_ENTRY: NonNullable<CVFormValues['workExperience']>[number] = {
   jobTitle: '',
   companyName: '',
   location: '',
@@ -9,7 +9,7 @@ const EMPTY_WORK_ENTRY: CVFormValues['workExperience'][number] = {
   responsibilities: '',
 };
 
-const EMPTY_EDU_ENTRY: CVFormValues['education'][number] = {
+const EMPTY_EDU_ENTRY: NonNullable<CVFormValues['education']>[number] = {
   schoolName: '',
   degree: '',
   fieldOfStudy: '',
@@ -18,9 +18,18 @@ const EMPTY_EDU_ENTRY: CVFormValues['education'][number] = {
   description: '',
 };
 
-const EMPTY_LANGUAGE_ENTRY: CVFormValues['languages'][number] = {
+const EMPTY_LANGUAGE_ENTRY: NonNullable<CVFormValues['languages']>[number] = {
   language: '',
   fluencyLevel: 'Beginner' as 'Beginner',
 };
 
-export { EMPTY_WORK_ENTRY, EMPTY_EDU_ENTRY, EMPTY_LANGUAGE_ENTRY };
+const EMPTY_SKILL_ENTRY: NonNullable<CVFormValues['skills']>[number] = {
+  skill: '',
+};
+
+export {
+  EMPTY_WORK_ENTRY,
+  EMPTY_EDU_ENTRY,
+  EMPTY_LANGUAGE_ENTRY,
+  EMPTY_SKILL_ENTRY,
+};

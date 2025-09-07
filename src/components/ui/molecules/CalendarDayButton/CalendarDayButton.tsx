@@ -1,7 +1,6 @@
 import { useEffect, useRef, type ComponentProps } from 'react';
 import { getDefaultClassNames, type DayButton } from 'react-day-picker';
-
-import { Button } from '../../atoms';
+import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
 const CalendarDayButton = ({
