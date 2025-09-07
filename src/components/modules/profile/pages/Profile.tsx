@@ -1,6 +1,7 @@
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
 import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   ChevronDown,
   ChevronRight,
@@ -23,6 +24,8 @@ import { LoadingSpinner } from '@/components/ui';
 
 const Profile = () => {
   const { userId } = useAuth();
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [expandedSections, setExpandedSections] = useState({
     workExperience: true,
@@ -31,8 +34,12 @@ const Profile = () => {
     skills: true,
   });
 
+  // Use the profile ID from URL params, fallback to current user's ID
+  const profileId = id || userId || '';
+  const isOwner = profileId === userId;
+
   // @ts-ignore
-  const [data, { loading }] = useGetProfile(userId || '');
+  const [data, { loading }] = useGetProfile(profileId);
   const profile = data?.profile;
 
   // Handle scroll to top functionality
@@ -54,6 +61,12 @@ const Profile = () => {
       ...prev,
       [section]: !prev[section],
     }));
+  };
+
+  const handleEditClick = () => {
+    if (isOwner && profileId) {
+      navigate(`/profile/${profileId}/edit`);
+    }
   };
 
   if (!profile) {
@@ -136,6 +149,8 @@ const Profile = () => {
             languages={languages}
             skills={skills}
             updatedAt={updatedAt}
+            isOwner={isOwner}
+            onEditClick={handleEditClick}
           />
 
           {hasContent ? (

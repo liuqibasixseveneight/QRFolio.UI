@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar } from 'lucide-react';
+import { Calendar, Edit } from 'lucide-react';
 
 import { AvailabilityBadge, QRCodeModal } from '@/components/ui';
 import { formatDateWithOrdinal } from './utils';
@@ -19,6 +19,8 @@ const ProfileHeader = ({
   languages = [],
   skills = [],
   updatedAt,
+  isOwner = false,
+  onEditClick,
 }: ProfileHeaderProps) => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
@@ -35,16 +37,28 @@ const ProfileHeader = ({
               <div className='w-full'>
                 <div className='flex items-center justify-between mb-10'>
                   <AvailabilityBadge availability={availability} className='' />
-                  <div className='flex items-center gap-2 text-sm text-gray-500 py-3'>
-                    <Calendar className='w-4 h-4 text-gray-400' />
-                    <span>
-                      Last Updated:{' '}
-                      <span className='font-medium'>
-                        {updatedAt
-                          ? formatDateWithOrdinal(updatedAt)
-                          : formatDateWithOrdinal(new Date())}
+                  <div className='flex items-center gap-4'>
+                    <div className='flex items-center gap-2 text-sm text-gray-500 py-3'>
+                      <Calendar className='w-4 h-4 text-gray-400' />
+                      <span>
+                        Last Updated:{' '}
+                        <span className='font-medium'>
+                          {updatedAt
+                            ? formatDateWithOrdinal(updatedAt)
+                            : formatDateWithOrdinal(new Date())}
+                        </span>
                       </span>
-                    </span>
+                    </div>
+                    {isOwner && onEditClick && (
+                      <button
+                        onClick={onEditClick}
+                        className='flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 cursor-pointer'
+                        title='Edit Profile'
+                      >
+                        <Edit className='w-4 h-4' />
+                        <span>Edit</span>
+                      </button>
+                    )}
                   </div>
                 </div>
 
