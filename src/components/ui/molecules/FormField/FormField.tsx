@@ -154,7 +154,7 @@ const FormField = (props: FormFieldProps) => {
                 >
                   <SelectTrigger
                     id={registerName}
-                    className='w-full h-12 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl'
+                    className='w-full h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200'
                   >
                     <SelectValue
                       placeholder={placeholder ?? 'Select an option'}
@@ -198,7 +198,7 @@ const FormField = (props: FormFieldProps) => {
             </Label>
           )}
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger className='w-full h-12 rounded-xl border border-gray-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-gray-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl'>
+            <SelectTrigger className='w-full h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200'>
               <SelectValue placeholder={placeholder ?? 'Select an option'} />
             </SelectTrigger>
             <SelectContent>
@@ -246,7 +246,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           rows={rows}
           readOnly={readOnly}
-          className='bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 resize-vertical transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl rounded-xl'
+          className='bg-white border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent resize-vertical transition-all duration-200 rounded-xl'
           {...commonInputProps}
         />
       ) : (
@@ -254,7 +254,7 @@ const FormField = (props: FormFieldProps) => {
           placeholder={placeholder}
           readOnly={readOnly}
           type={type}
-          className='bg-white/95 backdrop-blur-sm border-gray-200/50 focus:border-indigo-500 focus:ring-indigo-500/20 transition-all duration-300 hover:border-indigo-300/70 hover:bg-white shadow-lg hover:shadow-xl rounded-xl h-12'
+          className='bg-white border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all duration-200 rounded-xl h-12'
           {...commonInputProps}
         />
       )}

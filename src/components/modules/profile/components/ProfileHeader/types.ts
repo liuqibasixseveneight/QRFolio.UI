@@ -13,4 +13,6 @@ export type ProfileHeaderProps = {
   languages?: any[];
   skills?: any[];
   updatedAt?: string;
+  isOwner?: boolean;
+  onEditClick?: () => void;
 };

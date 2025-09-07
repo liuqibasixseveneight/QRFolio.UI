@@ -5,7 +5,7 @@ const Card = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
   <div
     data-slot='card'
     className={cn(
-      'rounded-2xl bg-gradient-to-r from-slate-50/95 via-white to-slate-50/95 backdrop-blur-sm transition-all duration-300 hover:from-slate-50/98 hover:via-white hover:to-slate-50/98 border border-slate-200/40 shadow-xl shadow-slate-200/20 hover:shadow-2xl hover:shadow-slate-200/30',
+      'rounded-2xl bg-white border border-slate-200/40 transition-all duration-300',
       className
     )}
     {...props}

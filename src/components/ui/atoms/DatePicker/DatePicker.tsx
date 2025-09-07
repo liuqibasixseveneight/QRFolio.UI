@@ -26,7 +26,7 @@ const DatePicker = ({
         <Button
           variant='outline'
           className={cn(
-            'w-full justify-between font-semibold h-12 rounded-xl border border-slate-200/50 bg-white/95 backdrop-blur-sm px-4 py-3 text-sm text-slate-900 hover:border-slate-300/70 hover:bg-white hover:shadow-lg hover:shadow-slate-200/30 transition-all duration-300',
+            'w-full justify-between font-semibold h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 transition-all duration-200',
             !date && 'text-slate-500'
           )}
           disabled={disabled}
