@@ -3,15 +3,12 @@ import {
   Page,
   Text,
   View,
-  StyleSheet,
   pdf as reactPdf,
 } from '@react-pdf/renderer';
+
 import { formatDateForPDF } from '../utils';
 import type { ProfileHeaderProps } from '../types';
-
-interface PDFGeneratorProps {
-  profileData: ProfileHeaderProps;
-}
+import { pdfStyles } from './PDFGenerator.styles';
 
 /**
  * Generates and downloads a PDF resume from profile data
@@ -27,6 +24,7 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
     workExperience = [],
     education = [],
     languages = [],
+    skills = [],
   } = profileData;
 
   // Helper function to format phone display for PDF
@@ -46,190 +44,54 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
     return phoneData;
   };
 
-  // Create PDF styles
-  const styles = StyleSheet.create({
-    page: {
-      flexDirection: 'column',
-      backgroundColor: '#ffffff',
-      padding: 40,
-      fontFamily: 'Helvetica',
-    },
-    header: {
-      marginBottom: 25,
-      textAlign: 'center',
-      borderBottom: '2px solid #000000',
-      paddingBottom: 15,
-    },
-    name: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 12,
-      color: '#000000',
-      textTransform: 'uppercase',
-      letterSpacing: 1,
-    },
-    summary: {
-      fontSize: 11,
-      color: '#333333',
-      marginBottom: 0,
-      lineHeight: 1.4,
-      fontStyle: 'italic',
-    },
-    section: {
-      marginBottom: 18,
-    },
-    sectionTitle: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      marginBottom: 8,
-      color: '#000000',
-      textTransform: 'uppercase',
-      letterSpacing: 0.5,
-      borderBottom: '1px solid #000000',
-      paddingBottom: 3,
-    },
-    contactGrid: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      marginBottom: 25,
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: 8,
-    },
-    contactItem: {
-      width: 'auto',
-      marginBottom: 0,
-      fontSize: 10,
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    contactLabel: {
-      fontWeight: 'bold',
-      color: '#000000',
-      marginRight: 4,
-    },
-    contactValue: {
-      color: '#333333',
-    },
-    experienceItem: {
-      marginBottom: 16,
-      paddingLeft: 0,
-      paddingTop: 4,
-      paddingBottom: 4,
-    },
-    jobTitle: {
-      fontSize: 12,
-      fontWeight: 'bold',
-      color: '#000000',
-      marginBottom: 2,
-      textTransform: 'uppercase',
-    },
-    companyInfo: {
-      fontSize: 10,
-      color: '#333333',
-      marginBottom: 6,
-      fontStyle: 'italic',
-    },
-    responsibilities: {
-      fontSize: 9,
-      color: '#333333',
-      lineHeight: 1.3,
-      marginLeft: 10,
-      marginTop: 2,
-    },
-    educationItem: {
-      marginBottom: 16,
-      paddingLeft: 0,
-      paddingTop: 4,
-      paddingBottom: 4,
-    },
-    degree: {
-      fontSize: 12,
-      fontWeight: 'bold',
-      color: '#000000',
-      marginBottom: 2,
-      textTransform: 'uppercase',
-    },
-    schoolInfo: {
-      fontSize: 10,
-      color: '#333333',
-      fontStyle: 'italic',
-      marginBottom: 6,
-    },
-    languageItem: {
-      marginBottom: 0,
-      paddingLeft: 0,
-      marginRight: 15,
-    },
-    language: {
-      fontSize: 10,
-      fontWeight: 'bold',
-      color: '#000000',
-    },
-    fluency: {
-      fontSize: 9,
-      color: '#333333',
-      fontStyle: 'italic',
-    },
-    footer: {
-      marginTop: 25,
-      textAlign: 'center',
-      fontSize: 8,
-      color: '#666666',
-      borderTop: '1px solid #000000',
-      paddingTop: 8,
-    },
-  });
-
   const MyDocument = () => (
     <Document>
-      <Page size='A4' style={styles.page}>
-        <View style={styles.header}>
-          <Text style={styles.name}>{fullName || 'Profile'}</Text>
-          {summary && <Text style={styles.summary}>{summary}</Text>}
+      <Page size='A4' style={pdfStyles.page}>
+        <View style={pdfStyles.header}>
+          <Text style={pdfStyles.name}>{fullName || 'Profile'}</Text>
+          {summary && <Text style={pdfStyles.summary}>{summary}</Text>}
         </View>
 
         {(email || phone || linkedin || portfolio) && (
-          <View style={styles.contactGrid}>
+          <View style={pdfStyles.contactGrid}>
             {email && (
-              <View style={styles.contactItem}>
-                <Text style={styles.contactLabel}>Email: </Text>
-                <Text style={styles.contactValue}>{email}</Text>
+              <View style={pdfStyles.contactItem}>
+                <Text style={pdfStyles.contactLabel}>Email: </Text>
+                <Text style={pdfStyles.contactValue}>{email}</Text>
               </View>
             )}
             {phone && (
-              <View style={styles.contactItem}>
-                <Text style={styles.contactLabel}>Phone: </Text>
-                <Text style={styles.contactValue}>
+              <View style={pdfStyles.contactItem}>
+                <Text style={pdfStyles.contactLabel}>Phone: </Text>
+                <Text style={pdfStyles.contactValue}>
                   {formatPhoneDisplay(phone)}
                 </Text>
               </View>
             )}
             {linkedin && (
-              <View style={styles.contactItem}>
-                <Text style={styles.contactLabel}>LinkedIn: </Text>
-                <Text style={styles.contactValue}>{linkedin}</Text>
+              <View style={pdfStyles.contactItem}>
+                <Text style={pdfStyles.contactLabel}>LinkedIn: </Text>
+                <Text style={pdfStyles.contactValue}>{linkedin}</Text>
               </View>
             )}
             {portfolio && (
-              <View style={styles.contactItem}>
-                <Text style={styles.contactLabel}>Portfolio: </Text>
-                <Text style={styles.contactValue}>{portfolio}</Text>
+              <View style={pdfStyles.contactItem}>
+                <Text style={pdfStyles.contactLabel}>Portfolio: </Text>
+                <Text style={pdfStyles.contactValue}>{portfolio}</Text>
               </View>
             )}
           </View>
         )}
 
         {workExperience && workExperience.length > 0 && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Professional Experience</Text>
+          <View style={pdfStyles.section}>
+            <Text style={pdfStyles.sectionTitle}>Professional Experience</Text>
             {workExperience.map((exp, index) => (
-              <View key={index} style={styles.experienceItem}>
-                <Text style={styles.jobTitle}>
+              <View key={index} style={pdfStyles.experienceItem}>
+                <Text style={pdfStyles.jobTitle}>
                   {exp?.jobTitle || 'Job Title'}
                 </Text>
-                <Text style={styles.companyInfo}>
+                <Text style={pdfStyles.companyInfo}>
                   {exp?.companyName || 'Company'}
                   {exp?.location && ` • ${exp.location}`}
                   {exp?.dateFrom &&
@@ -239,7 +101,7 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
                     )}`}
                 </Text>
                 {exp?.responsibilities && (
-                  <Text style={styles.responsibilities}>
+                  <Text style={pdfStyles.responsibilities}>
                     {exp.responsibilities}
                   </Text>
                 )}
@@ -249,15 +111,15 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
         )}
 
         {education && education.length > 0 && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Education</Text>
+          <View style={pdfStyles.section}>
+            <Text style={pdfStyles.sectionTitle}>Education</Text>
             {education.map((edu, index) => (
-              <View key={index} style={styles.educationItem}>
-                <Text style={styles.degree}>
+              <View key={index} style={pdfStyles.educationItem}>
+                <Text style={pdfStyles.degree}>
                   {edu?.degree || 'Degree'} in{' '}
                   {edu?.fieldOfStudy || 'Field of Study'}
                 </Text>
-                <Text style={styles.schoolInfo}>
+                <Text style={pdfStyles.schoolInfo}>
                   {edu?.schoolName || 'School'}
                   {edu?.dateFrom &&
                     edu?.dateTo &&
@@ -266,7 +128,9 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
                     )}`}
                 </Text>
                 {edu?.description && (
-                  <Text style={styles.responsibilities}>{edu.description}</Text>
+                  <Text style={pdfStyles.responsibilities}>
+                    {edu.description}
+                  </Text>
                 )}
               </View>
             ))}
@@ -274,20 +138,32 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
         )}
 
         {languages && languages.length > 0 && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Languages</Text>
+          <View style={pdfStyles.section}>
+            <Text style={pdfStyles.sectionTitle}>Languages</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               {languages.map((lang, index) => (
-                <View key={index} style={styles.languageItem}>
-                  <Text style={styles.language}>
+                <View key={index} style={pdfStyles.languageItem}>
+                  <Text style={pdfStyles.language}>
                     {lang?.language || 'Language'}
                   </Text>
-                  <Text style={styles.fluency}>
+                  <Text style={pdfStyles.fluency}>
                     {lang?.fluencyLevel || 'Fluency Level'}
                   </Text>
                 </View>
               ))}
             </View>
+          </View>
+        )}
+
+        {skills && skills.length > 0 && (
+          <View style={pdfStyles.section}>
+            <Text style={pdfStyles.sectionTitle}>Skills</Text>
+            <Text style={pdfStyles.skillsText}>
+              {skills
+                .map((skill) => skill?.skill || 'Skill')
+                .filter((skill) => skill.trim() !== '')
+                .join(', ')}
+            </Text>
           </View>
         )}
       </Page>
