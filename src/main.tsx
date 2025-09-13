@@ -6,16 +6,18 @@ import { ApolloProvider } from '@apollo/client';
 import './index.css';
 import App from './App.tsx';
 import { apolloClient } from './apollo';
-import { AuthProvider } from './context/AuthProvider.tsx';
+import { AuthProvider, LocaleProvider } from './context';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <ApolloProvider client={apolloClient}>
-          <App />
-        </ApolloProvider>
-      </AuthProvider>
+      <LocaleProvider>
+        <AuthProvider>
+          <ApolloProvider client={apolloClient}>
+            <App />
+          </ApolloProvider>
+        </AuthProvider>
+      </LocaleProvider>
     </BrowserRouter>
   </StrictMode>
 );

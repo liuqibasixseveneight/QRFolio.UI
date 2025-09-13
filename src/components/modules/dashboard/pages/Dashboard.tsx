@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Pencil, Share2, Eye, Plus } from 'lucide-react';
+import { FormattedMessage } from 'react-intl';
 
-import { Button, Card, CardContent, LoadingSpinner } from '@/components/ui';
+import { Button, LoadingSpinner } from '@/components/ui';
 import { useGetProfile } from '@/apollo/profile';
 import { useAuth } from '@/context';
 
@@ -39,24 +40,26 @@ const Dashboard = () => {
 
   const actions = [
     {
-      title: profileExists ? 'Edit Your Resume' : 'Create Your Resume',
-      description: profileExists
-        ? 'Update and refine your resume anytime'
-        : 'Start crafting your professional story',
+      titleKey: profileExists
+        ? 'dashboard.actions.editResume'
+        : 'dashboard.actions.createResume',
+      descriptionKey: profileExists
+        ? 'dashboard.actions.editDescription'
+        : 'dashboard.actions.createDescription',
       icon: profileExists ? Pencil : Plus,
       action: profileExists ? handleEdit : handleCreate,
     },
     ...(profileExists
       ? [
           {
-            title: 'View Resume',
-            description: 'Preview your resume as others will see it',
+            titleKey: 'dashboard.actions.viewResume',
+            descriptionKey: 'dashboard.actions.viewDescription',
             icon: Eye,
             action: handleView,
           },
           {
-            title: 'Share Resume',
-            description: 'Copy your public resume link to share easily',
+            titleKey: 'dashboard.actions.shareResume',
+            descriptionKey: 'dashboard.actions.shareDescription',
             icon: Share2,
             action: handleShare,
           },
@@ -72,12 +75,22 @@ const Dashboard = () => {
             <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='text-center'>
                 <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-[1.1] tracking-tight text-gray-900 mb-6'>
-                  {profileExists ? 'Manage Your Resume' : 'Create Your Resume'}
+                  <FormattedMessage
+                    id={
+                      profileExists
+                        ? 'dashboard.manageResume'
+                        : 'dashboard.createResume'
+                    }
+                  />
                 </h1>
                 <p className='text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto'>
-                  {profileExists
-                    ? 'Manage, view, share, and edit your resume effortlessly'
-                    : 'Start crafting your beautiful, professional resume'}
+                  <FormattedMessage
+                    id={
+                      profileExists
+                        ? 'dashboard.manageDescription'
+                        : 'dashboard.createDescription'
+                    }
+                  />
                 </p>
               </div>
             </div>
@@ -93,13 +106,13 @@ const Dashboard = () => {
                 <LoadingSpinner />
               </div>
               <p className='text-gray-600 text-lg font-medium'>
-                Loading your dashboard...
+                <FormattedMessage id='dashboard.loadingDashboard' />
               </p>
             </div>
           ) : (
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
               {actions?.map(
-                ({ title, description, icon: Icon, action }, idx) => (
+                ({ titleKey, descriptionKey, icon: Icon, action }, idx) => (
                   <div
                     key={idx}
                     className='bg-white shadow-sm border border-gray-100 rounded-2xl px-6 sm:px-8 py-12 transition-all duration-300 cursor-pointer hover:shadow-md group'
@@ -111,17 +124,23 @@ const Dashboard = () => {
                       </div>
                       <div className='flex-1 flex flex-col justify-center'>
                         <h3 className='text-2xl font-light text-gray-900 mb-3'>
-                          {title}
+                          <FormattedMessage id={titleKey} />
                         </h3>
                         <p className='text-gray-600 text-base leading-relaxed font-light'>
-                          {description}
+                          <FormattedMessage id={descriptionKey} />
                         </p>
                       </div>
                       <Button
                         variant='outline'
                         className='border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-3 rounded-lg font-medium transition-all duration-300 cursor-pointer w-full'
                       >
-                        {title.includes('Create') ? 'Create' : 'Open'}
+                        <FormattedMessage
+                          id={
+                            titleKey.includes('create')
+                              ? 'dashboard.actions.createButton'
+                              : 'dashboard.actions.openButton'
+                          }
+                        />
                       </Button>
                     </div>
                   </div>
