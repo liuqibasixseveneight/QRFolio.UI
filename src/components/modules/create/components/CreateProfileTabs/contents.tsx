@@ -1,3 +1,5 @@
+import { FormattedMessage } from 'react-intl';
+
 import {
   FormField,
   DynamicFieldSection,
@@ -46,36 +48,38 @@ export const contents = ({
         <section className='space-y-6'>
           <div className='border-b border-gray-200 pb-4'>
             <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
-              Introduction and Personal Information
+              <FormattedMessage id='createProfile.sections.introduction.title' />
             </h2>
             <p className='text-gray-600 mt-2'>
-              Start with your basic information and professional summary.
+              <FormattedMessage id='createProfile.sections.introduction.description' />
             </p>
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             <FormField
-              label='Full Name'
+              label={<FormattedMessage id='forms.fullName' />}
               type='input'
               register={register}
               registerName='fullName'
-              placeholder='Enter your full name'
+              placeholder={
+                <FormattedMessage id='forms.placeholders.fullName' />
+              }
               error={errors.fullName?.message}
               required
             />
 
             <FormField
-              label='Email'
+              label={<FormattedMessage id='forms.email' />}
               type='input'
               register={register}
               registerName='email'
-              placeholder='Enter your email address'
+              placeholder={<FormattedMessage id='forms.placeholders.email' />}
               error={errors.email?.message}
               required
             />
 
             <FormField
-              label='Phone Number'
+              label={<FormattedMessage id='forms.phoneNumber' />}
               type='phone'
               control={control}
               registerName='phone'
@@ -83,25 +87,29 @@ export const contents = ({
             />
 
             <FormField
-              label='LinkedIn Profile'
+              label={<FormattedMessage id='forms.linkedinProfile' />}
               type='input'
               register={register}
               registerName='linkedin'
-              placeholder='Enter your LinkedIn URL'
+              placeholder={
+                <FormattedMessage id='forms.placeholders.linkedinUrl' />
+              }
               error={errors.linkedin?.message?.toString()}
             />
 
             <FormField
-              label='Portfolio Website'
+              label={<FormattedMessage id='forms.portfolioWebsite' />}
               type='input'
               register={register}
               registerName='portfolio'
-              placeholder='Enter your portfolio URL'
+              placeholder={
+                <FormattedMessage id='forms.placeholders.portfolioUrl' />
+              }
               error={errors.portfolio?.message?.toString()}
             />
 
             <FormField
-              label='Availability Status'
+              label={<FormattedMessage id='forms.availabilityStatus' />}
               type='select'
               control={control}
               registerName='availability'
@@ -109,15 +117,17 @@ export const contents = ({
               options={[
                 {
                   value: 'available',
-                  label: 'Available',
+                  label: <FormattedMessage id='forms.availability.available' />,
                 },
                 {
                   value: 'open',
-                  label: 'Open',
+                  label: <FormattedMessage id='forms.availability.open' />,
                 },
                 {
                   value: 'unavailable',
-                  label: 'Unavailable',
+                  label: (
+                    <FormattedMessage id='forms.availability.unavailable' />
+                  ),
                 },
               ]}
               required
@@ -125,11 +135,13 @@ export const contents = ({
 
             <div className='md:col-span-2'>
               <FormField
-                label='Professional Summary'
+                label={<FormattedMessage id='forms.professionalSummary' />}
                 type='textarea'
                 register={register}
                 registerName='professionalSummary'
-                placeholder='Tell us about yourself professionally...'
+                placeholder={
+                  <FormattedMessage id='forms.placeholders.professionalSummary' />
+                }
                 error={errors.professionalSummary?.message?.toString()}
                 rows={4}
                 required
@@ -145,15 +157,17 @@ export const contents = ({
         <section className='space-y-6'>
           <div className='border-b border-gray-200 pb-4'>
             <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
-              Employment and Work Experience
+              <FormattedMessage id='createProfile.sections.workExperience.title' />
             </h2>
             <p className='text-gray-600 mt-2'>
-              Detail your work history, responsibilities, and achievements.
+              <FormattedMessage id='createProfile.sections.workExperience.description' />
             </p>
           </div>
 
           <DynamicFieldSection
-            title='Work Experience'
+            title={
+              <FormattedMessage id='createProfile.sections.workExperience.sectionTitle' />
+            }
             titleField='jobTitle'
             fields={mutableWorkFields}
             fieldsConfig={workExperienceConfig}
@@ -187,7 +201,7 @@ export const contents = ({
             }}
             className='w-full sm:w-auto'
           >
-            Add Employment
+            <FormattedMessage id='createProfile.sections.workExperience.addEmployment' />
           </Button>
         </section>
       ),

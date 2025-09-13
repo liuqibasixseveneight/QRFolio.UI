@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react';
+
 export type PhoneInputProps = {
-  label?: string;
+  label?: string | ReactNode;
   value?:
     | string
     | { countryCode: string; dialCode: string; number: string; flag: string };

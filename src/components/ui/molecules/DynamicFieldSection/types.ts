@@ -4,6 +4,7 @@ import type {
   UseFormRegister,
   Control,
 } from 'react-hook-form';
+import type { ReactNode } from 'react';
 
 export type FieldConfig = {
   label: string;
@@ -15,7 +16,7 @@ export type FieldConfig = {
 };
 
 export type DynamicFieldSectionProps<T extends FieldValues> = {
-  title: string;
+  title: string | ReactNode;
   titleField?: keyof T[string extends keyof T ? keyof T : never];
   fields: { id: string }[];
   fieldsConfig: FieldConfig[];

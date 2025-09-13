@@ -1,9 +1,10 @@
 import type { UseFormRegister, Control } from 'react-hook-form';
+import type { ReactNode } from 'react';
 
 export type FormFieldProps = {
-  label?: string;
+  label?: string | ReactNode;
   type?: 'input' | 'textarea' | 'date' | 'select' | 'password' | 'phone';
-  placeholder?: string;
+  placeholder?: string | ReactNode;
   value?: string;
   onChange?: (val: string) => void;
   register?: UseFormRegister<any>;
@@ -12,7 +13,7 @@ export type FormFieldProps = {
   readOnly?: boolean;
   rows?: number;
   error?: string;
-  options?: { label: string; value: string }[];
+  options?: { label: string | ReactNode; value: string }[];
   required?: boolean;
   onPhoneChange?: (value: any) => void;
 };

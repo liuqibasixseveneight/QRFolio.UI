@@ -83,7 +83,11 @@ const FormField = (props: FormFieldProps) => {
                       field.onChange('');
                     }
                   }}
-                  placeholder={placeholder ?? 'Select date'}
+                  placeholder={
+                    typeof placeholder === 'string'
+                      ? placeholder
+                      : 'Select date'
+                  }
                   disabled={readOnly}
                 />
                 {error && (
@@ -116,7 +120,9 @@ const FormField = (props: FormFieldProps) => {
                 onChange?.('');
               }
             }}
-            placeholder={placeholder ?? 'Select date'}
+            placeholder={
+              typeof placeholder === 'string' ? placeholder : 'Select date'
+            }
             disabled={readOnly}
           />
           {error && (
@@ -243,7 +249,9 @@ const FormField = (props: FormFieldProps) => {
       )}
       {type === 'textarea' ? (
         <Textarea
-          placeholder={placeholder}
+          placeholder={
+            typeof placeholder === 'string' ? placeholder : undefined
+          }
           rows={rows}
           readOnly={readOnly}
           className='bg-white border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent resize-vertical transition-all duration-200 rounded-xl'
@@ -251,7 +259,9 @@ const FormField = (props: FormFieldProps) => {
         />
       ) : (
         <Input
-          placeholder={placeholder}
+          placeholder={
+            typeof placeholder === 'string' ? placeholder : undefined
+          }
           readOnly={readOnly}
           type={type}
           className='bg-white border-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent transition-all duration-200 rounded-xl h-12'

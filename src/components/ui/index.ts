@@ -18,7 +18,6 @@ import {
   Skeleton,
   Switch,
   Textarea,
-  Tooltip,
 } from './atoms';
 import {
   Calendar,
@@ -66,6 +65,12 @@ import {
   Toaster,
 } from './molecules';
 import { Navbar, SignInForm, SignUpForm, TabbedSections } from './organisms';
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from './tooltip';
 
 export {
   AvailabilityBadge,
@@ -133,7 +138,6 @@ export {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-  Tooltip,
   useToast,
 };
 

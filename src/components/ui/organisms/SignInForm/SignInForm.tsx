@@ -1,16 +1,12 @@
+import { FormattedMessage } from 'react-intl';
+
 import {
   Button,
   ErrorMessage,
   Separator,
   GoogleSignInButton,
 } from '../../atoms';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  FormField,
-} from '../../molecules';
+import { FormField } from '../../molecules';
 import type { SignInFormProps } from './types';
 
 const SignInForm = ({
@@ -38,22 +34,24 @@ const SignInForm = ({
                     <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
                       <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
                       <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
-                        Sign In
+                        <FormattedMessage id='signIn.title' />
                       </span>
                     </div>
                     <h1 className='text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight text-gray-900 mb-4'>
-                      Welcome Back
+                      <FormattedMessage id='signIn.welcomeBack' />
                     </h1>
                     <p className='text-gray-600 text-lg leading-relaxed'>
-                      Sign in to access your professional profile
+                      <FormattedMessage id='signIn.description' />
                     </p>
                   </div>
 
                   <div className='space-y-6'>
                     <FormField
-                      label='Email'
+                      label={<FormattedMessage id='forms.email' />}
                       type='input'
-                      placeholder='you@example.com'
+                      placeholder={
+                        <FormattedMessage id='forms.placeholders.emailExample' />
+                      }
                       value={email}
                       onChange={setEmail}
                       required
@@ -61,9 +59,11 @@ const SignInForm = ({
                     />
 
                     <FormField
-                      label='Password'
+                      label={<FormattedMessage id='forms.password' />}
                       type='password'
-                      placeholder='••••••••'
+                      placeholder={
+                        <FormattedMessage id='forms.placeholders.password' />
+                      }
                       value={password}
                       onChange={setPassword}
                       required
@@ -77,7 +77,11 @@ const SignInForm = ({
                       disabled={loading}
                       className='w-full bg-gray-900 hover:bg-gray-800 text-white transition-all duration-300 font-medium'
                     >
-                      {loading ? 'Signing in...' : 'Sign In'}
+                      {loading ? (
+                        <FormattedMessage id='signIn.signingIn' />
+                      ) : (
+                        <FormattedMessage id='signIn.title' />
+                      )}
                     </Button>
 
                     <Separator className='my-6' />
@@ -86,13 +90,13 @@ const SignInForm = ({
 
                     <div className='text-center lg:text-left text-sm mt-6'>
                       <span className='text-gray-600'>
-                        Don&apos;t have an account?{' '}
+                        <FormattedMessage id='signIn.dontHaveAccount' />{' '}
                       </span>
                       <button
                         onClick={navigateToSignup}
                         className='text-gray-700 hover:text-gray-900 font-medium hover:underline transition-colors duration-200'
                       >
-                        Sign Up
+                        <FormattedMessage id='signIn.signUpLink' />
                       </button>
                     </div>
                   </div>
@@ -117,11 +121,10 @@ const SignInForm = ({
                     </svg>
                   </div>
                   <h2 className='text-2xl font-light text-gray-900 mb-4'>
-                    Professional Profile
+                    <FormattedMessage id='professionalProfile.title' />
                   </h2>
                   <p className='text-gray-600 text-lg leading-relaxed'>
-                    Access your resume, manage your professional information,
-                    and share your profile with potential employers.
+                    <FormattedMessage id='professionalProfile.description' />
                   </p>
                 </div>
               </section>

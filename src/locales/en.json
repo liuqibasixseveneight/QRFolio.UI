@@ -1,0 +1,315 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "apply": "Apply",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "copy": "Copy",
+    "share": "Share",
+    "download": "Download",
+    "upload": "Upload",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "editProfile": "Edit Profile",
+    "createProfile": "Create Profile",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "settings": "Settings",
+    "help": "Help",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back!",
+    "createAccount": "Create your account",
+    "signInWithGoogle": "Sign in with Google",
+    "signUpWithGoogle": "Sign up with Google",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "rememberMe": "Remember me",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "signInHere": "Sign in here",
+    "signUpHere": "Sign up here",
+    "invalidCredentials": "Invalid email or password",
+    "accountCreated": "Account created successfully!",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "invalidEmail": "Please enter a valid email address"
+  },
+  "profile": {
+    "personalInfo": "Personal Information",
+    "contactInfo": "Contact Information",
+    "workExperience": "Work Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "fullName": "Full Name",
+    "title": "Title",
+    "bio": "Bio",
+    "location": "Location",
+    "website": "Website",
+    "phone": "Phone",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "twitter": "Twitter",
+    "company": "Company",
+    "position": "Position",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "current": "Current",
+    "description": "Description",
+    "institution": "Institution",
+    "degree": "Degree",
+    "fieldOfStudy": "Field of Study",
+    "graduationDate": "Graduation Date",
+    "skillName": "Skill Name",
+    "proficiency": "Proficiency",
+    "language": "Language",
+    "level": "Level",
+    "addNew": "Add New",
+    "remove": "Remove",
+    "profileCreated": "Profile created successfully!",
+    "profileUpdated": "Profile updated successfully!",
+    "profileDeleted": "Profile deleted successfully!",
+    "fillRequiredFields": "Please fill in all required fields",
+    "invalidDateFormat": "Invalid date format",
+    "endDateBeforeStartDate": "End date must be after start date"
+  },
+  "dashboard": {
+    "welcome": "Welcome to your dashboard",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "totalProfiles": "Total Profiles",
+    "activeProfiles": "Active Profiles",
+    "lastUpdated": "Last Updated",
+    "noProfilesYet": "You haven't created any profiles yet",
+    "createFirstProfile": "Create your first profile",
+    "viewAllProfiles": "View all profiles",
+    "manageResume": "Manage Your Resume",
+    "createResume": "Create Your Resume",
+    "manageDescription": "Manage, view, share, and edit your resume effortlessly",
+    "createDescription": "Start crafting your beautiful, professional resume",
+    "loadingDashboard": "Loading your dashboard...",
+    "actions": {
+      "editResume": "Edit Your Resume",
+      "editDescription": "Update and refine your resume anytime",
+      "viewResume": "View Resume",
+      "viewDescription": "Preview your resume as others will see it",
+      "shareResume": "Share Resume",
+      "shareDescription": "Copy your public resume link to share easily",
+      "createButton": "Create",
+      "openButton": "Open"
+    }
+  },
+  "qr": {
+    "generateQR": "Generate QR Code",
+    "shareProfile": "Share Profile",
+    "qrCodeGenerated": "QR Code generated successfully!",
+    "copyLink": "Copy Link",
+    "linkCopied": "Link copied to clipboard!",
+    "downloadQR": "Download QR Code",
+    "qrDownloaded": "QR Code downloaded successfully!",
+    "scanToView": "Scan to view profile"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "url": "Please enter a valid URL",
+    "minLength": "Must be at least {count} characters",
+    "maxLength": "Must be no more than {count} characters",
+    "min": "Must be at least {count}",
+    "max": "Must be no more than {count}",
+    "pattern": "Please enter a valid format",
+    "date": "Please enter a valid date",
+    "dateRange": "End date must be after start date"
+  },
+  "errors": {
+    "somethingWentWrong": "Something went wrong. Please try again.",
+    "networkError": "Network error. Please check your connection.",
+    "serverError": "Server error. Please try again later.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "forbidden": "Access denied.",
+    "notFound": "The requested resource was not found.",
+    "validationError": "Please check your input and try again.",
+    "timeoutError": "Request timed out. Please try again.",
+    "unknownError": "An unknown error occurred."
+  },
+  "success": {
+    "profileSaved": "Profile saved successfully!",
+    "profileDeleted": "Profile deleted successfully!",
+    "settingsUpdated": "Settings updated successfully!",
+    "passwordChanged": "Password changed successfully!",
+    "emailVerified": "Email verified successfully!",
+    "accountUpdated": "Account updated successfully!"
+  },
+  "dateTime": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This Week",
+    "lastWeek": "Last Week",
+    "thisMonth": "This Month",
+    "lastMonth": "Last Month",
+    "thisYear": "This Year",
+    "lastYear": "Last Year",
+    "now": "Now",
+    "ago": "ago",
+    "in": "in",
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
+  },
+  "accessibility": {
+    "closeDialog": "Close dialog",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "toggleNavigation": "Toggle navigation",
+    "skipToContent": "Skip to main content",
+    "loadingContent": "Loading content",
+    "imageAlt": "Image",
+    "videoAlt": "Video",
+    "audioAlt": "Audio",
+    "fileAlt": "File"
+  },
+  "landing": {
+    "heroTitle": "Professional Resumes",
+    "heroSubtitle": "Built for Today",
+    "heroDescription": "Create clean, modern resumes that stand out. Simple, elegant, and effective.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "features": {
+      "intelligentDesign": {
+        "title": "Intelligent Design",
+        "description": "AI-powered templates that adapt to your experience and industry."
+      },
+      "seamlessSharing": {
+        "title": "Seamless Sharing",
+        "description": "Generate QR codes and links for instant professional networking."
+      },
+      "modernWorkflow": {
+        "title": "Modern Workflow",
+        "description": "Built for the way professionals work today."
+      }
+    }
+  },
+  "signIn": {
+    "title": "Sign In",
+    "welcomeBack": "Welcome Back",
+    "description": "Sign in to access your professional profile",
+    "signingIn": "Signing in...",
+    "dontHaveAccount": "Don't have an account?",
+    "signUpLink": "Sign Up"
+  },
+  "signUp": {
+    "title": "Sign Up",
+    "createAccount": "Create Account",
+    "description": "Create your professional profile to get started",
+    "creatingAccount": "Creating account...",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInLink": "Sign In"
+  },
+  "forms": {
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "phoneNumber": "Phone Number",
+    "linkedinProfile": "LinkedIn Profile",
+    "portfolioWebsite": "Portfolio Website",
+    "availabilityStatus": "Availability Status",
+    "professionalSummary": "Professional Summary",
+    "placeholders": {
+      "fullName": "Enter your full name",
+      "email": "Enter your email address",
+      "emailExample": "you@example.com",
+      "password": "••••••••",
+      "linkedinUrl": "Enter your LinkedIn URL",
+      "portfolioUrl": "Enter your portfolio URL",
+      "professionalSummary": "Tell us about yourself professionally...",
+      "skillInput": "Type a skill and press Enter to add it..."
+    },
+    "availability": {
+      "available": "Available",
+      "open": "Open",
+      "unavailable": "Unavailable"
+    }
+  },
+  "createProfile": {
+    "sections": {
+      "introduction": {
+        "title": "Introduction and Personal Information",
+        "description": "Start with your basic information and professional summary."
+      },
+      "workExperience": {
+        "title": "Employment and Work Experience",
+        "description": "Detail your work history, responsibilities, and achievements.",
+        "sectionTitle": "Work Experience",
+        "addEmployment": "Add Employment"
+      },
+      "education": {
+        "title": "Education and Languages",
+        "description": "Include your educational background and language skills.",
+        "sectionTitle": "Education and Qualifications",
+        "addEducation": "Add Education",
+        "languagesSectionTitle": "Languages",
+        "addLanguage": "Add Language"
+      },
+      "skills": {
+        "title": "Skills and Competencies",
+        "description": "Add your key skills and competencies that showcase your expertise."
+      }
+    }
+  },
+  "professionalProfile": {
+    "title": "Professional Profile",
+    "description": "Access your resume, manage your professional information, and share your profile with potential employers."
+  },
+  "languageSwitcher": {
+    "selectLanguage": "Select language",
+    "english": "English"
+  }
+}
