@@ -37,21 +37,6 @@ const EducationSection = ({ education = [] }: EducationSectionProps) => {
                 </p>
               </div>
             )}
-
-            <div className='flex flex-wrap gap-3 pt-6 border-t border-gray-100'>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Dean's List
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Honors
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Research
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Academic Excellence
-              </span>
-            </div>
           </div>
 
           {index < education.length - 1 && (
