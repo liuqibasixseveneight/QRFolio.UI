@@ -7,6 +7,7 @@ import {
 } from '@react-pdf/renderer';
 
 import { formatDateForPDF } from '../utils';
+import { htmlToPDFText } from '../utils/htmlToPDFText';
 import type { ProfileHeaderProps } from '../types';
 import { pdfStyles } from './PDFGenerator.styles';
 
@@ -102,7 +103,7 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
                 </Text>
                 {exp?.responsibilities && (
                   <Text style={pdfStyles.responsibilities}>
-                    {exp.responsibilities}
+                    {htmlToPDFText(exp.responsibilities)}
                   </Text>
                 )}
               </View>
@@ -129,7 +130,7 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
                 </Text>
                 {edu?.description && (
                   <Text style={pdfStyles.responsibilities}>
-                    {edu.description}
+                    {htmlToPDFText(edu.description)}
                   </Text>
                 )}
               </View>
