@@ -1,7 +1,13 @@
 import { type ChangeEvent } from 'react';
 import { Controller } from 'react-hook-form';
 import { format, parseISO } from 'date-fns';
-import { DatePicker, Input, Label, Textarea } from '@/components/ui';
+import {
+  DatePicker,
+  Input,
+  Label,
+  Textarea,
+  RichTextEditor,
+} from '@/components/ui';
 import {
   Select,
   SelectContent,
@@ -215,6 +221,65 @@ const FormField = (props: FormFieldProps) => {
               ))}
             </SelectContent>
           </Select>
+          {error && (
+            <p className='text-sm sm:text-base text-red-600 font-semibold'>
+              {error}
+            </p>
+          )}
+        </div>
+      );
+    }
+  }
+
+  if (type === 'richText') {
+    if (control && registerName) {
+      return (
+        <Controller
+          control={control}
+          name={registerName}
+          render={({ field }) => (
+            <div className='space-y-3'>
+              {label && (
+                <Label
+                  htmlFor={registerName}
+                  className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                >
+                  {label}
+                  {required && <span className='text-red-500 ml-1'>*</span>}
+                </Label>
+              )}
+              <RichTextEditor
+                value={field.value || ''}
+                onChange={field.onChange}
+                placeholder={placeholder}
+                height={rows ? rows * 20 : 200}
+                disabled={readOnly}
+              />
+              {error && (
+                <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                  {error}
+                </p>
+              )}
+            </div>
+          )}
+        />
+      );
+    } else {
+      return (
+        <div className='space-y-3'>
+          {label && (
+            <Label className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'>
+              {label}
+              {required && <span className='text-red-500 ml-1'>*</span>}
+            </Label>
+          )}
+          <RichTextEditor
+            value={value || ''}
+            onChange={onChange}
+            placeholder={placeholder}
+            height={rows ? rows * 20 : 200}
+            disabled={readOnly}
+          />
           {error && (
             <p className='text-sm sm:text-base text-red-600 font-semibold'>
               {error}

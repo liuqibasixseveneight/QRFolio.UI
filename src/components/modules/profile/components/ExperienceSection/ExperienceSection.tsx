@@ -1,5 +1,6 @@
 import { formatDate } from '../../helpers';
 import { Calendar, MapPin } from 'lucide-react';
+import { SafeHtml } from '@/components/ui';
 import type { ExperienceSectionProps } from './types';
 
 const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
@@ -41,26 +42,12 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
 
             {exp?.responsibilities && (
               <div className='space-y-3 mb-6'>
-                <p className='text-gray-700 leading-relaxed text-base'>
-                  {exp?.responsibilities}
-                </p>
+                <SafeHtml
+                  content={exp.responsibilities}
+                  className='text-gray-700 leading-relaxed text-base prose prose-sm max-w-none'
+                />
               </div>
             )}
-
-            <div className='flex flex-wrap gap-3 pt-6 border-t border-gray-100'>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Leadership
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Strategy
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Team Management
-              </span>
-              <span className='px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-md border border-gray-200'>
-                Innovation
-              </span>
-            </div>
           </div>
 
           {index < workExperience.length - 1 && (

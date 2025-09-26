@@ -1,5 +1,6 @@
 import { formatDate } from '../../helpers';
 import { Calendar } from 'lucide-react';
+import { SafeHtml } from '@/components/ui';
 import type { EducationSectionProps } from './types';
 
 const EducationSection = ({ education = [] }: EducationSectionProps) => {
@@ -32,9 +33,10 @@ const EducationSection = ({ education = [] }: EducationSectionProps) => {
 
             {edu?.description && (
               <div className='space-y-3 mb-6'>
-                <p className='text-gray-700 leading-relaxed text-base'>
-                  {edu?.description}
-                </p>
+                <SafeHtml
+                  content={edu.description}
+                  className='text-gray-700 leading-relaxed text-base prose prose-sm max-w-none'
+                />
               </div>
             )}
           </div>

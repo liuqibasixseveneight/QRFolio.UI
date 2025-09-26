@@ -14,6 +14,8 @@ export * from './Section';
 export * from './Separator';
 export * from './Skeleton';
 export * from './ProfileHeaderBadge';
+export * from './RichTextEditor';
+export * from './SafeHtml';
 export * from './Switch';
 export * from './Textarea';
 export * from './Tooltip';

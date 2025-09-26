@@ -9,7 +9,7 @@ const workExperienceConfig: FieldConfig[] = [
   {
     name: 'responsibilities',
     label: 'Responsibilities',
-    type: 'textarea',
+    type: 'richText',
     rows: 10,
     required: true,
   },
@@ -28,7 +28,7 @@ const educationConfig: FieldConfig[] = [
   {
     name: 'description',
     label: 'Description',
-    type: 'textarea',
+    type: 'richText',
     rows: 10,
   },
 ];
