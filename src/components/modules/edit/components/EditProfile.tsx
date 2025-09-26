@@ -188,13 +188,7 @@ const EditProfile = () => {
             entry.responsibilities
         ),
         education: (data.education ?? []).filter(
-          (entry) =>
-            entry.schoolName &&
-            entry.degree &&
-            entry.fieldOfStudy &&
-            entry.dateFrom &&
-            entry.dateTo &&
-            entry.description
+          (entry) => entry.schoolName && entry.degree
         ),
         languages: (data.languages ?? []).filter(
           (entry) => entry.language && entry.fluencyLevel
