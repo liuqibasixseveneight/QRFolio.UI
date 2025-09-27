@@ -298,7 +298,7 @@ export const contents = ({
     {
       value: 'skills',
       content: (
-        <section className='space-y-6'>
+        <section className='space-y-8'>
           <div className='border-b border-gray-200 pb-4'>
             <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
               Skills and Competencies
