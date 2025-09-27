@@ -1,5 +1,5 @@
-import type { Skill } from '@/apollo/profile';
+import type { SkillCategory } from '@/apollo/profile';
 
 export type SkillsSectionProps = {
-  skills: Skill[];
+  skills: SkillCategory[];
 };

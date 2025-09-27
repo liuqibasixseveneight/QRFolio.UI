@@ -4,7 +4,7 @@ import {
   FormField,
   DynamicFieldSection,
   Button,
-  SkillsInput,
+  CategorizedSkillsInput,
 } from '@/components/ui';
 import type { ContentsItem } from '@/components/ui/organisms';
 import {
@@ -308,9 +308,10 @@ export const contents = ({
             </p>
           </div>
 
-          <SkillsInput
-            skills={mutableSkillsFields.map((field) => ({
-              skill: field.skill || '',
+          <CategorizedSkillsInput
+            skillCategories={mutableSkillsFields.map((field) => ({
+              title: field.title || '',
+              skills: field.skills || [],
             }))}
             onSkillsChange={onSkillsChange}
             placeholder='Type a skill and press Enter to add it...'

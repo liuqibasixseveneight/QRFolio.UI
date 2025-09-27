@@ -15,7 +15,7 @@ const UPDATE_PROFILE = gql`
     $workExperience: JSON
     $education: JSON
     $languages: JSON
-    $skills: JSON
+    $skills: [SkillCategoryInput!]
   ) {
     updateProfile(
       id: $id
@@ -42,7 +42,12 @@ const UPDATE_PROFILE = gql`
       workExperience
       education
       languages
-      skills
+      skills {
+        title
+        skills {
+          skill
+        }
+      }
     }
   }
 `;

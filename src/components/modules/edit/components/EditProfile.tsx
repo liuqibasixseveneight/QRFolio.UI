@@ -10,6 +10,7 @@ import {
   LoadingSpinner,
   TabbedSections,
   useToast,
+  CategorizedSkillsInput,
 } from '@/components/ui';
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
@@ -81,7 +82,8 @@ const EditProfile = () => {
       ],
       skills: [
         {
-          skill: '',
+          title: '',
+          skills: [],
         },
       ],
     },
@@ -131,7 +133,8 @@ const EditProfile = () => {
             ? profile.skills
             : [
                 {
-                  skill: '',
+                  title: '',
+                  skills: [],
                 },
               ],
       };
@@ -193,7 +196,11 @@ const EditProfile = () => {
         languages: (data.languages ?? []).filter(
           (entry) => entry.language && entry.fluencyLevel
         ),
-        skills: (data.skills ?? []).filter((entry) => entry.skill),
+        skills: (data.skills ?? []).filter(
+          (category) =>
+            category.title?.trim() &&
+            category.skills?.some((skill) => skill.skill?.trim())
+        ),
       });
 
       toast({
@@ -281,9 +288,9 @@ const EditProfile = () => {
       ),
     removeLanguage,
     skillsFields,
-    onSkillsChange: (newSkills) => {
+    onSkillsChange: (newSkillCategories) => {
       // Directly update the skills field using setValue
-      setValue('skills', newSkills);
+      setValue('skills', newSkillCategories);
     },
     activeWorkIndex,
     setActiveWorkIndex,

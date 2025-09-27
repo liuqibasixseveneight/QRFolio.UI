@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { skillsSchema } from './skillsSchema';
 
 export const introSchema = z.object({
   fullName: z.string().min(1, 'Full name required'),
@@ -13,5 +14,5 @@ export const introSchema = z.object({
   workExperience: z.array(z.any()).optional(),
   education: z.array(z.any()).optional(),
   languages: z.array(z.any()).optional(),
-  skills: z.array(z.any()).optional(),
+  skills: skillsSchema.optional(),
 });

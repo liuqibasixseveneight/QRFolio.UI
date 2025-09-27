@@ -9,7 +9,7 @@ import type {
 } from 'react-hook-form';
 
 import type { CVFormValues } from '../../types';
-import type { Skill } from '@/components/ui/molecules/SkillsInput';
+import type { SkillCategory } from '@/apollo/profile';
 
 export type contentsProps = {
   register: UseFormRegister<CVFormValues>;
@@ -25,7 +25,7 @@ export type contentsProps = {
   appendLanguage: UseFieldArrayAppend<CVFormValues, 'languages'>;
   removeLanguage: UseFieldArrayRemove;
   skillsFields: FieldArrayWithId<CVFormValues, 'skills', 'id'>[];
-  onSkillsChange: (skills: Skill[]) => void;
+  onSkillsChange: (skillCategories: SkillCategory[]) => void;
   activeWorkIndex: number | null;
   setActiveWorkIndex: Dispatch<SetStateAction<number | null>>;
   activeEduIndex: number | null;
