@@ -108,7 +108,7 @@ const CategorizedSkillsInput = ({
   };
 
   return (
-    <div className='space-y-4'>
+    <div className='space-y-8'>
       {skillCategories.map((category, categoryIndex) => {
         const isActive = activeCategoryIndex === categoryIndex;
 
