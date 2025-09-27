@@ -8,6 +8,7 @@ import {
   ErrorDisplay,
   TabbedSections,
   useToast,
+  CategorizedSkillsInput,
 } from '@/components/ui';
 import type { CVFormValues } from '../../types';
 import { introSchema } from '../../schemas';
@@ -81,7 +82,8 @@ const CreateProfileTabs = () => {
       ],
       skills: [
         {
-          skill: '',
+          title: '',
+          skills: [],
         },
       ],
     },
@@ -115,6 +117,15 @@ const CreateProfileTabs = () => {
   };
 
   const handleButtonClick = async (formData: CVFormValues) => {
+    if (!userId) {
+      toast({
+        title: 'Authentication Required',
+        description: 'Please sign in to create a profile.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     try {
       // Filter out empty entries
       const filteredWorkExperience =
@@ -131,7 +142,11 @@ const CreateProfileTabs = () => {
         formData.languages?.filter((lang) => lang.language?.trim()) || [];
 
       const filteredSkills =
-        formData.skills?.filter((skill) => skill.skill?.trim()) || [];
+        formData.skills?.filter(
+          (category) =>
+            category.title?.trim() &&
+            category.skills?.some((skill) => skill.skill?.trim())
+        ) || [];
 
       const profileData = {
         id: userId || '',
@@ -170,6 +185,14 @@ const CreateProfileTabs = () => {
         'Failed to create profile. Please try again later.',
       ]);
     }
+  };
+
+  const handleFormError = (errors: any) => {
+    setSubmissionErrors(
+      Object.values(errors).map(
+        (error: any) => error.message || 'Validation error'
+      )
+    );
   };
 
   const tabContents = contents({
@@ -248,7 +271,7 @@ const CreateProfileTabs = () => {
         <div className='max-w-6xl mx-auto w-full'>
           <form
             className='space-y-8'
-            onSubmit={handleSubmit(handleButtonClick)}
+            onSubmit={handleSubmit(handleButtonClick, handleFormError)}
           >
             <div className='bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8 lg:p-12'>
               <TabbedSections

@@ -28,7 +28,7 @@ const isLanguageEntryEmpty = (
 
 const isSkillEntryEmpty = (
   entry: NonNullable<CVFormValues['skills']>[number]
-) => !entry?.skill;
+) => !entry?.title || !entry?.skills || entry.skills.length === 0;
 
 export {
   isWorkEntryEmpty,

@@ -122,38 +122,118 @@ const DynamicFieldSection = <T extends Record<string, any>>({
 
             {isActive && (
               <div className='p-6 space-y-6 bg-white/90 border-t border-slate-200/40'>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                  {fieldsConfig?.map((config: FieldConfig) => {
-                    const error = get(
-                      errors,
-                      `${registerNamePrefix}.${index}.${config?.name}.message`
-                    ) as string | undefined;
+                <div className='space-y-6'>
+                  {(() => {
+                    const renderedFields: string[] = [];
+                    return fieldsConfig
+                      ?.map((config: FieldConfig, configIndex: number) => {
+                        // Skip if already rendered as part of date group
+                        if (renderedFields.includes(config?.name)) {
+                          return null;
+                        }
 
-                    // Full-width fields for certain types
-                    const isFullWidth =
-                      config?.type === 'textarea' ||
-                      config?.name === 'responsibilities' ||
-                      config?.name === 'description';
+                        const error = get(
+                          errors,
+                          `${registerNamePrefix}.${index}.${config?.name}.message`
+                        ) as string | undefined;
 
-                    return (
-                      <div
-                        key={config?.name}
-                        className={isFullWidth ? 'md:col-span-2' : ''}
-                      >
-                        <FormField
-                          label={config?.label}
-                          type={config?.type}
-                          rows={config?.rows}
-                          options={config?.options}
-                          register={register}
-                          registerName={`${registerNamePrefix}.${index}.${config?.name}`}
-                          error={error}
-                          control={control}
-                          required={config?.required}
-                        />
-                      </div>
-                    );
-                  })}
+                        // Check if this is a date field that should be grouped
+                        const isDateField = config?.type === 'date';
+                        const isDateFrom = config?.name === 'dateFrom';
+                        const isDateTo = config?.name === 'dateTo';
+
+                        // Find the corresponding date field
+                        let dateGroupFields: FieldConfig[] = [];
+                        if (isDateFrom) {
+                          const dateToField = fieldsConfig?.find(
+                            (f) => f?.name === 'dateTo'
+                          );
+                          if (dateToField) {
+                            dateGroupFields = [config, dateToField];
+                            renderedFields.push('dateFrom', 'dateTo');
+                          }
+                        } else if (
+                          isDateTo &&
+                          !renderedFields.includes('dateTo')
+                        ) {
+                          // If dateTo comes before dateFrom, handle it
+                          const dateFromField = fieldsConfig?.find(
+                            (f) => f?.name === 'dateFrom'
+                          );
+                          if (dateFromField) {
+                            dateGroupFields = [dateFromField, config];
+                            renderedFields.push('dateFrom', 'dateTo');
+                          }
+                        }
+
+                        // Full-width fields for certain types
+                        const isFullWidth =
+                          config?.type === 'textarea' ||
+                          config?.name === 'responsibilities' ||
+                          config?.name === 'description';
+
+                        // If this is part of a date group, render both fields together
+                        if (dateGroupFields.length === 2) {
+                          return (
+                            <div
+                              key={`date-group-${configIndex}`}
+                              className='grid grid-cols-1 md:grid-cols-2 gap-4'
+                            >
+                              {dateGroupFields.map(
+                                (dateConfig: FieldConfig) => {
+                                  const dateError = get(
+                                    errors,
+                                    `${registerNamePrefix}.${index}.${dateConfig?.name}.message`
+                                  ) as string | undefined;
+
+                                  return (
+                                    <div key={dateConfig?.name}>
+                                      <FormField
+                                        label={dateConfig?.label}
+                                        type={dateConfig?.type}
+                                        rows={dateConfig?.rows}
+                                        options={dateConfig?.options}
+                                        register={register}
+                                        registerName={`${registerNamePrefix}.${index}.${dateConfig?.name}`}
+                                        error={dateError}
+                                        control={control}
+                                        required={dateConfig?.required}
+                                      />
+                                    </div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          );
+                        }
+
+                        // Skip if this field is already rendered as part of date group
+                        if (renderedFields.includes(config?.name)) {
+                          return null;
+                        }
+
+                        // Render single field
+                        return (
+                          <div
+                            key={config?.name}
+                            className={isFullWidth ? '' : ''}
+                          >
+                            <FormField
+                              label={config?.label}
+                              type={config?.type}
+                              rows={config?.rows}
+                              options={config?.options}
+                              register={register}
+                              registerName={`${registerNamePrefix}.${index}.${config?.name}`}
+                              error={error}
+                              control={control}
+                              required={config?.required}
+                            />
+                          </div>
+                        );
+                      })
+                      .filter(Boolean);
+                  })()}
                 </div>
               </div>
             )}

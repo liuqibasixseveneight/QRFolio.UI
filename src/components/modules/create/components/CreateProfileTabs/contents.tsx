@@ -1,10 +1,11 @@
 import { FormattedMessage } from 'react-intl';
+import { Plus } from 'lucide-react';
 
 import {
   FormField,
   DynamicFieldSection,
   Button,
-  SkillsInput,
+  CategorizedSkillsInput,
 } from '@/components/ui';
 import type { ContentsItem } from '@/components/ui/organisms';
 import {
@@ -199,8 +200,9 @@ export const contents = ({
               });
               setActiveWorkIndex(mutableWorkFields.length);
             }}
-            className='w-full sm:w-auto'
+            className='w-full border-dashed border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-700 hover:bg-slate-50 cursor-pointer transition-all duration-300 py-4 rounded-xl'
           >
+            <Plus className='w-4 h-4 mr-2' />
             <FormattedMessage id='createProfile.sections.workExperience.addEmployment' />
           </Button>
         </section>
@@ -253,8 +255,9 @@ export const contents = ({
                 });
                 setActiveEduIndex(mutableEduFields.length);
               }}
-              className='w-full sm:w-auto'
+              className='w-full border-dashed border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-700 hover:bg-slate-50 cursor-pointer transition-all duration-300 py-4 rounded-xl'
             >
+              <Plus className='w-4 h-4 mr-2' />
               Add Education
             </Button>
 
@@ -287,8 +290,9 @@ export const contents = ({
                 appendLanguage({ language: '', fluencyLevel: 'Beginner' });
                 setActiveLanguageIndex(mutableLanguageFields.length);
               }}
-              className='w-full sm:w-auto'
+              className='w-full border-dashed border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-700 hover:bg-slate-50 cursor-pointer transition-all duration-300 py-4 rounded-xl'
             >
+              <Plus className='w-4 h-4 mr-2' />
               Add Language
             </Button>
           </div>
@@ -298,7 +302,7 @@ export const contents = ({
     {
       value: 'skills',
       content: (
-        <section className='space-y-6'>
+        <section className='space-y-8'>
           <div className='border-b border-gray-200 pb-4'>
             <h2 className='text-2xl font-semibold text-gray-800 tracking-tight'>
               Skills and Competencies
@@ -308,9 +312,10 @@ export const contents = ({
             </p>
           </div>
 
-          <SkillsInput
-            skills={mutableSkillsFields.map((field) => ({
-              skill: field.skill || '',
+          <CategorizedSkillsInput
+            skillCategories={mutableSkillsFields.map((field) => ({
+              title: field.title || '',
+              skills: field.skills || [],
             }))}
             onSkillsChange={onSkillsChange}
             placeholder='Type a skill and press Enter to add it...'

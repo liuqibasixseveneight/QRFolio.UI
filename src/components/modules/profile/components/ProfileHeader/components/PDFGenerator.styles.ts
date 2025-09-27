@@ -132,6 +132,15 @@ export const pdfStyles = StyleSheet.create({
     fontSize: 9,
     fontStyle: 'italic',
   },
+  skillCategory: {
+    marginBottom: 8,
+  },
+  skillCategoryTitle: {
+    color: '#000000',
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginBottom: 2,
+  },
   skillsText: {
     color: '#333333',
     fontSize: 10,

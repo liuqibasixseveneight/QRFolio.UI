@@ -1,6 +1,7 @@
 export * from './Calendar';
 export * from './CalendarDayButton';
 export * from './Card';
+export * from './CategorizedSkillsInput';
 export * from './DynamicFieldSection';
 export * from './ErrorDisplay';
 export * from './FormField';

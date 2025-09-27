@@ -27,6 +27,11 @@ export type Skill = {
   skill?: string;
 };
 
+export type SkillCategory = {
+  title: string;
+  skills: Skill[];
+};
+
 export type Availability = 'available' | 'open' | 'unavailable';
 
 export interface PhoneNumber {
@@ -50,7 +55,7 @@ export interface BaseProfile {
   workExperience?: WorkExperience[];
   education?: Education[];
   languages?: Language[];
-  skills?: Skill[];
+  skills?: SkillCategory[];
 }
 
 export interface Profile extends BaseProfile {
