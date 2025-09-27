@@ -13,7 +13,7 @@ const CategorizedSkillsInput = ({
     [categoryIndex: number]: string;
   }>({});
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | null>(
-    0
+    null
   );
 
   const addSkill = (categoryIndex: number) => {

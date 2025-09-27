@@ -1,4 +1,5 @@
 import { FormattedMessage } from 'react-intl';
+import { Plus } from 'lucide-react';
 
 import {
   FormField,
@@ -199,8 +200,9 @@ export const contents = ({
               });
               setActiveWorkIndex(mutableWorkFields.length);
             }}
-            className='w-full sm:w-auto'
+            className='w-full border-dashed border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-700 hover:bg-slate-50 cursor-pointer transition-all duration-300 py-4 rounded-xl'
           >
+            <Plus className='w-4 h-4 mr-2' />
             <FormattedMessage id='createProfile.sections.workExperience.addEmployment' />
           </Button>
         </section>
@@ -253,8 +255,9 @@ export const contents = ({
                 });
                 setActiveEduIndex(mutableEduFields.length);
               }}
-              className='w-full sm:w-auto'
+              className='w-full border-dashed border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-700 hover:bg-slate-50 cursor-pointer transition-all duration-300 py-4 rounded-xl'
             >
+              <Plus className='w-4 h-4 mr-2' />
               Add Education
             </Button>
 
@@ -287,8 +290,9 @@ export const contents = ({
                 appendLanguage({ language: '', fluencyLevel: 'Beginner' });
                 setActiveLanguageIndex(mutableLanguageFields.length);
               }}
-              className='w-full sm:w-auto'
+              className='w-full border-dashed border-2 border-slate-300 hover:border-slate-400 text-slate-600 hover:text-slate-700 hover:bg-slate-50 cursor-pointer transition-all duration-300 py-4 rounded-xl'
             >
+              <Plus className='w-4 h-4 mr-2' />
               Add Language
             </Button>
           </div>
