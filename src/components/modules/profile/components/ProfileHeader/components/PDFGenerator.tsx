@@ -159,12 +159,19 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
         {skills && skills.length > 0 && (
           <View style={pdfStyles.section}>
             <Text style={pdfStyles.sectionTitle}>Skills</Text>
-            <Text style={pdfStyles.skillsText}>
-              {skills
-                .map((skill) => skill?.skill || 'Skill')
-                .filter((skill) => skill.trim() !== '')
-                .join(', ')}
-            </Text>
+            {skills.map((category, categoryIndex) => (
+              <View key={categoryIndex} style={pdfStyles.skillCategory}>
+                <Text style={pdfStyles.skillCategoryTitle}>
+                  {category?.title || 'Skills'}:
+                </Text>
+                <Text style={pdfStyles.skillsText}>
+                  {category?.skills
+                    ?.map((skill) => skill?.skill || '')
+                    ?.filter((skill) => skill?.trim() !== '')
+                    ?.join(', ') || ''}
+                </Text>
+              </View>
+            ))}
           </View>
         )}
       </Page>
