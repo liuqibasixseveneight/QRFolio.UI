@@ -1,7 +1,9 @@
-import { Download, Share2, QrCode } from 'lucide-react';
+import { useState } from 'react';
+import { Download, Share2, QrCode, Check, Loader2 } from 'lucide-react';
 
 import type { ProfileHeaderProps } from '../types';
-import { handleDownloadPDF } from './PDFGenerator';
+import { generatePDF } from './PDFGenerator';
+import { useToast } from '@/components/ui/molecules/Toast/use-toast';
 
 type ActionButtonsProps = {
   profileData: ProfileHeaderProps;
@@ -15,33 +17,63 @@ export const ActionButtons = ({
   profileData,
   onViewQRCode,
 }: ActionButtonsProps) => {
+  const { toast } = useToast();
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
+  const [shareSuccess, setShareSuccess] = useState(false);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    setIsDownloading(true);
+    try {
+      await generatePDF(profileData);
+      setDownloadSuccess(true);
+      toast({
+        title: 'PDF Downloaded Successfully! 📄',
+        description: 'Your resume has been saved as a PDF.',
+        variant: 'success',
+      });
+      setTimeout(() => {
+        setDownloadSuccess(false);
+      }, 2000);
+    } catch (error) {
+      console.error('Failed to generate PDF:', error);
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      toast({
+        title: 'PDF Download Failed',
+        description: `Failed to generate PDF: ${errorMessage}`,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   const handleShareProfile = async () => {
+    setIsSharing(true);
     try {
       const profileUrl = window.location.href;
       await navigator.clipboard.writeText(profileUrl);
 
-      // Show success feedback
-      const button = document.querySelector(
-        '[data-share-profile]'
-      ) as HTMLButtonElement;
-      if (button) {
-        const originalText = button.innerHTML;
-        button.innerHTML = `
-          <span class="flex items-center gap-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            <span>Copied!</span>
-          </span>
-        `;
-
-        setTimeout(() => {
-          button.innerHTML = originalText;
-        }, 2000);
-      }
+      setShareSuccess(true);
+      toast({
+        title: 'Profile Link Copied',
+        description: 'Profile link has been copied to clipboard.',
+        variant: 'success',
+      });
+      setTimeout(() => {
+        setShareSuccess(false);
+      }, 2000);
     } catch (error) {
       console.error('Failed to copy profile link:', error);
-      alert('Failed to copy profile link. Please try again.');
+      toast({
+        title: 'Copy Failed',
+        description: 'Failed to copy profile link. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSharing(false);
     }
   };
 
@@ -49,23 +81,49 @@ export const ActionButtons = ({
     <div className='flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12'>
       <button
         data-download-resume
-        onClick={() => handleDownloadPDF(profileData)}
-        className='bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+        onClick={handleDownloadPDF}
+        disabled={isDownloading || downloadSuccess}
+        className='bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer'
       >
         <span className='flex items-center gap-3'>
-          <Download className='w-6 h-6' />
-          <span>Download Resume</span>
+          {isDownloading ? (
+            <Loader2 className='w-6 h-6 animate-spin' />
+          ) : downloadSuccess ? (
+            <Check className='w-6 h-6' />
+          ) : (
+            <Download className='w-6 h-6' />
+          )}
+          <span>
+            {isDownloading
+              ? 'Generating PDF...'
+              : downloadSuccess
+              ? 'Downloaded!'
+              : 'Download Resume'}
+          </span>
         </span>
       </button>
 
       <button
         data-share-profile
         onClick={handleShareProfile}
-        className='bg-white hover:bg-gray-50 text-gray-700 px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer whitespace-nowrap'
+        disabled={isSharing || shareSuccess}
+        className='bg-white hover:bg-gray-50 text-gray-700 px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none'
       >
         <span className='flex items-center gap-3'>
-          <Share2 className='w-6 h-6' />
-          <span>Share Profile</span>
+          {isSharing ? (
+            <Loader2 className='w-6 h-6 animate-spin' />
+          ) : shareSuccess ? (
+            <Check className='w-6 h-6' />
+          ) : (
+            <Share2 className='w-6 h-6' />
+          )}
+          <span>
+            {isSharing
+              ? 'Copying...'
+              : shareSuccess
+              ? 'Copied!'
+              : 'Share Profile'}
+          </span>
         </span>
       </button>
 

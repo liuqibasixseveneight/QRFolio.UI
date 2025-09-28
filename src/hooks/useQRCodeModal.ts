@@ -39,7 +39,7 @@ export const useQRCodeModal = () => {
         toast({
           title: 'Link Copied',
           description: 'Profile link has been copied to clipboard.',
-          variant: 'default',
+          variant: 'success',
         });
       }
     } catch (error) {
@@ -61,7 +61,7 @@ export const useQRCodeModal = () => {
       toast({
         title: 'Link Copied',
         description: 'Profile link has been copied to clipboard.',
-        variant: 'default',
+        variant: 'success',
       });
     } catch (error) {
       console.error('Failed to copy link:', error);
@@ -111,7 +111,7 @@ export const useQRCodeModal = () => {
       toast({
         title: 'QR Code Saved',
         description: 'Your QR code has been saved as an image.',
-        variant: 'default',
+        variant: 'success',
       });
     } catch (error) {
       console.error('Failed to save QR code:', error);
