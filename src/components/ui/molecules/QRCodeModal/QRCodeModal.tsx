@@ -1,93 +1,34 @@
-import { useState, useEffect } from 'react';
-import { Share2, X, Copy, Check } from 'lucide-react';
+import { useRef, type RefObject } from 'react';
+import { Share2, X, Copy, Check, Download } from 'lucide-react';
 
-import { useToast } from '@/components/ui/molecules/Toast/use-toast';
 import { ProfileQRCard } from '@/components/ui/molecules/ProfileQRCard';
 import { Button } from '@/components/ui/atoms/Button';
+import { useQRCodeModal } from '@/hooks/useQRCodeModal';
 import type { QRCodeModalProps } from './types';
 
 const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
-  const [copied, setCopied] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const qrCardRef = useRef<HTMLDivElement>(null);
 
-  const { toast } = useToast();
+  const {
+    copied,
+    isClosing,
+    isVisible,
+    isSaving,
+    handleClose,
+    triggerEnterAnimation,
+    handleShare,
+    handleCopyLink,
+    handleSaveAsImage,
+  } = useQRCodeModal();
 
-  // Handle close animation
-  const handleClose = () => {
-    setIsClosing(true);
-    // Wait for animation to complete before calling onClose
-    setTimeout(() => {
-      onClose();
-      setIsClosing(false);
-    }, 200);
-  };
-
-  // Trigger enter animation when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      // Small delay to ensure DOM is ready for animation
-      setTimeout(() => setIsVisible(true), 10);
-    }
-  }, [isOpen]);
-
-  // Don't render if not open
   if (!isOpen) {
     return null;
   }
 
-  const handleShare = async () => {
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: `${profileData.labels.fullName}'s Professional Profile`,
-          text: `Check out ${profileData.labels.fullName}'s professional profile`,
-          url: profileData.link,
-        });
-      } else {
-        // Fallback to copying link
-        await navigator.clipboard.writeText(profileData.link);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-
-        toast({
-          title: 'Link Copied',
-          description: 'Profile link has been copied to clipboard.',
-          variant: 'default',
-        });
-      }
-    } catch (error) {
-      console.error('Failed to share:', error);
-
-      toast({
-        title: 'Share Failed',
-        description: 'Failed to share profile. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(profileData.link);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-
-      toast({
-        title: 'Link Copied',
-        description: 'Profile link has been copied to clipboard.',
-        variant: 'default',
-      });
-    } catch (error) {
-      console.error('Failed to copy link:', error);
-
-      toast({
-        title: 'Copy Failed',
-        description: 'Failed to copy link. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
+  // Trigger enter animation when modal opens
+  if (isOpen && !isVisible) {
+    triggerEnterAnimation();
+  }
 
   return (
     <div
@@ -96,7 +37,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
           ? 'bg-black/0 backdrop-blur-none'
           : 'bg-black/50 backdrop-blur-sm'
       }`}
-      onClick={handleClose}
+      onClick={() => handleClose(onClose)}
     >
       <div
         className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl transition-all duration-200 ease-out transform ${
@@ -116,7 +57,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
             </p>
           </div>
           <button
-            onClick={handleClose}
+            onClick={() => handleClose(onClose)}
             className='p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer hover:scale-105'
             aria-label='Close modal'
           >
@@ -125,7 +66,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
         </div>
 
         <div className='overflow-y-auto max-h-[calc(90vh-140px)]'>
-          <div className='w-full'>
+          <div className='w-full' ref={qrCardRef}>
             <ProfileQRCard {...profileData} />
           </div>
         </div>
@@ -140,7 +81,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
             <Button
               variant='outline'
               size='lg'
-              onClick={handleCopyLink}
+              onClick={() => handleCopyLink(profileData)}
               className='min-w-[120px]'
             >
               {copied ? (
@@ -159,7 +100,23 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
             <Button
               variant='outline'
               size='lg'
-              onClick={handleShare}
+              onClick={() =>
+                handleSaveAsImage(
+                  qrCardRef as RefObject<HTMLDivElement>,
+                  profileData
+                )
+              }
+              disabled={isSaving}
+              className='min-w-[120px]'
+            >
+              <Download className='w-4 h-4 mr-2' />
+              {isSaving ? 'Saving...' : 'Save Image'}
+            </Button>
+
+            <Button
+              variant='outline'
+              size='lg'
+              onClick={() => handleShare(profileData)}
               className='min-w-[120px]'
             >
               <Share2 className='w-4 h-4 mr-2' />
