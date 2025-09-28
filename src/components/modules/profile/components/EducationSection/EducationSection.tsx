@@ -15,7 +15,7 @@ const EducationSection = ({ education = [] }: EducationSectionProps) => {
         >
           <div className='mb-6'>
             <h3 className='text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
-              {edu?.degree} in {edu?.fieldOfStudy}
+              {edu?.degree}
             </h3>
             <div className='flex items-center gap-3 mb-4'>
               <span className='text-xl font-medium text-gray-700'>

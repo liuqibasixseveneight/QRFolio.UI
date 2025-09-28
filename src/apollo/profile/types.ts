@@ -12,7 +12,6 @@ export type WorkExperience = {
 export type Education = {
   schoolName?: string;
   degree?: string;
-  fieldOfStudy?: string;
   dateFrom?: DateString;
   dateTo?: DateString;
   description?: string;

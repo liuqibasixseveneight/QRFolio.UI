@@ -12,7 +12,6 @@ const EMPTY_WORK_ENTRY: NonNullable<CVFormValues['workExperience']>[number] = {
 const EMPTY_EDU_ENTRY: NonNullable<CVFormValues['education']>[number] = {
   schoolName: '',
   degree: '',
-  fieldOfStudy: '',
   dateFrom: '',
   dateTo: '',
   description: '',

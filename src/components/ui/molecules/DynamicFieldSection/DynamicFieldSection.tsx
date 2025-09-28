@@ -75,11 +75,7 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                   get(fields?.[index], 'degree') && (
                     <span className='text-sm text-slate-600 block'>
                       <Ellipsis
-                        text={`${get(fields?.[index], 'degree')}${
-                          get(fields?.[index], 'fieldOfStudy')
-                            ? ` - ${get(fields?.[index], 'fieldOfStudy')}`
-                            : ''
-                        }`}
+                        text={`${get(fields?.[index], 'degree')}`}
                         maxLength={60}
                         className='text-sm text-slate-600'
                       />

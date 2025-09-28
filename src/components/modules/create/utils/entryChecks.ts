@@ -15,7 +15,6 @@ const isEduEntryEmpty = (
 ) =>
   !entry?.schoolName &&
   !entry?.degree &&
-  !entry?.fieldOfStudy &&
   !entry?.dateFrom &&
   !entry?.dateTo &&
   !entry?.description;

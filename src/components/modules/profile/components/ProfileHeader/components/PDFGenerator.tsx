@@ -116,10 +116,7 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
             <Text style={pdfStyles.sectionTitle}>Education</Text>
             {education.map((edu, index) => (
               <View key={index} style={pdfStyles.educationItem}>
-                <Text style={pdfStyles.degree}>
-                  {edu?.degree || 'Degree'} in{' '}
-                  {edu?.fieldOfStudy || 'Field of Study'}
-                </Text>
+                <Text style={pdfStyles.degree}>{edu?.degree || 'Degree'}</Text>
                 <Text style={pdfStyles.schoolInfo}>
                   {edu?.schoolName || 'School'}
                   {edu?.dateFrom &&

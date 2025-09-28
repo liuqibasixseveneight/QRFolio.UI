@@ -248,7 +248,6 @@ export const contents = ({
                 appendEdu({
                   schoolName: '',
                   degree: '',
-                  fieldOfStudy: '',
                   dateFrom: '',
                   dateTo: '',
                   description: '',

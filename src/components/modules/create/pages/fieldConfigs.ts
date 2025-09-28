@@ -18,11 +18,6 @@ const workExperienceConfig: FieldConfig[] = [
 const educationConfig: FieldConfig[] = [
   { name: 'schoolName', label: 'School Name', type: 'input' },
   { name: 'degree', label: 'Degree', type: 'input' },
-  {
-    name: 'fieldOfStudy',
-    label: 'Field of Study',
-    type: 'input',
-  },
   { name: 'dateFrom', label: 'Date From', type: 'date' },
   { name: 'dateTo', label: 'Date To', type: 'date' },
   {

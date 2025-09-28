@@ -68,7 +68,6 @@ const EditProfile = () => {
         {
           schoolName: '',
           degree: '',
-          fieldOfStudy: '',
           dateFrom: '',
           dateTo: '',
           description: '',
@@ -113,7 +112,6 @@ const EditProfile = () => {
                 {
                   schoolName: '',
                   degree: '',
-                  fieldOfStudy: '',
                   dateFrom: '',
                   dateTo: '',
                   description: '',
@@ -269,7 +267,6 @@ const EditProfile = () => {
       handleAppend(appendEdu, setActiveEduIndex, eduFields.length, {
         schoolName: '',
         degree: '',
-        fieldOfStudy: '',
         dateFrom: '',
         dateTo: '',
         description: '',
