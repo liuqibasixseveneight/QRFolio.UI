@@ -19,35 +19,55 @@ export const captureElementAsImage = async (
 ): Promise<ImageCaptureResult> => {
   const { quality = 0.95, backgroundColor = '#ffffff', scale = 2 } = options;
 
-  const tempStyle = document.createElement('style');
-  tempStyle.id = 'temp-qr-border-removal';
-  tempStyle.textContent = `
-    * {
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
+  // Clone the element to avoid affecting the original DOM
+  const clonedElement = element.cloneNode(true) as HTMLElement;
+
+  // Temporarily append the clone to the document (off-screen)
+  clonedElement.style.position = 'absolute';
+  clonedElement.style.left = '-9999px';
+  clonedElement.style.top = '-9999px';
+  clonedElement.style.zIndex = '-1';
+  document.body.appendChild(clonedElement);
+
+  // Apply border removal directly to the cloned element without CSS injection
+  const removeBordersFromClone = (element: HTMLElement) => {
+    const computedStyle = window.getComputedStyle(element);
+
+    // Only remove borders if they exist and won't cause layout shifts
+    if (
+      computedStyle.border !== 'none' &&
+      computedStyle.borderWidth !== '0px'
+    ) {
+      element.style.setProperty('border', 'none', 'important');
     }
-    .logo, [class*="logo"], svg[class*="logo"], svg[class*="Logo"] {
-      border: unset !important;
-      outline: unset !important;
-      box-shadow: unset !important;
+    if (
+      computedStyle.outline !== 'none' &&
+      computedStyle.outlineWidth !== '0px'
+    ) {
+      element.style.setProperty('outline', 'none', 'important');
     }
-    canvas, svg, div[class*="qr"], div[class*="QR"] {
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
+    if (computedStyle.boxShadow !== 'none') {
+      element.style.setProperty('box-shadow', 'none', 'important');
     }
-  `;
-  document.head.appendChild(tempStyle);
+
+    // Process children recursively
+    Array.from(element.children).forEach((child) => {
+      if (child instanceof HTMLElement) {
+        removeBordersFromClone(child);
+      }
+    });
+  };
+
+  removeBordersFromClone(clonedElement);
 
   try {
     await new Promise((resolve) => setTimeout(resolve, 100));
 
-    const dataUrl = await domtoimage.toPng(element, {
+    const dataUrl = await domtoimage.toPng(clonedElement, {
       quality,
       bgcolor: backgroundColor,
-      width: element.offsetWidth * scale,
-      height: element.offsetHeight * scale,
+      width: clonedElement.offsetWidth * scale,
+      height: clonedElement.offsetHeight * scale,
       style: {
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
@@ -56,9 +76,9 @@ export const captureElementAsImage = async (
 
     return { dataUrl, fileName };
   } finally {
-    const tempStyleElement = document.getElementById('temp-qr-border-removal');
-    if (tempStyleElement) {
-      document.head.removeChild(tempStyleElement);
+    // Clean up the cloned element
+    if (document.body.contains(clonedElement)) {
+      document.body.removeChild(clonedElement);
     }
   }
 };
