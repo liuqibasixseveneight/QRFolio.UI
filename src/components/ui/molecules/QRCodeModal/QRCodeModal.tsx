@@ -73,8 +73,8 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
           </div>
         </div>
 
-        <div className='flex flex-col gap-3 sm:gap-4 p-4 sm:p-6 border-t border-gray-100 bg-gray-50'>
-          <div className='flex items-center justify-center sm:justify-start gap-2 text-xs sm:text-sm text-gray-600'>
+        <div className='flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 p-4 sm:p-6 border-t border-gray-100 bg-gray-50'>
+          <div className='flex items-center gap-2 text-xs sm:text-sm text-gray-600'>
             <div className='w-2 h-2 bg-green-500 rounded-full flex-shrink-0'></div>
             <span>Ready to share</span>
           </div>
