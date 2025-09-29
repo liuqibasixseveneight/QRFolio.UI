@@ -13,12 +13,12 @@ const LanguageSection = ({ languages = [] }: LanguageSectionProps) => {
           }`}
         >
           <div className='mb-6'>
-            <h3 className='text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
+            <h3 className='text-base sm:text-lg md:text-xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
               {language?.language}
             </h3>
 
             <div className='flex items-center gap-4 mb-6'>
-              <span className='text-xl font-medium text-gray-700'>
+              <span className='text-base sm:text-lg font-medium text-gray-700'>
                 {language?.fluencyLevel}
               </span>
               <div className='flex items-center gap-1'>

@@ -4,13 +4,7 @@ import {
   Separator,
   GoogleSignInButton,
 } from '../../atoms';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  FormField,
-} from '../../molecules';
+import { FormField } from '../../molecules';
 import type { SignUpFormProps } from './types';
 
 const SignUpForm = ({
@@ -30,79 +24,120 @@ const SignUpForm = ({
   navigateToSignIn,
 }: SignUpFormProps) => {
   return (
-    <div className='min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-indigo-50 flex items-center justify-center p-4 sm:p-6 relative overflow-hidden'>
-      <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-        <div className='absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-indigo-100/10 to-purple-100/10 rounded-full blur-3xl'></div>
-        <div className='absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/10 to-indigo-100/10 rounded-full blur-3xl'></div>
-      </div>
+    <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden flex items-center'>
+      <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20 w-full'>
+        <div className='max-w-6xl mx-auto w-full'>
+          <div className='bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden'>
+            <div className='flex flex-col lg:flex-row'>
+              <section className='w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 lg:py-20'>
+                <div className='max-w-md mx-auto w-full'>
+                  <div className='text-center lg:text-left mb-8'>
+                    <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
+                      <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
+                      <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
+                        Create Account
+                      </span>
+                    </div>
+                    <h1 className='text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight text-gray-900 mb-4'>
+                      Join LYTN
+                    </h1>
+                    <p className='text-gray-600 text-lg leading-relaxed'>
+                      Create your professional profile and start building your
+                      digital resume
+                    </p>
+                  </div>
 
-      <Card className='w-full max-w-sm sm:max-w-md bg-white/95 backdrop-blur-sm border-gray-200/50 shadow-2xl relative z-10'>
-        <CardHeader className='text-center pb-6'>
-          <CardTitle className='text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 via-indigo-800 to-purple-800 bg-clip-text text-transparent'>
-            Create Account
-          </CardTitle>
-          <p className='text-gray-600 text-sm sm:text-base font-light mt-2'>
-            Join LYTN and build your professional profile
-          </p>
-        </CardHeader>
+                  <div className='space-y-6'>
+                    <FormField
+                      label='Email'
+                      type='input'
+                      placeholder='you@example.com'
+                      value={email}
+                      onChange={setEmail}
+                      required
+                      error={emailError}
+                    />
 
-        <CardContent className='space-y-6'>
-          <FormField
-            label='Email'
-            type='input'
-            placeholder='you@example.com'
-            value={email}
-            onChange={setEmail}
-            required
-            error={emailError}
-          />
+                    <FormField
+                      label='Password'
+                      type='password'
+                      placeholder='••••••••'
+                      value={password}
+                      onChange={setPassword}
+                      required
+                      error={passwordError}
+                    />
 
-          <FormField
-            label='Password'
-            type='password'
-            placeholder='••••••••'
-            value={password}
-            onChange={setPassword}
-            required
-            error={passwordError}
-          />
+                    <FormField
+                      label='Confirm Password'
+                      type='password'
+                      placeholder='••••••••'
+                      value={confirmPassword}
+                      onChange={setConfirmPassword}
+                      required
+                      error={confirmPasswordError}
+                    />
 
-          <FormField
-            label='Confirm Password'
-            type='password'
-            placeholder='••••••••'
-            value={confirmPassword}
-            onChange={setConfirmPassword}
-            required
-            error={confirmPasswordError}
-          />
+                    {error && <ErrorMessage message={error} />}
 
-          {error && <ErrorMessage message={error} />}
+                    <Button
+                      onClick={onSubmit}
+                      disabled={loading}
+                      className='w-full bg-gray-900 hover:bg-gray-800 text-white transition-all duration-300 font-medium'
+                    >
+                      {loading ? 'Creating account...' : 'Create Account'}
+                    </Button>
 
-          <Button
-            onClick={onSubmit}
-            disabled={loading}
-            className='w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98] font-semibold'
-          >
-            {loading ? 'Creating account...' : 'Sign Up'}
-          </Button>
+                    <Separator className='my-6' />
 
-          <Separator className='my-6' />
+                    <GoogleSignInButton onClick={onGoogleSignUp} />
 
-          <GoogleSignInButton onClick={onGoogleSignUp} />
+                    <div className='text-center lg:text-left text-sm mt-6'>
+                      <span className='text-gray-600'>
+                        Already have an account?{' '}
+                      </span>
+                      <button
+                        onClick={navigateToSignIn}
+                        className='text-gray-700 hover:text-gray-900 font-medium hover:underline transition-colors duration-200'
+                      >
+                        Sign In
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
 
-          <div className='text-center text-sm mt-6'>
-            <span className='text-gray-600'>Already have an account? </span>
-            <button
-              onClick={navigateToSignIn}
-              className='text-indigo-600 hover:text-indigo-700 font-semibold hover:underline transition-colors duration-200'
-            >
-              Sign In
-            </button>
+              <section className='w-full lg:w-1/2 bg-gray-50 flex flex-col justify-center items-center px-8 sm:px-12 lg:px-16 py-16 lg:py-20 text-center'>
+                <div className='max-w-md mx-auto'>
+                  <div className='w-24 h-24 bg-gray-100 rounded-2xl flex items-center justify-center mb-8 mx-auto'>
+                    <svg
+                      className='w-12 h-12 text-gray-600'
+                      fill='none'
+                      stroke='currentColor'
+                      viewBox='0 0 24 24'
+                    >
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        strokeWidth={1.5}
+                        d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
+                      />
+                    </svg>
+                  </div>
+                  <h2 className='text-2xl font-light text-gray-900 mb-4'>
+                    Professional Profile
+                  </h2>
+                  <p className='text-gray-600 text-lg leading-relaxed'>
+                    Build your professional identity with a modern, shareable
+                    digital resume
+                  </p>
+                </div>
+              </section>
+            </div>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </div>
+    </main>
   );
 };
 

@@ -76,10 +76,10 @@ const Profile = () => {
           <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center'>
             <User className='w-10 h-10 text-gray-600' />
           </div>
-          <h2 className='text-3xl font-light text-gray-900 mb-4'>
+          <h2 className='text-2xl sm:text-3xl font-light text-gray-900 mb-4'>
             Profile Not Found
           </h2>
-          <p className='text-gray-600 text-lg leading-relaxed'>
+          <p className='text-gray-600 text-base sm:text-lg leading-relaxed'>
             The profile you're looking for doesn't exist or has been deleted.
           </p>
         </div>
@@ -154,23 +154,23 @@ const Profile = () => {
           />
 
           {hasContent ? (
-            <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
+            <div className='relative z-10 px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 lg:py-20'>
               <div className='max-w-6xl mx-auto w-full'>
                 {allSectionsCollapsed ? (
                   // When all sections are collapsed, render without white background
                   <div>
-                    <div className='bg-white rounded-t-2xl shadow-sm border border-gray-100 px-12 py-16'>
+                    <div className='bg-white rounded-t-2xl shadow-sm border border-gray-100 px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16'>
                       <div className='text-center'>
-                        <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
-                          <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
+                        <div className='inline-flex items-center gap-2 px-3 xs:px-4 py-2 bg-gray-100 rounded-full mb-4 xs:mb-6'>
+                          <div className='w-1.5 xs:w-2 h-1.5 xs:h-2 bg-gray-400 rounded-full'></div>
                           <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
                             Experience
                           </span>
                         </div>
-                        <h2 className='text-4xl sm:text-5xl font-light text-gray-900 mb-6 leading-tight'>
+                        <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6 leading-tight'>
                           Professional Journey
                         </h2>
-                        <p className='text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto'>
+                        <p className='text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto px-4 sm:px-0'>
                           A curated collection of my professional achievements,
                           educational milestones, and language capabilities.
                         </p>
@@ -178,43 +178,45 @@ const Profile = () => {
                     </div>
 
                     {workExperience && workExperience.length > 0 && (
-                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-6 sm:px-8 lg:px-12 py-12 sm:py-16 -mt-2'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('workExperience')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <Briefcase className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <Briefcase className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Work Experience
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {workExperience.length} position
                                       {workExperience.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {workExperience.length > 0
-                                        ? expandedSections.workExperience
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No positions yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {workExperience.length > 0
+                                          ? expandedSections.workExperience
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No positions yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.workExperience ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.workExperience ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -235,43 +237,45 @@ const Profile = () => {
                     )}
 
                     {education && education.length > 0 && (
-                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-6 sm:px-8 lg:px-12 py-12 sm:py-16 -mt-2'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('education')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <GraduationCap className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <GraduationCap className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Education
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {education.length} degree
                                       {education.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {education.length > 0
-                                        ? expandedSections.education
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No degrees yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {education.length > 0
+                                          ? expandedSections.education
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No degrees yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.education ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.education ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -290,43 +294,45 @@ const Profile = () => {
                     )}
 
                     {languages && languages.length > 0 && (
-                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-6 sm:px-8 lg:px-12 py-12 sm:py-16 -mt-2'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('languages')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <Languages className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <Languages className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Languages
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {languages.length} language
                                       {languages.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {languages.length > 0
-                                        ? expandedSections.languages
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No languages yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {languages.length > 0
+                                          ? expandedSections.languages
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No languages yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.languages ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.languages ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -345,43 +351,45 @@ const Profile = () => {
                     )}
 
                     {skills && skills.length > 0 && (
-                      <div className='bg-white shadow-sm border border-gray-100 px-12 py-16 -mt-2 rounded-b-2xl'>
+                      <div className='bg-white shadow-sm border border-gray-100 px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 -mt-2 rounded-b-2xl'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('skills')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <Sparkles className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <Sparkles className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Skills
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {skills.length} skill
                                       {skills.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {skills.length > 0
-                                        ? expandedSections.skills
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No skills yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {skills.length > 0
+                                          ? expandedSections.skills
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No skills yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.skills ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.skills ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -402,18 +410,18 @@ const Profile = () => {
                 ) : (
                   // When sections are expanded, use the original white background container
                   <div className='bg-white rounded-2xl shadow-sm border border-gray-100'>
-                    <div className='px-12 py-16 border-b border-gray-100'>
+                    <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 border-b border-gray-100'>
                       <div className='text-center'>
-                        <div className='inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full mb-6'>
-                          <div className='w-2 h-2 bg-gray-400 rounded-full'></div>
+                        <div className='inline-flex items-center gap-2 px-3 xs:px-4 py-2 bg-gray-100 rounded-full mb-4 xs:mb-6'>
+                          <div className='w-1.5 xs:w-2 h-1.5 xs:h-2 bg-gray-400 rounded-full'></div>
                           <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
                             Experience
                           </span>
                         </div>
-                        <h2 className='text-4xl sm:text-5xl font-light text-gray-900 mb-6 leading-tight'>
+                        <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6 leading-tight'>
                           Professional Journey
                         </h2>
-                        <p className='text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto'>
+                        <p className='text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto px-4 sm:px-0'>
                           A curated collection of my professional achievements,
                           educational milestones, and language capabilities.
                         </p>
@@ -421,43 +429,45 @@ const Profile = () => {
                     </div>
 
                     {workExperience && workExperience.length > 0 && (
-                      <div className='px-12 py-16 border-b border-gray-100'>
+                      <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 border-b border-gray-100'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('workExperience')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <Briefcase className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <Briefcase className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Work Experience
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {workExperience.length} position
                                       {workExperience.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {workExperience.length > 0
-                                        ? expandedSections.workExperience
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No positions yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {workExperience.length > 0
+                                          ? expandedSections.workExperience
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No positions yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.workExperience ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.workExperience ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -478,28 +488,28 @@ const Profile = () => {
                     )}
 
                     {education && education.length > 0 && (
-                      <div className='px-12 py-16 border-b border-gray-100'>
+                      <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 border-b border-gray-100'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('education')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='flex items-center gap-8'>
-                                  <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                    <GraduationCap className='w-8 h-8 text-gray-600' />
-                                  </div>
-                                  <div>
-                                    <h3 className='text-3xl font-light text-gray-900 mb-3'>
-                                      Education
-                                    </h3>
-                                    <div className='flex items-center gap-4'>
-                                      <span className='text-sm text-gray-900 font-medium'>
-                                        {education.length} degree
-                                        {education.length !== 1 ? 's' : ''}
-                                      </span>
-                                      <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <GraduationCap className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
+                                </div>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
+                                    Education
+                                  </h3>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
+                                    <span className='text-sm text-gray-900 font-medium'>
+                                      {education.length} degree
+                                      {education.length !== 1 ? 's' : ''}
+                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
                                       <span className='text-sm text-gray-400'>
                                         {education.length > 0
                                           ? expandedSections.education
@@ -507,16 +517,16 @@ const Profile = () => {
                                             : 'Click to expand'
                                           : 'No degrees yet'}
                                       </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.education ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.education ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -535,43 +545,45 @@ const Profile = () => {
                     )}
 
                     {languages && languages.length > 0 && (
-                      <div className='px-12 py-16 border-b border-gray-100'>
+                      <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 border-b border-gray-100'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('languages')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <Languages className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <Languages className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Languages
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {languages.length} language
                                       {languages.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {languages.length > 0
-                                        ? expandedSections.languages
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No degrees yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {languages.length > 0
+                                          ? expandedSections.languages
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No languages yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.languages ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.languages ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -590,43 +602,45 @@ const Profile = () => {
                     )}
 
                     {skills && skills.length > 0 && (
-                      <div className='px-12 py-16 rounded-b-2xl'>
+                      <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 rounded-b-2xl'>
                         <div className='group'>
                           <button
                             onClick={() => toggleSection('skills')}
                             className='w-full text-left p-0 bg-transparent hover:bg-transparent rounded-none border-0 transition-all duration-300 cursor-pointer'
                           >
-                            <div className='flex items-center justify-between mb-8'>
-                              <div className='flex items-center gap-8'>
-                                <div className='w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center'>
-                                  <Sparkles className='w-8 h-8 text-gray-600' />
+                            <div className='flex items-center justify-between mb-6 sm:mb-8 gap-4'>
+                              <div className='flex items-center gap-4 sm:gap-6 lg:gap-8'>
+                                <div className='w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0'>
+                                  <Sparkles className='w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 text-gray-600' />
                                 </div>
-                                <div>
-                                  <h3 className='text-3xl font-light text-gray-900 mb-3'>
+                                <div className='min-w-0 flex-1'>
+                                  <h3 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-900 mb-2 sm:mb-3'>
                                     Skills
                                   </h3>
-                                  <div className='flex items-center gap-4'>
+                                  <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4'>
                                     <span className='text-sm text-gray-900 font-medium'>
                                       {skills.length} skill
                                       {skills.length !== 1 ? 's' : ''}
                                     </span>
-                                    <div className='w-1 h-1 bg-gray-300 rounded-full self-center'></div>
-                                    <span className='text-sm text-gray-400'>
-                                      {skills.length > 0
-                                        ? expandedSections.skills
-                                          ? 'Click to collapse'
-                                          : 'Click to expand'
-                                        : 'No skills yet'}
-                                    </span>
+                                    <div className='hidden sm:block w-1 h-1 bg-gray-300 rounded-full'></div>
+                                    <div className='flex items-center gap-2'>
+                                      <span className='text-sm text-gray-400'>
+                                        {skills.length > 0
+                                          ? expandedSections.skills
+                                            ? 'Click to collapse'
+                                            : 'Click to expand'
+                                          : 'No skills yet'}
+                                      </span>
+                                      <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
+                                        {expandedSections.skills ? (
+                                          <ChevronDown className='w-4 h-4' />
+                                        ) : (
+                                          <ChevronRight className='w-4 h-4' />
+                                        )}
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className='text-gray-400 group-hover:text-gray-600 transition-colors duration-300'>
-                                {expandedSections.skills ? (
-                                  <ChevronDown className='w-7 h-7' />
-                                ) : (
-                                  <ChevronRight className='w-7 h-7' />
-                                )}
                               </div>
                             </div>
                           </button>
@@ -648,15 +662,15 @@ const Profile = () => {
               </div>
             </div>
           ) : (
-            <div className='relative z-10 px-6 sm:px-8 lg:px-12 py-16 lg:py-20'>
+            <div className='relative z-10 px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 lg:py-20'>
               <div className='max-w-6xl mx-auto w-full text-center'>
                 <div className='w-28 h-28 mx-auto mb-10 rounded-full bg-gray-100 flex items-center justify-center'>
                   <Sparkles className='w-14 h-14 text-gray-400' />
                 </div>
-                <h3 className='text-3xl font-light text-gray-900 mb-6'>
+                <h3 className='text-2xl sm:text-3xl font-light text-gray-900 mb-6'>
                   Ready to build your profile
                 </h3>
-                <p className='text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed'>
+                <p className='text-gray-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed'>
                   Add your work experience, education, and language skills to
                   create a compelling digital resume.
                 </p>

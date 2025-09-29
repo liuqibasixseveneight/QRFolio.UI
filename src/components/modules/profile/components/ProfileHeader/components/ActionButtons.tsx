@@ -78,22 +78,22 @@ export const ActionButtons = ({
   };
 
   return (
-    <div className='flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12'>
+    <div className='flex flex-col xs:flex-row items-stretch xs:items-center gap-3 xs:gap-4 sm:gap-6 mb-8 xs:mb-10 sm:mb-12'>
       <button
         data-download-resume
         onClick={handleDownloadPDF}
         disabled={isDownloading || downloadSuccess}
-        className='bg-gray-900 hover:bg-gray-800 text-white px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer'
+        className='bg-gray-900 hover:bg-gray-800 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-medium text-sm sm:text-base md:text-lg transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex-1 sm:flex-none'
       >
-        <span className='flex items-center gap-3'>
+        <span className='flex items-center justify-center gap-2 xs:gap-3'>
           {isDownloading ? (
-            <Loader2 className='w-6 h-6 animate-spin' />
+            <Loader2 className='w-5 xs:w-6 h-5 xs:h-6 animate-spin' />
           ) : downloadSuccess ? (
-            <Check className='w-6 h-6' />
+            <Check className='w-5 xs:w-6 h-5 xs:h-6' />
           ) : (
-            <Download className='w-6 h-6' />
+            <Download className='w-5 xs:w-6 h-5 xs:h-6' />
           )}
-          <span>
+          <span className='text-center'>
             {isDownloading
               ? 'Generating PDF...'
               : downloadSuccess
@@ -107,17 +107,17 @@ export const ActionButtons = ({
         data-share-profile
         onClick={handleShareProfile}
         disabled={isSharing || shareSuccess}
-        className='bg-white hover:bg-gray-50 text-gray-700 px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer whitespace-nowrap disabled:opacity-50 disabled:pointer-events-none'
+        className='bg-white hover:bg-gray-50 text-gray-700 px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-medium text-sm sm:text-base md:text-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 cursor-pointer disabled:opacity-50 disabled:pointer-events-none flex-1 sm:flex-none'
       >
-        <span className='flex items-center gap-3'>
+        <span className='flex items-center justify-center gap-2 xs:gap-3'>
           {isSharing ? (
-            <Loader2 className='w-6 h-6 animate-spin' />
+            <Loader2 className='w-5 xs:w-6 h-5 xs:h-6 animate-spin' />
           ) : shareSuccess ? (
-            <Check className='w-6 h-6' />
+            <Check className='w-5 xs:w-6 h-5 xs:h-6' />
           ) : (
-            <Share2 className='w-6 h-6' />
+            <Share2 className='w-5 xs:w-6 h-5 xs:h-6' />
           )}
-          <span>
+          <span className='text-center'>
             {isSharing
               ? 'Copying...'
               : shareSuccess
@@ -129,11 +129,11 @@ export const ActionButtons = ({
 
       <button
         onClick={onViewQRCode}
-        className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
+        className='bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-medium text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer flex-1 sm:flex-none'
       >
-        <span className='flex items-center gap-3'>
-          <QrCode className='w-6 h-6' />
-          <span>Generate QR Code</span>
+        <span className='flex items-center justify-center gap-2 xs:gap-3'>
+          <QrCode className='w-5 xs:w-6 h-5 xs:h-6' />
+          <span className='text-center'>Generate QR Code</span>
         </span>
       </button>
     </div>

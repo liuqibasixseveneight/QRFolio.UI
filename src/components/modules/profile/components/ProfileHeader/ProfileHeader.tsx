@@ -30,18 +30,26 @@ const ProfileHeader = ({
 
   return (
     <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
-      <div className='w-full px-6 sm:px-8 lg:px-12'>
+      <div className='w-full px-4 xs:px-6 sm:px-8 lg:px-12'>
         <div className='max-w-6xl mx-auto w-full'>
           <header className='relative w-full'>
-            <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
+            <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-12 xs:py-16 sm:py-20 lg:py-24 xl:py-32'>
               <div className='w-full'>
-                <div className='flex items-center justify-between mb-10'>
+                <div className='flex flex-col xs:flex-row xs:items-center justify-between mb-6 xs:mb-8 sm:mb-10 gap-4'>
                   <AvailabilityBadge availability={availability} className='' />
-                  <div className='flex items-center gap-4'>
-                    <div className='flex items-center gap-2 text-sm text-gray-500 py-3'>
-                      <Calendar className='w-4 h-4 text-gray-400' />
-                      <span>
+                  <div className='flex flex-col xs:flex-row xs:items-center gap-2 xs:gap-4'>
+                    <div className='flex items-center gap-2 text-xs sm:text-sm text-gray-500 py-2 sm:py-3'>
+                      <Calendar className='w-3 xs:w-4 h-3 xs:h-4 text-gray-400' />
+                      <span className='hidden xs:inline'>
                         Last Updated:{' '}
+                        <span className='font-medium'>
+                          {updatedAt
+                            ? formatDateWithOrdinal(updatedAt)
+                            : formatDateWithOrdinal(new Date())}
+                        </span>
+                      </span>
+                      <span className='xs:hidden'>
+                        Updated{' '}
                         <span className='font-medium'>
                           {updatedAt
                             ? formatDateWithOrdinal(updatedAt)
@@ -52,23 +60,23 @@ const ProfileHeader = ({
                     {isOwner && onEditClick && (
                       <button
                         onClick={onEditClick}
-                        className='flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 cursor-pointer'
+                        className='flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 cursor-pointer'
                         title='Edit Profile'
                       >
-                        <Edit className='w-4 h-4' />
+                        <Edit className='w-3 xs:w-4 h-3 xs:h-4' />
                         <span>Edit</span>
                       </button>
                     )}
                   </div>
                 </div>
 
-                <h1 className='text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight text-gray-900 mb-8 sm:mb-10 leading-tight'>
+                <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light tracking-tight text-gray-900 mb-6 sm:mb-8 md:mb-10 leading-tight'>
                   {fullName}
                 </h1>
 
                 {summary && (
-                  <div className='max-w-4xl mb-12 sm:mb-16'>
-                    <p className='text-xl sm:text-2xl lg:text-3xl text-gray-600 leading-relaxed font-light'>
+                  <div className='max-w-4xl mb-8 xs:mb-10 sm:mb-12 lg:mb-16'>
+                    <p className='text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-600 leading-relaxed font-light'>
                       {summary}
                     </p>
                   </div>

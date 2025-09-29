@@ -14,11 +14,11 @@ const EducationSection = ({ education = [] }: EducationSectionProps) => {
           className='group relative p-0 bg-transparent border-0'
         >
           <div className='mb-6'>
-            <h3 className='text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
+            <h3 className='text-base sm:text-lg md:text-xl font-light text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-300'>
               {edu?.degree}
             </h3>
             <div className='flex items-center gap-3 mb-4'>
-              <span className='text-xl font-medium text-gray-700'>
+              <span className='text-base sm:text-lg font-medium text-gray-700'>
                 {edu?.schoolName}
               </span>
             </div>
@@ -35,7 +35,7 @@ const EducationSection = ({ education = [] }: EducationSectionProps) => {
               <div className='space-y-3 mb-6'>
                 <SafeHtml
                   content={edu.description}
-                  className='text-gray-700 leading-relaxed text-base prose prose-sm max-w-none'
+                  className='text-gray-700 leading-relaxed text-sm sm:text-base prose prose-sm max-w-none'
                 />
               </div>
             )}

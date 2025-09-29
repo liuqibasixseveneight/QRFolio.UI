@@ -74,7 +74,7 @@ const FormField = (props: FormFieldProps) => {
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                    className='text-xs xs:text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
@@ -97,7 +97,7 @@ const FormField = (props: FormFieldProps) => {
                   disabled={readOnly}
                 />
                 {error && (
-                  <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                  <p className='text-xs xs:text-sm sm:text-base text-red-600 font-semibold'>
                     {error}
                   </p>
                 )}
@@ -153,7 +153,7 @@ const FormField = (props: FormFieldProps) => {
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                    className='text-xs xs:text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
@@ -181,7 +181,7 @@ const FormField = (props: FormFieldProps) => {
                   </SelectContent>
                 </Select>
                 {error && (
-                  <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                  <p className='text-xs xs:text-sm sm:text-base text-red-600 font-semibold'>
                     {error}
                   </p>
                 )}
