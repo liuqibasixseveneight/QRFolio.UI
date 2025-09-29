@@ -1,22 +1,22 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 
-export interface RichTextEditorProps {
+export type RichTextEditorProps = {
   value?: string;
   onChange?: (content: string) => void;
   placeholder?: string;
   height?: number;
   disabled?: boolean;
   className?: string;
-}
+};
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({
+const RichTextEditor = ({
   value = '',
   onChange,
   placeholder = 'Enter text...',
   height = 200,
   disabled = false,
   className = '',
-}) => {
+}: RichTextEditorProps) => {
   const editorRef = useRef<HTMLDivElement>(null);
 
   const handleInput = useCallback(() => {

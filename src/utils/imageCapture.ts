@@ -1,16 +1,16 @@
 // @ts-ignore
 import * as domtoimage from 'dom-to-image-more';
 
-export interface ImageCaptureOptions {
+export type ImageCaptureOptions = {
   quality?: number;
   backgroundColor?: string;
   scale?: number;
-}
+};
 
-export interface ImageCaptureResult {
+export type ImageCaptureResult = {
   dataUrl: string;
   fileName: string;
-}
+};
 
 export const captureElementAsImage = async (
   element: HTMLElement,
