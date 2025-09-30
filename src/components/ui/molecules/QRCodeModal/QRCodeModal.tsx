@@ -79,7 +79,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
             <span>Ready to share</span>
           </div>
 
-          <div className='grid grid-cols-1 xs:grid-cols-3 gap-2 xs:gap-3'>
+          <div className='grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-2 xs:gap-3'>
             <Button
               variant='outline'
               size='lg'
