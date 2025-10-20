@@ -42,10 +42,10 @@ const Dashboard = () => {
     {
       titleKey: profileExists
         ? 'dashboard.actions.editResume'
-        : 'dashboard.actions.createResume',
+        : 'dashboard.actions.createProfile',
       descriptionKey: profileExists
         ? 'dashboard.actions.editDescription'
-        : 'dashboard.actions.createDescription',
+        : 'dashboard.actions.createProfileDescription',
       icon: profileExists ? Pencil : Plus,
       action: profileExists ? handleEdit : handleCreate,
     },
@@ -136,7 +136,7 @@ const Dashboard = () => {
                       >
                         <FormattedMessage
                           id={
-                            titleKey.includes('create')
+                            titleKey.includes('createProfile')
                               ? 'dashboard.actions.createButton'
                               : 'dashboard.actions.openButton'
                           }

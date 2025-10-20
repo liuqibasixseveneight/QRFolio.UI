@@ -130,6 +130,8 @@
       "viewDescription": "Preview your resume as others will see it",
       "shareResume": "Share Resume",
       "shareDescription": "Copy your public resume link to share easily",
+      "createProfile": "Create Your Profile",
+      "createProfileDescription": "Build your professional profile to showcase your skills and experience",
       "createButton": "Create",
       "openButton": "Open"
     }
