@@ -89,8 +89,9 @@ export const useQRCodeModal = () => {
     setIsSaving(true);
 
     try {
+      // More specific selector for the ProfileQRCard component
       const profileCardElement = qrCardRef.current.querySelector(
-        'div[class*="w-full"][class*="font-sans"]'
+        'div.w-full.font-sans.select-none.overflow-hidden'
       ) as HTMLElement;
 
       if (!profileCardElement) {
@@ -103,7 +104,12 @@ export const useQRCodeModal = () => {
       )}_QR_Code.png`;
       const { dataUrl } = await captureElementAsImage(
         profileCardElement,
-        fileName
+        fileName,
+        {
+          quality: 1.0,
+          backgroundColor: '#ffffff',
+          scale: 3, // Higher scale for better quality
+        }
       );
 
       downloadImage(dataUrl, fileName);

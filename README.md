@@ -1,4 +1,32 @@
-# React + TypeScript + Vite
+# QRFolio UI
+
+A React + TypeScript + Vite application for generating professional QR code resumes.
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Apollo GraphQL Server URL
+VITE_APOLLO_CLIENT_URL=http://localhost:4000
+
+# Supabase Configuration
+VITE_DATABASE_PROJECT_URL=your_supabase_project_url
+VITE_DATABASE_PUBLIC_API_KEY=your_supabase_public_api_key
+
+# Production URL for QR Code Generation
+# Set this to your production domain (e.g., https://yourdomain.com)
+# When set, QR codes will use this URL instead of localhost
+VITE_PRODUCTION_URL=https://yourdomain.com
+```
+
+## QR Code Generation
+
+The application generates QR codes for professional profiles. To ensure QR codes contain the correct production URL instead of localhost:
+
+1. Set the `VITE_PRODUCTION_URL` environment variable to your production domain
+2. When this variable is set, all QR codes will use the production URL
+3. If not set, QR codes will fall back to using `window.location.origin` (localhost in development)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -36,15 +64,15 @@ export default tseslint.config([
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
 export default tseslint.config([
   globalIgnores(['dist']),
@@ -65,5 +93,5 @@ export default tseslint.config([
       // other options...
     },
   },
-])
+]);
 ```

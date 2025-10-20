@@ -27,58 +27,84 @@ export const captureElementAsImage = async (
   clonedElement.style.left = '-9999px';
   clonedElement.style.top = '-9999px';
   clonedElement.style.zIndex = '-1';
+  clonedElement.style.width = `${element.offsetWidth}px`;
+  clonedElement.style.height = `${element.offsetHeight}px`;
   document.body.appendChild(clonedElement);
 
-  // Apply border removal directly to the cloned element without CSS injection
-  const removeBordersFromClone = (element: HTMLElement) => {
-    const computedStyle = window.getComputedStyle(element);
+  // Inject CSS to remove unwanted borders and outlines
+  const style = document.createElement('style');
+  style.textContent = `
+    * {
+      outline: none !important;
+      border: none !important;
+    }
+    /* Preserve specific design elements */
+    .rounded-xl, .rounded-2xl, .rounded-lg, .rounded-sm {
+      border: none !important;
+    }
+    /* Preserve QR code container styling */
+    [class*="bg-gray-50"][class*="shadow-sm"] {
+      border: none !important;
+      outline: none !important;
+    }
+    /* Preserve QR code inner container */
+    [class*="bg-white"][class*="shadow-sm"] {
+      border: none !important;
+      outline: none !important;
+    }
+    /* Remove any focus rings or browser UI */
+    *:focus {
+      outline: none !important;
+      border: none !important;
+    }
+  `;
+  document.head.appendChild(style);
 
-    // Only remove borders if they exist and won't cause layout shifts
-    if (
-      computedStyle.border !== 'none' &&
-      computedStyle.borderWidth !== '0px'
-    ) {
-      element.style.setProperty('border', 'none', 'important');
-    }
-    if (
-      computedStyle.outline !== 'none' &&
-      computedStyle.outlineWidth !== '0px'
-    ) {
-      element.style.setProperty('outline', 'none', 'important');
-    }
-    if (computedStyle.boxShadow !== 'none') {
-      element.style.setProperty('box-shadow', 'none', 'important');
-    }
+  // Remove unwanted borders and outlines while preserving intended design
+  const cleanElementStyling = (element: HTMLElement) => {
+    // Remove all borders and outlines
+    element.style.setProperty('border', 'none', 'important');
+    element.style.setProperty('outline', 'none', 'important');
 
     // Process children recursively
     Array.from(element.children).forEach((child) => {
       if (child instanceof HTMLElement) {
-        removeBordersFromClone(child);
+        cleanElementStyling(child);
       }
     });
   };
 
-  removeBordersFromClone(clonedElement);
+  cleanElementStyling(clonedElement);
+
+  // Wait for fonts and images to load
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
     const dataUrl = await domtoimage.toPng(clonedElement, {
       quality,
       bgcolor: backgroundColor,
-      width: clonedElement.offsetWidth * scale,
-      height: clonedElement.offsetHeight * scale,
+      width: element.offsetWidth * scale,
+      height: element.offsetHeight * scale,
       style: {
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
+        width: `${element.offsetWidth}px`,
+        height: `${element.offsetHeight}px`,
+      },
+      filter: (node) => {
+        // Keep all nodes, don't filter anything
+        return true;
       },
     });
 
     return { dataUrl, fileName };
   } finally {
-    // Clean up the cloned element
+    // Clean up the cloned element and injected styles
     if (document.body.contains(clonedElement)) {
       document.body.removeChild(clonedElement);
+    }
+    if (document.head.contains(style)) {
+      document.head.removeChild(style);
     }
   }
 };
