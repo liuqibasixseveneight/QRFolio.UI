@@ -68,7 +68,6 @@ const CreateProfileTabs = () => {
         {
           schoolName: '',
           degree: '',
-          fieldOfStudy: '',
           dateFrom: '',
           dateTo: '',
           description: '',
@@ -215,7 +214,6 @@ const CreateProfileTabs = () => {
       handleAppend(appendEdu, setActiveEduIndex, eduFields.length, {
         schoolName: '',
         degree: '',
-        fieldOfStudy: '',
         dateFrom: '',
         dateTo: '',
         description: '',

@@ -20,14 +20,14 @@ export const ContactInformation = ({
   portfolio,
 }: ContactInformationProps) => {
   return (
-    <div className='flex items-center gap-4 mb-12'>
+    <div className='flex flex-wrap items-center gap-3 xs:gap-4 mb-8 xs:mb-10 sm:mb-12'>
       {email && (
         <ProfileHeaderBadge
           icon={Mail}
           label={email}
           type='email'
           href={email}
-          className='w-12 h-12'
+          className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
       {phone && (
@@ -35,7 +35,7 @@ export const ContactInformation = ({
           icon={Phone}
           label={formatPhoneDisplay(phone)}
           type='phone'
-          className='w-12 h-12'
+          className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
       {linkedin && (
@@ -44,7 +44,7 @@ export const ContactInformation = ({
           label='LinkedIn'
           type='linkedin'
           href={linkedin}
-          className='w-12 h-12'
+          className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
       {portfolio && (
@@ -53,7 +53,7 @@ export const ContactInformation = ({
           label={portfolio}
           type='link'
           href={portfolio}
-          className='w-12 h-12'
+          className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
     </div>

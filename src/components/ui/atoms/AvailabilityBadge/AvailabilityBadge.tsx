@@ -9,22 +9,22 @@ const AvailabilityBadge = ({
     switch (status) {
       case 'available':
         return {
-          text: 'Available',
+          text: 'Actively looking',
           dotColor: 'bg-green-500',
         };
       case 'open':
         return {
-          text: 'Open to Opportunities',
+          text: 'Casually looking',
           dotColor: 'bg-blue-500',
         };
       case 'unavailable':
         return {
-          text: 'Unavailable',
+          text: 'Not looking',
           dotColor: 'bg-gray-500',
         };
       default:
         return {
-          text: 'Available',
+          text: 'Actively looking',
           dotColor: 'bg-green-500',
         };
     }

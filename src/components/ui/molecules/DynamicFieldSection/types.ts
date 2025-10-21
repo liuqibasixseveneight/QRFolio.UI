@@ -9,10 +9,12 @@ import type { ReactNode } from 'react';
 export type FieldConfig = {
   label: string;
   name: string;
-  type?: 'input' | 'textarea' | 'date' | 'select';
+  type?: 'input' | 'textarea' | 'date' | 'select' | 'richText';
   options?: { label: string; value: string }[];
   rows?: number;
   required?: boolean;
+  hasCurrentCheckbox?: boolean;
+  currentCheckboxLabel?: string;
 };
 
 export type DynamicFieldSectionProps<T extends FieldValues> = {

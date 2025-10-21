@@ -34,6 +34,8 @@ const FormField = (props: FormFieldProps) => {
     onPhoneChange,
     value,
     onChange,
+    hasCurrentCheckbox,
+    currentCheckboxLabel = 'Currently working here',
   } = props;
 
   if (type === 'phone') {
@@ -67,37 +69,67 @@ const FormField = (props: FormFieldProps) => {
           control={control}
           name={registerName}
           render={({ field }) => {
-            const dateObj = field.value ? parseISO(field.value) : undefined;
+            const dateObj =
+              field.value && field.value !== 'current'
+                ? parseISO(field.value)
+                : undefined;
 
             return (
               <div className='space-y-3'>
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                    className='text-xs xs:text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
                   </Label>
                 )}
-                <DatePicker
-                  date={dateObj}
-                  onDateChange={(date: Date | undefined) => {
-                    if (date) {
-                      field.onChange(format(date, 'yyyy-MM-dd'));
-                    } else {
-                      field.onChange('');
+                <div className='space-y-2'>
+                  <DatePicker
+                    date={dateObj}
+                    onDateChange={(date: Date | undefined) => {
+                      if (date) {
+                        field.onChange(format(date, 'yyyy-MM-dd'));
+                      } else {
+                        field.onChange('');
+                      }
+                    }}
+                    placeholder={
+                      field.value === 'current'
+                        ? 'Current'
+                        : typeof placeholder === 'string'
+                        ? placeholder
+                        : 'Select date'
                     }
-                  }}
-                  placeholder={
-                    typeof placeholder === 'string'
-                      ? placeholder
-                      : 'Select date'
-                  }
-                  disabled={readOnly}
-                />
+                    disabled={readOnly || field.value === 'current'}
+                  />
+                  {hasCurrentCheckbox && (
+                    <div className='flex items-center space-x-2'>
+                      <input
+                        type='checkbox'
+                        id={`${registerName}-current`}
+                        checked={field.value === 'current'}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            field.onChange('current');
+                          } else {
+                            field.onChange('');
+                          }
+                        }}
+                        className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2'
+                      />
+                      <label
+                        htmlFor={`${registerName}-current`}
+                        className='text-sm text-gray-700 cursor-pointer'
+                      >
+                        {currentCheckboxLabel}
+                      </label>
+                    </div>
+                  )}
+                </div>
                 {error && (
-                  <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                  <p className='text-xs xs:text-sm sm:text-base text-red-600 font-semibold'>
                     {error}
                   </p>
                 )}
@@ -107,7 +139,8 @@ const FormField = (props: FormFieldProps) => {
         />
       );
     } else {
-      const dateObj = value ? parseISO(value) : undefined;
+      const dateObj =
+        value && value !== 'current' ? parseISO(value) : undefined;
 
       return (
         <div className='space-y-3'>
@@ -117,20 +150,49 @@ const FormField = (props: FormFieldProps) => {
               {required && <span className='text-red-500 ml-1'>*</span>}
             </Label>
           )}
-          <DatePicker
-            date={dateObj}
-            onDateChange={(date: Date | undefined) => {
-              if (date) {
-                onChange?.(format(date, 'yyyy-MM-dd'));
-              } else {
-                onChange?.('');
+          <div className='space-y-2'>
+            <DatePicker
+              date={dateObj}
+              onDateChange={(date: Date | undefined) => {
+                if (date) {
+                  onChange?.(format(date, 'yyyy-MM-dd'));
+                } else {
+                  onChange?.('');
+                }
+              }}
+              placeholder={
+                value === 'current'
+                  ? 'Current'
+                  : typeof placeholder === 'string'
+                  ? placeholder
+                  : 'Select date'
               }
-            }}
-            placeholder={
-              typeof placeholder === 'string' ? placeholder : 'Select date'
-            }
-            disabled={readOnly}
-          />
+              disabled={readOnly || value === 'current'}
+            />
+            {hasCurrentCheckbox && (
+              <div className='flex items-center space-x-2'>
+                <input
+                  type='checkbox'
+                  id={`${registerName}-current`}
+                  checked={value === 'current'}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      onChange?.('current');
+                    } else {
+                      onChange?.('');
+                    }
+                  }}
+                  className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2'
+                />
+                <label
+                  htmlFor={`${registerName}-current`}
+                  className='text-sm text-gray-700 cursor-pointer'
+                >
+                  {currentCheckboxLabel}
+                </label>
+              </div>
+            )}
+          </div>
           {error && (
             <p className='text-sm sm:text-base text-red-600 font-semibold'>
               {error}
@@ -153,7 +215,7 @@ const FormField = (props: FormFieldProps) => {
                 {label && (
                   <Label
                     htmlFor={registerName}
-                    className='text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
+                    className='text-xs xs:text-sm sm:text-base font-semibold text-gray-800 tracking-wide'
                   >
                     {label}
                     {required && <span className='text-red-500 ml-1'>*</span>}
@@ -181,7 +243,7 @@ const FormField = (props: FormFieldProps) => {
                   </SelectContent>
                 </Select>
                 {error && (
-                  <p className='text-sm sm:text-base text-red-600 font-semibold'>
+                  <p className='text-xs xs:text-sm sm:text-base text-red-600 font-semibold'>
                     {error}
                   </p>
                 )}
@@ -251,7 +313,9 @@ const FormField = (props: FormFieldProps) => {
               <RichTextEditor
                 value={field.value || ''}
                 onChange={field.onChange}
-                placeholder={placeholder}
+                placeholder={
+                  typeof placeholder === 'string' ? placeholder : undefined
+                }
                 height={rows ? rows * 20 : 200}
                 disabled={readOnly}
               />
@@ -276,7 +340,9 @@ const FormField = (props: FormFieldProps) => {
           <RichTextEditor
             value={value || ''}
             onChange={onChange}
-            placeholder={placeholder}
+            placeholder={
+              typeof placeholder === 'string' ? placeholder : undefined
+            }
             height={rows ? rows * 20 : 200}
             disabled={readOnly}
           />

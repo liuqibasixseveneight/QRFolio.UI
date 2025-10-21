@@ -1,6 +1,7 @@
 import { useGetProfile } from '@/apollo/profile';
 import { LoadingSpinner, ProfileQRCard } from '@/components/ui';
 import { useAuth } from '@/context';
+import { PRODUCTION_URL } from '@/config';
 
 const Share = () => {
   const { userId } = useAuth();
@@ -16,7 +17,9 @@ const Share = () => {
   ] = useGetProfile(userId || '');
 
   const { fullName = '', professionalSummary = '' } = data?.profile || {};
-  const profileLink = `${window.location.origin}/profile/${userId}`;
+  const profileLink = PRODUCTION_URL
+    ? `${PRODUCTION_URL}/profile/${userId}`
+    : `${window.location.origin}/profile/${userId}`;
 
   if (loading) {
     return (

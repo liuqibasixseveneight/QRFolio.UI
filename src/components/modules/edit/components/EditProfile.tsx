@@ -68,7 +68,6 @@ const EditProfile = () => {
         {
           schoolName: '',
           degree: '',
-          fieldOfStudy: '',
           dateFrom: '',
           dateTo: '',
           description: '',
@@ -113,7 +112,6 @@ const EditProfile = () => {
                 {
                   schoolName: '',
                   degree: '',
-                  fieldOfStudy: '',
                   dateFrom: '',
                   dateTo: '',
                   description: '',
@@ -196,11 +194,16 @@ const EditProfile = () => {
         languages: (data.languages ?? []).filter(
           (entry) => entry.language && entry.fluencyLevel
         ),
-        skills: (data.skills ?? []).filter(
-          (category) =>
-            category.title?.trim() &&
-            category.skills?.some((skill) => skill.skill?.trim())
-        ),
+        skills: (data.skills ?? [])
+          .filter(
+            (category) =>
+              category.title?.trim() &&
+              category.skills?.some((skill) => skill.skill?.trim())
+          )
+          .map((category) => ({
+            title: category.title || '',
+            skills: category.skills || [],
+          })),
       });
 
       toast({
@@ -237,7 +240,6 @@ const EditProfile = () => {
     );
   }
 
-  // Don't render the form until we have profile data
   if (!profile) {
     return (
       <main className='min-h-screen w-full bg-gray-50 flex items-center justify-center'>
@@ -269,7 +271,6 @@ const EditProfile = () => {
       handleAppend(appendEdu, setActiveEduIndex, eduFields.length, {
         schoolName: '',
         degree: '',
-        fieldOfStudy: '',
         dateFrom: '',
         dateTo: '',
         description: '',
@@ -289,7 +290,6 @@ const EditProfile = () => {
     removeLanguage,
     skillsFields,
     onSkillsChange: (newSkillCategories) => {
-      // Directly update the skills field using setValue
       setValue('skills', newSkillCategories);
     },
     activeWorkIndex,

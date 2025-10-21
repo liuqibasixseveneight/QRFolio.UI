@@ -6,7 +6,7 @@ export const skillSchema = z.object({
 
 export const skillCategorySchema = z.object({
   title: z.string().optional(),
-  skills: z.array(skillSchema).default([]),
+  skills: z.array(skillSchema).optional(),
 });
 
-export const skillsSchema = z.array(skillCategorySchema);
+export const skillsSchema = z.array(skillCategorySchema).default([]);

@@ -4,6 +4,7 @@ import { ArrowRight, Copy } from 'lucide-react';
 import { Button, LoadingSpinner, ProfileQRCard } from '@/components/ui';
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
+import { PRODUCTION_URL } from '@/config';
 
 const ProfileCreated = () => {
   const navigate = useNavigate();
@@ -27,7 +28,9 @@ const ProfileCreated = () => {
     );
   }
 
-  const profileLink = `${window.location.origin}/profile/${userId}`;
+  const profileLink = PRODUCTION_URL
+    ? `${PRODUCTION_URL}/profile/${userId}`
+    : `${window.location.origin}/profile/${userId}`;
   const fullName = profileData?.fullName ?? 'Your resume';
 
   const copyLinkToClipboard = () => {

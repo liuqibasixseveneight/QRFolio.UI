@@ -94,7 +94,6 @@
     "description": "Description",
     "institution": "Institution",
     "degree": "Degree",
-    "fieldOfStudy": "Field of Study",
     "graduationDate": "Graduation Date",
     "skillName": "Skill Name",
     "proficiency": "Proficiency",
@@ -131,6 +130,8 @@
       "viewDescription": "Preview your resume as others will see it",
       "shareResume": "Share Resume",
       "shareDescription": "Copy your public resume link to share easily",
+      "createProfile": "Create Your Profile",
+      "createProfileDescription": "Build your professional profile to showcase your skills and experience",
       "createButton": "Create",
       "openButton": "Open"
     }
@@ -273,9 +274,9 @@
       "skillInput": "Type a skill and press Enter to add it..."
     },
     "availability": {
-      "available": "Available",
-      "open": "Open",
-      "unavailable": "Unavailable"
+      "available": "Actively looking",
+      "open": "Casually looking",
+      "unavailable": "Not looking"
     }
   },
   "createProfile": {

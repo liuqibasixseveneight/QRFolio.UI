@@ -55,7 +55,7 @@ const DynamicFieldSection = <T extends Record<string, any>>({
             className='rounded-2xl bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:from-slate-50/95 hover:via-white hover:to-slate-50/95 border border-slate-200/40 shadow-lg shadow-slate-200/20 hover:shadow-xl hover:shadow-slate-200/30'
           >
             <div
-              className='p-4 sm:p-6 bg-gradient-to-r from-slate-50/50 via-white to-slate-50/50 cursor-pointer flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 hover:from-slate-50/70 hover:via-white hover:to-slate-50/70 transition-all duration-300'
+              className='p-4 sm:p-6 bg-gradient-to-r from-slate-50/50 via-white to-slate-50/50 cursor-pointer flex flex-col xs:flex-row xs:items-center xs:justify-between gap-3 hover:from-slate-50/70 hover:via-white hover:to-slate-50/70 transition-all duration-300'
               onClick={() => toggleIndex(index)}
             >
               <div className='flex-1 min-w-0'>
@@ -75,11 +75,7 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                   get(fields?.[index], 'degree') && (
                     <span className='text-sm text-slate-600 block'>
                       <Ellipsis
-                        text={`${get(fields?.[index], 'degree')}${
-                          get(fields?.[index], 'fieldOfStudy')
-                            ? ` - ${get(fields?.[index], 'fieldOfStudy')}`
-                            : ''
-                        }`}
+                        text={`${get(fields?.[index], 'degree')}`}
                         maxLength={60}
                         className='text-sm text-slate-600'
                       />
@@ -106,7 +102,7 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                     </span>
                   )}
               </div>
-              <div className='flex items-center gap-2 flex-shrink-0'>
+              <div className='flex items-center gap-2 flex-shrink-0 self-start xs:self-center'>
                 <Button
                   type='button'
                   variant='outline'
@@ -177,7 +173,7 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                           return (
                             <div
                               key={`date-group-${configIndex}`}
-                              className='grid grid-cols-1 md:grid-cols-2 gap-4'
+                              className='grid grid-cols-1 xs:grid-cols-2 gap-4'
                             >
                               {dateGroupFields.map(
                                 (dateConfig: FieldConfig) => {
@@ -198,6 +194,12 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                                         error={dateError}
                                         control={control}
                                         required={dateConfig?.required}
+                                        hasCurrentCheckbox={
+                                          dateConfig?.hasCurrentCheckbox
+                                        }
+                                        currentCheckboxLabel={
+                                          dateConfig?.currentCheckboxLabel
+                                        }
                                       />
                                     </div>
                                   );

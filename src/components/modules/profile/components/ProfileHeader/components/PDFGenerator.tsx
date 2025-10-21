@@ -10,6 +10,7 @@ import { formatDateForPDF } from '../utils';
 import { htmlToPDFText } from '../utils/htmlToPDFText';
 import type { ProfileHeaderProps } from '../types';
 import { pdfStyles } from './PDFGenerator.styles';
+import { useToast } from '@/components/ui/molecules/Toast/use-toast';
 
 /**
  * Generates and downloads a PDF resume from profile data
@@ -116,10 +117,7 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
             <Text style={pdfStyles.sectionTitle}>Education</Text>
             {education.map((edu, index) => (
               <View key={index} style={pdfStyles.educationItem}>
-                <Text style={pdfStyles.degree}>
-                  {edu?.degree || 'Degree'} in{' '}
-                  {edu?.fieldOfStudy || 'Field of Study'}
-                </Text>
+                <Text style={pdfStyles.degree}>{edu?.degree || 'Degree'}</Text>
                 <Text style={pdfStyles.schoolInfo}>
                   {edu?.schoolName || 'School'}
                   {edu?.dateFrom &&
@@ -192,74 +190,30 @@ export const generatePDF = async (profileData: ProfileHeaderProps) => {
 };
 
 /**
- * Handles the PDF download process with loading states and error handling
+ * Handles the PDF download process with toast notifications
  */
-export const handleDownloadPDF = async (profileData: ProfileHeaderProps) => {
+export const handleDownloadPDF = async (
+  profileData: ProfileHeaderProps,
+  toast: any
+) => {
   try {
-    // Show loading state
-    const button = document.querySelector(
-      '[data-download-resume]'
-    ) as HTMLButtonElement;
-    if (button) {
-      button.disabled = true;
-      button.innerHTML = `
-         <span class="flex items-center gap-3">
-           <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-           <span>Generating PDF...</span>
-         </span>
-       `;
-    }
-
     await generatePDF(profileData);
 
-    // Show success feedback
-    if (button) {
-      button.disabled = false;
-      button.innerHTML = `
-         <span class="flex items-center gap-3">
-           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-           </svg>
-           <span>Downloaded!</span>
-         </span>
-       `;
-
-      // Reset to original state after 2 seconds
-      setTimeout(() => {
-        button.innerHTML = `
-            <span class="flex items-center gap-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-              </svg>
-              <span>Download PDF</span>
-            </span>
-          `;
-      }, 2000);
-    }
+    toast({
+      title: 'PDF Downloaded Successfully! 📄',
+      description: 'Your resume has been saved as a PDF.',
+      variant: 'success',
+    });
   } catch (error) {
     console.error('Failed to generate PDF:', error);
 
-    // Reset button state on error
-    const button = document.querySelector(
-      '[data-download-resume]'
-    ) as HTMLButtonElement;
-    if (button) {
-      button.disabled = false;
-      button.innerHTML = `
-         <span class="flex items-center gap-3">
-           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-           </svg>
-           <span>Download PDF</span>
-         </span>
-       `;
-    }
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error occurred';
 
-    // Show more specific error message
-    if (error instanceof Error) {
-      alert(`Failed to generate PDF: ${error.message}`);
-    } else {
-      alert('Failed to generate PDF. Please try again.');
-    }
+    toast({
+      title: 'PDF Download Failed',
+      description: `Failed to generate PDF: ${errorMessage}`,
+      variant: 'destructive',
+    });
   }
 };

@@ -3,7 +3,14 @@ import type { ReactNode } from 'react';
 
 export type FormFieldProps = {
   label?: string | ReactNode;
-  type?: 'input' | 'textarea' | 'date' | 'select' | 'password' | 'phone';
+  type?:
+    | 'input'
+    | 'textarea'
+    | 'date'
+    | 'select'
+    | 'password'
+    | 'phone'
+    | 'richText';
   placeholder?: string | ReactNode;
   value?: string;
   onChange?: (val: string) => void;
@@ -16,4 +23,6 @@ export type FormFieldProps = {
   options?: { label: string | ReactNode; value: string }[];
   required?: boolean;
   onPhoneChange?: (value: any) => void;
+  hasCurrentCheckbox?: boolean;
+  currentCheckboxLabel?: string;
 };

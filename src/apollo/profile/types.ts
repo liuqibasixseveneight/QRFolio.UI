@@ -12,7 +12,6 @@ export type WorkExperience = {
 export type Education = {
   schoolName?: string;
   degree?: string;
-  fieldOfStudy?: string;
   dateFrom?: DateString;
   dateTo?: DateString;
   description?: string;
@@ -34,17 +33,17 @@ export type SkillCategory = {
 
 export type Availability = 'available' | 'open' | 'unavailable';
 
-export interface PhoneNumber {
+export type PhoneNumber = {
   countryCode: string;
   dialCode: string;
   number: string;
   flag?: string;
-}
+};
 
 // Phone can be either a PhoneNumber object, a string, or undefined
 export type Phone = PhoneNumber | string | undefined;
 
-export interface BaseProfile {
+export type BaseProfile = {
   fullName: string;
   phone?: Phone;
   email: string;
@@ -56,47 +55,47 @@ export interface BaseProfile {
   education?: Education[];
   languages?: Language[];
   skills?: SkillCategory[];
-}
+};
 
-export interface Profile extends BaseProfile {
+export type Profile = BaseProfile & {
   id: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export interface CreateProfileVariables extends BaseProfile {
+export type CreateProfileVariables = BaseProfile & {
   id: string;
-}
+};
 
-export interface UpdateProfileVariables extends Partial<BaseProfile> {
+export type UpdateProfileVariables = Partial<BaseProfile> & {
   id: string;
-}
+};
 
-export interface CreateProfileData {
+export type CreateProfileData = {
   createProfile: Profile;
-}
+};
 
-export interface UpdateProfileData {
+export type UpdateProfileData = {
   updateProfile: Profile;
-}
+};
 
-export interface GetProfilesData {
+export type GetProfilesData = {
   profiles: Profile[];
-}
+};
 
-export interface GetProfileData {
+export type GetProfileData = {
   profile: Profile;
-}
+};
 
-export interface GetProfileVariables {
+export type GetProfileVariables = {
   id: string;
-}
+};
 
-export interface GraphQLResult<T> {
+export type GraphQLResult<T> = {
   loading: boolean;
   error?: Error;
   data?: T;
-}
+};
 
 export type GetProfilesResult = GraphQLResult<GetProfilesData>;
 export type GetProfileResult = GraphQLResult<GetProfileData>;
