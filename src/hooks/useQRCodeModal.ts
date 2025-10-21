@@ -23,6 +23,30 @@ export const useQRCodeModal = () => {
     setTimeout(() => setIsVisible(true), 10);
   };
 
+  // Helper function to safely copy text to clipboard
+  const copyToClipboard = async (text: string): Promise<boolean> => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+
+      const success = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      return success;
+    } catch {
+      return false;
+    }
+  };
+
   const handleShare = async (profileData: any) => {
     try {
       if (navigator.share) {
@@ -31,16 +55,21 @@ export const useQRCodeModal = () => {
           text: `Check out ${profileData.labels.fullName}'s professional profile`,
           url: profileData.link,
         });
-      } else {
-        await navigator.clipboard.writeText(profileData.link);
+        return;
+      }
+
+      // Fallback to copy
+      const success = await copyToClipboard(profileData.link);
+      if (success) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
-
         toast({
           title: 'Link Copied',
           description: 'Profile link has been copied to clipboard.',
           variant: 'success',
         });
+      } else {
+        throw new Error('Copy failed');
       }
     } catch (error) {
       console.error('Failed to share:', error);
@@ -54,15 +83,18 @@ export const useQRCodeModal = () => {
 
   const handleCopyLink = async (profileData: any) => {
     try {
-      await navigator.clipboard.writeText(profileData.link);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-
-      toast({
-        title: 'Link Copied',
-        description: 'Profile link has been copied to clipboard.',
-        variant: 'success',
-      });
+      const success = await copyToClipboard(profileData.link);
+      if (success) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        toast({
+          title: 'Link Copied',
+          description: 'Profile link has been copied to clipboard.',
+          variant: 'success',
+        });
+      } else {
+        throw new Error('Copy failed');
+      }
     } catch (error) {
       console.error('Failed to copy link:', error);
       toast({
