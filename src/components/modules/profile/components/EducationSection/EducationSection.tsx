@@ -4,7 +4,9 @@ import { SafeHtml } from '@/components/ui';
 import type { EducationSectionProps } from './types';
 
 const EducationSection = ({ education = [] }: EducationSectionProps) => {
-  if (!education?.length) return null;
+  if (!education?.length) {
+    return null;
+  }
 
   return (
     <div className='space-y-12'>
@@ -27,7 +29,11 @@ const EducationSection = ({ education = [] }: EducationSectionProps) => {
               <span className='text-sm text-gray-500 font-medium flex items-center gap-2'>
                 <Calendar className='w-4 h-4' />
                 {edu?.dateFrom ? formatDate(edu.dateFrom) : 'N/A'} -{' '}
-                {edu?.dateTo ? formatDate(edu.dateTo) : 'Present'}
+                {edu?.dateTo
+                  ? edu.dateTo === 'current'
+                    ? 'Current'
+                    : formatDate(edu.dateTo)
+                  : 'Present'}
               </span>
             </div>
 

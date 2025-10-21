@@ -27,7 +27,7 @@ const ProfileSidebar = ({
     switch (status) {
       case 'available':
         return {
-          text: 'Available for Opportunities',
+          text: 'Actively looking',
           bgColor: 'from-emerald-50/90 to-emerald-100/90',
           borderColor: 'border-emerald-200/60',
           textColor: 'text-emerald-800',
@@ -37,7 +37,7 @@ const ProfileSidebar = ({
         };
       case 'open':
         return {
-          text: 'Open to New Roles',
+          text: 'Casually looking',
           bgColor: 'from-blue-50/90 to-blue-100/90',
           borderColor: 'border-blue-200/60',
           textColor: 'text-blue-800',
@@ -47,7 +47,7 @@ const ProfileSidebar = ({
         };
       case 'unavailable':
         return {
-          text: 'Currently Unavailable',
+          text: 'Not looking',
           bgColor: 'from-slate-50/90 to-slate-100/90',
           borderColor: 'border-slate-200/60',
           textColor: 'text-slate-800',
@@ -57,7 +57,7 @@ const ProfileSidebar = ({
         };
       default:
         return {
-          text: 'Available for Opportunities',
+          text: 'Actively looking',
           bgColor: 'from-emerald-50/90 to-emerald-100/90',
           borderColor: 'border-emerald-200/60',
           textColor: 'text-emerald-800',

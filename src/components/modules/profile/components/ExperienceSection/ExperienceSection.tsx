@@ -36,7 +36,11 @@ const ExperienceSection = ({ workExperience = [] }: ExperienceSectionProps) => {
               <span className='text-sm text-gray-500 font-medium flex items-center gap-2'>
                 <Calendar className='w-4 h-4' />
                 {exp?.dateFrom ? formatDate(exp.dateFrom) : 'N/A'} -{' '}
-                {exp?.dateTo ? formatDate(exp.dateTo) : 'Present'}
+                {exp?.dateTo
+                  ? exp.dateTo === 'current'
+                    ? 'Current'
+                    : formatDate(exp.dateTo)
+                  : 'Present'}
               </span>
             </div>
 

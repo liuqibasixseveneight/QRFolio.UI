@@ -274,9 +274,9 @@
       "skillInput": "Type a skill and press Enter to add it..."
     },
     "availability": {
-      "available": "Available",
-      "open": "Open",
-      "unavailable": "Unavailable"
+      "available": "Actively looking",
+      "open": "Casually looking",
+      "unavailable": "Not looking"
     }
   },
   "createProfile": {

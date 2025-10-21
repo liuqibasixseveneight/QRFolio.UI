@@ -2,6 +2,10 @@
  * Formats a date in day/month/year format for display
  */
 export const formatDate = (dateString: string | Date): string => {
+  if (dateString === 'current') {
+    return 'Current';
+  }
+
   const date = new Date(dateString);
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -13,6 +17,10 @@ export const formatDate = (dateString: string | Date): string => {
  * Formats a date in month/year format for PDF generation
  */
 export const formatDateForPDF = (dateString: string | Date): string => {
+  if (dateString === 'current') {
+    return 'Current';
+  }
+
   const date = new Date(dateString);
   const month = date.toLocaleString('en-US', { month: 'long' });
   const year = date.getFullYear();

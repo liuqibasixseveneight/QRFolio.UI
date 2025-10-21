@@ -5,7 +5,7 @@ const workExperienceConfig: FieldConfig[] = [
   { name: 'companyName', label: 'Company Name', type: 'input' },
   { name: 'location', label: 'Location', type: 'input' },
   { name: 'dateFrom', label: 'Date From', type: 'date' },
-  { name: 'dateTo', label: 'Date To', type: 'date' },
+  { name: 'dateTo', label: 'Date To', type: 'date', hasCurrentCheckbox: true },
   {
     name: 'responsibilities',
     label: 'Responsibilities',
@@ -19,7 +19,13 @@ const educationConfig: FieldConfig[] = [
   { name: 'schoolName', label: 'School Name', type: 'input' },
   { name: 'degree', label: 'Degree', type: 'input' },
   { name: 'dateFrom', label: 'Date From', type: 'date' },
-  { name: 'dateTo', label: 'Date To', type: 'date' },
+  {
+    name: 'dateTo',
+    label: 'Date To',
+    type: 'date',
+    hasCurrentCheckbox: true,
+    currentCheckboxLabel: 'Currently studying here',
+  },
   {
     name: 'description',
     label: 'Description',

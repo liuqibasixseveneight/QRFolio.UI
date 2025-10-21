@@ -194,6 +194,12 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                                         error={dateError}
                                         control={control}
                                         required={dateConfig?.required}
+                                        hasCurrentCheckbox={
+                                          dateConfig?.hasCurrentCheckbox
+                                        }
+                                        currentCheckboxLabel={
+                                          dateConfig?.currentCheckboxLabel
+                                        }
                                       />
                                     </div>
                                   );
