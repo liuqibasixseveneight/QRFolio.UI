@@ -2,7 +2,9 @@ import { ArrowRight, Sparkles, Share2, Wand2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import { Button } from '@/components/ui';
+import { Button, LoadingSpinner } from '@/components/ui';
+import { useAuth } from '@/context';
+import { useGetProfile } from '@/apollo/profile';
 
 const features = [
   {
@@ -24,6 +26,32 @@ const features = [
 
 const Landing = () => {
   const navigate = useNavigate();
+  const { userId, session, loading: authLoading } = useAuth();
+
+  const [profileData, { loading: profileLoading }] = useGetProfile(
+    userId || ''
+  );
+  const profile = profileData?.profile;
+
+  const isLoading = authLoading || (session && profileLoading);
+  const isAuthenticated = !!session;
+  const hasProfile = !!profile;
+
+  const shouldShowGetStarted = !(isAuthenticated && hasProfile);
+  const shouldShowReadySection = !(isAuthenticated && hasProfile);
+
+  if (isLoading) {
+    return (
+      <main className='min-h-screen w-full bg-gray-50 text-gray-900 font-sans relative overflow-hidden flex items-center justify-center'>
+        <div className='text-center'>
+          <div className='w-16 h-16 mx-auto mb-6'>
+            <LoadingSpinner />
+          </div>
+          <p className='text-gray-600 text-sm font-medium'>Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <>
@@ -43,24 +71,26 @@ const Landing = () => {
                     <FormattedMessage id='landing.heroDescription' />
                   </p>
 
-                  <div className='flex flex-col sm:flex-row items-center justify-center gap-4 mb-8'>
-                    <Button
-                      size='lg'
-                      className='bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
-                      onClick={() => navigate('/sign-in')}
-                    >
-                      <FormattedMessage id='landing.getStarted' />{' '}
-                      <ArrowRight className='inline w-5 h-5 ml-2' />
-                    </Button>
-                    <Button
-                      size='lg'
-                      variant='outline'
-                      className='border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
-                      onClick={() => navigate('/sign-up')}
-                    >
-                      <FormattedMessage id='landing.learnMore' />
-                    </Button>
-                  </div>
+                  {shouldShowGetStarted && (
+                    <div className='flex flex-col sm:flex-row items-center justify-center gap-4 mb-8'>
+                      <Button
+                        size='lg'
+                        className='bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
+                        onClick={() => navigate('/sign-in')}
+                      >
+                        <FormattedMessage id='landing.getStarted' />{' '}
+                        <ArrowRight className='inline w-5 h-5 ml-2' />
+                      </Button>
+                      <Button
+                        size='lg'
+                        variant='outline'
+                        className='border border-gray-300 hover:border-gray-400 text-gray-700 px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
+                        onClick={() => navigate('/sign-up')}
+                      >
+                        <FormattedMessage id='landing.learnMore' />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -105,21 +135,23 @@ const Landing = () => {
               </div>
             </div>
 
-            <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-8 sm:px-12 py-16 text-center'>
-              <h2 className='text-3xl font-light text-gray-900 mb-4'>
-                Ready to begin?
-              </h2>
-              <p className='text-gray-600 text-lg mb-8 max-w-2xl mx-auto'>
-                Start building your professional resume today
-              </p>
-              <Button
-                size='lg'
-                className='bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
-                onClick={() => navigate('/sign-up')}
-              >
-                Create Resume <ArrowRight className='inline w-5 h-5 ml-2' />
-              </Button>
-            </div>
+            {shouldShowReadySection && (
+              <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-8 sm:px-12 py-16 text-center'>
+                <h2 className='text-3xl font-light text-gray-900 mb-4'>
+                  Ready to begin?
+                </h2>
+                <p className='text-gray-600 text-lg mb-8 max-w-2xl mx-auto'>
+                  Start building your professional resume today
+                </p>
+                <Button
+                  size='lg'
+                  className='bg-gray-900 hover:bg-gray-800 text-white px-8 py-4 rounded-lg font-medium text-lg transition-all duration-300 cursor-pointer'
+                  onClick={() => navigate('/sign-up')}
+                >
+                  Create Resume <ArrowRight className='inline w-5 h-5 ml-2' />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </main>
