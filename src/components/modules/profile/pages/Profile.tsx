@@ -161,18 +161,12 @@ const Profile = () => {
                   <div>
                     <div className='bg-white rounded-t-2xl shadow-sm border border-gray-100 px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16'>
                       <div className='text-center'>
-                        <div className='inline-flex items-center gap-2 px-3 xs:px-4 py-2 bg-gray-100 rounded-full mb-4 xs:mb-6'>
-                          <div className='w-1.5 xs:w-2 h-1.5 xs:h-2 bg-gray-400 rounded-full'></div>
-                          <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
-                            Experience
-                          </span>
-                        </div>
                         <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6 leading-tight'>
                           Professional Journey
                         </h2>
                         <p className='text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto px-4 sm:px-0'>
                           A curated collection of my professional achievements,
-                          educational milestones, and language capabilities.
+                          experiences, and educational milestones.
                         </p>
                       </div>
                     </div>
@@ -412,18 +406,12 @@ const Profile = () => {
                   <div className='bg-white rounded-2xl shadow-sm border border-gray-100'>
                     <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-8 xs:py-12 sm:py-16 border-b border-gray-100'>
                       <div className='text-center'>
-                        <div className='inline-flex items-center gap-2 px-3 xs:px-4 py-2 bg-gray-100 rounded-full mb-4 xs:mb-6'>
-                          <div className='w-1.5 xs:w-2 h-1.5 xs:h-2 bg-gray-400 rounded-full'></div>
-                          <span className='text-xs font-medium text-gray-600 uppercase tracking-wider'>
-                            Experience
-                          </span>
-                        </div>
                         <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-4 sm:mb-6 leading-tight'>
                           Professional Journey
                         </h2>
                         <p className='text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto px-4 sm:px-0'>
                           A curated collection of my professional achievements,
-                          educational milestones, and language capabilities.
+                          experiences, and educational milestones.
                         </p>
                       </div>
                     </div>
