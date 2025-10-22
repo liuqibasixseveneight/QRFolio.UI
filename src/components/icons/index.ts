@@ -1,5 +1,5 @@
+import CvHostIconV1 from './CvHostIconV1';
+import CvHostIconV2 from './CvHostIconV2';
 import GoogleIcon from './GoogleIcon';
-import LytnIconV1 from './LytnIconV1';
-import LytnIconV2 from './LytnIconV2';
 
-export { GoogleIcon, LytnIconV1, LytnIconV2 };
+export { CvHostIconV1, CvHostIconV2, GoogleIcon };

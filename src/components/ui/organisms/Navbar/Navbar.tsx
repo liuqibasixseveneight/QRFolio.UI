@@ -42,7 +42,7 @@ const Navbar = ({}: NavbarProps) => {
         onClick={() => navigate('/')}
         className='cursor-pointer font-light text-xl sm:text-2xl text-gray-900 hover:text-gray-700 transition-all duration-300'
       >
-        LYTN
+        CV-HOST
       </div>
 
       <div className='hidden md:flex items-center justify-center gap-4'>

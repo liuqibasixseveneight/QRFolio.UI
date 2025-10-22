@@ -39,7 +39,10 @@ import {
   PopoverTrigger,
   PopoverContent,
   PopoverAnchor,
+  ProfileEmptyState,
+  ProfileJourneyHeader,
   ProfileQRCard,
+  ProfileSection,
   QRCodeModal,
   Select,
   SelectContent,
@@ -67,7 +70,13 @@ import {
   useToast,
   Toaster,
 } from './molecules';
-import { Navbar, SignInForm, SignUpForm, TabbedSections } from './organisms';
+import {
+  Navbar,
+  ProfileSectionsContainer,
+  SignInForm,
+  SignUpForm,
+  TabbedSections,
+} from './organisms';
 export {
   Tooltip,
   TooltipTrigger,
@@ -104,6 +113,10 @@ export {
   LoadingSpinner,
   Navbar,
   Popover,
+  ProfileEmptyState,
+  ProfileJourneyHeader,
+  ProfileSection,
+  ProfileSectionsContainer,
   PopoverTrigger,
   PopoverContent,
   PopoverAnchor,
