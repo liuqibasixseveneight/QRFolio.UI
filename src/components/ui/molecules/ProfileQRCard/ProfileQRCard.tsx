@@ -21,9 +21,11 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
           <h1 className='text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light tracking-tight mb-8 2xl:mb-10 text-gray-900'>
             {fullName}
           </h1>
-          <p className='text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed mb-6 font-light'>
-            {professionalSummary}
-          </p>
+          {professionalSummary && (
+            <p className='text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed mb-6 font-light'>
+              {professionalSummary}
+            </p>
+          )}
         </div>
       </section>
 

@@ -28,9 +28,7 @@ const Landing = () => {
   const navigate = useNavigate();
   const { userId, session, loading: authLoading } = useAuth();
 
-  const [profileData, { loading: profileLoading }] = useGetProfile(
-    userId || ''
-  );
+  const [profileData, { loading: profileLoading }] = useGetProfile(userId);
   const profile = profileData?.profile;
 
   const isLoading = authLoading || (session && profileLoading);

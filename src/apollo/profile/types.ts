@@ -101,7 +101,7 @@ export type GetProfileData = {
 };
 
 export type GetProfileVariables = {
-  id: string;
+  id: string | null;
 };
 
 export type GraphQLResult<T> = {
