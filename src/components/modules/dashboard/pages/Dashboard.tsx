@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { Pencil, Share2, Eye, Plus } from 'lucide-react';
+import { Pencil, Share2, Eye, Plus, Settings } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
-import { Button, LoadingSpinner } from '@/components/ui';
+import { Button, LoadingSpinner, Breadcrumb } from '@/components/ui';
 import { useGetProfile } from '@/apollo/profile';
 import { useAuth } from '@/context';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { userId } = useAuth();
+  const breadcrumbs = useBreadcrumbs();
 
   const [
     data,
@@ -36,6 +38,9 @@ const Dashboard = () => {
   };
   const handleShare = () => {
     navigate(`/profile/${userId}/share`);
+  };
+  const handleSettings = () => {
+    navigate('/settings');
   };
 
   const actions = [
@@ -65,6 +70,12 @@ const Dashboard = () => {
           },
         ]
       : []),
+    {
+      titleKey: 'dashboard.actions.settings',
+      descriptionKey: 'dashboard.actions.settingsDescription',
+      icon: Settings,
+      action: handleSettings,
+    },
   ];
 
   return (
@@ -72,6 +83,11 @@ const Dashboard = () => {
       <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
         <div className='w-full px-6 sm:px-8 lg:px-12'>
           <div className='max-w-6xl mx-auto w-full'>
+            {breadcrumbs.length > 0 && (
+              <div className='px-6 sm:px-8 lg:px-12 pt-6 pb-4'>
+                <Breadcrumb items={breadcrumbs} />
+              </div>
+            )}
             <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='text-center'>
                 <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-[1.1] tracking-tight text-gray-900 mb-6'>

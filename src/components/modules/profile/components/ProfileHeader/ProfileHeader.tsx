@@ -21,6 +21,16 @@ const ProfileHeader = ({
   updatedAt,
   isOwner = false,
   onEditClick,
+  // Privacy settings with defaults to true for backward compatibility
+  showName = true,
+  showEmail = true,
+  showPhone = true,
+  showLinkedIn = true,
+  showPortfolio = true,
+  showWorkExperience = true,
+  showEducation = true,
+  showLanguages = true,
+  showSkills = true,
 }: ProfileHeaderProps) => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
@@ -71,7 +81,7 @@ const ProfileHeader = ({
                 </div>
 
                 <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light tracking-tight text-gray-900 mb-6 sm:mb-8 md:mb-10 leading-tight'>
-                  {fullName}
+                  {showName ? fullName : 'Profile'}
                 </h1>
 
                 {summary && (
@@ -87,6 +97,10 @@ const ProfileHeader = ({
                   phone={phone}
                   linkedin={linkedin}
                   portfolio={portfolio}
+                  showEmail={showEmail}
+                  showPhone={showPhone}
+                  showLinkedIn={showLinkedIn}
+                  showPortfolio={showPortfolio}
                 />
 
                 <ActionButtons

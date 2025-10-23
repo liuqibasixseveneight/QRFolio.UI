@@ -16,6 +16,7 @@ import { contents } from './contents';
 import { tabs } from './tabs';
 import { useCreateProfile } from '@/apollo/profile';
 import { useAuth } from '@/context';
+import { getDefaultAccessLevel } from '@/utils/profileAccess';
 
 const CreateProfileTabs = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const CreateProfileTabs = () => {
       portfolio: '',
       professionalSummary: '',
       availability: 'available',
+      accessLevel: getDefaultAccessLevel(),
       workExperience: [
         {
           jobTitle: '',
@@ -156,6 +158,7 @@ const CreateProfileTabs = () => {
         portfolio: formData.portfolio,
         professionalSummary: formData.professionalSummary,
         availability: formData.availability,
+        accessLevel: formData.accessLevel,
         workExperience: filteredWorkExperience,
         education: filteredEducation,
         languages: filteredLanguages,

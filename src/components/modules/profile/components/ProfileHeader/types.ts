@@ -15,4 +15,14 @@ export type ProfileHeaderProps = {
   updatedAt?: string;
   isOwner?: boolean;
   onEditClick?: () => void;
+  // Privacy settings
+  showName?: boolean;
+  showEmail?: boolean;
+  showPhone?: boolean;
+  showLinkedIn?: boolean;
+  showPortfolio?: boolean;
+  showWorkExperience?: boolean;
+  showEducation?: boolean;
+  showLanguages?: boolean;
+  showSkills?: boolean;
 };

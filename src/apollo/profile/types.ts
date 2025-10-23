@@ -33,6 +33,8 @@ export type SkillCategory = {
 
 export type Availability = 'available' | 'open' | 'unavailable';
 
+export type AccessLevel = 'public' | 'private' | 'restricted';
+
 export type PhoneNumber = {
   countryCode: string;
   dialCode: string;
@@ -49,12 +51,23 @@ export type BaseProfile = {
   email: string;
   linkedin?: string;
   portfolio?: string;
-  professionalSummary: string;
+  professionalSummary?: string;
   availability: Availability;
-  workExperience?: WorkExperience[];
-  education?: Education[];
-  languages?: Language[];
-  skills?: SkillCategory[];
+  accessLevel: AccessLevel;
+  showName?: boolean;
+  showEmail?: boolean;
+  showPhone?: boolean;
+  showLinkedIn?: boolean;
+  showPortfolio?: boolean;
+  showWorkExperience?: boolean;
+  showEducation?: boolean;
+  showLanguages?: boolean;
+  showSkills?: boolean;
+  permittedUsers?: string[];
+  workExperience?: WorkExperience[] | null;
+  education?: Education[] | null;
+  languages?: Language[] | null;
+  skills?: SkillCategory[] | null;
 };
 
 export type Profile = BaseProfile & {
@@ -88,7 +101,7 @@ export type GetProfileData = {
 };
 
 export type GetProfileVariables = {
-  id: string;
+  id: string | null;
 };
 
 export type GraphQLResult<T> = {

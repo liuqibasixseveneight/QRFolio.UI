@@ -1,10 +1,14 @@
+import { FormattedMessage } from 'react-intl';
+
 import { useGetProfile } from '@/apollo/profile';
-import { LoadingSpinner, ProfileQRCard } from '@/components/ui';
+import { LoadingSpinner, ProfileQRCard, Breadcrumb } from '@/components/ui';
 import { useAuth } from '@/context';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { PRODUCTION_URL } from '@/config';
 
 const Share = () => {
   const { userId } = useAuth();
+  const breadcrumbs = useBreadcrumbs();
 
   const [
     data,
@@ -29,7 +33,7 @@ const Share = () => {
             <LoadingSpinner />
           </div>
           <p className='text-gray-600 text-lg font-medium'>
-            Loading your profile...
+            <FormattedMessage id='shareProfile.loadingProfile' />
           </p>
         </div>
       </main>
@@ -41,14 +45,18 @@ const Share = () => {
       <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
         <div className='w-full px-6 sm:px-8 lg:px-12'>
           <div className='max-w-6xl mx-auto w-full'>
+            {breadcrumbs.length > 0 && (
+              <div className='px-6 sm:px-8 lg:px-12 pt-6 pb-4'>
+                <Breadcrumb items={breadcrumbs} />
+              </div>
+            )}
             <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='text-center'>
                 <h1 className='text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light leading-[1.1] tracking-tight text-gray-900 mb-6'>
-                  Share Your Profile
+                  <FormattedMessage id='shareProfile.title' />
                 </h1>
                 <p className='text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto'>
-                  Generate QR codes and share your professional resume with
-                  anyone
+                  <FormattedMessage id='shareProfile.description' />
                 </p>
               </div>
             </div>
@@ -61,10 +69,10 @@ const Share = () => {
           <div className='bg-white rounded-2xl shadow-sm border border-gray-100 px-8 sm:px-12 py-16'>
             <div className='text-center mb-8'>
               <h2 className='text-2xl font-light text-gray-900 mb-2'>
-                Scan to View
+                <FormattedMessage id='shareProfile.scanToView' />
               </h2>
               <p className='text-gray-600 text-sm'>
-                Perfect for business cards and networking events
+                <FormattedMessage id='shareProfile.scanDescription' />
               </p>
             </div>
             <ProfileQRCard

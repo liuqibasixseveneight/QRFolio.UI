@@ -17,6 +17,17 @@ const GET_PROFILE = gql`
       portfolio
       professionalSummary
       availability
+      accessLevel
+      showName
+      showEmail
+      showPhone
+      showLinkedIn
+      showPortfolio
+      showWorkExperience
+      showEducation
+      showLanguages
+      showSkills
+      permittedUsers
       workExperience
       education
       languages
@@ -33,12 +44,16 @@ const GET_PROFILE = gql`
 `;
 
 export const useGetProfile = (
-  id: string
+  id: string | null
 ): [GetProfileData | undefined, GetProfileResult] => {
   const { data, loading, error } = useQuery<
     GetProfileData,
     GetProfileVariables
-  >(GET_PROFILE, { fetchPolicy: 'network-only', variables: { id } });
+  >(GET_PROFILE, {
+    fetchPolicy: 'network-only',
+    variables: { id },
+    skip: !id || id.trim() === '',
+  });
 
   return [data, { loading, error }];
 };

@@ -2,7 +2,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Link } from 'react-router-dom';
 
 import type { ProfileQRCardProps } from './types';
-import { LytnIconV1 } from '@/components/icons';
+import { CvHostIconV1 } from '@/components/icons';
 
 const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
   const { fullName, professionalSummary } = labels;
@@ -16,14 +16,16 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
         <div className='max-w-lg 2xl:max-w-xl'>
           <p className='text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed mb-8 2xl:mb-12 font-light'>
             Scan the QR code to instantly access my professional resume on{' '}
-            <span className='font-semibold text-gray-900'>LYTN</span>
+            <span className='font-semibold text-gray-900'>CV-HOST</span>
           </p>
           <h1 className='text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light tracking-tight mb-8 2xl:mb-10 text-gray-900'>
             {fullName}
           </h1>
-          <p className='text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed mb-6 font-light'>
-            {professionalSummary}
-          </p>
+          {professionalSummary && (
+            <p className='text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed mb-6 font-light'>
+              {professionalSummary}
+            </p>
+          )}
         </div>
       </section>
 
@@ -36,7 +38,7 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
           </h1>
           <p className='text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed max-w-sm sm:max-w-md mx-auto font-light'>
             Scan the QR code to instantly access my professional resume on{' '}
-            <span className='font-semibold text-gray-900'>LYTN</span>
+            <span className='font-semibold text-gray-900'>CV-HOST</span>
           </p>
         </div>
 
@@ -76,7 +78,7 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
                 }}
               />
               <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-1 sm:p-2 shadow-sm flex items-center justify-center w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 border-2 sm:border-4 border-gray-200'>
-                <LytnIconV1 />
+                <CvHostIconV1 />
               </div>
             </div>
           </div>

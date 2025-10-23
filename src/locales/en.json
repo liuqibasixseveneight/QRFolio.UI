@@ -32,6 +32,15 @@
     "required": "Required",
     "optional": "Optional"
   },
+  "breadcrumb": {
+    "home": "Home",
+    "settings": "Settings",
+    "editProfile": "Edit Profile",
+    "shareProfile": "Share Profile",
+    "viewProfile": "View Profile",
+    "createProfile": "Create Profile",
+    "profileCreated": "Profile Created"
+  },
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
@@ -130,6 +139,8 @@
       "viewDescription": "Preview your resume as others will see it",
       "shareResume": "Share Resume",
       "shareDescription": "Copy your public resume link to share easily",
+      "settings": "Settings",
+      "settingsDescription": "Manage your profile visibility and privacy preferences",
       "createProfile": "Create Your Profile",
       "createProfileDescription": "Build your professional profile to showcase your skills and experience",
       "createButton": "Create",
@@ -277,7 +288,57 @@
       "available": "Actively looking",
       "open": "Casually looking",
       "unavailable": "Not looking"
+    },
+    "profileVisibility": "Profile Visibility",
+    "accessLevel": {
+      "public": "Public - Anyone can view",
+      "private": "Private - Only you can view",
+      "restricted": "Restricted - Limited access"
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your profile visibility and privacy preferences",
+    "profileVisibility": {
+      "title": "Profile Visibility",
+      "description": "Control who can see your profile"
+    },
+    "contactInfo": {
+      "title": "Contact Information",
+      "description": "Choose which contact details to display",
+      "showName": "Show Full Name",
+      "showEmail": "Show Email Address",
+      "showPhone": "Show Phone Number",
+      "showLinkedIn": "Show LinkedIn Profile",
+      "showPortfolio": "Show Portfolio Website"
+    },
+    "profileSections": {
+      "title": "Profile Sections",
+      "description": "Control which sections are visible on your profile",
+      "showWorkExperience": "Show Work Experience",
+      "showEducation": "Show Education",
+      "showLanguages": "Show Languages",
+      "showSkills": "Show Skills"
+    },
+    "profilePermissions": {
+      "title": "Profile Permissions",
+      "description": "Manage who can access your profile when set to restricted visibility",
+      "yourUserId": "Your User ID",
+      "permittedUsers": "Permitted Users"
+    }
+  },
+  "shareProfile": {
+    "title": "Share Your Profile",
+    "description": "Generate QR codes and share your professional resume with anyone",
+    "scanToView": "Scan to View",
+    "scanDescription": "Perfect for business cards and networking events",
+    "loadingProfile": "Loading your profile..."
+  },
+  "editProfile": {
+    "title": "Edit Your Profile",
+    "description": "Update your professional profile information below. All changes will be saved automatically when you submit.",
+    "saveChanges": "Save Changes",
+    "savingChanges": "Saving Changes..."
   },
   "createProfile": {
     "sections": {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm, useFieldArray, type FieldErrors } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { flattenErrors, routes } from '@/utils';
 import {
@@ -11,10 +12,12 @@ import {
   TabbedSections,
   useToast,
   CategorizedSkillsInput,
+  Breadcrumb,
 } from '@/components/ui';
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
 import { useUpdateProfile } from '@/apollo/profile/mutations/updateProfile';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import type { CVFormValues } from '../../create/types';
 import { introSchema } from '../../create/schemas';
 import { contents, tabs } from '../../create/components';
@@ -23,6 +26,7 @@ const EditProfile = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { userId } = useAuth();
+  const breadcrumbs = useBreadcrumbs();
 
   const [profileData, { loading: loadingProfile }] = useGetProfile(
     userId || ''
@@ -54,6 +58,7 @@ const EditProfile = () => {
       portfolio: '',
       professionalSummary: '',
       availability: 'available',
+      accessLevel: 'public',
       workExperience: [
         {
           jobTitle: '',
@@ -92,6 +97,7 @@ const EditProfile = () => {
     if (profile) {
       const formData = {
         ...profile,
+        accessLevel: profile.accessLevel || 'public',
         workExperience:
           (profile.workExperience?.length ?? 0) > 0
             ? profile.workExperience
@@ -176,6 +182,7 @@ const EditProfile = () => {
         email: data.email,
         professionalSummary: data.professionalSummary,
         availability: data.availability,
+        accessLevel: data.accessLevel,
         phone: data.phone,
         linkedin: data.linkedin,
         portfolio: data.portfolio,
@@ -305,14 +312,18 @@ const EditProfile = () => {
       <div className='w-full bg-white border-b border-gray-100 shadow-sm'>
         <div className='w-full px-6 sm:px-8 lg:px-12'>
           <div className='max-w-6xl mx-auto w-full'>
+            {breadcrumbs.length > 0 && (
+              <div className='px-6 sm:px-8 lg:px-12 pt-6 pb-4'>
+                <Breadcrumb items={breadcrumbs} />
+              </div>
+            )}
             <div className='px-6 sm:px-8 lg:px-12 py-20 sm:py-24 lg:py-32'>
               <div className='text-center max-w-4xl mx-auto'>
                 <h1 className='text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-gray-900 mb-6'>
-                  Edit Your Profile
+                  <FormattedMessage id='editProfile.title' />
                 </h1>
                 <p className='text-lg lg:text-xl text-gray-600 leading-relaxed font-light max-w-3xl mx-auto'>
-                  Update your professional profile information below. All
-                  changes will be saved automatically when you submit.
+                  <FormattedMessage id='editProfile.description' />
                 </p>
               </div>
             </div>
@@ -347,7 +358,7 @@ const EditProfile = () => {
                   {updating ? (
                     <>
                       <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
-                      Saving Changes...
+                      <FormattedMessage id='editProfile.savingChanges' />
                     </>
                   ) : (
                     <>
@@ -364,7 +375,7 @@ const EditProfile = () => {
                           d='M5 13l4 4L19 7'
                         />
                       </svg>
-                      Save Changes
+                      <FormattedMessage id='editProfile.saveChanges' />
                     </>
                   )}
                 </span>

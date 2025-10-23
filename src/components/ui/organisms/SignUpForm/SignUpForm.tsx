@@ -39,7 +39,7 @@ const SignUpForm = ({
                       </span>
                     </div>
                     <h1 className='text-3xl sm:text-4xl lg:text-5xl font-light leading-[1.1] tracking-tight text-gray-900 mb-4'>
-                      Join LYTN
+                      Join CV-HOST
                     </h1>
                     <p className='text-gray-600 text-lg leading-relaxed'>
                       Create your professional profile and start building your

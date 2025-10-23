@@ -12,6 +12,17 @@ const UPDATE_PROFILE = gql`
     $portfolio: String
     $professionalSummary: String
     $availability: Availability
+    $accessLevel: AccessLevel
+    $showName: Boolean
+    $showEmail: Boolean
+    $showPhone: Boolean
+    $showLinkedIn: Boolean
+    $showPortfolio: Boolean
+    $showWorkExperience: Boolean
+    $showEducation: Boolean
+    $showLanguages: Boolean
+    $showSkills: Boolean
+    $permittedUsers: [String!]
     $workExperience: JSON
     $education: JSON
     $languages: JSON
@@ -26,6 +37,17 @@ const UPDATE_PROFILE = gql`
       portfolio: $portfolio
       professionalSummary: $professionalSummary
       availability: $availability
+      accessLevel: $accessLevel
+      showName: $showName
+      showEmail: $showEmail
+      showPhone: $showPhone
+      showLinkedIn: $showLinkedIn
+      showPortfolio: $showPortfolio
+      showWorkExperience: $showWorkExperience
+      showEducation: $showEducation
+      showLanguages: $showLanguages
+      showSkills: $showSkills
+      permittedUsers: $permittedUsers
       workExperience: $workExperience
       education: $education
       languages: $languages
@@ -39,6 +61,17 @@ const UPDATE_PROFILE = gql`
       portfolio
       professionalSummary
       availability
+      accessLevel
+      showName
+      showEmail
+      showPhone
+      showLinkedIn
+      showPortfolio
+      showWorkExperience
+      showEducation
+      showLanguages
+      showSkills
+      permittedUsers
       workExperience
       education
       languages
