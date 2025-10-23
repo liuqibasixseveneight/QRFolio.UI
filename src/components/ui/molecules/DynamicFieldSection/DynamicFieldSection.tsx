@@ -1,0 +1,249 @@
+import React, { useState } from 'react';
+import { get } from 'lodash';
+import { Trash2 } from 'lucide-react';
+import { Button, Ellipsis } from '@/components/ui';
+import { FormField } from '../FormField';
+import type { DynamicFieldSectionProps, FieldConfig } from './types';
+
+const DynamicFieldSection = <T extends Record<string, any>>({
+  title,
+  fields = [],
+  fieldsConfig = [],
+  register,
+  registerNamePrefix,
+  errors,
+  control,
+  onRemove,
+  titleField,
+}: DynamicFieldSectionProps<T>) => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const toggleIndex = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
+  const handleRemove = (index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    onRemove(index);
+  };
+
+  if (!fields || fields.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className='space-y-4'>
+      <h3 className='text-xl font-bold text-slate-900 tracking-tight'>
+        {title}
+      </h3>
+
+      {fields.map((field: { id: string }, index: number) => {
+        const isActive = activeIndex === index;
+
+        // Determine display title based on titleField
+        let displayTitle: React.ReactNode;
+        if (titleField && get(fields?.[index], titleField)) {
+          displayTitle = get(fields?.[index], titleField);
+        } else {
+          // No titleField specified, show generic fallback
+          displayTitle = <em className='text-gray-500 italic'>New Entry</em>;
+        }
+
+        return (
+          <div
+            key={field?.id}
+            className='rounded-2xl bg-gradient-to-r from-slate-50/90 via-white to-slate-50/90 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:from-slate-50/95 hover:via-white hover:to-slate-50/95 border border-slate-200/40 shadow-lg shadow-slate-200/20 hover:shadow-xl hover:shadow-slate-200/30'
+          >
+            <div
+              className='p-4 sm:p-6 bg-gradient-to-r from-slate-50/50 via-white to-slate-50/50 cursor-pointer flex flex-col xs:flex-row xs:items-center xs:justify-between gap-3 hover:from-slate-50/70 hover:via-white hover:to-slate-50/70 transition-all duration-300'
+              onClick={() => toggleIndex(index)}
+            >
+              <div className='flex-1 min-w-0'>
+                <span className='font-medium text-slate-900 block'>
+                  {typeof displayTitle === 'string' ? (
+                    <Ellipsis
+                      text={displayTitle}
+                      maxLength={50}
+                      className='font-medium text-slate-900'
+                    />
+                  ) : (
+                    displayTitle
+                  )}
+                </span>
+                {/* Show additional context for different section types */}
+                {titleField === 'schoolName' &&
+                  get(fields?.[index], 'degree') && (
+                    <span className='text-sm text-slate-600 block'>
+                      <Ellipsis
+                        text={`${get(fields?.[index], 'degree')}`}
+                        maxLength={60}
+                        className='text-sm text-slate-600'
+                      />
+                    </span>
+                  )}
+                {titleField === 'language' &&
+                  get(fields?.[index], 'fluencyLevel') && (
+                    <span className='text-sm text-slate-600 block'>
+                      <Ellipsis
+                        text={`${get(fields?.[index], 'fluencyLevel')} level`}
+                        maxLength={40}
+                        className='text-sm text-slate-600'
+                      />
+                    </span>
+                  )}
+                {titleField === 'jobTitle' &&
+                  get(fields?.[index], 'companyName') && (
+                    <span className='text-sm text-slate-600 block'>
+                      <Ellipsis
+                        text={get(fields?.[index], 'companyName') || ''}
+                        maxLength={50}
+                        className='text-sm text-slate-600'
+                      />
+                    </span>
+                  )}
+              </div>
+              <div className='flex items-center gap-2 flex-shrink-0 self-start xs:self-center'>
+                <Button
+                  type='button'
+                  variant='outline'
+                  size='sm'
+                  onClick={(e: React.MouseEvent) => handleRemove(index, e)}
+                  className='px-3 py-2 text-xs font-medium transition-all duration-300 hover:bg-red-50 hover:border-red-300/50 hover:text-red-700 hover:shadow-md hover:shadow-red-200/30 border-red-200/50 text-red-600 bg-white/80 backdrop-blur-sm flex items-center gap-1.5'
+                >
+                  <Trash2 className='h-3.5 w-3.5' />
+                  Remove
+                </Button>
+              </div>
+            </div>
+
+            {isActive && (
+              <div className='p-6 space-y-6 bg-white/90 border-t border-slate-200/40'>
+                <div className='space-y-6'>
+                  {(() => {
+                    const renderedFields: string[] = [];
+                    return fieldsConfig
+                      ?.map((config: FieldConfig, configIndex: number) => {
+                        // Skip if already rendered as part of date group
+                        if (renderedFields.includes(config?.name)) {
+                          return null;
+                        }
+
+                        const error = get(
+                          errors,
+                          `${registerNamePrefix}.${index}.${config?.name}.message`
+                        ) as string | undefined;
+
+                        // Check if this is a date field that should be grouped
+                        const isDateField = config?.type === 'date';
+                        const isDateFrom = config?.name === 'dateFrom';
+                        const isDateTo = config?.name === 'dateTo';
+
+                        // Find the corresponding date field
+                        let dateGroupFields: FieldConfig[] = [];
+                        if (isDateFrom) {
+                          const dateToField = fieldsConfig?.find(
+                            (f) => f?.name === 'dateTo'
+                          );
+                          if (dateToField) {
+                            dateGroupFields = [config, dateToField];
+                            renderedFields.push('dateFrom', 'dateTo');
+                          }
+                        } else if (
+                          isDateTo &&
+                          !renderedFields.includes('dateTo')
+                        ) {
+                          // If dateTo comes before dateFrom, handle it
+                          const dateFromField = fieldsConfig?.find(
+                            (f) => f?.name === 'dateFrom'
+                          );
+                          if (dateFromField) {
+                            dateGroupFields = [dateFromField, config];
+                            renderedFields.push('dateFrom', 'dateTo');
+                          }
+                        }
+
+                        // Full-width fields for certain types
+                        const isFullWidth =
+                          config?.type === 'textarea' ||
+                          config?.name === 'responsibilities' ||
+                          config?.name === 'description';
+
+                        // If this is part of a date group, render both fields together
+                        if (dateGroupFields.length === 2) {
+                          return (
+                            <div
+                              key={`date-group-${configIndex}`}
+                              className='grid grid-cols-1 xs:grid-cols-2 gap-4'
+                            >
+                              {dateGroupFields.map(
+                                (dateConfig: FieldConfig) => {
+                                  const dateError = get(
+                                    errors,
+                                    `${registerNamePrefix}.${index}.${dateConfig?.name}.message`
+                                  ) as string | undefined;
+
+                                  return (
+                                    <div key={dateConfig?.name}>
+                                      <FormField
+                                        label={dateConfig?.label}
+                                        type={dateConfig?.type}
+                                        rows={dateConfig?.rows}
+                                        options={dateConfig?.options}
+                                        register={register}
+                                        registerName={`${registerNamePrefix}.${index}.${dateConfig?.name}`}
+                                        error={dateError}
+                                        control={control}
+                                        required={dateConfig?.required}
+                                        hasCurrentCheckbox={
+                                          dateConfig?.hasCurrentCheckbox
+                                        }
+                                        currentCheckboxLabel={
+                                          dateConfig?.currentCheckboxLabel
+                                        }
+                                      />
+                                    </div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          );
+                        }
+
+                        // Skip if this field is already rendered as part of date group
+                        if (renderedFields.includes(config?.name)) {
+                          return null;
+                        }
+
+                        // Render single field
+                        return (
+                          <div
+                            key={config?.name}
+                            className={isFullWidth ? '' : ''}
+                          >
+                            <FormField
+                              label={config?.label}
+                              type={config?.type}
+                              rows={config?.rows}
+                              options={config?.options}
+                              register={register}
+                              registerName={`${registerNamePrefix}.${index}.${config?.name}`}
+                              error={error}
+                              control={control}
+                              required={config?.required}
+                            />
+                          </div>
+                        );
+                      })
+                      .filter(Boolean);
+                  })()}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </section>
+  );
+};
+
+export default DynamicFieldSection;

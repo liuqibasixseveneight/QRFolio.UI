@@ -1,9 +1,10 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --breakpoint-xs: 475px;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -117,4 +118,85 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide-sm {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide-sm::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .scrollbar-hide-sm {
+      -ms-overflow-style: auto;
+      scrollbar-width: auto;
+    }
+    .scrollbar-hide-sm::-webkit-scrollbar {
+      display: block;
+    }
+  }
+
+  .tabs-responsive {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tabs-responsive::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .tabs-responsive {
+      overflow-x: visible;
+      justify-content: center;
+    }
+    .tabs-responsive::-webkit-scrollbar {
+      display: block;
+    }
+  }
+}
+
+/**
+  * CUSTOM STYLES
+**/
+
+.radial-background {
+  position: absolute;
+  top: -160px;
+  left: -240px;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(
+      circle at 18% 22%,
+      rgba(142, 74, 216, 0.3),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at 33% 18%,
+      rgba(230, 58, 194, 0.25),
+      transparent 60%
+    ),
+    radial-gradient(circle at 45% 28%, rgba(255, 88, 165, 0.2), transparent 65%),
+    radial-gradient(circle at 57% 43%, rgba(255, 130, 85, 0.3), transparent 70%),
+    radial-gradient(
+      circle at 68% 55%,
+      rgba(255, 209, 55, 0.25),
+      transparent 75%
+    ),
+    radial-gradient(circle at 78% 38%, rgba(249, 244, 93, 0.2), transparent 70%);
+  filter: blur(90px);
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: 0;
 }
