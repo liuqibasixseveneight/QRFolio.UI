@@ -271,36 +271,38 @@ const SettingsPage = () => {
                   <label className='block text-sm font-medium text-gray-700 mb-2'>
                     <FormattedMessage id='settings.profilePermissions.yourUserId' />
                   </label>
-                  <div className='flex items-center gap-3 p-4 border border-gray-200 rounded-lg bg-gray-50'>
-                    <code className='flex-1 font-mono text-sm text-gray-800'>
+                  <div className='flex items-center gap-2 p-3 sm:p-4 border border-gray-200 rounded-lg bg-gray-50'>
+                    <code className='flex-1 font-mono text-xs sm:text-sm text-gray-800 min-w-0 break-all'>
                       {showUserId ? userId : userId?.replace(/./g, '*')}
                     </code>
-                    <button
-                      type='button'
-                      onClick={() => setShowUserId(!showUserId)}
-                      className='p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer'
-                    >
-                      {showUserId ? (
-                        <EyeOff className='w-4 h-4' />
-                      ) : (
-                        <Eye className='w-4 h-4' />
-                      )}
-                    </button>
-                    <button
-                      type='button'
-                      onClick={copyUserId}
-                      className={`p-2 rounded-lg transition-all duration-200 cursor-pointer ${
-                        copySuccess
-                          ? 'text-green-600 bg-green-50'
-                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
-                      }`}
-                    >
-                      {copySuccess ? (
-                        <Check className='w-4 h-4' />
-                      ) : (
-                        <Copy className='w-4 h-4' />
-                      )}
-                    </button>
+                    <div className='flex items-center gap-1 flex-shrink-0'>
+                      <button
+                        type='button'
+                        onClick={() => setShowUserId(!showUserId)}
+                        className='p-1.5 sm:p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer'
+                      >
+                        {showUserId ? (
+                          <EyeOff className='w-3.5 h-3.5 sm:w-4 sm:h-4' />
+                        ) : (
+                          <Eye className='w-3.5 h-3.5 sm:w-4 sm:h-4' />
+                        )}
+                      </button>
+                      <button
+                        type='button'
+                        onClick={copyUserId}
+                        className={`p-1.5 sm:p-2 rounded-lg transition-all duration-200 cursor-pointer ${
+                          copySuccess
+                            ? 'text-green-600 bg-green-50'
+                            : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        {copySuccess ? (
+                          <Check className='w-3.5 h-3.5 sm:w-4 sm:h-4' />
+                        ) : (
+                          <Copy className='w-3.5 h-3.5 sm:w-4 sm:h-4' />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
 
