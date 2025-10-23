@@ -319,6 +319,12 @@
       "showEducation": "Show Education",
       "showLanguages": "Show Languages",
       "showSkills": "Show Skills"
+    },
+    "profilePermissions": {
+      "title": "Profile Permissions",
+      "description": "Manage who can access your profile when set to restricted visibility",
+      "yourUserId": "Your User ID",
+      "permittedUsers": "Permitted Users"
     }
   },
   "shareProfile": {

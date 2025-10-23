@@ -27,6 +27,7 @@ const GET_PROFILE = gql`
       showEducation
       showLanguages
       showSkills
+      permittedUsers
       workExperience
       education
       languages

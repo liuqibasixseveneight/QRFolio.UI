@@ -63,6 +63,7 @@ export type BaseProfile = {
   showEducation?: boolean;
   showLanguages?: boolean;
   showSkills?: boolean;
+  permittedUsers?: string[];
   workExperience?: WorkExperience[];
   education?: Education[];
   languages?: Language[];

@@ -22,6 +22,7 @@ const UPDATE_PROFILE = gql`
     $showEducation: Boolean
     $showLanguages: Boolean
     $showSkills: Boolean
+    $permittedUsers: [String!]
     $workExperience: JSON
     $education: JSON
     $languages: JSON
@@ -46,6 +47,7 @@ const UPDATE_PROFILE = gql`
       showEducation: $showEducation
       showLanguages: $showLanguages
       showSkills: $showSkills
+      permittedUsers: $permittedUsers
       workExperience: $workExperience
       education: $education
       languages: $languages
@@ -69,6 +71,7 @@ const UPDATE_PROFILE = gql`
       showEducation
       showLanguages
       showSkills
+      permittedUsers
       workExperience
       education
       languages

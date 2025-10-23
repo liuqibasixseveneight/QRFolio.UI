@@ -45,8 +45,10 @@ export const checkProfileAccess = (
     case 'private':
       return { canView: false, reason: 'This profile is private' };
     case 'restricted':
-      // For now, restricted means only owner can view
-      // This could be extended to include specific user lists, etc.
+      // Check if the viewer is in the permitted users list
+      if (profile.permittedUsers && profile.permittedUsers.includes(viewerId)) {
+        return { canView: true };
+      }
       return { canView: false, reason: 'This profile is restricted' };
     default:
       return { canView: false, reason: 'Invalid access level' };
@@ -57,4 +59,3 @@ export const checkProfileAccess = (
  * Gets the default access level for new profiles
  */
 export const getDefaultAccessLevel = (): AccessLevel => 'public';
-
