@@ -5,7 +5,7 @@ export type QRCodeModalProps = {
     link: string;
     labels: {
       fullName: string;
-      professionalSummary: string;
+      professionalSummary?: string;
     };
   };
 };

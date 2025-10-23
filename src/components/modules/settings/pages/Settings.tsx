@@ -206,9 +206,9 @@ const SettingsPage = () => {
             {/* Profile Visibility Section */}
             <div className='bg-white rounded-2xl shadow-sm border border-gray-100 p-8'>
               <div className='mb-6'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-2'>
                   <FormattedMessage id='settings.profileVisibility.title' />
-                </h2>
+                </h3>
                 <p className='text-gray-600'>
                   <FormattedMessage id='settings.profileVisibility.description' />
                 </p>
@@ -228,7 +228,7 @@ const SettingsPage = () => {
                         value={field.value || profile?.accessLevel || 'public'}
                         onValueChange={field.onChange}
                       >
-                        <SelectTrigger className='w-full group hover:[&_svg]:!opacity-100 hover:[&_svg]:!text-gray-800 data-[state=open]:[&_svg]:!opacity-100 data-[state=open]:[&_svg]:!text-gray-800 [&_svg]:transition-all [&_svg]:duration-200'>
+                        <SelectTrigger className='w-full group hover:[&_svg]:!opacity-100 hover:[&_svg]:!text-gray-800 data-[state=open]:[&_svg]:!opacity-100 data-[state=open]:[&_svg]:!text-gray-800 [&_svg]:transition-all [&_svg]:duration-200 border-gray-200 focus:ring-2 focus:ring-gray-300 focus:border-gray-400'>
                           <SelectValue placeholder='Select visibility' />
                         </SelectTrigger>
                         <SelectContent>
@@ -278,7 +278,7 @@ const SettingsPage = () => {
                     <button
                       type='button'
                       onClick={() => setShowUserId(!showUserId)}
-                      className='p-2 text-gray-500 hover:text-gray-700 transition-colors duration-200 cursor-pointer'
+                      className='p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer'
                     >
                       {showUserId ? (
                         <EyeOff className='w-4 h-4' />
@@ -289,10 +289,10 @@ const SettingsPage = () => {
                     <button
                       type='button'
                       onClick={copyUserId}
-                      className={`p-2 transition-colors duration-200 cursor-pointer ${
+                      className={`p-2 rounded-lg transition-all duration-200 cursor-pointer ${
                         copySuccess
-                          ? 'text-green-600'
-                          : 'text-gray-500 hover:text-gray-700'
+                          ? 'text-green-600 bg-green-50'
+                          : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'
                       }`}
                     >
                       {copySuccess ? (
@@ -316,7 +316,7 @@ const SettingsPage = () => {
                         value={permittedUserInput}
                         onChange={(e) => setPermittedUserInput(e.target.value)}
                         placeholder='Enter user ID...'
-                        className='flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                        className='flex-1 px-4 py-3 border border-gray-200 rounded-lg bg-white focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all duration-200'
                         onKeyPress={(e) =>
                           e.key === 'Enter' && addPermittedUser()
                         }
@@ -325,7 +325,7 @@ const SettingsPage = () => {
                         type='button'
                         onClick={addPermittedUser}
                         disabled={!permittedUserInput.trim()}
-                        className='h-12 px-4 cursor-pointer hover:bg-blue-600 transition-colors duration-200'
+                        className='bg-gray-900 hover:bg-gray-800 text-white px-4 py-3 rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer h-12'
                       >
                         <Plus className='w-4 h-4' />
                       </Button>
@@ -345,7 +345,7 @@ const SettingsPage = () => {
                             <button
                               type='button'
                               onClick={() => removePermittedUser(userId)}
-                              className='p-1 text-gray-500 hover:text-red-600 transition-colors duration-200 cursor-pointer'
+                              className='p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer'
                             >
                               <X className='w-4 h-4' />
                             </button>
@@ -361,9 +361,9 @@ const SettingsPage = () => {
             {/* Contact Information Visibility */}
             <div className='bg-white rounded-2xl shadow-sm border border-gray-100 p-8'>
               <div className='mb-6'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-2'>
                   <FormattedMessage id='settings.contactInfo.title' />
-                </h2>
+                </h3>
                 <p className='text-gray-600'>
                   <FormattedMessage id='settings.contactInfo.description' />
                 </p>
@@ -402,7 +402,7 @@ const SettingsPage = () => {
                     <input
                       type='checkbox'
                       {...register(key as keyof SettingsFormValues)}
-                      className='w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
+                      className='w-4 h-4 text-gray-900 border-gray-300 rounded focus:ring-gray-300 focus:ring-2 accent-gray-900'
                     />
                   </label>
                 ))}
@@ -412,9 +412,9 @@ const SettingsPage = () => {
             {/* Profile Sections Visibility */}
             <div className='bg-white rounded-2xl shadow-sm border border-gray-100 p-8'>
               <div className='mb-6'>
-                <h2 className='text-2xl font-semibold text-gray-800 mb-2'>
+                <h3 className='text-xl font-semibold text-gray-900 mb-2'>
                   <FormattedMessage id='settings.profileSections.title' />
-                </h2>
+                </h3>
                 <p className='text-gray-600'>
                   <FormattedMessage id='settings.profileSections.description' />
                 </p>
@@ -449,7 +449,7 @@ const SettingsPage = () => {
                     <input
                       type='checkbox'
                       {...register(key as keyof SettingsFormValues)}
-                      className='w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500'
+                      className='w-4 h-4 text-gray-900 border-gray-300 rounded focus:ring-gray-300 focus:ring-2 accent-gray-900'
                     />
                   </label>
                 ))}
@@ -461,7 +461,7 @@ const SettingsPage = () => {
               <Button
                 type='submit'
                 disabled={!isDirty || updating}
-                className='flex items-center gap-2 px-8 py-3'
+                className='bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center gap-2'
               >
                 {updating ? <LoadingSpinner /> : <Save className='w-4 h-4' />}
                 <FormattedMessage id='common.save' />

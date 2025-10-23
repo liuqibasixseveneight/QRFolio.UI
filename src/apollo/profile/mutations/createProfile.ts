@@ -10,7 +10,7 @@ const CREATE_PROFILE = gql`
     $email: String!
     $linkedin: String
     $portfolio: String
-    $professionalSummary: String!
+    $professionalSummary: String
     $availability: Availability!
     $accessLevel: AccessLevel!
     $showName: Boolean
@@ -22,9 +22,9 @@ const CREATE_PROFILE = gql`
     $showEducation: Boolean
     $showLanguages: Boolean
     $showSkills: Boolean
-    $workExperience: JSON!
-    $education: JSON!
-    $languages: JSON!
+    $workExperience: JSON
+    $education: JSON
+    $languages: JSON
     $skills: [SkillCategoryInput!]
   ) {
     createProfile(

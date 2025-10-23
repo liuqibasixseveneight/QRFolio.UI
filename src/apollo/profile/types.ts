@@ -51,7 +51,7 @@ export type BaseProfile = {
   email: string;
   linkedin?: string;
   portfolio?: string;
-  professionalSummary: string;
+  professionalSummary?: string;
   availability: Availability;
   accessLevel: AccessLevel;
   showName?: boolean;
@@ -64,10 +64,10 @@ export type BaseProfile = {
   showLanguages?: boolean;
   showSkills?: boolean;
   permittedUsers?: string[];
-  workExperience?: WorkExperience[];
-  education?: Education[];
-  languages?: Language[];
-  skills?: SkillCategory[];
+  workExperience?: WorkExperience[] | null;
+  education?: Education[] | null;
+  languages?: Language[] | null;
+  skills?: SkillCategory[] | null;
 };
 
 export type Profile = BaseProfile & {
