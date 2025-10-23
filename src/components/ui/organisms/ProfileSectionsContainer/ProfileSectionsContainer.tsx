@@ -22,6 +22,10 @@ const ProfileSectionsContainer = memo<ProfileSectionsContainerProps>(
     expandedSections,
     onToggleSection,
     className = '',
+    showWorkExperience = true,
+    showEducation = true,
+    showLanguages = true,
+    showSkills = true,
   }) => {
     const allSectionsCollapsed =
       !expandedSections.workExperience &&
@@ -39,6 +43,7 @@ const ProfileSectionsContainer = memo<ProfileSectionsContainerProps>(
         ),
         data: workExperience,
         component: <ExperienceSection workExperience={workExperience} />,
+        show: showWorkExperience,
       },
       {
         key: 'education' as const,
@@ -49,6 +54,7 @@ const ProfileSectionsContainer = memo<ProfileSectionsContainerProps>(
         ),
         data: education,
         component: <EducationSection education={education} />,
+        show: showEducation,
       },
       {
         key: 'languages' as const,
@@ -59,6 +65,7 @@ const ProfileSectionsContainer = memo<ProfileSectionsContainerProps>(
         ),
         data: languages,
         component: <LanguageSection languages={languages} />,
+        show: showLanguages,
       },
       {
         key: 'skills' as const,
@@ -69,11 +76,12 @@ const ProfileSectionsContainer = memo<ProfileSectionsContainerProps>(
         ),
         data: skills,
         component: <SkillsSection skills={skills} />,
+        show: showSkills,
       },
     ];
 
     const sectionsWithData = sections.filter(
-      (section) => section.data.length > 0
+      (section) => section.data.length > 0 && section.show
     );
 
     return (

@@ -20,4 +20,8 @@ export type ProfileSectionsContainerProps = {
     section: keyof ProfileSectionsContainerProps['expandedSections']
   ) => void;
   className?: string;
+  showWorkExperience?: boolean;
+  showEducation?: boolean;
+  showLanguages?: boolean;
+  showSkills?: boolean;
 };

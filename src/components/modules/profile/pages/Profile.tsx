@@ -1,12 +1,13 @@
 import { memo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowUp, User } from 'lucide-react';
+import { ArrowUp, User, Lock } from 'lucide-react';
 
 import { useAuth } from '@/context';
 import { useGetProfile } from '@/apollo/profile';
 import ProfileHeader from '../components/ProfileHeader/ProfileHeader';
 import { LoadingSpinner } from '@/components/ui';
 import { ProfileEmptyState, ProfileSectionsContainer } from '@/components/ui';
+import { checkProfileAccess } from '@/utils/profileAccess';
 
 const Profile = memo(() => {
   const { userId } = useAuth();
@@ -25,6 +26,9 @@ const Profile = memo(() => {
 
   const [data, { loading, error }] = useGetProfile(profileId);
   const profile = data?.profile;
+
+  // Check if current user can view this profile
+  const accessCheck = checkProfileAccess(profile, userId);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,6 +68,26 @@ const Profile = memo(() => {
           </h2>
           <p className='text-gray-600 text-base sm:text-lg leading-relaxed'>
             There was an error loading this profile. Please try again later.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  // Check access permissions after profile is loaded
+  if (!loading && profile && !accessCheck.canView) {
+    return (
+      <main className='min-h-screen w-full bg-white flex items-center justify-center p-8 text-center'>
+        <div className='max-w-md mx-auto'>
+          <div className='w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center'>
+            <Lock className='w-10 h-10 text-gray-600' />
+          </div>
+          <h2 className='text-2xl sm:text-3xl font-light text-gray-900 mb-4'>
+            Profile Not Available
+          </h2>
+          <p className='text-gray-600 text-base sm:text-lg leading-relaxed'>
+            {accessCheck.reason ||
+              'You do not have permission to view this profile.'}
           </p>
         </div>
       </main>
@@ -116,6 +140,16 @@ const Profile = memo(() => {
     languages = [],
     skills = [],
     updatedAt,
+    // Privacy settings
+    showName,
+    showEmail,
+    showPhone,
+    showLinkedIn,
+    showPortfolio,
+    showWorkExperience,
+    showEducation,
+    showLanguages,
+    showSkills,
   } = profile || {};
 
   const hasContent =
@@ -153,6 +187,15 @@ const Profile = memo(() => {
           updatedAt={updatedAt}
           isOwner={isOwner}
           onEditClick={handleEditClick}
+          showName={showName}
+          showEmail={showEmail}
+          showPhone={showPhone}
+          showLinkedIn={showLinkedIn}
+          showPortfolio={showPortfolio}
+          showWorkExperience={showWorkExperience}
+          showEducation={showEducation}
+          showLanguages={showLanguages}
+          showSkills={showSkills}
         />
 
         {hasContent ? (
@@ -163,6 +206,10 @@ const Profile = memo(() => {
             skills={skills}
             expandedSections={expandedSections}
             onToggleSection={toggleSection}
+            showWorkExperience={showWorkExperience}
+            showEducation={showEducation}
+            showLanguages={showLanguages}
+            showSkills={showSkills}
           />
         ) : (
           <ProfileEmptyState />

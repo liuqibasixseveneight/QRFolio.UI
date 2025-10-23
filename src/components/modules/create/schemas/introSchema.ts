@@ -11,6 +11,9 @@ export const introSchema = z.object({
   availability: z.enum(['available', 'open', 'unavailable'], {
     required_error: 'Please select your availability status',
   }),
+  accessLevel: z.enum(['public', 'private', 'restricted'], {
+    required_error: 'Please select your profile visibility',
+  }),
   workExperience: z.array(z.any()).optional(),
   education: z.array(z.any()).optional(),
   languages: z.array(z.any()).optional(),

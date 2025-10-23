@@ -134,6 +134,29 @@ export const contents = ({
               required
             />
 
+            <FormField
+              label={<FormattedMessage id='forms.profileVisibility' />}
+              type='select'
+              control={control}
+              registerName='accessLevel'
+              error={errors.accessLevel?.message?.toString()}
+              options={[
+                {
+                  value: 'public',
+                  label: <FormattedMessage id='forms.accessLevel.public' />,
+                },
+                {
+                  value: 'private',
+                  label: <FormattedMessage id='forms.accessLevel.private' />,
+                },
+                {
+                  value: 'restricted',
+                  label: <FormattedMessage id='forms.accessLevel.restricted' />,
+                },
+              ]}
+              required
+            />
+
             <div className='md:col-span-2'>
               <FormField
                 label={<FormattedMessage id='forms.professionalSummary' />}

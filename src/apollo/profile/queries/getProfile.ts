@@ -17,6 +17,16 @@ const GET_PROFILE = gql`
       portfolio
       professionalSummary
       availability
+      accessLevel
+      showName
+      showEmail
+      showPhone
+      showLinkedIn
+      showPortfolio
+      showWorkExperience
+      showEducation
+      showLanguages
+      showSkills
       workExperience
       education
       languages

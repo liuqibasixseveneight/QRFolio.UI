@@ -228,7 +228,7 @@ const FormField = (props: FormFieldProps) => {
                 >
                   <SelectTrigger
                     id={registerName}
-                    className='w-full h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200'
+                    className='w-full h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200 group hover:[&_svg]:!opacity-100 hover:[&_svg]:!text-gray-800 data-[state=open]:[&_svg]:!opacity-100 data-[state=open]:[&_svg]:!text-gray-800 [&_svg]:transition-all [&_svg]:duration-200'
                   >
                     <SelectValue
                       placeholder={placeholder ?? 'Select an option'}

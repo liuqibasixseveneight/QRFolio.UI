@@ -1,6 +1,7 @@
 import {
   AvailabilityBadge,
   Badge,
+  Breadcrumb,
   buttonVariants,
   Button,
   CollapsibleSection,
@@ -87,6 +88,7 @@ export {
 export {
   AvailabilityBadge,
   Badge,
+  Breadcrumb,
   buttonVariants,
   Button,
   Calendar,
@@ -161,3 +163,6 @@ export {
 };
 
 export * from './molecules/PhoneInput';
+
+// Export types
+export type { BreadcrumbItem } from './atoms/Breadcrumb';

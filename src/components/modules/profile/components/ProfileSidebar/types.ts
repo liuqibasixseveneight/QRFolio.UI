@@ -6,4 +6,8 @@ export type ProfileSidebarProps = {
   linkedin?: string;
   portfolio?: string;
   availability?: Availability;
+  showEmail?: boolean;
+  showPhone?: boolean;
+  showLinkedIn?: boolean;
+  showPortfolio?: boolean;
 };

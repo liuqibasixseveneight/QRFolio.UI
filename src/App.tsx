@@ -10,6 +10,7 @@ import SignIn from './components/modules/signin/pages/SignIn';
 import SignUp from './components/modules/signup/pages/SignUp';
 import Edit from './components/modules/edit/pages/Edit';
 import Share from './components/modules/share/pages/Share';
+import { Settings } from './components/modules/settings';
 import { ProtectedRoute, PublicRoute, routes } from './utils';
 
 const App = () => {
@@ -42,6 +43,7 @@ const App = () => {
             <Route path={routes?.EDIT_PROFILE} element={<Edit />} />
             <Route path={routes?.PROFILE} element={<Profile />} />
             <Route path={routes?.SHARE_PROFILE} element={<Share />} />
+            <Route path={routes?.SETTINGS} element={<Settings />} />
           </Route>
         </Routes>
       </main>

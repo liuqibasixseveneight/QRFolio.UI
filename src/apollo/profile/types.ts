@@ -33,6 +33,8 @@ export type SkillCategory = {
 
 export type Availability = 'available' | 'open' | 'unavailable';
 
+export type AccessLevel = 'public' | 'private' | 'restricted';
+
 export type PhoneNumber = {
   countryCode: string;
   dialCode: string;
@@ -51,6 +53,16 @@ export type BaseProfile = {
   portfolio?: string;
   professionalSummary: string;
   availability: Availability;
+  accessLevel: AccessLevel;
+  showName?: boolean;
+  showEmail?: boolean;
+  showPhone?: boolean;
+  showLinkedIn?: boolean;
+  showPortfolio?: boolean;
+  showWorkExperience?: boolean;
+  showEducation?: boolean;
+  showLanguages?: boolean;
+  showSkills?: boolean;
   workExperience?: WorkExperience[];
   education?: Education[];
   languages?: Language[];

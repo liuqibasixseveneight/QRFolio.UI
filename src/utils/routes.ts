@@ -5,6 +5,7 @@ export const routes = {
   CREATE_PROFILE: '/create-profile',
   SHARE_PROFILE: '/profile/:id/share',
   DASHBOARD: '/dashboard',
+  SETTINGS: '/settings',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
 };

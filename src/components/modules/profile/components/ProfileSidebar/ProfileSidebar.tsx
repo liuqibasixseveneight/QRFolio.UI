@@ -22,6 +22,10 @@ const ProfileSidebar = ({
   linkedin,
   portfolio,
   availability,
+  showEmail = true,
+  showPhone = true,
+  showLinkedIn = true,
+  showPortfolio = true,
 }: ProfileSidebarProps) => {
   const getAvailabilityConfig = (status?: string) => {
     switch (status) {
@@ -160,7 +164,7 @@ const ProfileSidebar = ({
         </div>
 
         <div className='space-y-5'>
-          {email && (
+          {email && showEmail && (
             <ContactItem
               icon={<Mail />}
               label='Email'
@@ -168,14 +172,14 @@ const ProfileSidebar = ({
               href={`mailto:${email}`}
             />
           )}
-          {phone && (
+          {phone && showPhone && (
             <ContactItem
               icon={<Phone />}
               label='Phone'
               value={renderPhoneWithRegion(phone)}
             />
           )}
-          {linkedin && (
+          {linkedin && showLinkedIn && (
             <ContactItem
               icon={<Linkedin />}
               label='LinkedIn'
@@ -183,7 +187,7 @@ const ProfileSidebar = ({
               href={linkedin}
             />
           )}
-          {portfolio && (
+          {portfolio && showPortfolio && (
             <ContactItem
               icon={<Globe />}
               label='Portfolio'

@@ -8,6 +8,10 @@ interface ContactInformationProps {
   phone?: any;
   linkedin?: string;
   portfolio?: string;
+  showEmail?: boolean;
+  showPhone?: boolean;
+  showLinkedIn?: boolean;
+  showPortfolio?: boolean;
 }
 
 /**
@@ -18,10 +22,14 @@ export const ContactInformation = ({
   phone,
   linkedin,
   portfolio,
+  showEmail = true,
+  showPhone = true,
+  showLinkedIn = true,
+  showPortfolio = true,
 }: ContactInformationProps) => {
   return (
     <div className='flex flex-wrap items-center gap-3 xs:gap-4 mb-8 xs:mb-10 sm:mb-12'>
-      {email && (
+      {email && showEmail && (
         <ProfileHeaderBadge
           icon={Mail}
           label={email}
@@ -30,7 +38,7 @@ export const ContactInformation = ({
           className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
-      {phone && (
+      {phone && showPhone && (
         <ProfileHeaderBadge
           icon={Phone}
           label={formatPhoneDisplay(phone)}
@@ -38,7 +46,7 @@ export const ContactInformation = ({
           className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
-      {linkedin && (
+      {linkedin && showLinkedIn && (
         <ProfileHeaderBadge
           icon={Linkedin}
           label='LinkedIn'
@@ -47,7 +55,7 @@ export const ContactInformation = ({
           className='w-10 h-10 xs:w-12 xs:h-12'
         />
       )}
-      {portfolio && (
+      {portfolio && showPortfolio && (
         <ProfileHeaderBadge
           icon={Globe}
           label={portfolio}
