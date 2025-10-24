@@ -8,7 +8,7 @@ Create a `.env` file in the root directory with the following variables:
 
 ```env
 # Apollo GraphQL Server URL
-VITE_APOLLO_CLIENT_URL=http://localhost:4000
+VITE_APOLLO_CLIENT_URL=your_apollo_server_url
 
 # Supabase Configuration
 VITE_DATABASE_PROJECT_URL=your_supabase_project_url
@@ -17,7 +17,7 @@ VITE_DATABASE_PUBLIC_API_KEY=your_supabase_public_api_key
 # Production URL for QR Code Generation
 # Set this to your production domain (e.g., https://yourdomain.com)
 # When set, QR codes will use this URL instead of localhost
-VITE_PRODUCTION_URL=https://yourdomain.com
+VITE_PRODUCTION_URL=your_production_domain
 ```
 
 ## QR Code Generation
