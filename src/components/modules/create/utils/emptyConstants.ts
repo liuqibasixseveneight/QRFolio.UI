@@ -23,7 +23,8 @@ const EMPTY_LANGUAGE_ENTRY: NonNullable<CVFormValues['languages']>[number] = {
 };
 
 const EMPTY_SKILL_ENTRY: NonNullable<CVFormValues['skills']>[number] = {
-  skill: '',
+  title: '',
+  skills: [],
 };
 
 export {

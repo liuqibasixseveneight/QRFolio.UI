@@ -32,9 +32,9 @@ export const htmlToPDFText = (html: string): string => {
         case 'ol':
           // Convert ordered list to numbered points
           const olItems = Array.from(element.children)
-            .map((li, index) => processNode(li))
+            .map((li) => processNode(li))
             .filter((text) => text.trim())
-            .map((text) => `${index + 1}. ${text.trim()}`)
+            .map((text, itemIndex) => `${itemIndex + 1}. ${text.trim()}`)
             .join('\n');
           return olItems;
 

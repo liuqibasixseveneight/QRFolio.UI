@@ -72,29 +72,7 @@ const ProfileSidebar = ({
     }
   };
 
-  const displayAvailability = availability || 'available';
   const availabilityConfig = getAvailabilityConfig(availability);
-
-  // Helper function to format phone display
-  const formatPhoneDisplay = (phoneData: any) => {
-    if (typeof phoneData === 'string') {
-      // Legacy phone format - just return as is
-      return phoneData;
-    }
-
-    if (phoneData && phoneData.number) {
-      // New phone format - show country and dial code with number
-      const countryInfo =
-        phoneData.countryCode && phoneData.dialCode
-          ? `${phoneData.countryCode} ${phoneData.dialCode}`
-          : '';
-      return countryInfo
-        ? `${countryInfo} • ${phoneData.number}`
-        : phoneData.number;
-    }
-
-    return phoneData;
-  };
 
   // Helper function to render phone with styled region
   const renderPhoneWithRegion = (phoneData: any) => {

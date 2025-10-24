@@ -10,7 +10,6 @@ import { formatDateForPDF } from '../utils';
 import { htmlToPDFText } from '../utils/htmlToPDFText';
 import type { ProfileHeaderProps } from '../types';
 import { pdfStyles } from './PDFGenerator.styles';
-import { useToast } from '@/components/ui/molecules/Toast/use-toast';
 
 /**
  * Generates and downloads a PDF resume from profile data

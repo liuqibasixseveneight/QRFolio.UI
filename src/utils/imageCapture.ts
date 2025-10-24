@@ -91,7 +91,7 @@ export const captureElementAsImage = async (
         width: `${element.offsetWidth}px`,
         height: `${element.offsetHeight}px`,
       },
-      filter: (node) => {
+      filter: () => {
         // Keep all nodes, don't filter anything
         return true;
       },
