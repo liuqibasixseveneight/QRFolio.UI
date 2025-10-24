@@ -5,15 +5,7 @@ const TimelineItem = ({
   subtitle,
   date,
   description,
-  accentColor = 'slate-600',
 }: TimelineItemProps) => {
-  const accentColorClass =
-    accentColor === 'slate-600'
-      ? 'text-slate-600'
-      : accentColor === 'red-600'
-      ? 'text-red-600'
-      : 'text-slate-600';
-
   return (
     <div className='relative group'>
       <div className='absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-200 via-slate-300 to-transparent'></div>

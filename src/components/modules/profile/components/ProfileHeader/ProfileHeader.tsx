@@ -27,10 +27,6 @@ const ProfileHeader = ({
   showPhone = true,
   showLinkedIn = true,
   showPortfolio = true,
-  showWorkExperience = true,
-  showEducation = true,
-  showLanguages = true,
-  showSkills = true,
 }: ProfileHeaderProps) => {
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
