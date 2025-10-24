@@ -16,7 +16,7 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
         <div className='max-w-lg 2xl:max-w-xl'>
           <p className='text-base lg:text-lg xl:text-xl text-gray-600 leading-relaxed mb-8 2xl:mb-12 font-light'>
             Scan the QR code to instantly access my professional resume on{' '}
-            <span className='font-semibold text-gray-900'>CV-HOST</span>
+            <span className='font-semibold text-gray-900'>CV HOST</span>
           </p>
           <h1 className='text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-light tracking-tight mb-8 2xl:mb-10 text-gray-900'>
             {fullName}
@@ -38,7 +38,7 @@ const ProfileQRCard = ({ link, labels }: ProfileQRCardProps) => {
           </h1>
           <p className='text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed max-w-sm sm:max-w-md mx-auto font-light'>
             Scan the QR code to instantly access my professional resume on{' '}
-            <span className='font-semibold text-gray-900'>CV-HOST</span>
+            <span className='font-semibold text-gray-900'>CV HOST</span>
           </p>
         </div>
 
