@@ -8,7 +8,6 @@ import {
   ErrorDisplay,
   TabbedSections,
   useToast,
-  CategorizedSkillsInput,
 } from '@/components/ui';
 import type { CVFormValues } from '../../types';
 import { introSchema } from '../../schemas';
@@ -147,7 +146,10 @@ const CreateProfileTabs = () => {
           (category) =>
             category.title?.trim() &&
             category.skills?.some((skill) => skill.skill?.trim())
-        ) || [];
+        ).map(category => ({
+          title: category.title!,
+          skills: category.skills?.filter(skill => skill.skill?.trim()) || []
+        })) || [];
 
       const profileData = {
         id: userId || '',

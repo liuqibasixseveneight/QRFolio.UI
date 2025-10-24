@@ -11,7 +11,6 @@ import {
   LoadingSpinner,
   TabbedSections,
   useToast,
-  CategorizedSkillsInput,
   Breadcrumb,
 } from '@/components/ui';
 import { useAuth } from '@/context';

@@ -134,7 +134,6 @@ const DynamicFieldSection = <T extends Record<string, any>>({
                         ) as string | undefined;
 
                         // Check if this is a date field that should be grouped
-                        const isDateField = config?.type === 'date';
                         const isDateFrom = config?.name === 'dateFrom';
                         const isDateTo = config?.name === 'dateTo';
 

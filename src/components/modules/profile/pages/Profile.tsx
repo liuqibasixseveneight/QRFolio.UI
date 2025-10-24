@@ -180,10 +180,10 @@ const Profile = memo(() => {
           linkedin={linkedin || ''}
           portfolio={portfolio || ''}
           availability={availability}
-          workExperience={workExperience}
-          education={education}
-          languages={languages}
-          skills={skills}
+          workExperience={workExperience || []}
+          education={education || []}
+          languages={languages || []}
+          skills={skills || []}
           updatedAt={updatedAt}
           isOwner={isOwner}
           onEditClick={handleEditClick}
@@ -200,10 +200,10 @@ const Profile = memo(() => {
 
         {hasContent ? (
           <ProfileSectionsContainer
-            workExperience={workExperience}
-            education={education}
-            languages={languages}
-            skills={skills}
+            workExperience={workExperience || []}
+            education={education || []}
+            languages={languages || []}
+            skills={skills || []}
             expandedSections={expandedSections}
             onToggleSection={toggleSection}
             showWorkExperience={showWorkExperience}
