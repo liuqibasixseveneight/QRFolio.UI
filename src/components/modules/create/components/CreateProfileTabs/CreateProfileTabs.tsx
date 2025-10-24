@@ -159,15 +159,18 @@ const CreateProfileTabs = () => {
         fullName: formData.fullName,
         phone: formData.phone,
         email: formData.email,
-        linkedin: formData.linkedin,
-        portfolio: formData.portfolio,
-        professionalSummary: formData.professionalSummary,
+        linkedin: formData.linkedin || undefined,
+        portfolio: formData.portfolio || undefined,
+        professionalSummary: formData.professionalSummary?.trim() || undefined,
         availability: formData.availability,
         accessLevel: formData.accessLevel,
-        workExperience: filteredWorkExperience,
-        education: filteredEducation,
-        languages: filteredLanguages,
-        skills: filteredSkills,
+        workExperience:
+          filteredWorkExperience.length > 0
+            ? filteredWorkExperience
+            : undefined,
+        education: filteredEducation.length > 0 ? filteredEducation : undefined,
+        languages: filteredLanguages.length > 0 ? filteredLanguages : undefined,
+        skills: filteredSkills.length > 0 ? filteredSkills : undefined,
       };
 
       const result = await createProfile(profileData);
