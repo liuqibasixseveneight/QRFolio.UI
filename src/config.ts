@@ -7,7 +7,8 @@ const VITE_DATABASE_PUBLIC_API_KEY = import.meta.env
   .VITE_DATABASE_PUBLIC_API_KEY as string;
 
 // Production URL for QR code generation - should be set in environment variables
-const PRODUCTION_URL = import.meta.env.VITE_PRODUCTION_URL as string;
+const PRODUCTION_URL =
+  import.meta.env.VITE_PRODUCTION_URL || window.location.origin;
 
 export {
   APOLLO_CLIENT_URL,
