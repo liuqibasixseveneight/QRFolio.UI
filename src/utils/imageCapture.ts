@@ -1,5 +1,5 @@
 // @ts-ignore
-import * as domtoimage from 'dom-to-image-more';
+import domtoimage from 'dom-to-image-more';
 
 export type ImageCaptureOptions = {
   quality?: number;
