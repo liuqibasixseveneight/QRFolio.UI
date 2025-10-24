@@ -1,5 +1,6 @@
 import type { Skill, SkillCategory } from '@/apollo/profile';
 
+export type { Skill, SkillCategory };
 export type SkillsInputProps = {
   skills: Skill[];
   onSkillsChange: (skills: Skill[]) => void;

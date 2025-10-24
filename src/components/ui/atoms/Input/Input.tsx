@@ -1,9 +1,8 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import type { ComponentProps } from 'react';
 import { cn } from '@/lib/utils';
-import { Eye, EyeOff } from 'lucide-react';
 
-const Input = React.forwardRef<HTMLInputElement, ComponentProps<'input'>>(
+const Input = forwardRef<HTMLInputElement, ComponentProps<'input'>>(
   ({ className, type, ...props }, ref) => {
     return (
       <input

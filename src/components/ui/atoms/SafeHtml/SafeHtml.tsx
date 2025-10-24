@@ -32,7 +32,7 @@ const SafeHtml: React.FC<SafeHtmlProps> = ({
     ALLOW_DATA_ATTR: false,
   });
 
-  const Tag = tag as keyof JSX.IntrinsicElements;
+  const Tag = tag as keyof React.JSX.IntrinsicElements;
 
   return (
     <>
