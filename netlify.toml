@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "VITE_APOLLO_CLIENT_URL,VITE_DATABASE_PROJECT_URL,VITE_DATABASE_PUBLIC_API_KEY,VITE_PRODUCTION_URL"
