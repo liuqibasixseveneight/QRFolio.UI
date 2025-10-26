@@ -1,10 +1,60 @@
 import { useState } from 'react';
-import { Calendar, Edit } from 'lucide-react';
+import { Calendar, Edit, Globe, Lock, Shield } from 'lucide-react';
+import { FormattedMessage } from 'react-intl';
 
-import { AvailabilityBadge, QRCodeModal } from '@/components/ui';
+import {
+  AvailabilityBadge,
+  QRCodeModal,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui';
 import { formatDateWithOrdinal } from './utils';
 import { ActionButtons, ContactInformation } from './components';
 import type { ProfileHeaderProps } from './types';
+
+const ACCESS_LEVELS = {
+  PUBLIC: 'public',
+  PRIVATE: 'private',
+  RESTRICTED: 'restricted',
+} as const;
+
+const getVisibilityConfig = (level: string) => {
+  switch (level) {
+    case ACCESS_LEVELS.PUBLIC:
+      return {
+        icon: Globe,
+        bgColor: 'bg-green-50',
+        borderColor: 'border-green-200',
+        textColor: 'text-green-700',
+        iconColor: 'text-green-600',
+      };
+    case ACCESS_LEVELS.PRIVATE:
+      return {
+        icon: Lock,
+        bgColor: 'bg-yellow-50',
+        borderColor: 'border-yellow-200',
+        textColor: 'text-yellow-700',
+        iconColor: 'text-yellow-600',
+      };
+    case ACCESS_LEVELS.RESTRICTED:
+      return {
+        icon: Shield,
+        bgColor: 'bg-blue-50',
+        borderColor: 'border-blue-200',
+        textColor: 'text-blue-700',
+        iconColor: 'text-blue-600',
+      };
+    default:
+      return {
+        icon: Globe,
+        bgColor: 'bg-green-50',
+        borderColor: 'border-green-200',
+        textColor: 'text-green-700',
+        iconColor: 'text-green-600',
+      };
+  }
+};
 
 const ProfileHeader = ({
   fullName,
@@ -14,6 +64,7 @@ const ProfileHeader = ({
   linkedin,
   portfolio,
   availability,
+  accessLevel = 'public',
   workExperience = [],
   education = [],
   languages = [],
@@ -21,7 +72,6 @@ const ProfileHeader = ({
   updatedAt,
   isOwner = false,
   onEditClick,
-  // Privacy settings with defaults to true for backward compatibility
   showName = true,
   showEmail = true,
   showPhone = true,
@@ -47,7 +97,7 @@ const ProfileHeader = ({
                     <div className='flex items-center gap-2 text-xs sm:text-sm text-gray-500 py-2 sm:py-3'>
                       <Calendar className='w-3 xs:w-4 h-3 xs:h-4 text-gray-400' />
                       <span className='hidden xs:inline'>
-                        Last Updated:{' '}
+                        <FormattedMessage id='profile.lastUpdated' />:{' '}
                         <span className='font-medium'>
                           {updatedAt
                             ? formatDateWithOrdinal(updatedAt)
@@ -55,7 +105,7 @@ const ProfileHeader = ({
                         </span>
                       </span>
                       <span className='xs:hidden'>
-                        Updated{' '}
+                        <FormattedMessage id='profile.updated' />{' '}
                         <span className='font-medium'>
                           {updatedAt
                             ? formatDateWithOrdinal(updatedAt)
@@ -70,8 +120,47 @@ const ProfileHeader = ({
                         title='Edit Profile'
                       >
                         <Edit className='w-3 xs:w-4 h-3 xs:h-4' />
-                        <span>Edit</span>
+                        <span>
+                          <FormattedMessage id='profile.editProfile' />
+                        </span>
                       </button>
+                    )}
+                    {isOwner && accessLevel && (
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div
+                            className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
+                              getVisibilityConfig(accessLevel).bgColor
+                            } ${getVisibilityConfig(accessLevel).borderColor}`}
+                          >
+                            {(() => {
+                              const Icon =
+                                getVisibilityConfig(accessLevel).icon;
+                              return (
+                                <Icon
+                                  className={`w-4 h-4 ${
+                                    getVisibilityConfig(accessLevel).iconColor
+                                  }`}
+                                />
+                              );
+                            })()}
+                            <span
+                              className={`text-sm font-medium ${
+                                getVisibilityConfig(accessLevel).textColor
+                              }`}
+                            >
+                              <FormattedMessage
+                                id={`profile.visibility.${accessLevel}`}
+                              />
+                            </span>
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <FormattedMessage
+                            id={`profile.visibility.${accessLevel}Tooltip`}
+                          />
+                        </TooltipContent>
+                      </Tooltip>
                     )}
                   </div>
                 </div>

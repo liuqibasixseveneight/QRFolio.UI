@@ -115,7 +115,24 @@
     "profileDeleted": "Profile deleted successfully!",
     "fillRequiredFields": "Please fill in all required fields",
     "invalidDateFormat": "Invalid date format",
-    "endDateBeforeStartDate": "End date must be after start date"
+    "endDateBeforeStartDate": "End date must be after start date",
+    "accessAlerts": {
+      "pendingRequestTitle": "Pending Access Request",
+      "pendingRequestMessage": "You have already requested access to view this profile. Your request is pending approval from the profile owner.",
+      "approvedPrivateTitle": "Profile Access Approved",
+      "approvedPrivateMessage": "You have been granted access to view this profile. However, this profile is currently set to private and is not visible to any users."
+    },
+    "visibility": {
+      "public": "Public",
+      "private": "Private",
+      "restricted": "Restricted",
+      "publicTooltip": "Your profile is currently public and can be viewed by anyone",
+      "privateTooltip": "Your profile is currently private and can only be viewed by you",
+      "restrictedTooltip": "Your profile is restricted and can only be viewed by approved users"
+    },
+    "lastUpdated": "Last Updated",
+    "updated": "Updated",
+    "editProfile": "Edit Profile"
   },
   "dashboard": {
     "welcome": "Welcome to your dashboard",
@@ -324,7 +341,35 @@
       "title": "Profile Permissions",
       "description": "Manage who can access your profile when set to restricted visibility",
       "yourUserId": "Your User ID",
-      "permittedUsers": "Permitted Users"
+      "permittedUsers": "Permitted Users",
+      "pendingAccessRequests": "Pending Access Requests",
+      "approve": "Approve",
+      "reject": "Reject",
+      "enterUserId": "Enter user ID..."
+    },
+    "toasts": {
+      "userIdCopied": "User ID copied to clipboard",
+      "userIdCopiedDesc": "Your user ID has been copied successfully.",
+      "copyFailed": "Failed to copy",
+      "copyFailedDesc": "Unable to copy user ID to clipboard.",
+      "accessGranted": "Access Granted",
+      "accessGrantedDesc": "User has been granted access to your profile.",
+      "grantAccessFailed": "Failed to Grant Access",
+      "grantAccessFailedDesc": "Please try again later.",
+      "accessDenied": "Access Denied",
+      "accessDeniedDesc": "Request has been removed.",
+      "denyAccessFailed": "Failed to Deny Access",
+      "denyAccessFailedDesc": "Please try again later.",
+      "settingsUpdated": "Settings Updated Successfully! ✨",
+      "settingsUpdatedDesc": "Your privacy settings have been saved.",
+      "settingsUpdateFailed": "Settings Update Failed",
+      "settingsUpdateFailedDesc": "Failed to update settings. Please try again later."
+    },
+    "validation": {
+      "profileVisibilityRequired": "Please select your profile visibility"
+    },
+    "placeholders": {
+      "selectVisibility": "Select visibility"
     }
   },
   "shareProfile": {

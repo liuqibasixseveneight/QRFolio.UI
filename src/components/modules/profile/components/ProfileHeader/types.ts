@@ -1,4 +1,8 @@
-import type { Availability, SkillCategory } from '@/apollo/profile/types';
+import type {
+  Availability,
+  SkillCategory,
+  AccessLevel,
+} from '@/apollo/profile/types';
 
 export type ProfileHeaderProps = {
   fullName: string;
@@ -8,6 +12,7 @@ export type ProfileHeaderProps = {
   linkedin?: string;
   portfolio?: string;
   availability?: Availability;
+  accessLevel?: AccessLevel;
   workExperience?: any[];
   education?: any[];
   languages?: any[];
@@ -15,7 +20,6 @@ export type ProfileHeaderProps = {
   updatedAt?: string;
   isOwner?: boolean;
   onEditClick?: () => void;
-  // Privacy settings
   showName?: boolean;
   showEmail?: boolean;
   showPhone?: boolean;
