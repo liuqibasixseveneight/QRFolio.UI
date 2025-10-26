@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui';
-import { Menu, X, User, PanelLeft } from 'lucide-react';
+import { FormattedMessage } from 'react-intl';
+import {
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui';
+import { Menu, X, User, PanelLeft, Settings } from 'lucide-react';
 
 import { useAuth } from '@/context';
 import type { NavbarProps } from './types';
@@ -30,6 +36,11 @@ const Navbar = ({}: NavbarProps) => {
       navigate('/dashboard');
       setIsMobileMenuOpen(false);
     }
+  };
+
+  const handleSettingsClick = () => {
+    navigate('/settings');
+    setIsMobileMenuOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -71,24 +82,54 @@ const Navbar = ({}: NavbarProps) => {
             >
               Sign Out
             </Button>
-            <Button
-              onClick={handleDashboardClick}
-              variant='secondary'
-              size='icon'
-              aria-label='Dashboard'
-              className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
-            >
-              <PanelLeft className='h-5 w-5' />
-            </Button>
-            <Button
-              onClick={handleProfileClick}
-              variant='secondary'
-              size='icon'
-              aria-label='Profile'
-              className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
-            >
-              <User className='h-5 w-5' />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={handleDashboardClick}
+                  variant='secondary'
+                  size='icon'
+                  aria-label='Dashboard'
+                  className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
+                >
+                  <PanelLeft className='h-5 w-5' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <FormattedMessage id='navigation.dashboard' />
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={handleSettingsClick}
+                  variant='secondary'
+                  size='icon'
+                  aria-label='Settings'
+                  className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
+                >
+                  <Settings className='h-5 w-5' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <FormattedMessage id='navigation.settings' />
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={handleProfileClick}
+                  variant='secondary'
+                  size='icon'
+                  aria-label='Profile'
+                  className='rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
+                >
+                  <User className='h-5 w-5' />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <FormattedMessage id='navigation.profile' />
+              </TooltipContent>
+            </Tooltip>
           </>
         )}
       </div>
@@ -142,6 +183,14 @@ const Navbar = ({}: NavbarProps) => {
                 >
                   <PanelLeft className='h-4 w-4 mr-2' />
                   Dashboard
+                </Button>
+                <Button
+                  onClick={handleSettingsClick}
+                  variant='secondary'
+                  className='w-full bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-800 transition-all duration-300'
+                >
+                  <Settings className='h-4 w-4 mr-2' />
+                  Settings
                 </Button>
                 <Button
                   onClick={handleProfileClick}

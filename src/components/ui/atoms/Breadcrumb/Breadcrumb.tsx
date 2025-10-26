@@ -1,5 +1,5 @@
 import { forwardRef, Fragment } from 'react';
-import { ChevronRight, Home } from 'lucide-react';
+import { ChevronRight, PanelLeft } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
@@ -33,7 +33,7 @@ const Breadcrumb = forwardRef<HTMLDivElement, BreadcrumbProps>(
           to='/dashboard'
           className='flex items-center hover:text-gray-900 transition-colors duration-200'
         >
-          <Home className='w-4 h-4' />
+          <PanelLeft className='w-4 h-4' />
           <span className='sr-only'>
             <FormattedMessage id='breadcrumb.home' />
           </span>

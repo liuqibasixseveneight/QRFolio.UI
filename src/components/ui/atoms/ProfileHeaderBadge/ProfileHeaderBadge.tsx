@@ -14,7 +14,6 @@ const ProfileHeaderBadge = ({
   href,
   className = '',
 }: ProfileHeaderBadgeProps) => {
-  // Determine cursor based on type
   const getCursorClass = () => {
     switch (type) {
       case 'email':
@@ -27,10 +26,8 @@ const ProfileHeaderBadge = ({
     }
   };
 
-  // Check if this is an icon-only badge (based on className)
   const isIconOnly = className.includes('w-12') && className.includes('h-12');
 
-  // Create different badge content based on mode
   const badgeContent = isIconOnly ? (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -64,10 +61,8 @@ const ProfileHeaderBadge = ({
     </div>
   );
 
-  // Handle different types
   switch (type) {
     case 'email':
-      // Email: open email application
       return (
         <Link
           to={`mailto:${href || label}`}
@@ -78,11 +73,9 @@ const ProfileHeaderBadge = ({
       );
 
     case 'phone':
-      // Phone: no click action, just display
       return badgeContent;
 
     case 'linkedin':
-      // LinkedIn: format URL and open in new tab
       let linkedinUsername = href || label;
 
       // Remove leading slash if present
@@ -110,7 +103,6 @@ const ProfileHeaderBadge = ({
       );
 
     case 'link':
-      // External links: open in new tab
       return (
         <Link
           to={href || label}
