@@ -43,6 +43,16 @@ const Navbar = ({}: NavbarProps) => {
     setIsMobileMenuOpen(false);
   };
 
+  const handleSignInClick = () => {
+    navigate('/sign-in');
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleSignUpClick = () => {
+    navigate('/sign-up');
+    setIsMobileMenuOpen(false);
+  };
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -60,13 +70,13 @@ const Navbar = ({}: NavbarProps) => {
         {!session ? (
           <>
             <Button
-              onClick={() => navigate('/sign-in')}
+              onClick={handleSignInClick}
               className='bg-gray-900 hover:bg-gray-800 text-white transition-all duration-300'
             >
               Sign In
             </Button>
             <Button
-              onClick={() => navigate('/sign-up')}
+              onClick={handleSignUpClick}
               variant='outline'
               className='border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300'
             >
@@ -154,13 +164,13 @@ const Navbar = ({}: NavbarProps) => {
             {!session ? (
               <>
                 <Button
-                  onClick={() => navigate('/sign-in')}
+                  onClick={handleSignInClick}
                   className='w-full bg-gray-900 hover:bg-gray-800 text-white transition-all duration-300'
                 >
                   Sign In
                 </Button>
                 <Button
-                  onClick={() => navigate('/sign-up')}
+                  onClick={handleSignUpClick}
                   variant='outline'
                   className='w-full border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300'
                 >
