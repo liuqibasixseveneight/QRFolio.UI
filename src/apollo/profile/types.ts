@@ -64,6 +64,7 @@ export type BaseProfile = {
   showLanguages?: boolean;
   showSkills?: boolean;
   permittedUsers?: string[];
+  accessRequests?: string[];
   workExperience?: WorkExperience[] | null;
   education?: Education[] | null;
   languages?: Language[] | null;
@@ -111,4 +112,53 @@ export type GraphQLResult<T> = {
 };
 
 export type GetProfilesResult = GraphQLResult<GetProfilesData>;
+
 export type GetProfileResult = GraphQLResult<GetProfileData>;
+
+export type ProfileSettings = {
+  id: string;
+  visibility: string;
+  permittedUsers: string[];
+  accessRequests: string[];
+  showName: boolean;
+  showEmail: boolean;
+  showPhone: boolean;
+  showLinkedIn: boolean;
+  showPortfolio: boolean;
+  showWorkExperience: boolean;
+  showEducation: boolean;
+  showLanguages: boolean;
+  showSkills: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GetProfileSettingsData = {
+  getProfileSettings: ProfileSettings;
+};
+
+export type GetProfileSettingsVariables = {
+  id: string;
+};
+
+export type GetProfileSettingsResult = GraphQLResult<GetProfileSettingsData>;
+
+export type UpdateProfileSettingsVariables = {
+  id: string;
+  visibility?: AccessLevel;
+  permittedUsers?: string[];
+  accessRequests?: string[];
+  showName?: boolean;
+  showEmail?: boolean;
+  showPhone?: boolean;
+  showLinkedIn?: boolean;
+  showPortfolio?: boolean;
+  showWorkExperience?: boolean;
+  showEducation?: boolean;
+  showLanguages?: boolean;
+  showSkills?: boolean;
+};
+
+export type UpdateProfileSettingsData = {
+  updateProfileSettings: ProfileSettings;
+};

@@ -2,6 +2,8 @@ import { gql, useMutation } from '@apollo/client';
 
 import type { UpdateProfileData, UpdateProfileVariables } from '../types';
 
+// Note: When updating arrays like permittedUsers or accessRequests,
+// make sure to pass the complete array (with the new item added) not just the new item
 const UPDATE_PROFILE = gql`
   mutation updateProfile(
     $id: ID!
@@ -23,6 +25,7 @@ const UPDATE_PROFILE = gql`
     $showLanguages: Boolean
     $showSkills: Boolean
     $permittedUsers: [String!]
+    $accessRequests: [String!]
     $workExperience: JSON
     $education: JSON
     $languages: JSON
@@ -48,6 +51,7 @@ const UPDATE_PROFILE = gql`
       showLanguages: $showLanguages
       showSkills: $showSkills
       permittedUsers: $permittedUsers
+      accessRequests: $accessRequests
       workExperience: $workExperience
       education: $education
       languages: $languages
@@ -72,6 +76,7 @@ const UPDATE_PROFILE = gql`
       showLanguages
       showSkills
       permittedUsers
+      accessRequests
       workExperience
       education
       languages

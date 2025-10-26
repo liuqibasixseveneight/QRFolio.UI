@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save, Eye, EyeOff, Copy, Plus, X, Check } from 'lucide-react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { z } from 'zod';
 
 import {
@@ -17,13 +17,15 @@ import {
   SelectValue,
 } from '@/components/ui';
 import { useAuth } from '@/context';
-import { useGetProfile } from '@/apollo/profile';
-import { useUpdateProfile } from '@/apollo/profile/mutations/updateProfile';
+import {
+  useGetProfileSettings,
+  useUpdateProfileSettings,
+} from '@/apollo/profile';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 
 const settingsSchema = z.object({
   accessLevel: z.enum(['public', 'private', 'restricted'], {
-    required_error: 'Please select your profile visibility',
+    required_error: 'settings.validation.profileVisibilityRequired',
   }),
   showName: z.boolean(),
   showEmail: z.boolean(),
@@ -43,35 +45,38 @@ const SettingsPage = () => {
   const { toast } = useToast();
   const { userId } = useAuth();
   const breadcrumbs = useBreadcrumbs();
+  const intl = useIntl();
 
   const [showUserId, setShowUserId] = useState(false);
   const [permittedUserInput, setPermittedUserInput] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
 
-  const [profileData, { loading: loadingProfile }] = useGetProfile(
-    userId || ''
-  );
-  const [updateProfile, { loading: updating }] = useUpdateProfile();
+  const [profileData, { loading: loadingProfile, refetch }] =
+    useGetProfileSettings(userId || '');
+  const [updateProfile, { loading: updating }] = useUpdateProfileSettings();
 
-  const profile = profileData?.profile;
+  const profile = profileData?.getProfileSettings;
 
-  // Helper functions
   const copyUserId = async () => {
     if (userId) {
       try {
         await navigator.clipboard.writeText(userId);
         setCopySuccess(true);
         toast({
-          title: 'User ID copied to clipboard',
-          description: 'Your user ID has been copied successfully.',
+          title: intl.formatMessage({ id: 'settings.toasts.userIdCopied' }),
+          description: intl.formatMessage({
+            id: 'settings.toasts.userIdCopiedDesc',
+          }),
           variant: 'success',
         });
         // Reset icon after 2 seconds
         setTimeout(() => setCopySuccess(false), 2000);
       } catch (err) {
         toast({
-          title: 'Failed to copy',
-          description: 'Unable to copy user ID to clipboard.',
+          title: intl.formatMessage({ id: 'settings.toasts.copyFailed' }),
+          description: intl.formatMessage({
+            id: 'settings.toasts.copyFailedDesc',
+          }),
           variant: 'destructive',
         });
       }
@@ -115,11 +120,84 @@ const SettingsPage = () => {
     );
   };
 
+  const handleGrantAccess = async (requestingUserId: string) => {
+    if (!profile) {
+      return;
+    }
+
+    const currentAccessRequests = profile.accessRequests || [];
+    const currentPermittedUsers = profile.permittedUsers || [];
+
+    try {
+      await updateProfile({
+        id: userId || '',
+        permittedUsers: [...currentPermittedUsers, requestingUserId],
+        accessRequests: currentAccessRequests.filter(
+          (id: string) => id !== requestingUserId
+        ),
+      });
+
+      toast({
+        title: intl.formatMessage({ id: 'settings.toasts.accessGranted' }),
+        description: intl.formatMessage({
+          id: 'settings.toasts.accessGrantedDesc',
+        }),
+        variant: 'success',
+      });
+
+      await refetch();
+    } catch (error) {
+      console.error('Error granting access:', error);
+      toast({
+        title: intl.formatMessage({ id: 'settings.toasts.grantAccessFailed' }),
+        description: intl.formatMessage({
+          id: 'settings.toasts.grantAccessFailedDesc',
+        }),
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleDenyAccess = async (requestingUserId: string) => {
+    if (!profile) {
+      return;
+    }
+
+    const currentAccessRequests = profile.accessRequests || [];
+
+    try {
+      await updateProfile({
+        id: userId || '',
+        accessRequests: currentAccessRequests.filter(
+          (id: string) => id !== requestingUserId
+        ),
+      });
+
+      toast({
+        title: intl.formatMessage({ id: 'settings.toasts.accessDenied' }),
+        description: intl.formatMessage({
+          id: 'settings.toasts.accessDeniedDesc',
+        }),
+        variant: 'success',
+      });
+
+      await refetch();
+    } catch (error) {
+      console.error('Error denying access:', error);
+      toast({
+        title: intl.formatMessage({ id: 'settings.toasts.denyAccessFailed' }),
+        description: intl.formatMessage({
+          id: 'settings.toasts.denyAccessFailedDesc',
+        }),
+        variant: 'destructive',
+      });
+    }
+  };
+
   useEffect(() => {
     if (profile && profile.id) {
-      // Reset form with profile data to ensure all fields are properly updated
       reset({
-        accessLevel: profile.accessLevel || 'public',
+        accessLevel: (profile.visibility as any) || 'public',
         showName: profile.showName ?? true,
         showEmail: profile.showEmail ?? true,
         showPhone: profile.showPhone ?? true,
@@ -138,7 +216,7 @@ const SettingsPage = () => {
     try {
       await updateProfile({
         id: userId || '',
-        accessLevel: data.accessLevel,
+        visibility: data.accessLevel,
         showName: data.showName,
         showEmail: data.showEmail,
         showPhone: data.showPhone,
@@ -152,15 +230,21 @@ const SettingsPage = () => {
       });
 
       toast({
-        title: 'Settings Updated Successfully! ✨',
-        description: 'Your privacy settings have been saved.',
+        title: intl.formatMessage({ id: 'settings.toasts.settingsUpdated' }),
+        description: intl.formatMessage({
+          id: 'settings.toasts.settingsUpdatedDesc',
+        }),
         variant: 'success',
       });
     } catch (error) {
       console.error('Error updating settings:', error);
       toast({
-        title: 'Settings Update Failed',
-        description: 'Failed to update settings. Please try again later.',
+        title: intl.formatMessage({
+          id: 'settings.toasts.settingsUpdateFailed',
+        }),
+        description: intl.formatMessage({
+          id: 'settings.toasts.settingsUpdateFailedDesc',
+        }),
         variant: 'destructive',
       });
     }
@@ -222,14 +306,22 @@ const SettingsPage = () => {
                   <Controller
                     name='accessLevel'
                     control={control}
-                    defaultValue={profile?.accessLevel || 'public'}
+                    defaultValue={(profile?.visibility as any) || 'public'}
                     render={({ field }) => (
                       <Select
-                        value={field.value || profile?.accessLevel || 'public'}
+                        value={
+                          field.value ||
+                          (profile?.visibility as any) ||
+                          'public'
+                        }
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger className='w-full group hover:[&_svg]:!opacity-100 hover:[&_svg]:!text-gray-800 data-[state=open]:[&_svg]:!opacity-100 data-[state=open]:[&_svg]:!text-gray-800 [&_svg]:transition-all [&_svg]:duration-200 border-gray-200 focus:ring-2 focus:ring-gray-300 focus:border-gray-400'>
-                          <SelectValue placeholder='Select visibility' />
+                          <SelectValue
+                            placeholder={intl.formatMessage({
+                              id: 'settings.placeholders.selectVisibility',
+                            })}
+                          />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value='public'>
@@ -317,7 +409,9 @@ const SettingsPage = () => {
                         type='text'
                         value={permittedUserInput}
                         onChange={(e) => setPermittedUserInput(e.target.value)}
-                        placeholder='Enter user ID...'
+                        placeholder={intl.formatMessage({
+                          id: 'settings.profilePermissions.enterUserId',
+                        })}
                         className='flex-1 px-4 py-3 border border-gray-200 rounded-lg bg-white focus:ring-2 focus:ring-gray-300 focus:border-gray-400 transition-all duration-200'
                         onKeyPress={(e) =>
                           e.key === 'Enter' && addPermittedUser()
@@ -357,6 +451,50 @@ const SettingsPage = () => {
                     )}
                   </div>
                 </div>
+
+                {/* Access Requests */}
+                {profile?.accessRequests &&
+                  profile.accessRequests.length > 0 && (
+                    <div>
+                      <label className='block text-sm font-medium text-gray-700 mb-2'>
+                        <FormattedMessage id='settings.profilePermissions.pendingAccessRequests' />
+                      </label>
+                      <div className='space-y-2'>
+                        {profile.accessRequests.map(
+                          (requestingUserId: string, index: number) => (
+                            <div
+                              key={index}
+                              className='flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg'
+                            >
+                              <code className='font-mono text-sm text-gray-800'>
+                                {requestingUserId}
+                              </code>
+                              <div className='flex gap-2'>
+                                <button
+                                  type='button'
+                                  onClick={() =>
+                                    handleGrantAccess(requestingUserId)
+                                  }
+                                  className='px-3 py-1.5 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer'
+                                >
+                                  <FormattedMessage id='settings.profilePermissions.approve' />
+                                </button>
+                                <button
+                                  type='button'
+                                  onClick={() =>
+                                    handleDenyAccess(requestingUserId)
+                                  }
+                                  className='px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-900 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer border border-gray-300'
+                                >
+                                  <FormattedMessage id='settings.profilePermissions.reject' />
+                                </button>
+                              </div>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                  )}
               </div>
             </div>
 

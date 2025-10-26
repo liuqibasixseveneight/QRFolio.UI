@@ -28,6 +28,7 @@ const GET_PROFILE = gql`
       showLanguages
       showSkills
       permittedUsers
+      accessRequests
       workExperience
       education
       languages
@@ -45,8 +46,8 @@ const GET_PROFILE = gql`
 
 export const useGetProfile = (
   id: string | null
-): [GetProfileData | undefined, GetProfileResult] => {
-  const { data, loading, error } = useQuery<
+): [GetProfileData | undefined, GetProfileResult & { refetch: () => void }] => {
+  const { data, loading, error, refetch } = useQuery<
     GetProfileData,
     GetProfileVariables
   >(GET_PROFILE, {
@@ -55,7 +56,7 @@ export const useGetProfile = (
     skip: !id || id.trim() === '',
   });
 
-  return [data, { loading, error }];
+  return [data, { loading, error, refetch }];
 };
 
 export default GET_PROFILE;
