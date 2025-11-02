@@ -91,35 +91,16 @@ const ProfileHeader = ({
           <header className='relative w-full'>
             <div className='px-4 xs:px-6 sm:px-8 lg:px-12 py-12 xs:py-16 sm:py-20 lg:py-24 xl:py-32'>
               <div className='w-full'>
-                <div className='flex flex-col xs:flex-row xs:items-center justify-between mb-6 xs:mb-8 sm:mb-10 gap-4'>
+                <div className='flex flex-wrap items-center gap-2 xs:gap-4 sm:justify-between mb-10 xs:mb-12 sm:mb-14'>
                   <AvailabilityBadge availability={availability} className='' />
-                  <div className='flex flex-col xs:flex-row xs:items-center gap-2 xs:gap-4'>
-                    <div className='flex items-center gap-2 text-xs sm:text-sm text-gray-500 py-2 sm:py-3'>
-                      <Calendar className='w-3 xs:w-4 h-3 xs:h-4 text-gray-400' />
-                      <span className='hidden xs:inline'>
-                        <FormattedMessage id='profile.lastUpdated' />:{' '}
-                        <span className='font-medium'>
-                          {updatedAt
-                            ? formatDateWithOrdinal(updatedAt)
-                            : formatDateWithOrdinal(new Date())}
-                        </span>
-                      </span>
-                      <span className='xs:hidden'>
-                        <FormattedMessage id='profile.updated' />{' '}
-                        <span className='font-medium'>
-                          {updatedAt
-                            ? formatDateWithOrdinal(updatedAt)
-                            : formatDateWithOrdinal(new Date())}
-                        </span>
-                      </span>
-                    </div>
+                  <div className='flex flex-wrap items-center gap-2 xs:gap-4'>
                     {isOwner && onEditClick && (
                       <button
                         onClick={onEditClick}
-                        className='flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 cursor-pointer'
+                        className='flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 rounded-lg transition-all duration-200 cursor-pointer'
                         title='Edit Profile'
                       >
-                        <Edit className='w-3 xs:w-4 h-3 xs:h-4' />
+                        <Edit className='w-3 sm:w-4 h-3 sm:h-4' />
                         <span>
                           <FormattedMessage id='profile.editProfile' />
                         </span>
@@ -129,7 +110,7 @@ const ProfileHeader = ({
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <div
-                            className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
+                            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2 rounded-lg border ${
                               getVisibilityConfig(accessLevel).bgColor
                             } ${getVisibilityConfig(accessLevel).borderColor}`}
                           >
@@ -138,14 +119,14 @@ const ProfileHeader = ({
                                 getVisibilityConfig(accessLevel).icon;
                               return (
                                 <Icon
-                                  className={`w-4 h-4 ${
+                                  className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${
                                     getVisibilityConfig(accessLevel).iconColor
                                   }`}
                                 />
                               );
                             })()}
                             <span
-                              className={`text-sm font-medium ${
+                              className={`text-xs sm:text-sm font-medium ${
                                 getVisibilityConfig(accessLevel).textColor
                               }`}
                             >
@@ -162,6 +143,28 @@ const ProfileHeader = ({
                         </TooltipContent>
                       </Tooltip>
                     )}
+                    <div className='hidden xs:flex items-center gap-2 text-xs sm:text-sm text-gray-500'>
+                      <Calendar className='w-3 xs:w-4 h-3 xs:h-4 text-gray-400' />
+                      <span>
+                        <FormattedMessage id='profile.lastUpdated' />:{' '}
+                        <span className='font-medium'>
+                          {updatedAt
+                            ? formatDateWithOrdinal(updatedAt)
+                            : formatDateWithOrdinal(new Date())}
+                        </span>
+                      </span>
+                    </div>
+                    <div className='xs:hidden flex items-center gap-2 text-xs text-gray-500'>
+                      <Calendar className='w-3 h-3 text-gray-400' />
+                      <span>
+                        <FormattedMessage id='profile.updated' />{' '}
+                        <span className='font-medium'>
+                          {updatedAt
+                            ? formatDateWithOrdinal(updatedAt)
+                            : formatDateWithOrdinal(new Date())}
+                        </span>
+                      </span>
+                    </div>
                   </div>
                 </div>
 

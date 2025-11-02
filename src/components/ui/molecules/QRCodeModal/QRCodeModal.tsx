@@ -3,10 +3,12 @@ import { Share2, X, Copy, Check, Download } from 'lucide-react';
 
 import { ProfileQRCard } from '@/components/ui/molecules/ProfileQRCard';
 import { Button } from '@/components/ui/atoms/Button';
+import { useTranslations } from '@/hooks/useTranslations';
 import { useQRCodeModal } from '@/hooks/useQRCodeModal';
 import type { QRCodeModalProps } from './types';
 
 const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
+  const { t } = useTranslations();
   const qrCardRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -52,16 +54,16 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
         <div className='flex items-center justify-between p-3 xs:p-4 sm:p-6 border-b border-gray-100'>
           <div className='flex-1 min-w-0'>
             <h2 className='text-lg xs:text-xl sm:text-2xl font-light text-gray-900 truncate'>
-              QR Code
+              {t('qr.modal.title')}
             </h2>
             <p className='text-gray-600 text-xs xs:text-sm mt-1 hidden xs:block'>
-              Share your professional profile with others
+              {t('qr.modal.subtitle')}
             </p>
           </div>
           <button
             onClick={() => handleClose(onClose)}
             className='p-1.5 xs:p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer hover:scale-105 flex-shrink-0'
-            aria-label='Close modal'
+            aria-label={t('qr.modal.closeModal')}
           >
             <X className='w-4 xs:w-5 sm:w-6 h-4 xs:h-5 sm:h-6' />
           </button>
@@ -76,7 +78,7 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
         <div className='flex flex-col gap-3 xs:gap-4 p-3 xs:p-4 sm:p-6 border-t border-gray-100 bg-gray-50'>
           <div className='flex items-center justify-center xs:justify-start gap-2 text-xs xs:text-sm text-gray-600'>
             <div className='w-2 h-2 bg-green-500 rounded-full flex-shrink-0'></div>
-            <span>Ready to share</span>
+            <span>{t('qr.modal.readyToShare')}</span>
           </div>
 
           <div className='grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-2 xs:gap-3'>
@@ -89,14 +91,14 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
               {copied ? (
                 <>
                   <Check className='w-4 h-4 mr-2 flex-shrink-0' />
-                  <span className='hidden xs:inline'>Copied</span>
-                  <span className='xs:hidden'>✓ Copied</span>
+                  <span className='hidden xs:inline'>{t('qr.modal.copied')}</span>
+                  <span className='xs:hidden'>{t('qr.modal.copiedShort')}</span>
                 </>
               ) : (
                 <>
                   <Copy className='w-4 h-4 mr-2 flex-shrink-0' />
-                  <span className='hidden xs:inline'>Copy Link</span>
-                  <span className='xs:hidden'>Copy</span>
+                  <span className='hidden xs:inline'>{t('qr.copyLink')}</span>
+                  <span className='xs:hidden'>{t('qr.modal.copy')}</span>
                 </>
               )}
             </Button>
@@ -116,13 +118,13 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
               <Download className='w-4 h-4 mr-2 flex-shrink-0' />
               {isSaving ? (
                 <>
-                  <span className='hidden xs:inline'>Saving...</span>
-                  <span className='xs:hidden'>Saving</span>
+                  <span className='hidden xs:inline'>{t('qr.modal.saving')}</span>
+                  <span className='xs:hidden'>{t('qr.modal.savingShort')}</span>
                 </>
               ) : (
                 <>
-                  <span className='hidden xs:inline'>Save Image</span>
-                  <span className='xs:hidden'>Save</span>
+                  <span className='hidden xs:inline'>{t('qr.modal.saveImage')}</span>
+                  <span className='xs:hidden'>{t('qr.modal.saveShort')}</span>
                 </>
               )}
             </Button>
@@ -134,8 +136,8 @@ const QRCodeModal = ({ isOpen, onClose, profileData }: QRCodeModalProps) => {
               className='w-full text-xs xs:text-sm justify-center'
             >
               <Share2 className='w-4 h-4 mr-2 flex-shrink-0' />
-              <span className='hidden xs:inline'>Share</span>
-              <span className='xs:hidden'>Share</span>
+              <span className='hidden xs:inline'>{t('qr.modal.share')}</span>
+              <span className='xs:hidden'>{t('qr.modal.share')}</span>
             </Button>
           </div>
         </div>

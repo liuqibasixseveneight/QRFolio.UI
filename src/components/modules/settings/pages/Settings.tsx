@@ -7,6 +7,7 @@ import { z } from 'zod';
 
 import {
   Button,
+  ConfirmAddUserModal,
   LoadingSpinner,
   useToast,
   Breadcrumb,
@@ -21,6 +22,7 @@ import {
   useGetProfileSettings,
   useUpdateProfileSettings,
 } from '@/apollo/profile';
+import { useGetUsersByIds } from '@/apollo/users';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 
 const settingsSchema = z.object({
@@ -41,6 +43,14 @@ const settingsSchema = z.object({
 
 type SettingsFormValues = z.infer<typeof settingsSchema>;
 
+const getUserName = (
+  userId: string,
+  users: { id: string; fullName: string }[] = []
+): string => {
+  const user = users.find((u) => u.id === userId);
+  return user?.fullName || userId;
+};
+
 const SettingsPage = () => {
   const { toast } = useToast();
   const { userId } = useAuth();
@@ -50,6 +60,8 @@ const SettingsPage = () => {
   const [showUserId, setShowUserId] = useState(false);
   const [permittedUserInput, setPermittedUserInput] = useState('');
   const [copySuccess, setCopySuccess] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pendingUserToAdd, setPendingUserToAdd] = useState<string>('');
 
   const [profileData, { loading: loadingProfile, refetch }] =
     useGetProfileSettings(userId || '');
@@ -98,17 +110,43 @@ const SettingsPage = () => {
 
   const permittedUsers = watch('permittedUsers') || [];
 
+  const [permittedUsersData, { loading: loadingPermittedUsers }] =
+    useGetUsersByIds(permittedUsers);
+
+  const accessRequestIds = profile?.accessRequests || [];
+  const [accessRequestsData, { loading: loadingAccessRequests }] =
+    useGetUsersByIds(accessRequestIds);
+
+  const [pendingUserData, { loading: loadingPendingUser }] = useGetUsersByIds(
+    pendingUserToAdd ? [pendingUserToAdd] : []
+  );
+
   const addPermittedUser = () => {
+    const trimmedId = permittedUserInput.trim();
+    if (trimmedId && !getValues('permittedUsers')?.includes(trimmedId)) {
+      setPendingUserToAdd(trimmedId);
+      setShowConfirmModal(true);
+    }
+  };
+
+  const handleConfirmAddUser = () => {
     if (
-      permittedUserInput.trim() &&
-      !getValues('permittedUsers')?.includes(permittedUserInput.trim())
+      pendingUserToAdd &&
+      !getValues('permittedUsers')?.includes(pendingUserToAdd)
     ) {
       const currentUsers = getValues('permittedUsers') || [];
-      setValue('permittedUsers', [...currentUsers, permittedUserInput.trim()], {
+      setValue('permittedUsers', [...currentUsers, pendingUserToAdd], {
         shouldDirty: true,
       });
+      setShowConfirmModal(false);
+      setPendingUserToAdd('');
       setPermittedUserInput('');
     }
+  };
+
+  const handleCancelAddUser = () => {
+    setShowConfirmModal(false);
+    setPendingUserToAdd('');
   };
 
   const removePermittedUser = (userIdToRemove: string) => {
@@ -435,13 +473,23 @@ const SettingsPage = () => {
                             key={index}
                             className='flex items-center justify-between p-3 bg-gray-50 border border-gray-200 rounded-lg'
                           >
-                            <code className='font-mono text-sm text-gray-800'>
-                              {userId}
-                            </code>
+                            <div className='flex flex-col min-w-0 flex-1'>
+                              <span className='text-sm font-medium text-gray-900'>
+                                {loadingPermittedUsers
+                                  ? 'Loading...'
+                                  : getUserName(
+                                      userId,
+                                      permittedUsersData?.usersByIds
+                                    )}
+                              </span>
+                              <code className='font-mono text-xs text-gray-500 truncate'>
+                                {userId}
+                              </code>
+                            </div>
                             <button
                               type='button'
                               onClick={() => removePermittedUser(userId)}
-                              className='p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer'
+                              className='p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-all duration-200 cursor-pointer flex-shrink-0 ml-2'
                             >
                               <X className='w-4 h-4' />
                             </button>
@@ -466,10 +514,20 @@ const SettingsPage = () => {
                               key={index}
                               className='flex items-center justify-between p-3 bg-blue-50 border border-blue-200 rounded-lg'
                             >
-                              <code className='font-mono text-sm text-gray-800'>
-                                {requestingUserId}
-                              </code>
-                              <div className='flex gap-2'>
+                              <div className='flex flex-col min-w-0 flex-1'>
+                                <span className='text-sm font-medium text-gray-900'>
+                                  {loadingAccessRequests
+                                    ? 'Loading...'
+                                    : getUserName(
+                                        requestingUserId,
+                                        accessRequestsData?.usersByIds
+                                      )}
+                                </span>
+                                <code className='font-mono text-xs text-gray-500 truncate'>
+                                  {requestingUserId}
+                                </code>
+                              </div>
+                              <div className='flex gap-2 flex-shrink-0 ml-2'>
                                 <button
                                   type='button'
                                   onClick={() =>
@@ -610,6 +668,15 @@ const SettingsPage = () => {
           </form>
         </div>
       </div>
+
+      <ConfirmAddUserModal
+        isOpen={showConfirmModal}
+        onClose={handleCancelAddUser}
+        onConfirm={handleConfirmAddUser}
+        userId={pendingUserToAdd}
+        userName={pendingUserData?.usersByIds[0]?.fullName || undefined}
+        isLoading={loadingPendingUser}
+      />
     </main>
   );
 };
