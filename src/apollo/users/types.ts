@@ -26,3 +26,21 @@ export type CreateUserVariables = {
   email: string;
   name?: string | null;
 };
+
+export type UserById = {
+  id: string;
+  fullName: string;
+};
+
+export type GetUsersByIdsData = {
+  usersByIds: UserById[];
+};
+
+export type GetUsersByIdsVariables = {
+  userIds: string[];
+};
+
+export type GetUsersByIdsResult = {
+  loading: boolean;
+  error?: Error | null;
+};

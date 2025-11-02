@@ -172,7 +172,21 @@
     "linkCopied": "Link copied to clipboard!",
     "downloadQR": "Download QR Code",
     "qrDownloaded": "QR Code downloaded successfully!",
-    "scanToView": "Scan to view profile"
+    "scanToView": "Scan to view profile",
+    "modal": {
+      "title": "QR Code",
+      "subtitle": "Share your professional profile with others",
+      "readyToShare": "Ready to share",
+      "copied": "Copied",
+      "copiedShort": "✓ Copied",
+      "copy": "Copy",
+      "saving": "Saving...",
+      "savingShort": "Saving",
+      "saveImage": "Save Image",
+      "saveShort": "Save",
+      "share": "Share",
+      "closeModal": "Close modal"
+    }
   },
   "validation": {
     "required": "This field is required",
@@ -418,5 +432,20 @@
   "languageSwitcher": {
     "selectLanguage": "Select language",
     "english": "English"
+  },
+  "modal": {
+    "confirmAddUser": {
+      "title": "Confirm Add User",
+      "subtitle": "Review before adding",
+      "verifyingUser": "Verifying user...",
+      "aboutToGrantAccess": "You are about to grant access to this user:",
+      "userFound": "User Found",
+      "noNameFound": "No Name Found",
+      "noNameFoundDesc": "Unable to verify user name. This ID may not exist or the user has no profile.",
+      "note": "Note:",
+      "restrictedProfileNote": "This user will be able to view your restricted profile once access is granted.",
+      "addUser": "Add User",
+      "closeModal": "Close modal"
+    }
   }
 }
